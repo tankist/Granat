@@ -1,6 +1,6 @@
 <?php
 
-class Model_DbTable_GrUsers extends Model_DbTable_Abstract
+class Model_DbTable_Users extends Model_DbTable_Abstract
 {
 
     protected $_name = 'gr_users';

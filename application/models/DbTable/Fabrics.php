@@ -1,6 +1,6 @@
 <?php
 
-class Model_DbTable_GrFabrics extends Model_DbTable_Abstract
+class Model_DbTable_Fabrics extends Model_DbTable_Abstract
 {
 
     protected $_name = 'gr_fabrics';
