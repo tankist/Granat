@@ -1,0 +1,86 @@
+@import "reset.css";
+
+/*** Tags ***/
+* {
+	padding: 0; 
+	margin: 0;
+}
+html { 
+	height: 100%; 
+	background: #2a0302 url('../images/body-bg.png') no-repeat 0 0;
+}  
+body {
+	font-family: Arial, sans-serif;
+	font-size:12px;
+	color:white;
+	min-height: 100%;
+	}
+* html {
+	body {
+		height: 100%;
+	}
+	#bodywrapper {
+		height: 100%;
+	}
+	#bodycontainer {
+		height: 100%;
+	}
+}
+p {
+	color:#f5a7ac;
+	margin:7px 0 10px;
+	line-height:125%;
+	}
+hr {
+	height:0;
+	border:none;
+	border-top:1px solid white;
+	opacity:0.43;
+	margin:0 6px;
+	}
+a {
+	color:white;
+	text-decoration:none;
+	}
+h1 {
+	.hide-text;
+	margin:4px 0;
+}
+/*** Common classes ***/
+.half {
+	width:50%;
+}
+.one-third {
+	width:33%;
+}
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.oh {
+	overflow:hidden;
+}
+.center-block {
+	margin:0 auto;
+}
+.hide-text {
+	text-indent:-100000000px;
+}
+a.arrow {
+	display:block;
+	width:46px;
+	height:71px;
+	position:absolute;
+	}
+	a.next {
+		right:-6px;
+		top:26px;
+		background:url('../images/next.png') no-repeat;
+		}
+	a.prev {
+		left:-9px;
+		top:26px;
+		background:url('../images/prev.png') no-repeat;
+		}

@@ -1,0 +1,272 @@
+@import "common";
+
+ul.menu {
+	.oh;
+	list-style:none;
+	li {
+		.fl;
+	}
+}
+div.images-container {
+	.oh;
+	.center-block;
+	position:relative;
+	height:122px;
+	width:920px;
+}
+ul.images {
+	list-style:none;
+	overflow-y:hidden;
+	position:absolute;
+	li {
+		.fl;
+		display:block;
+		position:relative;
+		margin-right:33px;
+		a {}
+		em {
+			background:url('../images/image-border.png') no-repeat;
+			display:block;
+			width:157px;
+			height:122px;
+			}
+		img {
+			position:absolute;
+			top:10px;
+			left:10px;
+		}
+	}
+	li.active {
+		a {
+			
+		}
+		em {
+			background-position:-190px 0;
+		}
+	}
+}
+.profile-image {
+	.oh;
+	.fl;
+	position:relative;
+	margin-right:10px;
+	em {
+		display:block;
+		}
+	img {
+		position:absolute;
+		top:10px;
+		left:10px;
+		}
+}
+.profile-image.big {
+	em {
+		background:url('../images/profile-image-border.png') no-repeat;
+		width:159px;
+		height:171px;
+	}
+	img {
+		top:10px;
+		left:10px;
+	}
+}
+.profile-image.small {
+	em {
+		background:url('../images/profile-image-border-small.png') no-repeat;
+		width:102px;
+		height:107px;
+	}
+	 img {
+		top:9px;
+		left:9px;
+	}
+}
+.shape ul {
+	font-family:Georgia, serif;
+	font-size:13px;
+	li {
+		line-height:30px;
+		padding-left:15px;
+		background:url('../images/bullet.png') no-repeat 0 center;
+	}
+}
+.shapes-container {
+	padding-bottom:15px;
+	}
+.vcard {
+	margin:13px 0;
+}
+.tel, .fn, .email, .adr {
+	color:white;
+	font-weight:bold;
+}
+/*** Blocks ***/
+#bodywrapper {
+	background:url('../images/lines-bg.png') repeat;
+	position:absolute;
+	min-height: 100%;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+	
+	}
+#bodycontainer, #footer-wrapper {
+	.center-block;
+	width:84%;
+	min-width:1010px;
+	min-height: 100%;
+	z-index:2;
+	position:relative;
+}
+#logo {
+	.hide-text;
+	width:531px;
+	height:369px;
+	position:absolute;
+	top:0;
+	left:0;
+	background:url('../images/logo.png') no-repeat 0 0;
+	z-index:1;
+}
+#header {
+	.oh;
+	padding-top:35px;
+	background:url('../images/slogan.png') no-repeat right 47px;
+	padding-right:252px;
+}
+#body {
+	margin-top:65px;
+}
+#footer {
+	overflow-y:hidden;
+	height:46px;
+	padding-top:54px;
+	margin-top:-100px;
+	}
+	#footer-wrapper {
+		overflow-y:hidden;
+		border-top:1px solid #613e3e;
+		padding-top:17px;
+		}
+	#footer-spacer {
+		height:100px;
+	}
+#header ul.menu {
+	.fr;
+	font-family:Georgia, Times New Roman, serif;
+	font-size:18px;
+	width:455px;
+	height:86px;
+	background:url('../images/separator.png') no-repeat center right;
+	margin-left:284px;
+	padding-right:20px;
+	li {
+		margin:32px 9px;
+		a {
+			padding:1px 15px;
+			line-height:27px;
+		}
+	}
+	li.active {
+		background:url('../images/main-li-separator.png') no-repeat center left;
+		a {
+			background:url('../images/active-li-bg.png') repeat;
+		}
+	}
+}
+#footer ul.menu {
+	li {
+		border-right:1px solid #713e41;
+		a {
+			margin:0 15px;
+		}
+	}
+	li.last {
+		border:none;
+	}
+}
+#catalog {
+	.oh;
+	position:relative;
+	width:1000px;
+	height:122px;
+	margin:18px auto 67px auto;
+	}
+#aboutus-container {
+	.oh;
+	padding:10px 7px;
+	}
+#shapes {
+	padding:0 7px;
+}
+#models {
+	.fl;
+	width:33%;
+	padding-left:65px;
+	background:url('../images/crap/girl.png') no-repeat center right;
+	min-height:236px;
+	ul {
+		margin-right:150px;
+	}
+}
+#materials {
+	float:right;
+	margin-right:65px;
+	background:url('../images/crap/materials.png') no-repeat center right;
+	min-height:201px;
+	ul {
+		margin-right:250px;
+	}
+}
+#services {
+	.oh;
+	margin-top:65px;
+	padding:0 7px;
+	.wrap {
+		padding-right:60px;
+		margin-top:5px;
+		p {
+			.oh;
+			padding-left:15px;
+		}
+	}
+}
+#copyright {
+	margin-right:25px;
+}
+/** Headers **/
+#catalog-h1 {
+	background:url('../images/glyphs/catalog-h1.png') no-repeat 2px top;
+	width:147px;
+	height:32px;
+	}
+#about-us-h1 {
+	background:url('../images/glyphs/about-us-h1.png') no-repeat 2px top;
+	width:222px;
+	height:32px;
+	}
+#models-h1 {
+	background:url('../images/glyphs/models-h1.png') no-repeat 2px top;
+	width:141px;
+	height:35px;
+	}
+#materials-h1 {
+	background:url('../images/glyphs/materials-h1.png') no-repeat 2px top;
+	width:187px;
+	height:33px;
+	}
+#services {
+	h1 {
+		margin-bottom:0;
+		background:url('../images/glyphs/services-h1.png') no-repeat 2px top;
+		width:85px;
+		height:39px;
+	}
+	h2 {
+		.oh;
+		font-weight:bold;
+		padding-left:15px;
+		background:url("../images/bullet.png") no-repeat 0 center;
+	}
+}

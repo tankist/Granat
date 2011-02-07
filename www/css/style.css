@@ -1,0 +1,341 @@
+@import "reset.css";
+/*** Tags ***/
+* {
+  padding: 0;
+  margin: 0;
+}
+html {
+  height: 100%;
+  background: #2a0302 url('../images/body-bg.png') no-repeat 0 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: white;
+  min-height: 100%;
+}
+* html body {
+  height: 100%;
+}
+* html #bodywrapper {
+  height: 100%;
+}
+* html #bodycontainer {
+  height: 100%;
+}
+p {
+  color: #f5a7ac;
+  margin: 7px 0 10px;
+  line-height: 125%;
+}
+hr {
+  height: 0;
+  border: none;
+  border-top: 1px solid white;
+  opacity: 0.43;
+  margin: 0 6px;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+h1 {
+  text-indent: -100000000px;
+  margin: 4px 0;
+}
+/*** Common classes ***/
+.half {
+  width: 50%;
+}
+.one-third {
+  width: 33%;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.oh {
+  overflow: hidden;
+}
+.center-block {
+  margin: 0 auto;
+}
+.hide-text {
+  text-indent: -100000000px;
+}
+a.arrow {
+  display: block;
+  width: 46px;
+  height: 71px;
+  position: absolute;
+}
+a.next {
+  right: -6px;
+  top: 26px;
+  background: url('../images/next.png') no-repeat;
+}
+a.prev {
+  left: -9px;
+  top: 26px;
+  background: url('../images/prev.png') no-repeat;
+}
+ul.menu {
+  overflow: hidden;
+  list-style: none;
+}
+ul.menu li {
+  float: left;
+}
+div.images-container {
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  height: 122px;
+  width: 920px;
+}
+ul.images {
+  list-style: none;
+  overflow-y: hidden;
+  position: absolute;
+}
+ul.images li {
+  float: left;
+  display: block;
+  position: relative;
+  margin-right: 33px;
+}
+ul.images li em {
+  background: url('../images/image-border.png') no-repeat;
+  display: block;
+  width: 157px;
+  height: 122px;
+}
+ul.images li img {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+ul.images li.active em {
+  background-position: -190px 0;
+}
+.profile-image {
+  overflow: hidden;
+  float: left;
+  position: relative;
+  margin-right: 10px;
+}
+.profile-image em {
+  display: block;
+}
+.profile-image img {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.profile-image.big em {
+  background: url('../images/profile-image-border.png') no-repeat;
+  width: 159px;
+  height: 171px;
+}
+.profile-image.big img {
+  top: 10px;
+  left: 10px;
+}
+.profile-image.small em {
+  background: url('../images/profile-image-border-small.png') no-repeat;
+  width: 102px;
+  height: 107px;
+}
+.profile-image.small img {
+  top: 9px;
+  left: 9px;
+}
+.shape ul {
+  font-family: Georgia, serif;
+  font-size: 13px;
+}
+.shape ul li {
+  line-height: 30px;
+  padding-left: 15px;
+  background: url('../images/bullet.png') no-repeat 0 center;
+}
+.shapes-container {
+  padding-bottom: 15px;
+}
+.vcard {
+  margin: 13px 0;
+}
+.tel,
+.fn,
+.email,
+.adr {
+  color: white;
+  font-weight: bold;
+}
+/*** Blocks ***/
+#bodywrapper {
+  background: url('../images/lines-bg.png') repeat;
+  position: absolute;
+  min-height: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+#bodycontainer, #footer-wrapper {
+  margin: 0 auto;
+  width: 84%;
+  min-width: 1010px;
+  min-height: 100%;
+  z-index: 2;
+  position: relative;
+}
+#logo {
+  text-indent: -100000000px;
+  width: 531px;
+  height: 369px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('../images/logo.png') no-repeat 0 0;
+  z-index: 1;
+}
+#header {
+  overflow: hidden;
+  padding-top: 35px;
+  background: url('../images/slogan.png') no-repeat right 47px;
+  padding-right: 252px;
+}
+#body {
+  margin-top: 65px;
+}
+#footer {
+  overflow-y: hidden;
+  height: 46px;
+  padding-top: 54px;
+  margin-top: -100px;
+}
+#footer-wrapper {
+  overflow-y: hidden;
+  border-top: 1px solid #613e3e;
+  padding-top: 17px;
+}
+#footer-spacer {
+  height: 100px;
+}
+#header ul.menu {
+  float: right;
+  font-family: Georgia, Times New Roman, serif;
+  font-size: 18px;
+  width: 455px;
+  height: 86px;
+  background: url('../images/separator.png') no-repeat center right;
+  margin-left: 284px;
+  padding-right: 20px;
+}
+#header ul.menu li {
+  margin: 32px 9px;
+}
+#header ul.menu li a {
+  padding: 1px 15px;
+  line-height: 27px;
+}
+#header ul.menu li.active {
+  background: url('../images/main-li-separator.png') no-repeat center left;
+}
+#header ul.menu li.active a {
+  background: url('../images/active-li-bg.png') repeat;
+}
+#footer ul.menu li {
+  border-right: 1px solid #713e41;
+}
+#footer ul.menu li a {
+  margin: 0 15px;
+}
+#footer ul.menu li.last {
+  border: none;
+}
+#catalog {
+  overflow: hidden;
+  position: relative;
+  width: 1000px;
+  height: 122px;
+  margin: 18px auto 67px auto;
+}
+#aboutus-container {
+  overflow: hidden;
+  padding: 10px 7px;
+}
+#shapes {
+  padding: 0 7px;
+}
+#models {
+  float: left;
+  width: 33%;
+  padding-left: 65px;
+  background: url('../images/crap/girl.png') no-repeat center right;
+  min-height: 236px;
+}
+#models ul {
+  margin-right: 150px;
+}
+#materials {
+  float: right;
+  margin-right: 65px;
+  background: url('../images/crap/materials.png') no-repeat center right;
+  min-height: 201px;
+}
+#materials ul {
+  margin-right: 250px;
+}
+#services {
+  overflow: hidden;
+  margin-top: 65px;
+  padding: 0 7px;
+}
+#services .wrap {
+  padding-right: 60px;
+  margin-top: 5px;
+}
+#services .wrap p {
+  overflow: hidden;
+  padding-left: 15px;
+}
+#copyright {
+  margin-right: 25px;
+}
+/** Headers **/
+#catalog-h1 {
+  background: url('../images/glyphs/catalog-h1.png') no-repeat 2px top;
+  width: 147px;
+  height: 32px;
+}
+#about-us-h1 {
+  background: url('../images/glyphs/about-us-h1.png') no-repeat 2px top;
+  width: 222px;
+  height: 32px;
+}
+#models-h1 {
+  background: url('../images/glyphs/models-h1.png') no-repeat 2px top;
+  width: 141px;
+  height: 35px;
+}
+#materials-h1 {
+  background: url('../images/glyphs/materials-h1.png') no-repeat 2px top;
+  width: 187px;
+  height: 33px;
+}
+#services h1 {
+  margin-bottom: 0;
+  background: url('../images/glyphs/services-h1.png') no-repeat 2px top;
+  width: 85px;
+  height: 39px;
+}
+#services h2 {
+  overflow: hidden;
+  font-weight: bold;
+  padding-left: 15px;
+  background: url("../images/bullet.png") no-repeat 0 center;
+}
