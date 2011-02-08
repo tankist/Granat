@@ -32,9 +32,9 @@ class Model_Mapper_Db_User extends Model_Mapper_Db_Abstract {
 		return $this->getMappedArrayFromData($userBlob);
 	}
 	
-	public function getUserByEmail($user_domain) {
+	public function getUserByEmail($user_email) {
 		$userTable = self::_getTableByName(self::TABLE_NAME);
-		$userBlob = $userTable->fetchRowByEmail($user_domain);
+		$userBlob = $userTable->fetchRowByEmail($user_email);
 		return $this->getMappedArrayFromData($userBlob);
 	}
 }
