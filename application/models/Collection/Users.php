@@ -1,7 +1,10 @@
 <?php
-class Model_Collection_Users extends Model_Collection_Abstract {
+
+namespace Model\Collection;
+
+class Users extends AbstractCollection {
 	
-	protected $_itemType = 'Model_User';
+	protected $_itemType = '\\Model\\User';
 	
 }
 ?>

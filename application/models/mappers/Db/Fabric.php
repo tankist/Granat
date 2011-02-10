@@ -1,5 +1,8 @@
 <?php
-class Model_Mapper_Db_Fabric extends Model_Mapper_Db_Abstract {
+
+namespace Model\Mapper\Db;
+
+class Fabric extends AbstractDb {
 	
 	const TABLE_NAME = 'Fabrics';
 	

@@ -1,5 +1,8 @@
 <?php
-class Model_Mapper_Db_User extends Model_Mapper_Db_Abstract {
+
+namespace Model\Mapper\Db;
+
+class User extends AbstractDb {
 	
 	const TABLE_NAME = 'Users';
 	
@@ -14,7 +17,7 @@ class Model_Mapper_Db_User extends Model_Mapper_Db_Abstract {
 	public function unmap($data = array()) {
 		$data = parent::unmap($data);
 		if (array_key_exists('date_added', $data) && is_integer($data['date_added'])) {
-			$data['date_added'] = new Zend_Db_Expr('FROM_UNIXTIME(' . $data['date_added'] . ')');
+			$data['date_added'] = new \Zend_Db_Expr('FROM_UNIXTIME(' . $data['date_added'] . ')');
 		}
 		return $data;
 	}

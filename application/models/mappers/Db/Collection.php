@@ -1,5 +1,8 @@
 <?php
-class Model_Mapper_Db_Collection extends Model_Mapper_Db_Abstract {
+
+namespace Model\Mapper\Db;
+
+class Collection extends AbstractDb {
 	
 	const TABLE_NAME = 'Collections';
 	

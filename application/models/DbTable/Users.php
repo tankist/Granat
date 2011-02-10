@@ -1,11 +1,13 @@
 <?php
 
-class Model_DbTable_Users extends Model_DbTable_Abstract
+namespace Model\DbTable;
+
+class Users extends AbstractDbTable
 {
 
-    protected $_name = 'gr_users';
+	protected $_name = 'gr_users';
 
-    protected $_primary = 'id';
+	protected $_primary = 'id';
 
 
 }
