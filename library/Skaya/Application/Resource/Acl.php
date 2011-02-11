@@ -153,7 +153,7 @@ class Skaya_Application_Resource_Acl
 			}
 
 			$resourceName = strtolower($resourceName);
-			$id = $properties['id'];
+			$id = (array_key_exists('id', $properties))?$properties['id']:null;
 
 			if ($resourceName === 'all') {
 				$id = 'all';
@@ -179,7 +179,7 @@ class Skaya_Application_Resource_Acl
 				$properties = array('id' => $properties);
 			}
 
-			$id = $properties['id'];
+			$id = (array_key_exists('id', $properties))?$properties['id']:null;
 			$parent = null;
 			$resource = null;
 			$allowRules = array();
@@ -282,7 +282,7 @@ class Skaya_Application_Resource_Acl
 				$roles,
 				$resource,
 				$privilege,
-				$asset
+				$assert
 			);
 		}
 	}
