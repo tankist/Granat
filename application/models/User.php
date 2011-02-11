@@ -30,7 +30,7 @@ class User extends AbstractModel implements Model, \Zend_Auth_Adapter_Interface 
 	
 	public function getRole() {
 		if (empty($this->_data['role'])) {
-			$this->_data['role'] = self::User_ROLE_GUEST;
+			$this->_data['role'] = self::USER_ROLE_GUEST;
 		}
 		return $this->_data['role'];
 	}
