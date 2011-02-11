@@ -1,6 +1,6 @@
 nbproject/
 docs/
 cache/
-tests/
+tests/report/
 *.log
 *.bak
