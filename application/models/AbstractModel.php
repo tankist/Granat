@@ -48,7 +48,7 @@ abstract class AbstractModel implements \Model\Model {
 			throw new \Model\Exception('Name cannot be empty');
 		}
 		
-		$camelcaseFilter = new Zend_Filter_Word_UnderscoreToCamelCase();
+		$camelcaseFilter = new \Zend_Filter_Word_UnderscoreToCamelCase();
 		
 		$setterName = 'set' . ucfirst($camelcaseFilter->filter($name));
 		if (method_exists($this, $setterName)) {
@@ -60,7 +60,7 @@ abstract class AbstractModel implements \Model\Model {
 	}
 	
 	public function __get($name) {
-		$camelcaseFilter = new Zend_Filter_Word_UnderscoreToCamelCase();
+		$camelcaseFilter = new \Zend_Filter_Word_UnderscoreToCamelCase();
 		$getterName = 'get' . ucfirst($camelcaseFilter->filter($name));
 		
 		$data = null;
@@ -121,7 +121,7 @@ abstract class AbstractModel implements \Model\Model {
 		$mapperType = (!empty($mapperType))?$mapperType:$this->_mapperType;
 		$mapperHash = strtolower($modelName) . '_' . strtolower($mapperType);
 		if (!array_key_exists($mapperHash, $this->_mappers)) {
-			$this->_mappers[$mapperHash] = Model_Mapper_Abstract::factory($mapperType, $modelName, $options);
+			$this->_mappers[$mapperHash] = \Model\Mapper\AbstractMapper::factory($mapperType, $modelName, $options);
 		}
 		return $this->_mappers[$mapperHash];
 	}
