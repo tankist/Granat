@@ -130,6 +130,23 @@ class UserTest extends \ControllerTestCase {
 		$this->assertEquals($testMapperType, $this->_user->getMapperType());
 	}
 
+	/**
+	 * @expectedException \Model\Exception
+	 */
+	public function testUserExceptions() {
+		//Testing with wrong parameters sent to constructor
+		$failedUser = new \Model\User(1);
+	}
+	
+	/**
+	 * @expectedException \Model\Exception
+	 */
+	public function testUserSetterExceptions() {
+		//Testing empty set parameter
+		$parameter = '';
+		$this->_user->$parameter = 123;
+	}
+
 	protected function _resetUserModel() {
 		if (!$this->_user) {
 			$this->_user = new \Model\User();

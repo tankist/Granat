@@ -13,7 +13,7 @@ abstract class AbstractModel implements \Model\Model {
 	protected $_modelName = '';
 	
 	protected $_mapperType = '';
-	
+
 	protected $_mappers = array();
 	
 	protected static $_defaultMapperType = ''; 
@@ -118,7 +118,7 @@ abstract class AbstractModel implements \Model\Model {
 	*/
 	public function getMapper($mapperType = '', $modelName = '', $options = array()) {
 		$modelName = (!empty($modelName))?$modelName:$this->_modelName;
-		$mapperType = (!empty($mapperType))?$mapperType:$this->_mapperType;
+		$mapperType = (!empty($mapperType))?$mapperType:$this->getMapperType();
 		$mapperHash = strtolower($modelName) . '_' . strtolower($mapperType);
 		if (!array_key_exists($mapperHash, $this->_mappers)) {
 			$this->_mappers[$mapperHash] = \Model\Mapper\AbstractMapper::factory($mapperType, $modelName, $options);
