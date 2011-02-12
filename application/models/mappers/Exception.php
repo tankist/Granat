@@ -1,5 +1,4 @@
 <?php
-namespace Model\Mapper;
 
-class Exception extends \Model\Exception {}
+class Model_Mapper_Exception extends Model_Exception {}
 ?>

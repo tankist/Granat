@@ -36,8 +36,8 @@ class Skaya_Application_Resource_Model extends Zend_Application_Resource_Resourc
 	
 	public function init() {
 		if (null !== ($mapperType = $this->getDefaultMapperType())) {
-			\Model\AbstractModel::setDefaultMapperType($mapperType);
-			\Service\AbstractService::setDefaultMapperType($mapperType);
+			Model_Abstract::setDefaultMapperType($mapperType);
+			Service_Abstract::setDefaultMapperType($mapperType);
 		}
 	}
 }

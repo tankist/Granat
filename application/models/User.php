@@ -1,7 +1,5 @@
 <?php
 
-namespace Model;
-
 /**
 * @property int id
 * @property string firstName
@@ -12,7 +10,7 @@ namespace Model;
 * @property string dateAdded
 * @property string state
 */
-class User extends AbstractModel implements Model, \Zend_Auth_Adapter_Interface {
+class Model_User extends Model_Abstract implements Model_Interface, Zend_Auth_Adapter_Interface {
 	
 	const USER_STATE_ACTIVE = 'active';
 	const USER_STATE_DEACTIVE = 'deactive';

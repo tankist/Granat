@@ -1,7 +1,5 @@
 <?php
-namespace Service;
 
-class Fabric extends AbstractService {
+class Service_Fabric extends Service_Abstract {
 	
 }
-?>

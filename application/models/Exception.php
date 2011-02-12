@@ -1,6 +1,4 @@
 <?php
 
-namespace Model;
-
-class Exception extends \Zend_Exception {}
+class Model_Exception extends Zend_Exception {}
 ?>

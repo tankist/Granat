@@ -1,6 +1,4 @@
 <?php
 
-namespace Model\Collection;
-
-class Exception extends \Model\Exception {}
+class Model_Collection_Exception extends Model_Exception {}
 ?>

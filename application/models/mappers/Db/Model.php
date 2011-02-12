@@ -1,8 +1,6 @@
 <?php
 
-namespace Model\Mapper\Db;
-
-class Model extends AbstractDb {
+class Model_Mapper_Db_Model extends Model_Mapper_Db_Abstract {
 	
 	const TABLE_NAME = 'Models';
 	

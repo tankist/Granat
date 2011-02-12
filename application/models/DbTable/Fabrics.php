@@ -1,8 +1,6 @@
 <?php
 
-namespace Model\DbTable;
-
-class Fabrics extends AbstractDbTable
+class Model_DbTable_Fabrics extends Model_DbTable_Abstract
 {
 
 	protected $_name = 'gr_fabrics';

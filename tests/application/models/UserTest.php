@@ -10,9 +10,7 @@
  * @author victor
  */
 
-namespace Model;
-
-class UserTest extends \ControllerTestCase {
+class UserTest extends ControllerTestCase {
 	
 	protected $_email = 'email@email.com';
 	
@@ -26,8 +24,8 @@ class UserTest extends \ControllerTestCase {
 	}
 
 	public function testCanCreateUserModel() {
-		$user = new \Model\User();
-		$this->assertType('\\Model\\User', $user);
+		$user = new Model_User();
+		$this->assertType('Model_User', $user);
 	}
 	
 	public function testCanPopulate() {
@@ -45,7 +43,7 @@ class UserTest extends \ControllerTestCase {
 		$this->_resetUserModel();
 		
 		//Populate from object
-		$newUserDefinition = new \stdClass();
+		$newUserDefinition = new stdClass();
 		$newUserDefinition->email = $newEmail;
 		$newUserDefinition->password = $newPassword;
 		$this->_user->populate($newUserDefinition);
@@ -55,7 +53,7 @@ class UserTest extends \ControllerTestCase {
 		$this->_resetUserModel();
 		
 		//Popualte with Model
-		$anotherUser = new \Model\User();
+		$anotherUser = new Model_User();
 		$anotherUser->populate($this->_user);
 		$this->assertEquals($this->_email, $anotherUser->email);
 		$this->assertEquals($this->_password, $anotherUser->password);
@@ -72,11 +70,11 @@ class UserTest extends \ControllerTestCase {
 	
 	public function testCanGetSetRole() {
 		//Getting default role without getter
-		$this->assertEquals(\Model\User::USER_ROLE_GUEST, $this->_user->role);
+		$this->assertEquals(Model_User::USER_ROLE_GUEST, $this->_user->role);
 
 		//Setting new Role and getting it with getter
-		$this->_user->role = \Model\User::USER_ROLE_ADMIN;
-		$this->assertEquals(\Model\User::USER_ROLE_ADMIN, $this->_user->getRole());
+		$this->_user->role = Model_User::USER_ROLE_ADMIN;
+		$this->assertEquals(Model_User::USER_ROLE_ADMIN, $this->_user->getRole());
 	}
 
 	public function testIssetField() {
@@ -101,9 +99,9 @@ class UserTest extends \ControllerTestCase {
 		//Test with nested objects
 		$testValue = 'testValue';
 		
-		$this->_user->nestedSimpleObject = new \stdClass();
+		$this->_user->nestedSimpleObject = new stdClass();
 		$this->_user->nestedSimpleObject->testValue = $testValue;
-		$this->_user->nestedModel = new \Model\User(array(
+		$this->_user->nestedModel = new Model_User(array(
 			'testValue' => $testValue
 		));
 		$array = $this->_user->toArray();
@@ -119,11 +117,11 @@ class UserTest extends \ControllerTestCase {
 		$this->_user->setMapperType(null);
 
 		//Test static default types
-		\Model\User::setDefaultMapperType($testMapperType);
-		$this->assertEquals($testMapperType, \Model\User::getDefaultMapperType());
+		Model_User::setDefaultMapperType($testMapperType);
+		$this->assertEquals($testMapperType, Model_User::getDefaultMapperType());
 
 		//Testing getter without setting
-		$this->assertEquals(\Model\User::getDefaultMapperType(), $this->_user->getMapperType());
+		$this->assertEquals(Model_User::getDefaultMapperType(), $this->_user->getMapperType());
 
 		//Testing current model mapper types getter/setter
 		$this->_user->setMapperType($testMapperType);
@@ -131,15 +129,15 @@ class UserTest extends \ControllerTestCase {
 	}
 
 	/**
-	 * @expectedException \Model\Exception
+	 * @expectedException Model_Exception
 	 */
 	public function testUserExceptions() {
 		//Testing with wrong parameters sent to constructor
-		$failedUser = new \Model\User(1);
+		$failedUser = new Model_User(1);
 	}
 	
 	/**
-	 * @expectedException \Model\Exception
+	 * @expectedException Model_Exception
 	 */
 	public function testUserSetterExceptions() {
 		//Testing empty set parameter
@@ -149,7 +147,7 @@ class UserTest extends \ControllerTestCase {
 
 	protected function _resetUserModel() {
 		if (!$this->_user) {
-			$this->_user = new \Model\User();
+			$this->_user = new Model_User();
 		}
 		$this->_user->populate(array(
 			'email' => $this->_email,

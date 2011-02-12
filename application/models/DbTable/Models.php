@@ -1,8 +1,6 @@
 <?php
 
-namespace Model\DbTable;
-
-class Models extends AbstractDbTable
+class Model_DbTable_Models extends Model_DbTable_Abstract
 {
 
 	protected $_name = 'gr_models';

@@ -1,7 +1,5 @@
 <?php
-namespace Service;
 
-class User extends AbstractService {
+class Service_User extends Service_Abstract {
 	
 }
-?>

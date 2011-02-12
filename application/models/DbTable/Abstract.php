@@ -1,11 +1,9 @@
 <?php
 
-namespace Model\DbTable;
-
-abstract class AbstractDbTable extends \Zend_Db_Table_Abstract {
+abstract class Model_DbTable_Abstract extends Zend_Db_Table_Abstract {
 	
-	protected $_rowClass = '\\Model\\Row\\AbstractRow';
-	protected $_rowsetClass = '\\Model\\Rowset\\AbstractRowset';
+	protected $_rowClass = 'Model_Row_Abstract';
+	protected $_rowsetClass = 'Model_Rowset_Abstract';
 	/**
 	* Filters array with only rows presented in current table
 	* 
@@ -33,8 +31,8 @@ abstract class AbstractDbTable extends \Zend_Db_Table_Abstract {
 		return $this->fetchRow($where, $order, $count, $offset);
 	}
 	
-	public function count(\Zend_Db_Select $select) {
-		$select->reset(\Zend_Db_Select::COLUMNS)->columns(array('__count' => new \Zend_Db_Expr('COUNT(*)')));
+	public function count(Zend_Db_Select $select) {
+		$select->reset(Zend_Db_Select::COLUMNS)->columns(array('__count' => new Zend_Db_Expr('COUNT(*)')));
 		$result = $this->_fetch($select);
 		return (count($result) > 0)?(int)$result[0]['__count']:0;
 	}
@@ -84,7 +82,7 @@ abstract class AbstractDbTable extends \Zend_Db_Table_Abstract {
 	public function factory($name) {
 		$className = $name;
 		if (strpos($name, '_') === false) {
-			$className = ucfirst(\Zend_Filter::filterStatic($name, 'Word_UnderscoreToCamelCase'));
+			$className = ucfirst(Zend_Filter::filterStatic($name, 'Word_UnderscoreToCamelCase'));
 		}
 		if (!class_exists($className, true)) {
 			throw new Exception("Table class $className not found");
@@ -109,14 +107,14 @@ abstract class AbstractDbTable extends \Zend_Db_Table_Abstract {
 	protected function _splitCallArguments($fetchField, $arguments) {
 		$fetchFields = explode('And', $fetchField);
 		if (count($fetchFields) == 1) {
-			array_unshift($arguments, strtolower(\Zend_Filter::filterStatic($fetchField, 'Word_CamelCaseToUnderscore')));
+			array_unshift($arguments, strtolower(Zend_Filter::filterStatic($fetchField, 'Word_CamelCaseToUnderscore')));
 		}
 		else {
 			$args = array_values($arguments);
 			$arguments = array();
 			for ($i=0;$i<count($fetchFields);$i++) {
 				if (array_key_exists($i, $args)) array_push($arguments, array(
-					strtolower(\Zend_Filter::filterStatic($fetchFields[$i], 'Word_CamelCaseToUnderscore')),
+					strtolower(Zend_Filter::filterStatic($fetchFields[$i], 'Word_CamelCaseToUnderscore')),
 					$args[$i]
 				));
 			}

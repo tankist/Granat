@@ -1,9 +1,5 @@
 <?php
-namespace Service;
 
-class Collection extends AbstractService {
-	
-	
-	
+class Service_Collection extends Service_Abstract {
+
 }
-?>
