@@ -80,11 +80,11 @@ abstract class Model_Mapper_Db_Abstract extends Model_Mapper_Abstract implements
 	}
 	
 	public function getRawArrayFromData($data) {
-		if ($data instanceOf \Zend_Db_Table_Row_Abstract) {
+		if ($data instanceOf Zend_Db_Table_Row_Abstract) {
 			return $data->toArray();
 		}
 		
-		if ($data instanceOf \Zend_Db_Table_Rowset_Abstract) {
+		if ($data instanceOf Zend_Db_Table_Rowset_Abstract) {
 			return $data->toArray();
 		}
 		
@@ -352,7 +352,7 @@ abstract class Model_Mapper_Db_Abstract extends Model_Mapper_Abstract implements
 		}
 		else {
 			$rowSet = call_user_func_array(array($table, 'find'), $primaryValues);
-			if ($rowSet instanceOf \Zend_Db_Table_Rowset_Abstract && count($rowSet->toArray())>0 ) {
+			if ($rowSet instanceOf Zend_Db_Table_Rowset_Abstract && count($rowSet->toArray())>0 ) {
 				$row = $rowSet->current();
 				$row->setFromArray($data);
 			}
