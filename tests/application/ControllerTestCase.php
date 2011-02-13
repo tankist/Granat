@@ -9,14 +9,14 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
      */
     protected $_application;
 
-    public function setUp()
+    protected function setUp()
     {
         // указываем функцию, которая будет выполнена до запуска тестов
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
     }
 
-    public function appBootstrap()
+    protected function appBootstrap()
     {
         // инициализируем наше приложение
         $this->_application = new Zend_Application(
