@@ -1,8 +1,8 @@
 <?php
 
 interface Model_Mapper_Interface {
-	
-	public function save($data);
+    
+    public function save($data);
 	
 	public function delete($data);
 	

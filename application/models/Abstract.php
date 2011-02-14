@@ -13,10 +13,14 @@ abstract class Model_Abstract implements Model_Interface {
 	protected $_mapperType = '';
 
 	protected $_mappers = array();
-	
-	protected static $_defaultMapperType = ''; 
+    
+    public $mapper;
+
+
+    protected static $_defaultMapperType = ''; 
 	
 	public function __construct($data = array()) {
+        $this->mapper = new Model_Mapper_MapperBroker();
 		if (!empty($data)) $this->populate($data);
 	}
 	

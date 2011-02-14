@@ -30,8 +30,12 @@ abstract class Model_Mapper_Abstract implements Model_Mapper_Interface {
 			$this->_reverseFieldMapping = array_flip($this->_fieldMapping);
 		}
 	}
-	
-	/**
+    
+    public function init() {
+        
+    }
+
+    /**
 	 * Set mapper state from options array
 	 * @param  array $options
 	 * @return Model_Mapper_Abstract
@@ -90,5 +94,25 @@ abstract class Model_Mapper_Abstract implements Model_Mapper_Interface {
 		}
 		return $newData;
 	}
+    
+    /**
+     * getName()
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        $fullClassName = get_class($this);
+        if (strpos($fullClassName, '_') !== false) {
+            $mapperName = strrchr($fullClassName, '_');
+            return ltrim($mapperName, '_');
+        } elseif (strpos($fullClassName, '\\') !== false) {
+            $mapperName = strrchr($fullClassName, '\\');
+            return ltrim($mapperName, '\\');
+        } else {
+            return $fullClassName;
+        }
+    }
+
 }
 ?>
