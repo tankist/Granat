@@ -5,3 +5,4 @@ tests/report/
 www/tests
 *.log
 *.bak
+.idea/

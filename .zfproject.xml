@@ -27,7 +27,38 @@
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
-      <modelsDirectory/>
+      <modelsDirectory>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="gr_collections"/>
+          <dbTableFile dbTableName="gr_fabrics"/>
+          <dbTableFile dbTableName="gr_models"/>
+          <dbTableFile dbTableName="gr_photos"/>
+          <dbTableFile dbTableName="gr_users"/>
+        </dbTableDirectory>
+        <modelFile modelName="User"/>
+        <collectionsDirectory>
+          <collectionFile collectionName="Users" itemType="User"/>
+          <collectionFile collectionName="Photos" itemType="Photo"/>
+          <collectionFile collectionName="Models" itemType="Model"/>
+          <collectionFile collectionName="Fabrics" itemType="Fabric"/>
+          <collectionFile collectionName="Collections" itemType="Collection"/>
+        </collectionsDirectory>
+        <modelFile modelName="Photo"/>
+        <modelFile modelName="Model"/>
+        <modelFile modelName="Fabric"/>
+        <modelFile modelName="Collection"/>
+        <mappersDirectory>
+          <mappersDirectory type="db">
+            <mapperFile mapperName="User" type="Db">
+              <mapperGetter getterName="Email"/>
+            </mapperFile>
+            <mapperFile mapperName="Photo" type="Db"/>
+            <mapperFile mapperName="Model" type="Db"/>
+            <mapperFile mapperName="Fabric" type="Db"/>
+            <mapperFile mapperName="Collection" type="Db"/>
+          </mappersDirectory>
+        </mappersDirectory>
+      </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="admin">
           <apisDirectory enabled="false"/>
@@ -140,6 +171,18 @@
         <viewFiltersDirectory enabled="false"/>
       </viewsDirectory>
       <bootstrapFile filesystemName="Bootstrap.php"/>
+      <servicesDirectory>
+        <serviceFile name="User"/>
+        <serviceFile name="Photo"/>
+        <serviceFile name="Model"/>
+        <serviceFile name="Fabric"/>
+        <serviceFile name="Collection"/>
+        <serviceFile name="User"/>
+        <serviceFile name="Photo"/>
+        <serviceFile name="Model"/>
+        <serviceFile name="Fabric"/>
+        <serviceFile name="Collection"/>
+      </servicesDirectory>
     </applicationDirectory>
     <dataDirectory enabled="false">
       <cacheDirectory enabled="false"/>
