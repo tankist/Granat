@@ -41,8 +41,17 @@ class Skaya_Controller_Plugin_Resource extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	protected function _getOptions() {
-		$options = $this->_getBootstrap()->getOptions();
-		return (isset($options['plugin']) && isset($options['plugin']['resource']))?$options['plugin']['resource']:array();
+		$options = array();
+		$bootstrap = $this->_getBootstrap();
+		if ($bootstrap) {
+			$bootstrapOptions = $bootstrap->getOptions();
+			if (isset($bootstrapOptions['plugin'])) {
+				if (isset($bootstrapOptions['plugin']['resource'])) {
+					$options = $bootstrapOptions['plugin']['resource'];
+				}
+			}
+		}
+		return $options;
 	}
 	
 	protected function _bootstrap() {

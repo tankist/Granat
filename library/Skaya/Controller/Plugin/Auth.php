@@ -45,7 +45,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	public function getAuth($module = 'default') {
-		return $this->_auth[$module];
+		return (array_key_exists($module, $this->_auth))?$this->_auth[$module]:false;
 	}
 	
 	public function setAcl(Zend_Acl $acl, $module = 'default') {
@@ -54,7 +54,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	public function getAcl($module = 'default') {
-		return $this->_acl[$module];
+		return (array_key_exists($module, $this->_acl))?$this->_acl[$module]:false;
 	}
 	
 	public function setNoAclRules(array $noAcl, $module = 'default') {
@@ -63,7 +63,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	public function getNoAclRules($module = 'default') {
-		return $this->_noacl[$module];
+		return (array_key_exists($module, $this->_noacl))?$this->_noacl[$module]:false;
 	}
 	
 	public function setNoAuthRules(array $noAuth, $module = 'default') {
@@ -72,7 +72,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	public function getNoAuthRules($module = 'default') {
-		return $this->_noauth[$module];
+		return (array_key_exists($module, $this->_noauth))?$this->_noauth[$module]:false;
 	}
 	
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
@@ -87,7 +87,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			return false;
 		}
 		
-		$role = Model_Store::STORE_ROLE_GUEST;
+		$role = Model_User::USER_ROLE_GUEST;
 		if ($auth->hasIdentity()) {
 			$identity = $auth->getIdentity();
 			if (is_object($identity) && method_exists($identity, 'getRole')) {
@@ -97,7 +97,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 				$role= $identity['role'];
 			}
 			if (!$acl->hasRole($role)) {
-				$role = Model_Store::STORE_ROLE_GUEST;
+				$role = Model_User::USER_ROLE_GUEST;
 			}
 		}
 		$resource = $controller;
@@ -110,6 +110,10 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			$redirectType = (!$auth->hasIdentity())?'noauth':'noacl';
 			$this->_setRequestParameters($redirectType);
 			$request->setDispatched(false);
+		}
+
+		if (isset($identity)) {
+			$request->setParam('__user', $identity);
 		}
 	}
 	
