@@ -1,31 +1,17 @@
 <?php
 
-/**
-* @property int id
-* @property string firstName
-* @property string lastName
-* @property string email
-* @property string password
-* @property string role
-* @property string dateAdded
-* @property string state
-*/
-class Model_User extends Model_Abstract implements Model_Interface, Zend_Auth_Adapter_Interface {
-	
+class Application_Model_User extends Skaya_Model_Abstract
+{
+
 	const USER_STATE_ACTIVE = 'active';
 	const USER_STATE_DEACTIVE = 'deactive';
 	
 	const USER_ROLE_GUEST = 'guest';
 	const USER_ROLE_USER = 'user';
 	const USER_ROLE_ADMIN = 'admin';
-	
-	protected $_modelName = 'User';
-	
-	protected $_mapperType = 'db';
-	
-	protected $_isDesignChanged = false;
-	
-	
+
+    protected $_modelName = 'User';
+
 	public function getRole() {
 		if (empty($this->_data['role'])) {
 			$this->_data['role'] = self::USER_ROLE_GUEST;
@@ -49,4 +35,6 @@ class Model_User extends Model_Abstract implements Model_Interface, Zend_Auth_Ad
 		}
 		return $result;
 	}
+
 }
+
