@@ -1,10 +1,7 @@
 <?php
 
-class Application_Model_Model extends Skaya_Model_Abstract
-{
+class Model_Model extends Skaya_Model_Abstract {
 
-    protected $_modelName = 'Model';
-
+	protected $_modelName = 'Model';
 
 }
-

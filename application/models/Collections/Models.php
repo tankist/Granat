@@ -1,10 +1,7 @@
 <?php
 
-class Application_Model_Collection_Models extends Skaya_Model_Collection_Abstract
-{
+class Model_Collection_Models extends Skaya_Model_Collection_Abstract {
 
-    protected $_itemType = 'Model_Model';
-
+	protected $_itemType = 'Model_Model';
 
 }
-

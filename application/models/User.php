@@ -1,16 +1,15 @@
 <?php
 
-class Application_Model_User extends Skaya_Model_Abstract
-{
+class Model_User extends Skaya_Model_Abstract {
 
 	const USER_STATE_ACTIVE = 'active';
 	const USER_STATE_DEACTIVE = 'deactive';
-	
+
 	const USER_ROLE_GUEST = 'guest';
 	const USER_ROLE_USER = 'user';
 	const USER_ROLE_ADMIN = 'admin';
 
-    protected $_modelName = 'User';
+	protected $_modelName = 'User';
 
 	public function getRole() {
 		if (empty($this->_data['role'])) {
@@ -18,7 +17,7 @@ class Application_Model_User extends Skaya_Model_Abstract
 		}
 		return $this->_data['role'];
 	}
-	
+
 	public function authenticate() {
 		$user = $this->getMapper()->getUserByemail($this->email);
 		if (is_array($user) && !empty($user) && $user['email'] == $this->email && $user['password'] == $this->password && $user['state'] == self::USER_STATE_ACTIVE) {
@@ -37,4 +36,3 @@ class Application_Model_User extends Skaya_Model_Abstract
 	}
 
 }
-
