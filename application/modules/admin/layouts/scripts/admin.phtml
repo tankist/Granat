@@ -17,21 +17,16 @@ $this->headLink()
 
 <?php
 $this->headScript()
-	->prependFile('/js/jssimplemenu/jssimplemenu.js')
-	->prependFile('/js/backbone/backbone.js')
-	->prependFile('/js/backbone/underscore.js')
 	->prependFile('/js/jquery/jquery.js')
-/*->prependFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js')
-		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js')*/
-	->appendFile('/js/uiinit.js')
-	->appendFile('/js/admin/listchecks.js')
+/*->prependFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js')
+		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js')*/
 	->appendFile('/js/admin/common.js')
-	->appendFile('/js/admin/notify.js');
+	->appendFile('/js/listchecks.js');
 ?>
 
 <?php
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
-	->appendHttpEquiv('Content-Language', 'en-US');
+	->appendHttpEquiv('Content-Language', 'ru-RU');
 ?>
 <?= $this->doctype()
 ; ?>
@@ -74,15 +69,9 @@ $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
 </div>
 <div class="footer-wrapper">
 	<div class="footer">
-		<div class="fl">&copy; Bharat International <?=date('Y')?> | Website Design & Hosting by <a href="http://www.talonworks.com/">Talonworks</a></div>
-		<div class="fr"><a href="<?=$this->url(array('controller' => 'users', 'action' => 'edit'))?>">Account
-			Settings</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">FAQ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Privacy
-			Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Terms of Use</a></div>
+		<div class="fl">&copy; Granat Nikolayev <?=date('Y')?> | Website Design & Hosting by <a href="http://www.yobasoft.org.ua/">Yobasoft</a></div>
 	</div>
 </div>
 <?=$this->headScript()?>
-<!--<script type="text/javascript">
-		Cufon.replace(['h1','h2','#header-menu ul li a'],{hover: true});
-	</script>-->
 </body>
 </html>
