@@ -11,7 +11,7 @@ class Skaya_View_Helper_OrderLink extends Zend_View_Helper_HtmlElement {
 			$orderField = preg_replace('$[^\w\d]+$i', '', $text);
 		}
 		if (!is_array($urlParams)) {
-			$urlParams  =(array)$urlParams;
+			$urlParams = (array)$urlParams;
 		}
 		$currentField = $this->view->order;
 		$currentOrderType = $this->view->orderType;
@@ -24,7 +24,35 @@ class Skaya_View_Helper_OrderLink extends Zend_View_Helper_HtmlElement {
 				$textAppend = '<span class="asc">▲<span>';
 			}
 		}
-		return '<a href="' . $this->view->url($urlParams) . '">' . $text . '</a>' . $textAppend;
+		return '<a href="' .
+		       $this->view->url($urlParams) .
+		       $this->_serializeQueryString($_GET) . '">' .
+		       $text . '</a>' . $textAppend;
+	}
+
+	protected function _serializeQueryString($params, $name = null) {
+		$ret = "";
+		foreach ($params as $key => $val) {
+			if (is_array($val)) {
+				if ($name == null) {
+					$ret .= $this->_serializeQueryString($val, $key);
+				}
+				else {
+					$ret .= $this->_serializeQueryString($val, $name . "[$key]");
+				}
+			} else {
+				if ($name != null) {
+					$ret .= $name . "[$key]" . "=$val&";
+				}
+				else {
+					$ret .= "$key=$val&";
+				}
+			}
+		}
+		if (!empty($ret)) {
+			$ret = '?' . $ret;
+		}
+		return $ret;
 	}
 
 }

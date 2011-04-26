@@ -5,7 +5,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	* 
 	* @var Zend_Auth
 	*/
-	protected $_auth = array();
+	protected $_auth = null;
 	
 	/**
 	* Acl provider
@@ -18,10 +18,19 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 
 	protected $_noacl = array();
 
-	public function __construct(Zend_Auth $auth, Zend_Acl $acl, $module = 'default') {
+	protected $_isSeparateAuthNamespace = false;
+
+	/**
+	 * @param Zend_Auth $auth
+	 * @param Zend_Acl $acl
+	 * @param string $module
+	 * @param bool $isSeparateAuthNamespace
+	 */
+	public function __construct(Zend_Auth $auth, Zend_Acl $acl, $module = 'default', $isSeparateAuthNamespace = false) {
 		$this
-			->setAuth($auth, $module)
-			->setAcl($acl, $module);
+			->setAuth($auth)
+			->setAcl($acl, $module)
+			->setIsSeparateAuthNamespace($isSeparateAuthNamespace);
 			
 		$defaultModuleName = Zend_Controller_Front::getInstance()->getDefaultModule();
 		if ($module != $defaultModuleName) {
@@ -38,49 +47,110 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			), $defaultModuleName);
 		}
 	}
-	
-	public function setAuth(Zend_Auth $auth, $module = 'default') {
-		$this->_auth[$module] = $auth;
+
+	/**
+	 * @param Zend_Auth $auth
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
+	public function setAuth(Zend_Auth $auth) {
+		$this->_auth = $auth;
 		return $this;
 	}
-	
-	public function getAuth($module = 'default') {
-		return (array_key_exists($module, $this->_auth))?$this->_auth[$module]:false;
+
+	/**
+	 * @return null|Zend_Auth
+	 */
+	public function getAuth() {
+		if ($this->_isSeparateAuthNamespace && $this->_auth instanceof Zend_Auth) {
+			$module = $this->getRequest()->getModuleName();
+			if (empty($module)) {
+				$module = Zend_Controller_Front::getInstance()->getDefaultModule();
+			}
+			$this->_auth->setStorage(new Zend_Auth_Storage_Session('Zend_Auth_' . ucfirst($module)));
+		}
+		return $this->_auth;
 	}
-	
+
+	/**
+	 * @param Zend_Acl $acl
+	 * @param string $module
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
 	public function setAcl(Zend_Acl $acl, $module = 'default') {
 		$this->_acl[$module] = $acl;
 		return $this;
 	}
-	
+
+	/**
+	 * @param string $module
+	 * @return array|bool|Zend_Acl
+	 */
 	public function getAcl($module = 'default') {
 		return (array_key_exists($module, $this->_acl))?$this->_acl[$module]:false;
 	}
-	
+
+	/**
+	 * @param array $noAcl
+	 * @param string $module
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
 	public function setNoAclRules(array $noAcl, $module = 'default') {
 		$this->_noacl[$module] = $noAcl;
 		return $this;
 	}
-	
+
+	/**
+	 * @param string $module
+	 * @return array|bool
+	 */
 	public function getNoAclRules($module = 'default') {
 		return (array_key_exists($module, $this->_noacl))?$this->_noacl[$module]:false;
 	}
-	
+
+	/**
+	 * @param array $noAuth
+	 * @param string $module
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
 	public function setNoAuthRules(array $noAuth, $module = 'default') {
 		$this->_noauth[$module] = $noAuth;
 		return $this;
 	}
-	
+
+	/**
+	 * @param string $module
+	 * @return array|bool
+	 */
 	public function getNoAuthRules($module = 'default') {
 		return (array_key_exists($module, $this->_noauth))?$this->_noauth[$module]:false;
 	}
-	
+
+	/**
+	 * @param  $isSeparateAuthNamespace
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
+	public function setIsSeparateAuthNamespace($isSeparateAuthNamespace) {
+		$this->_isSeparateAuthNamespace = $isSeparateAuthNamespace;
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getIsSeparateAuthNamespace() {
+		return $this->_isSeparateAuthNamespace;
+	}
+
+	/**
+	 * @param Zend_Controller_Request_Abstract $request
+	 * @return bool
+	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 		$controller = $request->getControllerName();
 		$action = $request->getActionName();
 		$module = (is_string($request->getModuleName()))?strtolower($request->getModuleName()):'default';
 		
-		$auth = $this->getAuth($module);
+		$auth = $this->getAuth();
 		$acl = $this->getAcl($module);
 		
 		if (!$auth || !$acl) {
@@ -116,7 +186,12 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			$request->setParam('__user', $identity);
 		}
 	}
-	
+
+	/**
+	 * @throws Zend_Controller_Exception
+	 * @param  $noType
+	 * @return Skaya_Controller_Plugin_Auth
+	 */
 	protected function _setRequestParameters($noType) {
 		$moduleName = strtolower($this->getRequest()->getModuleName());
 		$noType = '_'.strtolower($noType);

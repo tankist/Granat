@@ -1,4 +1,5 @@
 @import "common";
+@import "common";
 
 ul.menu {
 	.oh;
@@ -23,7 +24,6 @@ ul.images {
 		display:block;
 		position:relative;
 		margin-right:33px;
-		a {}
 		em {
 			background:url('../images/image-border.png') no-repeat;
 			display:block;
@@ -35,13 +35,10 @@ ul.images {
 			top:10px;
 			left:10px;
 		}
-	}
-	li.active {
-		a {
-			
-		}
-		em {
-			background-position:-190px 0;
+		&.active {
+			em {
+				background-position:-190px 0;
+			}
 		}
 	}
 }
@@ -58,27 +55,27 @@ ul.images {
 		top:10px;
 		left:10px;
 		}
-}
-.profile-image.big {
-	em {
-		background:url('../images/profile-image-border.png') no-repeat;
-		width:159px;
-		height:171px;
+	&.big {
+		em {
+			background:url('../images/profile-image-border.png') no-repeat;
+			width:159px;
+			height:171px;
+		}
+		img {
+			top:10px;
+			left:10px;
+		}
 	}
-	img {
-		top:10px;
-		left:10px;
-	}
-}
-.profile-image.small {
-	em {
-		background:url('../images/profile-image-border-small.png') no-repeat;
-		width:102px;
-		height:107px;
-	}
-	 img {
-		top:9px;
-		left:9px;
+	&.small {
+		em {
+			background:url('../images/profile-image-border-small.png') no-repeat;
+			width:102px;
+			height:107px;
+		}
+		 img {
+			top:9px;
+			left:9px;
+		}
 	}
 }
 .shape ul {
@@ -170,11 +167,11 @@ ul.images {
 			padding:1px 15px;
 			line-height:27px;
 		}
-	}
-	li.active {
-		background:url('../images/main-li-separator.png') no-repeat center left;
-		a {
-			background:url('../images/active-li-bg.png') repeat;
+		&.active {
+			background:url('../images/main-li-separator.png') no-repeat center left;
+			a {
+				background:url('../images/active-li-bg.png') repeat;
+			}
 		}
 	}
 }
@@ -184,9 +181,9 @@ ul.images {
 		a {
 			margin:0 15px;
 		}
-	}
-	li.last {
-		border:none;
+		&.last {
+			border:none;
+		}
 	}
 }
 #catalog {
@@ -205,7 +202,7 @@ ul.images {
 }
 #models {
 	.fl;
-	width:33%;
+	.one-third;
 	padding-left:65px;
 	background:url('../images/crap/girl.png') no-repeat center right;
 	min-height:236px;
