@@ -1,0 +1,88 @@
+<?php
+$this->headLink()
+	->prependStylesheet('/css/admin/sellcast.ui.common.css')
+	->prependStylesheet('/css/admin/sellcast.ui.dash.css')
+	->prependStylesheet('/css/admin/sellcast.ui.products.css')
+	->prependStylesheet('/css/admin/common.css')
+	->prependStylesheet('/css/reset.css')
+	->appendStylesheet('/css/admin/paginator.css')
+	->appendStylesheet('/css/admin/account-settings.css')
+	->appendStylesheet('/css/admin/button.css')
+	->appendStylesheet('/css/admin/orders.css')
+	->appendStylesheet('/css/admin/products.css')
+
+	->appendStylesheet('/css/ie7.css', 'all', 'lt IE 8')
+	->appendStylesheet('/css/ie6.css', 'all', 'lt IE 7');
+?>
+
+<?php
+$this->headScript()
+	->prependFile('/js/jssimplemenu/jssimplemenu.js')
+	->prependFile('/js/backbone/backbone.js')
+	->prependFile('/js/backbone/underscore.js')
+	->prependFile('/js/jquery/jquery.js')
+/*->prependFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js')
+		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js')*/
+	->appendFile('/js/uiinit.js')
+	->appendFile('/js/admin/listchecks.js')
+	->appendFile('/js/admin/common.js')
+	->appendFile('/js/admin/notify.js');
+?>
+
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+	->appendHttpEquiv('Content-Language', 'en-US');
+?>
+<?= $this->doctype()
+; ?>
+<html>
+<head>
+	<?=$this->headMeta()?>
+	<?=$this->headLink()?>
+	<?=$this->headTitle()?>
+	<?=$this->headStyle()?>
+<?php
+		$navigationMenuHelper = $this->getHelper('Navigation_Menu');
+	$ordersCount = $this->ordersCount;
+	if ($ordersCount > 0) {
+		$this->headScript()->prependScript('var ordersCount = ' . $ordersCount . ';');
+	}
+	?>
+</head>
+<body>
+<div class="body-wrapper">
+	<div class="header-wrapper">
+		<div class="header-menu-wrapper">
+			<div id="header-menu">
+				<?=$navigationMenuHelper->renderMenu();?>
+			</div>
+		</div>
+		<div class="header-submenu-wrapper">
+			<div id="header-submenu">
+				<div class="fl"><?=$this->submenu?></div>
+				<div class="submenu-right">
+					<div class="fr second-button-link"><a
+						href="<?=$this->url(array('controller' => 'users', 'action' => 'logout'))?>">Logout</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?=$this->flashMessages()?>
+	<div id="body">
+		<?=$this->layout()->content?>
+	</div>
+</div>
+<div class="footer-wrapper">
+	<div class="footer">
+		<div class="fl">&copy; Bharat International <?=date('Y')?> | Website Design & Hosting by <a href="http://www.talonworks.com/">Talonworks</a></div>
+		<div class="fr"><a href="<?=$this->url(array('controller' => 'users', 'action' => 'edit'))?>">Account
+			Settings</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">FAQ</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Privacy
+			Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Terms of Use</a></div>
+	</div>
+</div>
+<?=$this->headScript()?>
+<!--<script type="text/javascript">
+		Cufon.replace(['h1','h2','#header-menu ul li a'],{hover: true});
+	</script>-->
+</body>
+</html>

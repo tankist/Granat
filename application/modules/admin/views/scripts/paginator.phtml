@@ -1,0 +1,20 @@
+<? if ($this->pageCount > 1) { ?>
+<div class="center">
+<ul class="oh inline center-container" id="paginator">
+<?php if (isset($this->previous)) { ?>
+	<li p="<?=$this->first?>" class="button first"><a href="<?=$this->url(array('page' => $this->first))?>"><small>«</small>First</a></li>
+	<li class="spacer">...</li>
+	<li p="<?=$this->previous?>" class="button prev"><a href="<?=$this->url(array('page' => $this->previous))?>"><small>‹</small>Prev</a></li>
+<?php } ?>
+
+<? for ($i=$this->firstPageInRange;$i<=$this->lastPageInRange;$i++) { ?>
+	<li p="<?=$i?>"<?php if ($this->current == $i) echo ' class="active"' ?>><a href="<?=$this->url(array('page' => $i))?>"><?=$i?></a></li>
+<? } ?>
+<?php if (isset($this->next)) { ?>
+	<li p="<?=$this->next?>" class="button next"><a href="<?=$this->url(array('page' => $this->next))?>">Next<small>›</small></a></li>
+	<li class="spacer">...</li>
+	<li p="<?=$this->last?>" class="button last"><a href="<?=$this->url(array('page' => $this->last))?>">Last<small>»</small></a></li>
+<? } ?>
+</ul>
+</div>
+<? } ?>

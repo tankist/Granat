@@ -1,0 +1,23 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type','text/html; charset=UTF-8')
+				 ->appendHttpEquiv('Content-Language', 'en-US');
+?>
+<?=$this->doctype();?>
+<html>
+<head>
+	<?=$this->headMeta()?>
+	<?=$this->headLink()->setStylesheet('/css/admin/login_admin.css')?>
+	<?=$this->headTitle()?>
+	<?=$this->headStyle()?>
+</head>
+<body>
+	<?=$this->layout()->content?>
+	<?=$this->headScript()
+			->setFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js')
+			->appendFile('/js/form/jquery.form.js')
+			->appendFile('/js/scrollable/scrollable.min.js')
+			->appendFile('/js/login.js')
+	?>
+	
+</body>
+</html>

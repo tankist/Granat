@@ -2,7 +2,7 @@
 <html lang="ru-RU">
 <head>
 	<title>Granat</title>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Encoding" charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="/css/style.css" media="all"/>
 	<!--[if IE]>
 	<style type="text/css">
@@ -22,15 +22,10 @@
 </head>
 <body>
 	<div id="bodywrapper">
-		<div id="logo">GraNat by Natali Grechanaya</div>
+		<div id="logo">GraNat Natali Grechanaya</div>
 		<div id="bodycontainer">
 			<div id="header">
-				<ul class="menu">
-					<li class="active"><a href="">Студия</a></li>
-					<li><a href="">Галерея</a></li>
-					<li><a href="">Ткани</a></li>
-					<li><a href="">Контакты</a></li>
-				</ul>
+				<?=$this->getHelper('Navigation_Menu')->renderMenu()?>
 			</div>
 			<div id="body">
 				<div id="content"><?php echo $this->layout()->content; ?></div>
