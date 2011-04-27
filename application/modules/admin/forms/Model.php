@@ -9,6 +9,8 @@
  */
 class Admin_Form_Model extends Admin_Form_Abstract {
 
+	protected $_images = array();
+
 	protected $_collections = array();
 
 	public function init() {
@@ -20,6 +22,18 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 			->addElement('checkbox', 'is_collection_title', array('label' => 'Main Collection Model:'))
 			->addElement('button', 'submit', array('label' => 'submit', 'type' => 'submit'));
 
+	}
+
+	protected function _getImageElement() {
+		$images = $this->getImages();
+		$keys = array_keys((array) $images);
+		$images_el = new Skaya_Form_Element_ProductImage('image', array(
+			'label' => 'Main Image',
+			//'required' => true,
+			'multiOptions' => array_fill_keys($keys, 'Main Image'),
+			'images' => $images
+		));
+		return $images_el;
 	}
 
 	public function prepareDecorators() {
@@ -36,6 +50,15 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 
 	public function getCollections() {
 		return $this->_collections;
+	}
+
+	public function setImages($images = array()) {
+		$this->_images = $images;
+		return $this;
+	}
+
+	public function getImages() {
+		return $this->_images;
 	}
 
 }
