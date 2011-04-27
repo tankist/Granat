@@ -95,9 +95,9 @@ CREATE TABLE `gr_users` (
   `password` varchar(32) DEFAULT NULL,
   `role` enum('admin','user','moderator') DEFAULT 'user',
   `date_added` datetime NOT NULL,
-  `state` enum('active','banned','suspended') NOT NULL DEFAULT 'suspended',
+  `status` enum('active','banned','suspended') NOT NULL DEFAULT 'suspended',
   PRIMARY KEY (`id`),
-  KEY `state` (`state`),
+  KEY `status` (`status`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -20,22 +20,17 @@ class Admin_UsersController extends Zend_Controller_Action {
 		));
 
 		$notEmptyValidator = new Zend_Validate_NotEmpty();
-		$notEmptyValidator->setMessage('Username & Password are Required', Zend_Validate_NotEmpty::IS_EMPTY);
+		$notEmptyValidator->setMessage('Email & Password are Required', Zend_Validate_NotEmpty::IS_EMPTY);
 
-		$loginForm->username->addValidator($notEmptyValidator, true);
+		$loginForm->email->addValidator($notEmptyValidator, true);
 		$loginForm->password->addValidator($notEmptyValidator, true);
 
 		if ($request->isPost()) {
 			if ($loginForm->isValid($request->getPost())) {
 				$user = Service_User::create(array(
-					'username' => $loginForm->username->getValue(),
+					'email' => $loginForm->email->getValue(),
 					'password' => $loginForm->password->getValue()
 				));
-				$emailValidator = new Zend_Validate_EmailAddress();
-				if ($emailValidator->isValid($user->username)) {
-					$user->email = $user->username;
-					$user->username = '';
-				}
 				$auth = Zend_Auth::getInstance();
 				$authResult = $auth->authenticate($user);
 				if ($authResult->isValid()) {
@@ -54,7 +49,7 @@ class Admin_UsersController extends Zend_Controller_Action {
 			}
 			else {
 				$errors = $loginForm->getMessages();
-				if (isset($errors['username']['isEmpty']) && isset($errors['password']['isEmpty'])) {
+				if (isset($errors['email']['isEmpty']) && isset($errors['password']['isEmpty'])) {
 					unset($errors['password']['isEmpty']);
 					if (count($errors['password']) == 0) {
 						unset($errors['password']);

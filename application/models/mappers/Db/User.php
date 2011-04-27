@@ -2,6 +2,8 @@
 
 class Model_Mapper_Db_User extends Skaya_Model_Mapper_Db_Abstract {
 
+	const TABLE_NAME = 'Users';
+
 	protected $_fieldMapping = array(
 		'firstName' => 'first_name',
 		'lastName' => 'last_name',
@@ -27,7 +29,7 @@ class Model_Mapper_Db_User extends Skaya_Model_Mapper_Db_Abstract {
 
 	public function getUserById($id) {
 		$userTable = self::_getTableByName(self::TABLE_NAME);
-		$userBlob = $userTable->fetchRowById($user_id);
+		$userBlob = $userTable->fetchRowById($id);
 		return $this->getMappedArrayFromData($userBlob);
 	}
 
