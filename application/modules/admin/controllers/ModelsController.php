@@ -59,10 +59,14 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			throw new Zend_Controller_Action_Exception('Model not found', 404);
 		}
 
+		$collections = $this->_helper->service('Collection')->getCollections('name');
+		$filter = new Skaya_Filter_Array_Map('name', 'id');
+
 		$form = new Admin_Form_Model(array(
 			'name' => 'model',
 			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
+			'method' => Zend_Form::METHOD_POST,
+			'collections' => $filter->filter($collections->toArray())
 		));
 		$data = $model->toArray();
 
@@ -90,8 +94,12 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$model = $this->_helper->service('Model')->create();
 		}
 
+		$collections = $this->_helper->service('Collection')->getCollections('name');
+		$filter = new Skaya_Filter_Array_Map('name', 'id');
+
 		$form = new Admin_Form_Model(array(
-			'name' => 'model'
+			'name' => 'model',
+			'collections' => $filter->filter($collections->toArray())
 		));
 
 		if ($request->isPost() && $form->isValid($request->getPost())) {
