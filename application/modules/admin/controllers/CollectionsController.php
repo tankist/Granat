@@ -1,46 +1,123 @@
 <?php
 
-class Admin_CollectionsController extends Zend_Controller_Action
-{
+class Admin_CollectionsController extends Zend_Controller_Action {
 
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
+	const ITEMS_PER_PAGE = 20;
 
-    public function indexAction()
-    {
-        // action body
-    }
+	public function init() {
+		$this->_helper->getHelper('AjaxContext')->initContext('json');
+		$this->_user = $this->_helper->user();
+	}
 
-    public function addAction()
-    {
-        // action body
-    }
+	public function indexAction() {
+		$request = $this->getRequest();
+		$page = $request->getParam('page', 1);
+		$this->view->order = $order = $request->getParam('order');
+		$this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
+		/**
+		 * @var Skaya_Paginator $collectionsPaginator
+		 */
+		$orderString = null;
+		if ($order) {
+			$orderString = $order . ' ' . $orderType;
+		}
 
-    public function editAction()
-    {
-        // action body
-    }
+		$collectionsPaginator = $this->_helper->service('Collection')->getCollectionsPaginator($orderString);
 
-    public function saveAction()
-    {
-        // action body
-    }
+		$this->view->paginator = $collectionsPaginator;
+		$collectionsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::BRANDS_PER_PAGE);
+		$this->view->collections = $collectionsPaginator->getCurrentItems();
+		$this->view->page = $page;
+	}
 
-    public function deleteAction()
-    {
-        // action body
-    }
+	public function addAction() {
+		$form = new Admin_Form_Collection(array(
+			'name' => 'user',
+			'action' => $this->_helper->url('save'),
+			'method' => Zend_Form::METHOD_POST
+		));
 
+		$sessionData = $this->_helper->sessionSaver('collectionData');
+		if ($sessionData) {
+			$form->populate($sessionData);
+			$this->_helper->sessionSaver->delete('collectionData');
+		}
+
+		$form->removeElement('id');
+		$form->prepareDecorators();
+		$this->view->form = $form;
+	}
+
+	public function editAction() {
+		$collection_id = $this->_getParam('id');
+		$collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
+		if ($collection->isEmpty()) {
+			throw new Zend_Controller_Action_Exception('Collection not found', 404);
+		}
+
+		$form = new Admin_Form_Collection(array(
+			'name' => 'collection',
+			'action' => $this->_helper->url('save'),
+			'method' => Zend_Form::METHOD_POST
+		));
+		$data = $collection->toArray();
+
+		$sessionData = $this->_helper->sessionSaver('collectionData');
+		if ($sessionData) {
+			$data = $sessionData;
+			$this->_helper->sessionSaver->delete('collectionData');
+		}
+
+		$form->populate($data);
+		$form->prepareDecorators();
+		$this->view->form = $form;
+	}
+
+	public function saveAction() {
+		$request = $this->getRequest();
+		$collection_id = $request->getParam('id');
+		if (!empty($collection_id)) {
+			$collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
+			if ($collection->isEmpty()) {
+				throw new Zend_Controller_Action_Exception('Collection not found', 404);
+			}
+		}
+		else {
+			$collection = $this->_helper->service('Collection')->create();
+		}
+
+		$form = new Admin_Form_Collection(array(
+			'name' => 'collection'
+		));
+
+		if ($request->isPost() && $form->isValid($request->getPost())) {
+			$data = $form->getValues();
+			$collection->populate($data);
+			$collection->save();
+			$this->_helper->flashMessenger->addMessage(array('message' => 'Collection saved Successfully', 'status' => 'success'));
+			$this->_redirect($this->_helper->url(''));
+		}
+		else {
+			$this->_helper->flashMessenger->addErrorsFromForm($form);
+			$data = $form->getValues();
+			$this->_helper->sessionSaver('collectionData', $data);
+			if (!empty($collection_id)) {
+				$this->_redirect($this->_helper->url('edit', null, null, array('id' => $collection_id)));
+			}
+			else {
+				$this->_redirect($this->_helper->url('add'));
+			}
+		}
+	}
+
+	public function deleteAction() {
+		$collection_id = $this->_getParam('id');
+		$collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
+		if ($collection->isEmpty()) {
+			throw new Zend_Controller_Action_Exception('Collection ID NOT Found', 404);
+		}
+		$collection->delete();
+		$this->_redirect($this->_helper->url(''));
+	}
 
 }
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,7 @@
 
 class Service_Photo extends Skaya_Model_Service_Abstract {
 
-	public function create($data = array()) {
+	public static function create($data = array()) {
 		if (array_key_exists('id', $data)) {
 			unset($data['id']);
 		}

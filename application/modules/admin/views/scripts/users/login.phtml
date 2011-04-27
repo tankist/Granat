@@ -1,0 +1,23 @@
+<div id="body">
+	<div id="container">
+		<div class="form_container">
+			<div class="items">
+				<div id="login_error" class="messages">
+					<h1 class="login">Login</h1>
+					<p class="error"></p>
+					<a class="back_to_login back" href="#back">Go Back &gt;</a>
+					<a class="back_to_login try" href="#try">Try Again &gt;</a>
+				</div>
+				<div id="login_form"><?=$this->loginForm?></div>
+				<div id="forgot_form"><?=$this->forgotForm?></div>
+				<div id="forgot_error" class="messages">
+					<h1 class="forgot">Login</h1>
+					<p class="error"></p>
+					<a class="forgot_password back" href="#back">&lt; Go Back</a>
+					<a class="forgot_password try" href="#try">&lt; Try Again</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->headTitle('Login')?>

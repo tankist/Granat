@@ -92,7 +92,9 @@
               <actionMethod actionName="index"/>
             </controllerFile>
           </controllersDirectory>
-          <formsDirectory enabled="false"/>
+          <formsDirectory enabled="false">
+            <formFile formName="Collection"/>
+          </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory/>
           <viewsDirectory>

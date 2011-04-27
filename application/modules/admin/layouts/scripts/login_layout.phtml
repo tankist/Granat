@@ -12,11 +12,14 @@ $this->headMeta()->appendHttpEquiv('Content-Type','text/html; charset=UTF-8')
 </head>
 <body>
 	<?=$this->layout()->content?>
+	<div id="footer-container">
+		<div id="footer">&copy; Granat International <?=date('Y')?> | Website Design & Hosting by <a href="http://www.yobasoft.org.ua/">Yobasoft</a></div>
+	</div>
 	<?=$this->headScript()
-			->setFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js')
+			->setFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js')
 			->appendFile('/js/form/jquery.form.js')
 			->appendFile('/js/scrollable/scrollable.min.js')
-			->appendFile('/js/login.js')
+			->appendFile('/js/admin/login.js')
 	?>
 	
 </body>
