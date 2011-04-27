@@ -1,0 +1,47 @@
+#paginator {
+	margin-top: 62px;
+	padding-left:20px;
+	}
+	#paginator li {
+		border:1px solid #D4D4D4;
+		font-family : Arial, sans-serif;
+		font-size: 12px;
+		background-color: white;
+		display: block;
+		float: left;
+		width : 20px;
+		height : 18px;
+		text-align: center;
+		padding-top: 2px;
+		margin-right: 9px;
+		cursor: pointer;
+		color: #06619B;
+
+		-moz-border-radius:2px;
+		-webkit-border-radius:2px;
+		-khtml-border-radius:2px;
+		border-radius:2px;
+		}
+		#paginator li.active {
+			font-weight: bold;
+			background-color: #61B0E1;
+			color: white;
+			border-color: #61B0E1;
+			}
+		#paginator li.spacer {
+			border: none;
+			cursor: default;
+			}
+		#paginator li.button {
+			width: 51px;
+			background-color: #f3f3f3;
+			}
+			#paginator li.button small {
+				font-size: 14px;
+				}
+				#paginator li.button.next small, #paginator li.button.last small {
+					margin-left: 7px;
+					}
+				#paginator li.button.prev small, #paginator li.button.first small {
+					margin-right: 7px;
+					} 

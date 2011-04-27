@@ -1,0 +1,46 @@
+.role {
+	text-align:center;
+	}
+	.role span {
+		padding: 2px;
+		}
+		.role span.admin {
+			border: 1px solid red;
+			background-color: red;
+			color: white;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			}
+		.status span.suspended {
+			padding: 2px;
+			border: 1px solid yellow;
+			background-color: yellow;
+			color: #BBBBBB;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			}
+		.status-control .activate {
+			padding: 2px;
+			border: 1px solid blue;
+			background-color: blue;
+			color: #fff;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			}
+		.send-message a, .giftcard a.sold {
+			padding: 2px;
+			border: 1px solid #3D9ABB;
+			background-color: #3D9ABB;
+			color: #fff;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+		}
+		.giftcard a.sold span.given, .giftcard a span.ungiven {
+			display:inline;
+			}
+		.giftcard a span.given, .giftcard a.sold span.ungiven {
+			display:none;
+			}
+#change-password {
+	display:none;
+	}

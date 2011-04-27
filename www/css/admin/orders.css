@@ -1,0 +1,231 @@
+.grey-h2 input {
+	height: 17px;
+	border: 1px solid #aaa;
+}
+
+th.order-id,td.order-id {
+	width: 106px;
+}
+
+th.order-customer-name,td.order-customer-name {
+	width: 222px;
+}
+
+th.order-purchase-date,td.order-purchase-date {
+	width: 190px;
+}
+
+th.order-price,td.order-price {
+	width: 97px;
+	padding-right: 39px;
+	text-align: right;
+}
+
+th.order-status,td.order-status {
+	width: 84px;
+}
+
+td.order-status.pending {
+	background: url(/images/admin/btn_pending.png) no-repeat scroll left center transparent;
+	text-indent: -10000px;
+}
+
+th.delete-order,td.delete-order {
+	width: 28px;
+}
+
+th.purchase-date {
+	padding-left: 30px;
+}
+
+th.order-id,td.order-id,th.order-customer-name,td.order-customer-name,th.order-purchase-date,td.order-purchase-date,th.order-status,td.order-status {
+	text-align: left;
+}
+
+tr.extended {
+	border-bottom: 2px solid #6bbad6;
+}
+
+tr.extended th {
+	font-weight: bold;
+	color: #474747;
+}
+
+tr.extended th.order-product,tr.extended td.order-product {
+	width: 242px;
+}
+
+tr.extended th.order-quantity,tr.extended td.order-quantity {
+	width: 55px;
+	text-align: center;
+}
+
+tr.extended th.order-price,tr.extended td.order-price {
+	width: 99px;
+	text-align: right;
+}
+
+tr.extended th.order-price {
+	padding-right: 20px;
+}
+
+tr.extended td.order-price {
+	padding-right: 11px;
+}
+
+tr.extended tr.order-shipping td {
+	border-top: 1px solid #a0a0a0;
+}
+
+tr.extended tr.order-total td {
+	border-top: 1px solid #dfdfdf;
+	font-weight: bold;
+	color: #474747;
+}
+
+tr.extended tr.order-total td.order-product {
+	text-transform: uppercase;
+	padding-left: 8px!important;
+}
+
+tr.extended th.order-shipping-info,tr.extended td.order-shipping-info {
+	width: 342px;
+	padding-left: 18px!important;
+}
+
+tr.extended td.order-shipping-info dl {
+	line-height: 20px!important;
+	padding-top: 5px;
+	overflow: hidden;
+	background-color:transparent;
+	border:none;
+}
+
+tr.extended td.order-shipping-info dt {
+	width: 150px;
+	float: left;
+	clear:both;
+	line-height:inherit;
+}
+
+tr.extended td.order-shipping-info dd {
+	width: auto;
+	float: left;
+	padding:0;
+}
+
+.order-shipping-control {
+	padding-left: 8px;
+	padding-top: 10px;
+	padding-bottom: 6px;
+}
+
+.order-shipping-control h4 {
+	background: none repeat scroll 0 0 #fff5cf;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 20px;
+	display: none;
+	margin: 10px 0;
+}
+
+.order-shipping-control.delivered h4 {
+	display: inline-block;
+}
+
+.order-shipping-control p {
+	line-height: 16px;
+	font-weight: bold;
+	color: #474747;
+}
+
+.order-shipping-control p.tracking-number span {
+	color: #3f9ab9;
+}
+
+.order-shipping-control form dl {
+	background: none repeat scroll 0 0 transparent;
+	border: medium none;
+}
+
+.order-shipping-control form dl.none #tracking_number-label,.order-shipping-control form dl.none #tracking_number,.order-shipping-control form dl.none #tracking_url-label,.order-shipping-control form dl.none #tracking_url,.order-shipping-control form dl.none #note-label,.order-shipping-control form dl.none #note {
+	display: none;
+}
+
+.order-shipping-control form dt {
+	width: 128px;
+	float: left;
+	font-weight: bold;
+	color: #474747;
+	text-align: right;
+	padding-right: 5px;
+	line-height: 23px;
+}
+
+.order-shipping-control form dd {
+	float: left;
+	line-height: 23px;
+	width: 247px;
+	padding: 0;
+}
+
+.order-shipping-control form input,.order-shipping-control form select,.order-shipping-control form textarea {
+	color: #7d7d7d;
+	height: 17px;
+	border: 1px solid #aaa;
+}
+
+.order-shipping-control form input,.order-shipping-control form textarea {
+	width: 236px;
+}
+
+.order-shipping-control form textarea {
+	overflow: auto;
+	height: 46px;
+}
+
+.order-shipping-control dd div {
+	font-weight: normal;
+	line-height: 14px;
+}
+
+.order-shipping-control #reason {
+	width:250px;
+}
+
+.delivered-order-note {
+	font-weight:bold;
+}
+
+span.processing {
+	padding: 2px;
+	border: 1px solid red;
+	background-color: red;
+	color: white;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	}
+span.canceled {
+	padding: 2px;
+	border: 1px solid gray;
+	background-color: gray;
+	color: #BBBBBB;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	}
+span.delivered {
+	padding: 2px;
+	border: 1px solid #009900;
+	background-color: #009900;
+	color: #DDDDDD;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	}
+span.preparing {
+	padding: 2px;
+	border: 1px solid #ffff00;
+	background-color: #ffff00;
+	color: #666666;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	}

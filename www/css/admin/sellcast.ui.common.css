@@ -1,0 +1,232 @@
+.ui-widget-combobox button {
+	margin: -1px 0 0 -1px;
+}
+
+.ui-widget-combobox button,.ui-widget-combobox button span.ui-button-text,.ui-widget-combobox button span.ui-icon {
+	width: 19px;
+	height: 19px;
+}
+
+.ui-widget-combobox button span.ui-button-text,.ui-widget-combobox button span.ui-icon {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-widget-combobox button span.ui-icon {
+	left: 0;
+	top: 0;
+	background-image: url("/images/admin/btn-combobox-dropdown.png");
+	background-position: 0 0;
+}
+
+.ui-widget-combobox input.ui-autocomplete-input {
+	border-right: medium none;
+}
+
+.ui-corner-tl,.ui-corner-tr,.ui-corner-bl,.ui-corner-br,.ui-corner-top,.ui-corner-bottom,.ui-corner-right,.ui-corner-left,.ui-corner-all {
+	-moz-border-radius: 0;
+}
+
+.ui-buttonset label,.ui-buttonset label span {
+	text-indent: -1000px;
+}
+
+.ui-buttonset .ui-state-default {
+	height: 16px;
+	background-color: #6bbbd6;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: 1px solid #6bbbd6;
+	margin: 0 4px 0 0;
+}
+
+.ui-buttonset .ui-state-active {
+	background-color: #8e8e8e;
+	border-color: gray #e4e4e4 #e4e4e4 gray;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.ui-buttonset .ui-switcher-all {
+	width: 45px;
+	background-image: url(/images/admin/label_all.png);
+}
+
+.ui-buttonset .ui-switcher-pending {
+	width: 60px;
+	background-image: url(/images/admin/label_pending.png);
+}
+
+.ui-buttonset .ui-switcher-sold-out {
+	width: 70px;
+	background-image: url(/images/admin/label_sold_out.png);
+}
+
+.ui-buttonset .ui-switcher-top {
+	width: 38px;
+	background-image: url(/images/admin/label_top.png);
+}
+
+.ui-buttonset .ui-switcher-weekly {
+	width: 55px;
+	background-image: url(/images/admin/label_weekly.png);
+}
+
+.ui-buttonset .ui-switcher-running-low {
+	width: 91px;
+	background-image: url(/images/admin/label_running_low.png);
+}
+
+.ui-buttonset .ui-switcher-recent {
+	width: 56px;
+	background-image: url(/images/admin/label_recent.png);
+}
+
+.ui-buttonset .ui-switcher-daily {
+	width: 46px;
+	background-image: url(/images/admin/label_daily.png);
+}
+
+.sc-bigGrid-header {
+	overflow: hidden;
+	padding: 2px;
+}
+
+.ui-slider .ui-slider-handle {
+	width: 9px;
+	height: 13px;
+	background: url(/images/admin/price_arrow.png) no-repeat;
+	border: medium none;
+	top: -2px;
+	outline: medium none;
+}
+
+.ui-slider-label {
+	position: absolute;
+	z-index: 4;
+	top: 10px;
+	font-size: .7em;
+}
+
+.ui-slider-label-limits {
+	z-index: 3;
+}
+
+.ui-slider-label-limit-max,.ui-slider-label-limit-min {
+	color: #aaa;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0;
+}
+
+button.ui-button-icon-only {
+	height: 1.4em;
+	width: 1.6em;
+}
+
+button.ui-button-icon-only .ui-button-text {
+	line-height: 15px;
+	padding: 0;
+}
+
+.sc-paginator {
+	background: none repeat scroll 0 0 #f8f8f8;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #e7e7e7;
+	overflow: hidden;
+	padding: 4px;
+}
+
+.sc-paginator-container input.sc-paginator-page {
+	width: 20px;
+	border: 1px solid #ccc;
+	display: inline;
+	height: 13px;
+	margin: 0 2px;
+	text-align: right;
+	vertical-align: top;
+}
+
+.sc-paginator button {
+	border: medium none;
+	display: inline;
+	height: 15px;
+	width: 17px;
+	vertical-align: top;
+	margin: 0 2px;
+	background-repeat: no-repeat;
+}
+
+.sc-paginator label.sc-paginator-page-label {
+	vertical-align: top;
+}
+
+.sc-autocomplete {
+	background: none;
+}
+
+.sc-autocomplete label {
+	float: left;
+	line-height: 19px;
+	margin: 0 5px;
+}
+
+.ui-buttonset,button.ui-button-icon-only .ui-icon {
+	left: 0;
+	margin-left: 0;
+	width: 17px;
+	height: 15px;
+}
+
+.sc-bigGrid-body {
+	min-height: 440px;
+}
+
+.tipable {
+	position: relative;
+	padding-right:10px;
+}
+
+.tipable sup {
+	display:block;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	background-color:orange;
+	color:white;
+	font-size:0.75em;
+	font-weight:bold;
+	line-height:14px;
+	position:absolute;
+	right:2px;
+	text-align:center;
+	top:2px;
+	vertical-align:top;
+	padding:0 2px;
+}
+
+.ui-dialog button {
+	height: auto;
+}
+.ui-dialog .ui-dialog-buttonpane button {
+	color: white;
+}
+.ui-dialog {
+	width: 500px;
+	}
+#user-details dl {
+	overflow: hidden;
+	padding:5px 0px;
+	}
+	#user-details dt {
+		float:left;
+		width:190px;
+		text-align: right;
+		padding-right: 10px;
+		font-weight:bold;
+		}
+	#user-details dd {
+		float:left;
+		width:200px;
+		text-align: left;
+		}

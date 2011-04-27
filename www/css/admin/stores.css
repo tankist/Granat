@@ -1,0 +1,48 @@
+dl.schedule-form > dt {
+	width: auto;
+}
+
+dl.schedule-form > dd {
+	width: auto;
+}
+
+table.schedule-week tr {
+	background-color: transparent;
+}
+
+table.schedule-week th {
+	padding: 0 !important;
+	margin: 0 !important;
+	text-align: center;
+	border: none;
+}
+
+table.schedule-week td {
+	padding: 0 3px;
+}
+
+.schedule-week span.dash, .takeaway-time-form span.dash, .delivery-time-form span.dash {
+	padding-left: 3px;
+}
+
+.schedule-week input, .takeaway-time-form input.end, .delivery-time-form input.end {
+	margin: 0;
+	padding: 0;
+}
+
+.schedule-week a.clone {
+	color: #4DA5C4;
+	font-weight: normal;
+	clear: both;
+	display: block;
+	line-height: 15px;
+	visibility: hidden;
+}
+
+td.schedule-day-cell {
+	text-align: center;
+}
+
+td.schedule-day-cell:hover {
+	background-color: #EFEFEF;
+}

@@ -1,0 +1,171 @@
+th.product-name,td.product-name,th.product-who,td.product-who {
+	width: 372px;
+}
+
+th.product-price,td.product-price {
+	width: 100px;
+	text-align: right;
+}
+
+th.product-inventory,td.product-inventory {
+	width: 207px;
+	text-align: center;
+}
+
+th.product-status,td.product-status {
+	width: 86px;
+}
+
+th.product-options,td.product-options {
+	width: 489px;
+	padding-left: 28px!important;
+}
+
+th.product-in-stock {
+	width: 247px;
+	padding-left: 40px;
+}
+
+td.product-in-stock .sc-loader {
+	margin-top: 5px;
+}
+
+.quantity-edit-container {
+	width: 250px;
+	padding-left: 37px;
+}
+
+.quantity-edit-container.view {
+	width: 287px;
+	padding: 0;
+}
+
+.quantity-edit-container span.quantity {
+	width: 30px;
+	text-align: center;
+	float: left;
+}
+
+.quantity-edit-container input.quantity {
+	width: 20px;
+	float: left;
+	text-align: right;
+	margin: 5px 5px 0 8px;
+}
+
+#product-images-block {
+	padding: 0 4px;
+	}
+
+.product-image-wrapper {
+	width: 135px;
+	height: 154px;
+	border: 1px solid #aaa;
+	background: none repeat scroll 0 0 #fff;
+	margin: 9px 5px 0;
+	float: left;
+	padding: 4px;
+	}
+	.product-image-wrapper img {
+		width: 135px;
+		height:135px;
+		}
+
+.product-image-wrapper input {
+	display: inline;
+	vertical-align: text-top;
+}
+	
+label.name-label {
+	margin-left:10px;
+	}
+
+#productImage {
+	height: 18px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
+#productImage input {
+	opacity:0;
+	width: 160px;
+	height:24px;
+	cursor:pointer;
+}
+
+.sortable dd {
+	overflow: hidden;
+}
+
+.sortable dd a.edit,
+.sortable dd span.v-line,
+.sortable dd span.button-replace,
+.sortable dd button.delete {
+	float: left;
+	margin-right: 5px;
+	display: block;
+}
+
+.sortable dd button.delete {
+	float:right;
+}
+
+.sortable .button-replace {
+	cursor: move;
+}
+
+.product-categories .delete {
+	margin: 0;
+}
+
+.sortable .sc-loader {
+	float: right;
+	margin-top: 8px;
+}
+
+.sortable dl button.button-save {
+	vertical-align: middle;
+	background-image: url(/images/admin/btn_save_small.png);
+	width: 43px;
+	height: 19px;
+}
+
+.add-category-container dd {
+	width: 45px!important;
+}
+
+.add-category-container input[type=checkbox] {
+	visibility: hidden;
+}
+
+.quantity-edit-container a.edit,
+.quantity-edit-container span.quantity,
+.quantity-edit-container button.big,
+.quantity-edit-container.view a.save,
+.quantity-edit-container.view input.quantity,
+.quantity-edit-container span.separator,
+.sortable dl input[type=text],
+.sortable dl button.button-add,
+.sortable dl button.button-save,
+.sortable dl.add-category-container label,
+.sortable dl.add-category-container a.edit,
+.sortable dl.add-category-container span.v-line {
+	display: none;
+}
+
+.quantity-edit-container.view a.edit,
+.quantity-edit-container.view span.quantity,
+.quantity-edit-container.view span.separator,
+.quantity-edit-container.view button.big,
+.sortable dl.add-category-container input[type=text],
+.sortable dl.add-category-container button.button-add,
+.sortable dl.add-category-container button.button-save,
+.sortable.product-options dl input[type=text]
+ {
+	display: inline;
+}
+div.user-save {
+	padding-top: 20px;
+	text-align: center;
+	}

@@ -1,0 +1,80 @@
+.sc-dash-column {
+	width: 429px;
+	margin-right: 45px;
+}
+
+.sc-dash-column table {
+	width: 100%;
+}
+
+.sc-dash-column .grey-h2 {
+	height: 21px;
+	background: none repeat scroll 0 0 #ccc;
+	padding: 3px 4px 0 10px;
+}
+
+.sc-dash-column th {
+	line-height: 22px;
+	background: none repeat scroll 0 0 #f8f8f8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	color: #505050;
+	font-weight: bold;
+}
+
+.sc-dash-column td {
+	line-height: 24px;
+}
+
+.sc-dash-column th:first-child,.sc-dash-column td:first-child {
+	padding-left: 11px;
+}
+
+.sc-dash-orders-cell4 {
+	width: 85px;
+}
+
+.sc-dash-column .paginator-wrapper {
+	overflow: hidden;
+	padding: 3px 0 2px 11px;
+}
+
+.sc-dash-column .paginator-wrapper button {
+	margin: 1px 7px 0 0;
+}
+
+.sc-dash-column hr.adpressed {
+	margin-bottom: 22px;
+}
+
+.products-product {
+	width: 330px;
+}
+
+.products-date {
+	text-align: center;
+	width: 150px;
+}
+
+.sc-dash-source-cell1 {
+	width: 257px;
+}
+
+td.sc-dash-source-cell1 {
+	background: url(/images/admin/dash-link.png) no-repeat scroll 11px 7px transparent;
+	padding-left: 34px!important;
+}
+
+.sc-dash-source-cell2 {
+	width: 45px;
+	text-align: center;
+}
+
+.sc-dash-source-cell3 {
+	width: 79px;
+	padding-left: 37px;
+}
+
+.sc-dash-widget .sc-paginator-container .sc-loader,.sc-dash-widget .sc-paginator-container .ui-button {
+	float: left;
+}

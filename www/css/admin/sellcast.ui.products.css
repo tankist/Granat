@@ -1,0 +1,40 @@
+#productNameAutocomplete-component input.ui-autocomplete-input {
+	width: 185px;
+}
+
+#priceSlider-component {
+	width: 125px;
+	float: left;
+	margin-left: 170px;
+	margin-top: 1px;
+	border: medium none;
+	background: none repeat scroll 0 0 transparent;
+}
+
+#priceSlider-component label {
+	position: absolute;
+	left: -60px;
+}
+
+#priceSlider-component .ui-slider-range {
+	border: 1px solid #aaa;
+	height: 3px;
+	top: 2px;
+	width: 100%!important;
+	left: 0!important;
+	background: none repeat scroll 0 0 #fff;
+}
+
+#statusCombo-component {
+	border: medium none;
+	margin-right: 40px;
+}
+
+#statusCombo-component input.ui-autocomplete-input {
+	float: left;
+	width: 54px;
+}
+
+#customerNameAutocomplete-component input.ui-autocomplete-input {
+	width: 218px;
+}
