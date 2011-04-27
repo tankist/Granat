@@ -6,3 +6,4 @@ www/tests
 *.log
 *.bak
 .idea/
+.htaccess

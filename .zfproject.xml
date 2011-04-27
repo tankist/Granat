@@ -90,10 +90,15 @@
             </controllerFile>
             <controllerFile controllerName="Models">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="add"/>
+              <actionMethod actionName="edit"/>
+              <actionMethod actionName="save"/>
+              <actionMethod actionName="delete"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false">
             <formFile formName="Collection"/>
+            <formFile formName="Model"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory/>
@@ -141,9 +146,6 @@
               <viewControllerScriptsDirectory forControllerName="Users">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Models">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
@@ -152,6 +154,18 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Users">
                 <viewScriptFile forActionName="logout"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Models">
+                <viewScriptFile forActionName="add"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Models">
+                <viewScriptFile forActionName="edit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Models">
+                <viewScriptFile forActionName="save"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Models">
+                <viewScriptFile forActionName="delete"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -251,11 +265,12 @@
                 <testApplicationActionMethod forActionName="login"/>
                 <testApplicationActionMethod forActionName="logout"/>
               </testApplicationControllerFile>
-              <testApplicationControllerFile forControllerName="&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;&#xFFFD;">
-                <testApplicationActionMethod forActionName="index"/>
-              </testApplicationControllerFile>
               <testApplicationControllerFile forControllerName="Models">
                 <testApplicationActionMethod forActionName="index"/>
+                <testApplicationActionMethod forActionName="add"/>
+                <testApplicationActionMethod forActionName="edit"/>
+                <testApplicationActionMethod forActionName="save"/>
+                <testApplicationActionMethod forActionName="delete"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>
