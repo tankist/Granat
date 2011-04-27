@@ -25,7 +25,7 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 		$collectionsPaginator = $this->_helper->service('Collection')->getCollectionsPaginator($orderString);
 
 		$this->view->paginator = $collectionsPaginator;
-		$collectionsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::BRANDS_PER_PAGE);
+		$collectionsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
 		$this->view->collections = $collectionsPaginator->getCurrentItems();
 		$this->view->page = $page;
 	}
