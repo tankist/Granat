@@ -4,6 +4,11 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 
 	const ITEMS_PER_PAGE = 20;
 
+	/**
+	 * @var Model_User
+	 */
+	protected $_user;
+
 	public function init() {
 		$this->_helper->getHelper('AjaxContext')->initContext('json');
 		$this->_user = $this->_helper->user();

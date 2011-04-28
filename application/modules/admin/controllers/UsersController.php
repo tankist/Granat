@@ -2,8 +2,14 @@
 
 class Admin_UsersController extends Zend_Controller_Action {
 
+	/**
+	 * @var Model_User
+	 */
+	protected $_user;
+
 	public function init() {
-		/* Initialize action controller here */
+		$this->_helper->getHelper('AjaxContext')->initContext('json');
+		$this->_user = $this->_helper->user();
 	}
 
 	public function indexAction() {

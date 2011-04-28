@@ -21,4 +21,13 @@ class Skaya_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Acti
 		return $this;
 	}
 
+	public function __call($name, $parameters) {
+		$message = array_shift($parameters);
+		$this->addMessage(array(
+			'message' => $message,
+			'status' => $name
+		));
+		return $this;
+	}
+
 }

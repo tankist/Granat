@@ -4,6 +4,11 @@ class Admin_ModelsController extends Zend_Controller_Action {
 
 	const ITEMS_PER_PAGE = 20;
 
+	/**
+	 * @var Model_User
+	 */
+	protected $_user;
+
 	public function init() {
 		$this->_helper->getHelper('AjaxContext')->initContext('json');
 		$this->_user = $this->_helper->user();
@@ -38,7 +43,9 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			'name' => 'user',
 			'action' => $this->_helper->url('save'),
 			'method' => Zend_Form::METHOD_POST,
-			'collections' => $filter->filter($collections->toArray())
+			'collections' => $filter->filter($collections->toArray()),
+			'images' => $this->_helper->sessionSaver('productImagesPath')
+
 		));
 
 		$sessionData = $this->_helper->sessionSaver('modelData');
@@ -47,9 +54,23 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$this->_helper->sessionSaver->delete('modelData');
 		}
 
+		$imageForm = new Admin_Form_ModelImage(array(
+			'name' => 'modelImage',
+			'action' => $this->_helper->url('image'),
+			'imagesPath' => ''
+		));
+		$imageForm->prepareDecorators();
+
+		$sessionData = $this->_helper->sessionSaver('productData');
+		if ($sessionData) {
+			$form->populate($sessionData);
+			$this->_helper->sessionSaver->delete('productData');
+		}
+
 		$form->removeElement('id');
 		$form->prepareDecorators();
 		$this->view->form = $form;
+		$this->view->formImage = $imageForm;
 	}
 
 	public function editAction() {
@@ -106,7 +127,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$data = $form->getValues();
 			$model->populate($data);
 			$model->save();
-			$this->_helper->flashMessenger->addMessage(array('message' => 'Model saved Successfully', 'status' => 'success'));
+			$this->_helper->flashMessenger->success('Model saved Successfully');
 			$this->_redirect($this->_helper->url(''));
 		}
 		else {

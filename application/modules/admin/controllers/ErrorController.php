@@ -35,8 +35,6 @@ class Admin_ErrorController extends Zend_Controller_Action
 		 */
 		if ($log = $this->getLog()) {
 			$log->log($this->view->message, $priority, $errors->exception->getMessage());
-			$log->info('Request Parameters');
-			$log->debug($errors->request->getParams());
 			$log->info('Trace');
 			$log->debug($errors->exception->getTrace());
 		}

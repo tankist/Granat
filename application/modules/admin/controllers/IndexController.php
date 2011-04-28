@@ -1,28 +1,20 @@
 <?php
 
-class Admin_IndexController extends Zend_Controller_Action
-{
+class Admin_IndexController extends Zend_Controller_Action {
 
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
+	/**
+	 * @var Model_User
+	 */
+	protected $_user;
 
-    public function indexAction()
-    {
-        // action body
-    }
+	public function init() {
+		$this->_helper->getHelper('AjaxContext')->initContext('json');
+		$this->_user = $this->_helper->user();
+	}
 
-    public function loginAction()
-    {
-        // action body
-    }
-
-    public function logoutAction()
-    {
-        // action body
-    }
-
+	public function indexAction() {
+		// action body
+	}
 
 }
 
