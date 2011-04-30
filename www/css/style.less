@@ -1,5 +1,7 @@
 @import "common";
 
+@collectionsItemWidthHeight : 268px;
+
 ul.navigation {
 	.oh;
 	list-style:none;
@@ -62,7 +64,7 @@ ul.images {
 		}
 		img {
 			top:10px;
-			left:10px;
+			left:8px;
 		}
 	}
 	&.small {
@@ -72,6 +74,58 @@ ul.images {
 			height:107px;
 		}
 		 img {
+			top:9px;
+			left:9px;
+		}
+	}
+}
+.collections {
+	.oh;
+	position:relative;
+	li {
+		position:relative;
+		width:@collectionsItemWidthHeight;
+		margin-bottom:100px;
+		h1 {
+			margin:5px 0 15px;
+		}
+		ul {
+			li {
+				display:inline;
+				font-size:11px;
+				border-left:1px solid #ae4e43;
+
+				&:first-child {
+					border:none;
+				}
+				a{
+					margin:0 5px;
+				}
+			}
+		}
+	}
+	li.one {
+		float:left;
+	}
+	li.two {
+		left:50%;
+		margin-left:0 - (@collectionsItemWidthHeight / 2);
+		position:absolute;
+	}	
+	li.three {
+		float:right;
+	}
+	.image {
+		.oh;
+		position:relative;
+		em {
+			display:block;
+			width:@collectionsItemWidthHeight;
+			height:@collectionsItemWidthHeight;
+			background:transparent url('../images/collection-image-border.png') no-repeat;
+		}
+		img {
+			position:absolute;
 			top:9px;
 			left:9px;
 		}
@@ -121,7 +175,7 @@ ul.images {
 	height:369px;
 	position:absolute;
 	top:0;
-	left:0;
+	left:-50px;
 	background:url('../images/logo.png') no-repeat 0 0;
 	z-index:1;
 }
@@ -135,7 +189,7 @@ ul.images {
 	margin-top:65px;
 }
 #content {
-	width:950px;
+	width:1050px;
 }
 #footer {
 	overflow-y:hidden;
@@ -155,13 +209,11 @@ ul.images {
 	.fr;
 	font-family:Georgia, Times New Roman, serif;
 	font-size:18px;
-	width:455px;
 	height:86px;
 	background:url('../images/separator.png') no-repeat center right;
-	margin-left:284px;
 	padding-right:20px;
 	li {
-		margin:32px 9px;
+		margin:32px 15px;
 		a {
 			padding:1px 15px;
 			line-height:27px;
@@ -233,39 +285,4 @@ ul.images {
 }
 #copyright {
 	margin-right:25px;
-}
-/** Headers **/
-#catalog-h1 {
-	background:url('../images/glyphs/catalog-h1.png') no-repeat 2px top;
-	width:147px;
-	height:32px;
-	}
-#about-us-h1 {
-	background:url('../images/glyphs/about-us-h1.png') no-repeat 2px top;
-	width:222px;
-	height:32px;
-	}
-#models-h1 {
-	background:url('../images/glyphs/models-h1.png') no-repeat 2px top;
-	width:141px;
-	height:35px;
-	}
-#materials-h1 {
-	background:url('../images/glyphs/materials-h1.png') no-repeat 2px top;
-	width:187px;
-	height:33px;
-	}
-#services {
-	h1 {
-		margin-bottom:0;
-		background:url('../images/glyphs/services-h1.png') no-repeat 2px top;
-		width:85px;
-		height:39px;
-	}
-	h2 {
-		.oh;
-		font-weight:bold;
-		padding-left:15px;
-		background:url("../images/bullet.png") no-repeat 0 center;
-	}
 }

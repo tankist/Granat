@@ -1,4 +1,7 @@
 @import "reset.css";
+@import "../font/fonts.css";
+
+@luxury : 'MajesticRegular';
 
 /*** Tags ***/
 * {
@@ -41,10 +44,13 @@ hr {
 a {
 	color:white;
 	text-decoration:none;
+	&:hover {
+		text-decoration:underline;
+	}
 	}
 h1 {
-	.hide-text;
-	margin:4px 0;
+	font-family:@luxury;
+	font-size:30px;
 }
 /*** Common classes ***/
 .half {
