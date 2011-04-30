@@ -48,6 +48,9 @@ h1 {
   font-family: 'MajesticRegular';
   font-size: 30px;
 }
+h2 {
+  font-size: 22px;
+}
 /*** Common classes ***/
 .half {
   width: 50%;
@@ -213,7 +216,8 @@ ul.images li.active em {
 .models {
   overflow: hidden;
   position: relative;
-  margin: 20px 0 40px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 .models li {
   width: 232px;
@@ -409,4 +413,43 @@ ul.images li.active em {
 #sidebar {
   position: absolute;
   width: 200px;
+}
+#thumbnails {
+  float: left;
+  margin-left: 10px;
+  margin-right: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 342px;
+}
+#thumbnails li {
+  overflow: hidden;
+  clear: both;
+  margin-bottom: 7px;
+  width: 102px;
+}
+#model-nav {
+  overflow: hidden;
+  clear: both;
+  position: relative;
+}
+#model-nav ul li {
+  width: 50%;
+  display: block;
+}
+#model-nav ul li.prev {
+  float: left;
+}
+#model-nav ul li.prev a {
+  float: right;
+  padding-right: 7px;
+  margin-right: 7px;
+  border-right: 1px solid #ae4e43;
+}
+#model-nav ul li.next {
+  float: right;
+}
+#model-nav p {
+  position: absolute;
+  margin: 0;
 }

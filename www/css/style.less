@@ -6,6 +6,8 @@
 @collectionItemWidth : 232px;
 @collectionItemHeight : 304px;
 
+@delimiterColor : #ae4e43;
+
 ul.navigation {
 	.oh;
 	list-style:none;
@@ -97,7 +99,7 @@ ul.images {
 			li {
 				display:inline;
 				font-size:11px;
-				border-left:1px solid #ae4e43;
+				border-left:1px solid @delimiterColor;
 
 				&:first-child {
 					border:none;
@@ -142,7 +144,8 @@ ul.images {
 .models {
     .oh;
     position:relative;
-	margin:20px 0 40px;
+	margin-top:20px;
+	margin-bottom:40px;
 	li {
 		width:@collectionItemWidth;
 		text-align:center;
@@ -328,4 +331,46 @@ ul.images {
 #sidebar {
 	position:absolute;
 	width:@sidebarWidth;
+}
+#thumbnails {
+    .fl;
+	margin-left:10px;
+	margin-right:20px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	height:342px;
+	li {
+		.oh;
+		clear:both;
+		margin-bottom:7px;
+		width:102px;
+	}
+}
+#model-nav {
+    .oh;
+    clear:both;
+	position:relative;
+	ul {
+		li {
+		    width:50%;
+			display:block;
+			&.prev {
+				.fl;
+				a {
+				    @space : 7px;
+					.fr;
+					padding-right:@space;
+					margin-right:@space;
+					border-right:1px solid @delimiterColor;
+				}
+			}
+			&.next {
+				.fr;
+			}
+		}
+	}
+	p {
+		position:absolute;
+		margin:0;
+	}
 }
