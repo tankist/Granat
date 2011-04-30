@@ -126,7 +126,7 @@ CREATE TABLE `gr_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `gr_model_categories`
-	ADD FOREIGN KEY ( `category_id` ) REFERENCES `granat`.`gr_categories` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE ;
+	ADD FOREIGN KEY ( `category_id` ) REFERENCES `granat`.`gr_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE `gr_model_categories`
-	ADD FOREIGN KEY ( `model_id` ) REFERENCES `granat`.`gr_models` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE ;
+	ADD FOREIGN KEY ( `model_id` ) REFERENCES `granat`.`gr_models` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
