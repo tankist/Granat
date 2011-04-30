@@ -1,0 +1,1 @@
+Command for compressing CSS: lessc style.less > style.css && cleancss -o style.min.css style.css
