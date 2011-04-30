@@ -15,6 +15,18 @@ CREATE DATABASE `granat`
 
 USE `granat`;
 
+--
+-- Структура таблицы `gr_categories`
+--
+
+CREATE TABLE IF NOT EXISTS `gr_categories` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `key` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 #
 # Structure for the `gr_collections` table : 
 #
@@ -63,6 +75,18 @@ CREATE TABLE `gr_models` (
   CONSTRAINT `gr_models_fk` FOREIGN KEY (`collection_id`) REFERENCES `gr_collections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Структура таблицы `gr_model_categories`
+--
+
+CREATE TABLE IF NOT EXISTS `gr_model_categories` (
+  `category_id` int(11) unsigned NOT NULL,
+  `model_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`category_id`,`model_id`),
+  KEY `category_id` (`category_id`),
+  KEY `model_id` (`model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 #
 # Structure for the `gr_photos` table : 
 #
@@ -101,3 +125,8 @@ CREATE TABLE `gr_users` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `gr_model_categories`
+	ADD FOREIGN KEY ( `category_id` ) REFERENCES `granat`.`gr_categories` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE ;
+
+ALTER TABLE `gr_model_categories`
+	ADD FOREIGN KEY ( `model_id` ) REFERENCES `granat`.`gr_models` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE ;
