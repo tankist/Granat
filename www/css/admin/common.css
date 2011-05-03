@@ -351,7 +351,7 @@ span.required {
 	text-align: right;
 }
 
-form dl, div.dl {
+dl.zend_form, div.dl {
 	overflow: hidden;
 	background: none repeat scroll 0 0 #f8f8f8;
 	border-top: 1px solid #e7e7e7;
@@ -359,40 +359,40 @@ form dl, div.dl {
 	padding: 0 10px !important;
 }
 
-form dl.active {
+dl.zend_form.active {
 	background: none repeat scroll 0 0 #d0f0fd;
 	border-bottom: 1px solid #6bbbd6;
 	border-top: 1px solid #6bbbd6;
 }
 
-form dl.last, div.last {
+dl.zend_form.last, div.last {
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 18px;
 }
 
-form dt {
+.zend_form dt {
 	clear: both;
 	float: left;
 	line-height: 29px;
 	width: 50%;
 }
 
-form dt label {
+.zend_form dt label {
 	float: right;
 	margin-right: 10px;
 }
 
-form dd {
+.zend_form dd {
 	float: right;
 	width: 50%;
 	padding: 7px 0;
 }
 
-form dd input, form dd select, form dd textarea {
+.zend_form dd input, .zend_form dd select, .zend_form dd textarea {
 	margin-left: 10px;
 }
 
-form dd input {
+.zend_form dd input {
 	height: 16px;
 	border: 1px solid #aaa;
 	padding-top: 1px;
@@ -404,7 +404,7 @@ input[type=checkbox], input[type=radio] {
 	vertical-align: middle;
 }
 
-form dd input[type=checkbox] {
+.zend_form dd input[type=checkbox] {
 	display: inline;
 	vertical-align: middle;
 }

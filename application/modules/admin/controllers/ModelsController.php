@@ -56,7 +56,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 
 		$imageForm = new Admin_Form_ModelImage(array(
 			'name' => 'modelImage',
-			'action' => $this->_helper->url('image'),
+			'action' => $this->_helper->url('upload', 'model-image'),
 			'imagesPath' => ''
 		));
 		$imageForm->prepareDecorators();

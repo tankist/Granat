@@ -96,6 +96,7 @@ DROP TABLE IF EXISTS `gr_photos`;
 CREATE TABLE `gr_photos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hash` varchar(10) NOT NULL,
+  `extension` VARCHAR(5) NOT NULL
   `model_id` int(11) unsigned NOT NULL,
   `order` int(3) unsigned NOT NULL DEFAULT '0',
   `is_model_title` tinyint(1) unsigned NOT NULL DEFAULT '0',

@@ -3,6 +3,7 @@ docs/
 cache/
 tests/report/
 www/tests
+www/uploads
 *.log
 *.bak
 .idea/

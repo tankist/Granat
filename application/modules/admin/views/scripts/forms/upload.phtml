@@ -1,0 +1,40 @@
+<?=$this->element->name?>
+<?=$this->element->upload?>
+<div class="file_upload_label">Upload files</div>
+<?php $this->headScript()
+	->appendFile('/js/admin/upload.js')
+	->appendFile('/js/upload/jquery.fileupload.js')
+	->appendFile('/js/upload/jquery.fileupload-ui.js') ?>
+
+<?php
+$this->headLink()
+	->appendStylesheet('/css/admin/jquery.fileupload-ui.css')
+?>
+<script type="text/html" id="uploadRow">
+	<tr>
+		<td>{{=it.name}}</td>
+		<td class="file_upload_progress"><div></div></td>
+		<td class="file_upload_cancel">
+			<button class="ui-state-default ui-corner-all" title="Cancel">
+				<span class="ui-icon ui-icon-cancel">Cancel</span>
+			</button>
+		</td>
+	</tr>
+</script>
+<script type="text/html" id="progressRow">
+	<tr>
+		<td class="preview">
+			<div class="image">
+				<em>&nbsp;</em>
+				<img src="/{{=it.path}}/{{=it.thumb}}" alt="{{=it.name}}">
+			</div>
+			<span>{{=it.name}}</span>
+		</td>
+		<td class="file_upload_progress"><div></div></td>
+		<td class="file_upload_delete">
+			<button class="ui-state-default ui-corner-all" title="Delete" data-id="{{=it.id}}">
+				<span class="ui-icon ui-icon-closethick">Delete</span>
+			</button>
+		</td>
+	</tr>
+</script>
