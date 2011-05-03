@@ -24,11 +24,11 @@ $this->headLink()
 <script type="text/html" id="progressRow">
 	<tr>
 		<td class="preview">
-			<div class="image">
+			<label for="coltitle_{{=it.id}}"><div class="image">
 				<em>&nbsp;</em>
 				<img src="/{{=it.path}}/{{=it.thumb}}" alt="{{=it.name}}">
 			</div>
-			<span>{{=it.name}}</span>
+			<input type="radio" name="isCollectionTitle" id="coltitle_{{=it.id}}">{{=it.name}}</label>
 		</td>
 		<td class="file_upload_progress"><div></div></td>
 		<td class="file_upload_delete">
