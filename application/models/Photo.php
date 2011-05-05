@@ -50,14 +50,27 @@ class Model_Photo extends Skaya_Model_Abstract {
 		)
 	);
 
+	/**
+	 * @static
+	 * @param  $thumbnailPack
+	 * @return void
+	 */
 	public static function setThumbnailPack($thumbnailPack) {
 		self::$_thumbnailPack = $thumbnailPack;
 	}
 
+	/**
+	 * @static
+	 * @return array
+	 */
 	public static function getThumbnailPack() {
 		return self::$_thumbnailPack;
 	}
 
+	/**
+	 * @param string $size
+	 * @return string
+	 */
 	public function getFilename($size = null) {
 		$modifier = $indicationType = '';
 		$sizes = self::getThumbnailPack();
@@ -77,6 +90,29 @@ class Model_Photo extends Skaya_Model_Abstract {
 				break;
 		}
 		return $filename;
+	}
+
+	/**
+	 * @throws Skaya_Model_Exception
+	 * @param  string $filename
+	 * @return Model_Photo
+	 */
+	public function setFilename($filename) {
+		if ($dotPos = strrpos($filename, '.')) {
+			$this->hash = substr($filename, 0, $dotPos);
+			$this->extension = substr($filename, $dotPos + 1);
+		}
+		else {
+			throw new Skaya_Model_Exception('Incorrect filename passed');
+		}
+		return $this;
+	}
+
+	/**
+	 * @return Model_Model
+	 */
+	public function getModel() {
+		return Skaya_Model_Service_Abstract::factory('Model')->getModelById($this->model_id);
 	}
 
 }

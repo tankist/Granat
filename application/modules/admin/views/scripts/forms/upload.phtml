@@ -12,10 +12,16 @@ $this->headLink()
 ?>
 <script type="text/html" id="uploadRow">
 	<tr>
-		<td>{{=it.name}}</td>
-		<td class="file_upload_progress"><div></div></td>
+		<td class="preview">
+			<div class="image">
+				<em>&nbsp;</em>
+				<img src="{{=it.getAsDataURL()}}" alt="{{=it.name}}" width="84" height="90" />
+			</div>
+			<label>{{=it.name}}</label>
+		</td>
+		<td class="file_upload_progress" align="center"><div></div></td>
 		<td class="file_upload_cancel">
-			<button class="ui-state-default ui-corner-all" title="Cancel">
+			<button class="cancel ui-state-default ui-corner-all" title="Cancel">
 				<span class="ui-icon ui-icon-cancel">Cancel</span>
 			</button>
 		</td>
@@ -28,11 +34,11 @@ $this->headLink()
 				<em>&nbsp;</em>
 				<img src="/{{=it.path}}/{{=it.thumb}}" alt="{{=it.name}}">
 			</div>
-			<input type="radio" name="isCollectionTitle" id="coltitle_{{=it.id}}">{{=it.name}}</label>
+			<input type="radio" name="isCollectionTitle" id="coltitle_{{=it.id}}">Main Image</label>
 		</td>
 		<td class="file_upload_progress"><div></div></td>
 		<td class="file_upload_delete">
-			<button class="ui-state-default ui-corner-all" title="Delete" data-id="{{=it.id}}">
+			<button class="delete ui-state-default ui-corner-all" title="Delete" data-id="{{=it.id}}">
 				<span class="ui-icon ui-icon-closethick">Delete</span>
 			</button>
 		</td>

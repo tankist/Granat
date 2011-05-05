@@ -44,8 +44,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			'action' => $this->_helper->url('save'),
 			'method' => Zend_Form::METHOD_POST,
 			'collections' => $filter->filter($collections->toArray()),
-			'images' => $this->_helper->sessionSaver('productImagesPath')
-
+			'images' => $this->_helper->sessionSaver('modelImagesPath')
 		));
 
 		$sessionData = $this->_helper->sessionSaver('modelData');
