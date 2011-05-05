@@ -49,7 +49,7 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 				'extension' => $extension
 			));
 			if (!$model->isEmpty()) {
-				$model->addImage($image);
+				$model->addPhoto($image);
 				$id = $image->id;
 			}
 			else {

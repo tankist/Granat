@@ -60,10 +60,10 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		));
 		$imageForm->prepareDecorators();
 
-		$sessionData = $this->_helper->sessionSaver('productData');
+		$sessionData = $this->_helper->sessionSaver('modelData');
 		if ($sessionData) {
 			$form->populate($sessionData);
-			$this->_helper->sessionSaver->delete('productData');
+			$this->_helper->sessionSaver->delete('modelData');
 		}
 
 		$form->removeElement('id');
@@ -74,6 +74,9 @@ class Admin_ModelsController extends Zend_Controller_Action {
 
 	public function editAction() {
 		$model_id = $this->_getParam('id');
+		/**
+		 * @var Model_Model $model
+		 */
 		$model = $this->_helper->service('Model')->getModelById($model_id);
 		if ($model->isEmpty()) {
 			throw new Zend_Controller_Action_Exception('Model not found', 404);
@@ -82,11 +85,24 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$collections = $this->_helper->service('Collection')->getCollections('name');
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
+		$images = $model->getPhotos();
+		$imagesData = array();
+		$imagesPath = $this->_helper->imagePath($model);
+		foreach($images as /** @var Model_Photo $image */ $image) {
+			$imagesData[] = array(
+				'id' => $image->id,
+				'name' => $image->getFilename(),
+				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'path' => $imagesPath
+			);
+		}
+
 		$form = new Admin_Form_Model(array(
 			'name' => 'model',
 			'action' => $this->_helper->url('save'),
 			'method' => Zend_Form::METHOD_POST,
-			'collections' => $filter->filter($collections->toArray())
+			'collections' => $filter->filter($collections->toArray()),
+			'images' => $imagesData
 		));
 		$data = $model->toArray();
 
@@ -99,18 +115,32 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$form->populate($data);
 		$form->prepareDecorators();
 		$this->view->form = $form;
+
+		$imageForm = new Admin_Form_ModelImage(array(
+			'name' => 'modelImage',
+			'action' => $this->_helper->url('upload', 'model-image'),
+			'imagesPath' => ''
+		));
+		$imageForm->prepareDecorators();
+		$this->view->formImage = $imageForm;
 	}
 
 	public function saveAction() {
 		$request = $this->getRequest();
 		$model_id = $request->getParam('id');
 		if (!empty($model_id)) {
+			/**
+			 * @var Model_Model $model
+			 */
 			$model = $this->_helper->service('Model')->getModelById($model_id);
 			if ($model->isEmpty()) {
 				throw new Zend_Controller_Action_Exception('Model not found', 404);
 			}
 		}
 		else {
+			/**
+			 * @var Model_Model $model
+			 */
 			$model = $this->_helper->service('Model')->create();
 		}
 
@@ -126,6 +156,29 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$data = $form->getValues();
 			$model->populate($data);
 			$model->save();
+			
+			$images = (array)$this->_helper->sessionSaver('modelImagesPath');
+			$modelFolder = $this->_helper->imagePath($model);
+			/**
+			 * @var Service_Photo $photoService
+			 */
+			$photoService = $this->_helper->service('Photo');
+			foreach($images as $imageData) {
+				$path = $imageData['path'];
+				$image = $photoService->create(array(
+					'filename' => $imageData['name']
+				));
+				foreach(array_merge(array(''), Model_Photo::getThumbnailPack()) as $size) {
+					$filename = $image->getFilename($size);
+					$filePath = realpath($path . DIRECTORY_SEPARATOR . $filename);
+					if (is_readable($filePath) && is_file($filePath)) {
+						rename($filePath, realpath($modelFolder . DIRECTORY_SEPARATOR . $filename));
+					}
+				}
+				$model->addPhoto($image);
+			}
+			$this->_helper->sessionSaver->delete('modelImagesPath');
+			
 			$this->_helper->flashMessenger->success('Model saved Successfully');
 			$this->_redirect($this->_helper->url(''));
 		}

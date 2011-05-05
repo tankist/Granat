@@ -26,6 +26,10 @@
 			var data = {
 				id : $(this).data('id')
 			};
+			var model_id = $('#model #id').val() * 1;
+			if (model_id) {
+				data.model_id = model_id;
+			}
 			$.getJSON(DELETE_URL, data, function(r) {
 				if (r.error) {
 					showMessage(r.error, 'error');
