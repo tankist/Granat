@@ -1,21 +1,14 @@
 <?$this->headTitle('Add model')?>
 <?=$this->form?>
-<?=$this->formImage?>
-<form id="file_upload" action="/admin/model-image/upload/" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file[]" multiple>
-    <button>Upload</button>
-    <div class="file_upload_label">Upload files</div>
-</form>
-<table id="files"></table>
+<dl class="zend_form upload_form">
+	<dt>&nbsp;</dt>
+	<dd>
+		<?=$this->formImage?>
+	</dd>
+</dl>
 <?php $this->headScript()
-	//->appendFile('/js/form/jquery.form.js')
-	->appendFile('/js/dot.js')
-	->appendFile('/js/upload/jquery.fileupload.js')
-	->appendFile('/js/upload/jquery.fileupload-ui.js')
-	->appendFile('/js/admin/upload.js') ?>
+	->appendFile('/js/dot.js') ?>
 
 <?php 
 $this->headLink()
-	->appendStylesheet('/css/admin/ui/jquery-ui-1.8.11.custom.css')
-	->appendStylesheet('/css/admin/jquery.fileupload-ui.css')
-?>
+	->appendStylesheet('/css/admin/ui/jquery-ui-1.8.11.custom.css') ?>

@@ -1,2 +1,14 @@
 <?$this->headTitle('Edit model')?>
 <?=$this->form?>
+<dl class="zend_form upload_form">
+	<dt>&nbsp;</dt>
+	<dd>
+		<?=$this->formImage?>
+	</dd>
+</dl>
+<?php $this->headScript()
+	->appendFile('/js/dot.js') ?>
+
+<?php
+$this->headLink()
+	->appendStylesheet('/css/admin/ui/jquery-ui-1.8.11.custom.css') ?>

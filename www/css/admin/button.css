@@ -21,15 +21,6 @@ button.disabled, button.disabled span {
 	line-height:16px;
 	color:#c2c2c2;
 	}
-button.delete {
-	background-image:url('/images/admin/btn_delete.png');
-	width:15px;
-	height:15px;
-	vertical-align:text-top;
-	display:inline;
-	text-indent:-10000000px;
-	padding:0;
-	}
 .button-plus, .button-minus {
 	width:11px;
 	height:11px;

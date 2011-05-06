@@ -169,3 +169,6 @@ div.user-save {
 	padding-top: 20px;
 	text-align: center;
 	}
+
+#main_image_id-label {width:0;}
+#main_image_id-element {width:100%;}

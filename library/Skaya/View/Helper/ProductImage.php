@@ -9,8 +9,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
-{
+class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement {
 	/**
 	 * Input type to use
 	 * @var string
@@ -41,9 +40,8 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 	 *
 	 * @return string The radio buttons XHTML.
 	 */
-	public function ProductImage($name, $value = null, $attribs = null,
-		$options = null, $listsep = "\n")
-	{
+	public function productImage($name, $value = null, $attribs = null,
+		$options = null, $listsep = "\n") {
 
 		$info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
 		extract($info); // name, value, attribs, options, listsep, disable
@@ -52,7 +50,7 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 		// retrieve attributes for labels (prefixed with 'label_' or 'label')
 		$label_attribs = array();
 		foreach ($attribs as $key => $val) {
-			$tmp    = false;
+			$tmp = false;
 			$keyLen = strlen($key);
 			if ((6 < $keyLen) && (substr($key, 0, 6) == 'label_')) {
 				$tmp = substr($key, 6);
@@ -68,25 +66,12 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 			}
 		}
 
-		$labelPlacement = 'append';
-		foreach ($label_attribs as $key => $val) {
-			switch (strtolower($key)) {
-				case 'placement':
-					unset($label_attribs[$key]);
-					$val = strtolower($val);
-					if (in_array($val, array('prepend', 'append'))) {
-						$labelPlacement = $val;
-					}
-					break;
-			}
-		}
-
 		// the radio button values and labels
-		$options = (array) $options;
+		$options = (array)$options;
 
 		// build the element
 		$xhtml = '';
-		$list  = array();
+		$list = array();
 
 		// should the name affect an array collection?
 		$name = $this->view->escape($name);
@@ -95,26 +80,23 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 		}
 
 		// ensure value is an array to allow matching multiple times
-		$value = (array) $value;
+		$value = (array)$value;
 
 		// XHTML or HTML end tag?
 		$endTag = ' />';
 		if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
-			$endTag= '>';
+			$endTag = '>';
 		}
 
 		// add radio buttons to the list.
 		$filter = new Zend_Filter_Alnum();
 		foreach ($options as $opt_value => $opt_label) {
-
-			// Should the label be escaped?
-			
-
 			// is it disabled?
 			$disabled = '';
-			if (true === $disable) {
-				$disabled = ' disabled="disabled"';
-			} elseif (is_array($disable) && in_array($opt_value, $disable)) {
+			if (isset($disable) &&
+			        (true === $disable ||
+			         (is_array($disable) &&
+			            in_array($opt_value, $disable)))) {
 				$disabled = ' disabled="disabled"';
 			}
 
@@ -125,19 +107,41 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 			}
 
 			// generate ID
-			$optId = $id . '-' . $filter->filter($opt_value);
+			if (!isset($id)) {
+				$optId = $id = $filter->filter($opt_value);
+			}
+			else {
+				$optId = $id . '-' . $filter->filter($opt_value);
+			}
+
 
 			// Wrap the radios in labels
-			$point = strpos($attribs['images'][$opt_value]['name'], '.');
-			$name = substr($attribs['images'][$opt_value]['name'], 0,$point);
-			$ext = substr($attribs['images'][$opt_value]['name'], $point);
+			$image = $attribs['images'][$opt_value];
+			$filename = $image['name'];
+			$path = $image['path'];
+			$thumb = $image['thumb'];
+			$image_id = $image['id'];
+			if (!$image_id) {
+				$image_id = $opt_value;
+			}
 
-			$radio = '						<div class="product-image-wrapper">'
-					. '							<img src="/'.$attribs['images'][$opt_value]['path'].'/'.$name.'_m'.$ext.'" alt="">'
-					. '							<div class="fl"><input name="image" type="radio" id="'.$opt_value.'" value="'.$opt_value.'" '.$checked.'>&nbsp;<label for="'.$opt_value.'">Main Image</label></div>'
-					. '							<button class="delete fr" image_id="'.$opt_value.'">delete</button>'
-					. '						</div>';
-					
+			$radio = <<<EOS
+	<tr>
+		<td class="preview">
+			<label for="$optId"><div class="image">
+				<em>&nbsp;</em>
+				<img src="/$path/$thumb" alt="$filename">
+			</div>
+			<input type="radio" name="isCollectionTitle" value="$image_id" id="$optId"{$checked}{$disabled}{$endTag}Main Image</label>
+		</td>
+		<td class="file_upload_progress"><div></div></td>
+		<td class="file_upload_delete">
+			<button class="delete ui-state-default ui-corner-all" title="Delete" data-id="$image_id">
+				<span class="ui-icon ui-icon-closethick">Delete</span>
+			</button>
+		</td>
+	</tr>
+EOS;
 
 			// add to the array of radio buttons
 			$list[] = $radio;
@@ -146,6 +150,6 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement
 		// done!
 		$xhtml .= implode($listsep, $list);
 
-		return $xhtml;
+		return '<table id="files">' . $xhtml . '</table>';
 	}
 }
