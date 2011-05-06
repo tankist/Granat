@@ -6,6 +6,12 @@
 		<?=$this->formImage?>
 	</dd>
 </dl>
+<dl class="zend_form upload_form">
+	<dt>&nbsp;</dt>
+	<dd>
+		<p><?=$this->formButton('submit', 'Save', array('class' => 'submit'))?></p>
+	</dd>
+</dl>
 <?php $this->headScript()
 	->appendFile('/js/dot.js') ?>
 

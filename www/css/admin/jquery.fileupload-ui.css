@@ -143,6 +143,7 @@ form.file_upload button,
 	.upload_form dt {display:none;}
 	.upload_form dd {width:100%;}
 	.upload_form form {margin:0 auto;}
+	.upload_form p {text-align:center;}
 
 #files {
 	width:50%;

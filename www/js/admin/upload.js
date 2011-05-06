@@ -38,6 +38,11 @@
 				$(button).parents('tr:first').remove();
 			});
 		}, 'json');
+
+		$('.upload_form button.submit').click(function(e){
+			e.preventDefault();
+			$('form:not(.file_upload)').submit();
+		});
 	});
 
 })(this.jQuery, this, this.document);
