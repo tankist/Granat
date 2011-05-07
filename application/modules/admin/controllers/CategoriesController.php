@@ -10,22 +10,18 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 	}
 
 	public function indexAction() {
-		$this->_forward('list');
-	}
-
-	public function listAction() {
 		$request = $this->getRequest();
 		$page = $request->getParam('page', 1);
 		$this->view->order = $order = $request->getParam('order');
 		$this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
-		/**
-		 * @var Skaya_Paginator $categoriesPaginator
-		 */
 		$orderString = null;
 		if ($order) {
 			$orderString = $order . ' ' . $orderType;
 		}
 
+		/**
+		 * @var Skaya_Paginator $categoriesPaginator
+		 */
 		$categoriesPaginator = $this->_helper->service('Category')->getCategoriesPaginator($orderString);
 
 		$this->view->paginator = $categoriesPaginator;
@@ -54,6 +50,9 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 
 	public function editAction() {
 		$category_id = $this->_getParam('id');
+		/**
+		 * @var Model_Category $category
+		 */
 		$category = $this->_helper->service('Category')->getCategoryById($category_id);
 		if ($category->isEmpty()) {
 			throw new Zend_Controller_Action_Exception('Category not found', 404);
@@ -81,6 +80,9 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 		$request = $this->getRequest();
 		$category_id = $request->getParam('id');
 		if (!empty($category_id)) {
+			/**
+			 * @var Model_Category $category
+			 */
 			$category = $this->_helper->service('Category')->getCategoryById($category_id);
 			if ($category->isEmpty()) {
 				throw new Zend_Controller_Action_Exception('Category not found', 404);
@@ -98,7 +100,7 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 			$data = $form->getValues();
 			$category->populate($data);
 			$category->save();
-			$this->_helper->flashMessenger->addMessage(array('message' => 'Category saved Successfully', 'status' => 'success'));
+			$this->_helper->flashMessenger->success('Category saved Successfully');
 			$this->_redirect($this->_helper->url(''));
 		}
 		else {
@@ -116,6 +118,9 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 
 	public function deleteAction() {
 		$category_id = $this->_getParam('id');
+		/**
+		 * @var Model_Category $category
+		 */
 		$category = $this->_helper->service('Category')->getCategoryById($category_id);
 		if ($category->isEmpty()) {
 			throw new Zend_Controller_Action_Exception('Category ID NOT Found', 404);
@@ -131,6 +136,9 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 		if ( $categoryIds && is_array($categoryIds) ) {
 			$i = 0;
 			foreach ( $categoryIds as $id ) {
+				/**
+				 * @var Model_Category $category
+				 */
 				$category = $this->_helper->service('Category')->getCategoryById($id);
 				if ( !$category->isEmpty() ) {
 					$category->delete();
@@ -139,11 +147,11 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 			}
 		}
 		if ( $i ) {
-			$this->_helper->flashMessenger->addMessage(array('message' => $i.' category'.(($i == 1)?'':'s').' have been deleted.', 'status' => 'success'));
+			$this->_helper->flashMessenger->success($i.' category'.(($i == 1)?'':'s').' have been deleted.');
 		} else {
-			$this->_helper->flashMessenger->addMessage(array('message' => 'No category has been deleted', 'status' => 'fail'));
+			$this->_helper->flashMessenger->fail('No category has been deleted');
 		}
-		$this->_redirect('/admin/categories');
+		$this->_redirect($this->_helper->url(''));
 	}
 
 }

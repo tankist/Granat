@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @property Zend_Form_Element_Hidden $id
+ * @property Zend_Form_Element_Text $name
+ * @property Zend_Form_Element_Text $key
+ * @property Zend_Form_Element_Button $submit
+ */
 class Admin_Form_Collection extends Admin_Form_Abstract {
 
 	public function init() {

@@ -1,9 +1,5 @@
 <?php
-abstract class Admin_Form_Abstract extends Zend_Form {
-
-	public function prepareDecorators() {
-		return $this;
-	}
+abstract class Admin_Form_Abstract extends Form_Abstract {
 
 	public function setDefaults(array $values) {
 		$belongsTo = $this->getElementsBelongTo();

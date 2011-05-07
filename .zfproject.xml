@@ -2,7 +2,7 @@
 <projectProfile type="default" version="1.10">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
-    <applicationDirectory classNamePrefix="Application_">
+    <applicationDirectory classNamePrefix="">
       <apisDirectory enabled="false"/>
       <configsDirectory>
         <applicationConfigFile type="ini"/>
@@ -46,6 +46,7 @@
           <collectionFile collectionName="Models" itemType="Model"/>
           <collectionFile collectionName="Fabrics" itemType="Fabric"/>
           <collectionFile collectionName="Collections" itemType="Collection"/>
+          <collectionFile collectionName="Categorys" itemType="Category"/>
         </collectionsDirectory>
         <modelFile modelName="Photo"/>
         <modelFile modelName="Model"/>
@@ -60,8 +61,10 @@
             <mapperFile mapperName="Model" type="Db"/>
             <mapperFile mapperName="Fabric" type="Db"/>
             <mapperFile mapperName="Collection" type="Db"/>
+            <mapperFile mapperName="Category" type="Db"/>
           </mappersDirectory>
         </mappersDirectory>
+        <modelFile modelName="Category"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="admin">
@@ -264,6 +267,7 @@
         <serviceFile name="Model"/>
         <serviceFile name="Fabric"/>
         <serviceFile name="Collection"/>
+        <serviceFile name="Category"/>
       </servicesDirectory>
     </applicationDirectory>
     <dataDirectory enabled="false">
