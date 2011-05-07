@@ -16,7 +16,8 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 	public function init() {
 		$this
 			->addElement('hidden', 'id', array('label' => 'id'))
-			->addElement('text', 'name', array('label' => 'Name:', 'required' => true))
+			->addElement('text', 'name', array('label' => 'Name:', 'required' => true, 'class' => 'key-source'))
+			->addElement('text', 'key', array('label' => 'Short Key:', 'required' => true, 'class' => 'key-target'))
 			->addElement('textarea', 'description', array('label' => 'Description:', 'rows' => 10, 'cols' => 40))
 			->addElement('select', 'collection_id', array('label' => 'Collection:', 'required' => true, 'multiOptions' => $this->getCollections()))
 			->addElement('checkbox', 'is_collection_title', array('label' => 'Main Collection Model:'))

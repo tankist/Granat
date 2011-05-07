@@ -1,12 +1,3 @@
-# SQL Manager 2010 for MySQL 4.5.0.9
-# ---------------------------------------
-# Host     : localhost
-# Port     : 3306
-# Database : granat
-
-
-SET FOREIGN_KEY_CHECKS=0;
-
 DROP DATABASE IF EXISTS `granat`;
 
 CREATE DATABASE `granat`
@@ -24,7 +15,8 @@ CREATE TABLE IF NOT EXISTS `gr_categories` (
   `name` varchar(50) NOT NULL,
   `key` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `key` (`key`)
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -37,8 +29,11 @@ CREATE TABLE `gr_collections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` text,
-  `order` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `key` varchar(50) NOT NULL,
+  `order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `key` (`key`),
   KEY `order` (`order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,8 +47,10 @@ CREATE TABLE `gr_fabrics` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `description` text,
+  `key` VARCHAR( 50 ) NOT NULL,
   `photo` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -67,10 +64,14 @@ CREATE TABLE `gr_models` (
   `name` varchar(50) NOT NULL,
   `description` text,
   `collection_id` int(11) unsigned NOT NULL,
-  `is_collection_title` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `order` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `is_collection_title` tinyint(1) unsigned NOT NULL,
+  `category_id` INT( 11 ) UNSIGNED NOT NULL,
+  `key` varchar(50) NOT NULL,
+  `order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`),
   KEY `collection_id` (`collection_id`),
+  KEY `category_id` (`category_id`),
   KEY `order` (`order`),
   CONSTRAINT `gr_models_fk` FOREIGN KEY (`collection_id`) REFERENCES `gr_collections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -131,3 +132,6 @@ ALTER TABLE `gr_model_categories`
 
 ALTER TABLE `gr_model_categories`
 	ADD FOREIGN KEY ( `model_id` ) REFERENCES `granat`.`gr_models` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+INSERT INTO `gr_users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `date_added`, `status`) VALUES
+(1, 'Victor', 'Gryshko', 'victor@skaya.net', 'cca8dd8babd4c9996c8dfee788a49d18', 'admin', '2011-05-07 17:02:53', 'active');

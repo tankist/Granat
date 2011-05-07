@@ -118,6 +118,7 @@
             <formFile formName="Collection"/>
             <formFile formName="Model"/>
             <formFile formName="Category"/>
+            <formFile formName="Fabric"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory/>

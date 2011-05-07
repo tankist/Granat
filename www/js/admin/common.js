@@ -66,7 +66,7 @@ $.fn.collapseTableRow = function() {
 	});
 };
 
-$.fn.showEmtyGridMessage = function(text) {
+$.fn.showEmptyGridMessage = function(text) {
 	var msgText = text || 'No items were found';
 //	var msgText = text || 'No items were found.You can add them <a href="/admin/products/add/">here</a>'
 	return this.each(function (index, el) {
@@ -107,6 +107,10 @@ String.prototype.capitalize = function() {
 	return this.substr(0, 1).toUpperCase() + this.substr(1);
 };
 
+String.prototype.wikify = function() {
+	return this.replace(/[^a-zA-Z0-9а-яА-Я]+/ig, '_');
+};
+
 $(function() {
 	$('input.select-all').listchecks();
 	//Initialize AJAX with standard success/error handlers
@@ -127,5 +131,20 @@ $(function() {
 				this.onError.call(this, data);
 			}
 		}
+	});
+
+	$('input.key-source').change(function(e) {
+		var $target = $('input.key-target');
+		if ($target.val() == '') {
+			$target.val($(this).val().wikify());
+		}
+	});
+
+	$('input.key-target').change(function(e) {
+		$(this).val($(this).val().wikify());
+	});
+
+	$('input.key-target').parents('form').submit(function(e) {
+		$('input.key-source, input.key-target').change();
 	});
 });

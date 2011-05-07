@@ -5,7 +5,7 @@
  * @property Zend_Form_Element_Text $key
  * @property Zend_Form_Element_Button $submit
  */
-class Admin_Form_Collection extends Admin_Form_Abstract {
+class Admin_Form_Fabric extends Admin_Form_Abstract {
 
 	public function init() {
 		$this

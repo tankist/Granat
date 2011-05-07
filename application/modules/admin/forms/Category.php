@@ -10,8 +10,9 @@ class Admin_Form_Category extends Admin_Form_Abstract {
 	public function init() {
 		$this
 			->addElement('hidden', 'id', array('label' => 'id'))
-			->addElement('text', 'name', array('label' => 'Name:', 'required' => true))
-			->addElement('button', 'submit', array('label' => 'submit', 'type' => 'submit'));
+			->addElement('text', 'name', array('label' => 'Name:', 'required' => true, 'class' => 'key-source'))
+			->addElement('text', 'key', array('label' => 'Short Key:', 'required' => true, 'class' => 'key-target'))
+			->addElement('button', 'submit', array('label' => 'Save', 'type' => 'submit'));
 
 	}
 
