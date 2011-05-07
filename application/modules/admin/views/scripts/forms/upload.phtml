@@ -13,10 +13,10 @@ $this->headLink()
 <script type="text/html" id="uploadRow">
 	<tr>
 		<td class="preview">
-			<div class="image">
+			{{ if (it.getAsDataURL) { }}<div class="image">
 				<em>&nbsp;</em>
 				<img src="{{=it.getAsDataURL()}}" alt="{{=it.name}}" width="84" height="90" />
-			</div>
+			</div>{{ } }}
 			<label>{{=it.name}}</label>
 		</td>
 		<td class="file_upload_progress" align="center"><div></div></td>
