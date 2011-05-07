@@ -31,10 +31,12 @@ CREATE TABLE `gr_collections` (
   `description` text,
   `key` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL,
+  `main_model_id` INT( 11 ) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `key` (`key`),
-  KEY `order` (`order`)
+  KEY `order` (`order`),
+  KEY `main_model_id` (`main_model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -64,16 +66,18 @@ CREATE TABLE `gr_models` (
   `name` varchar(50) NOT NULL,
   `description` text,
   `collection_id` int(11) unsigned NOT NULL,
-  `is_collection_title` tinyint(1) unsigned NOT NULL,
   `category_id` INT( 11 ) UNSIGNED NOT NULL,
+  `main_photo_id` INT( 11 ) UNSIGNED NOT NULL
   `key` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `key` (`key`),
   KEY `collection_id` (`collection_id`),
   KEY `category_id` (`category_id`),
+  KEY `main_photo_id` (`main_photo_id`),
   KEY `order` (`order`),
-  CONSTRAINT `gr_models_fk` FOREIGN KEY (`collection_id`) REFERENCES `gr_collections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `model_collection` FOREIGN KEY (`collection_id`) REFERENCES `gr_collections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `model_category` FOREIGN KEY (`category_id`) REFERENCES `gr_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

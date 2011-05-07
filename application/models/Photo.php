@@ -5,7 +5,6 @@
  * @property string $extension
  * @property int $model_id
  * @property int $order
- * @property boolean $isModelTitle
  */
 class Model_Photo extends Skaya_Model_Abstract {
 

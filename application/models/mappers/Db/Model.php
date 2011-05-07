@@ -6,6 +6,10 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 
 	protected $_mapperTableName = self::TABLE_NAME;
 
+	protected $_fieldMapping = array(
+		'mainPhotoId' => 'main_photo_id'
+	);
+
 	public function getModelById($id) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchRowById($id);

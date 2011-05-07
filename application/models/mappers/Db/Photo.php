@@ -12,6 +12,12 @@ class Model_Mapper_Db_Photo extends Skaya_Model_Mapper_Db_Abstract {
 		return $this->getMappedArrayFromData($photoBlob);
 	}
 
+	public function getModelPhotoById($model_id, $id) {
+		$photoTable = self::_getTableByName(self::TABLE_NAME);
+		$photoBlob = $photoTable->fetchRowByIdAndModelId($id, $model_id);
+		return $this->getMappedArrayFromData($photoBlob);
+	}
+
 	public function getPhotos($order = null, $count = null, $offset = null) {
 		$photoTable = self::_getTableByName(self::TABLE_NAME);
 		$photoBlob = $photoTable->fetchAll(null, $order, $count, $offset);

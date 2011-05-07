@@ -86,10 +86,10 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
 		$images = $model->getPhotos();
-		$imagesData = array();
+		$imagesData = $this->_helper->sessionSaver('modelImagesPath');
 		$imagesPath = $this->_helper->imagePath($model);
 		foreach($images as /** @var Model_Photo $image */ $image) {
-			$imagesData[] = array(
+			$imagesData[$image->id] = array(
 				'id' => $image->id,
 				'name' => $image->getFilename(),
 				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
@@ -105,6 +105,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			'images' => $imagesData
 		));
 		$data = $model->toArray();
+		$data['modelTitle'] = $model->getMainPhoto()->id;
 
 		$sessionData = $this->_helper->sessionSaver('modelData');
 		if ($sessionData) {
@@ -147,9 +148,22 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$collections = $this->_helper->service('Collection')->getCollections('name');
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
+		$images = $model->getPhotos();
+		$imagesData = $this->_helper->sessionSaver('modelImagesPath');
+		$imagesPath = $this->_helper->imagePath($model);
+		foreach($images as /** @var Model_Photo $image */ $image) {
+			$imagesData[$image->id] = array(
+				'id' => $image->id,
+				'name' => $image->getFilename(),
+				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'path' => $imagesPath
+			);
+		}
+
 		$form = new Admin_Form_Model(array(
 			'name' => 'model',
-			'collections' => $filter->filter($collections->toArray())
+			'collections' => $filter->filter($collections->toArray()),
+			'images' => $imagesData
 		));
 
 		if ($request->isPost() && $form->isValid($request->getPost())) {
@@ -163,21 +177,33 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			 * @var Service_Photo $photoService
 			 */
 			$photoService = $this->_helper->service('Photo');
+			$titleChanged = false;
 			foreach($images as $imageData) {
 				$path = $imageData['path'];
 				$image = $photoService->create(array(
 					'filename' => $imageData['name']
 				));
-				foreach(array_merge(array(''), Model_Photo::getThumbnailPack()) as $size) {
+				foreach(array_merge(array(''), array_keys(Model_Photo::getThumbnailPack())) as $size) {
 					$filename = $image->getFilename($size);
 					$filePath = realpath($path . DIRECTORY_SEPARATOR . $filename);
 					if (is_readable($filePath) && is_file($filePath)) {
-						rename($filePath, realpath($modelFolder . DIRECTORY_SEPARATOR . $filename));
+						rename($filePath, realpath($modelFolder) . DIRECTORY_SEPARATOR . $filename);
 					}
 				}
 				$model->addPhoto($image);
+				if ($data['modelTitle'] == $imageData['id']) {
+					$model->setMainPhoto($image);
+					$titleChanged = true;
+				}
 			}
 			$this->_helper->sessionSaver->delete('modelImagesPath');
+
+			if (!$titleChanged && (int)$data['modelTitle'] > 0) {
+				$mainPhoto = $photoService->getPhotoById((int)$data['modelTitle']);
+				if (!$mainPhoto->isEmpty()) {
+					$model->setMainPhoto($mainPhoto);
+				}
+			}
 			
 			$this->_helper->flashMessenger->success('Model saved Successfully');
 			$this->_redirect($this->_helper->url(''));

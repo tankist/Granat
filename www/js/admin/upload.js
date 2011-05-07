@@ -1,5 +1,11 @@
 (function($, window, document) {
 
+	function checkMainImage() {
+		if ($('input.checkable:checked').length == 0) {
+			$('input.checkable:first').attr('checked', 'checked');
+		}
+	}
+
 	$(function() {
 		var DELETE_URL = '/admin/model-image/delete';
 
@@ -17,6 +23,9 @@
 					return;
 				}
 				return $(buildDownloadRow(file));
+			},
+			onCompleteAll : function(files) {
+				checkMainImage();
 			}
 		});
 
@@ -43,6 +52,8 @@
 			e.preventDefault();
 			$('form:not(.file_upload)').submit();
 		});
+
+		checkMainImage();
 	});
 
 })(this.jQuery, this, this.document);

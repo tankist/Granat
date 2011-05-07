@@ -132,7 +132,7 @@ class Skaya_View_Helper_ProductImage extends Zend_View_Helper_FormElement {
 				<em>&nbsp;</em>
 				<img src="/$path/$thumb" alt="$filename">
 			</div>
-			<input type="radio" name="isCollectionTitle" value="$image_id" id="$optId"{$checked}{$disabled}{$endTag}Main Image</label>
+			<input type="radio" class="checkable" name="modelTitle" value="$image_id" id="$optId"{$checked}{$disabled}{$endTag}Main Image</label>
 		</td>
 		<td class="file_upload_progress"><div></div></td>
 		<td class="file_upload_delete">
