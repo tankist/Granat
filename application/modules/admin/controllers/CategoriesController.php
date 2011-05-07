@@ -117,39 +117,26 @@ class Admin_CategoriesController extends Zend_Controller_Action {
 	}
 
 	public function deleteAction() {
-		$category_id = $this->_getParam('id');
+		$categoryIds = (array)$this->_getParam('category', $this->_getParam('id'));
 		/**
-		 * @var Model_Category $category
+		 * @var Service_Category $service
 		 */
-		$category = $this->_helper->service('Category')->getCategoryById($category_id);
-		if ($category->isEmpty()) {
-			throw new Zend_Controller_Action_Exception('Category ID NOT Found', 404);
-		}
-		$category->delete();
-		$this->_redirect($this->_helper->url(''));
-	}
-	
-	public function deleteCategoriesAction() {
-		$request = $this->getRequest();
-		$categoryIds = $request->getParam('category',array());
-		
-		if ( $categoryIds && is_array($categoryIds) ) {
-			$i = 0;
-			foreach ( $categoryIds as $id ) {
-				/**
-				 * @var Model_Category $category
-				 */
-				$category = $this->_helper->service('Category')->getCategoryById($id);
-				if ( !$category->isEmpty() ) {
-					$category->delete();
-					$i++;
-				}
+		$service = $this->_helper->service('Category');
+		$i = 0;
+		foreach($categoryIds as $category_id) {
+			/**
+			 * @var Model_Category $category
+			 */
+			$category = $service->getCategoryById($category_id);
+			if ($category->isEmpty()) {
+				$this->_helper->flashMessenger->fail('Category ID NOT Found');
+				continue;
 			}
+			$category->delete();
+			$i++;
 		}
-		if ( $i ) {
-			$this->_helper->flashMessenger->success($i.' category'.(($i == 1)?'':'s').' have been deleted.');
-		} else {
-			$this->_helper->flashMessenger->fail('No category has been deleted');
+		if ($i > 0) {
+			$this->_helper->flashMessenger->success($i . ($i > 1?' categories were':' category was') . ' deleted');
 		}
 		$this->_redirect($this->_helper->url(''));
 	}

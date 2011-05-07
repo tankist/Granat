@@ -2,7 +2,7 @@
 	<li><a href="<?=$this->url(array('action' => 'add'))?>">Add category</a></li>
 	<li><a href="#" onclick="$('#delete-categories').submit();return false;">Delete Selected</a></li>
 </ul>
-<form id="delete-categories" action="<?=$this->url(array('module'=>'admin','controller'=>'categories','action'=>'delete-categories'),null, true)?>" method="post">
+<form id="delete-categories" action="<?=$this->url(array('module'=>'admin','controller'=>'categories','action'=>'delete'),null, true)?>" method="post">
 <table>
 	<tr>
 		<th class="checkbox"><input type="checkbox" class="select-all" name="all" id="categories-select-all" /></th>
@@ -13,7 +13,7 @@
 	<?php $i = 0; foreach ($this->categories as $category) { ?>
 	<tr<?=($i++ & 1)?' class="odd"':''?>>
 		<td class="checkbox"><input type="checkbox" name="category[<?=$category->id?>]" id="category-<?=$category->id?>" value="<?=$category->id?>"></td>
-		<td><?=$category->name?></td>
+		<td><label for="category-<?=$category->id?>"><?=$category->name?></label></td>
 		<td><a href="<?=$this->url(array('action' => 'edit', 'id' => $category->id))?>">Edit</a></td>
 		<td><a href="<?=$this->url(array('action' => 'delete', 'id' => $category->id))?>">Delete</a></td>
 	</tr><?php } ?>
