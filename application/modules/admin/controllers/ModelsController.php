@@ -37,6 +37,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 
 	public function addAction() {
 		$collections = $this->_helper->service('Collection')->getCollections('name');
+		$categories = $this->_helper->service('Category')->getCategories('name');
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
 		$form = new Admin_Form_Model(array(
@@ -44,6 +45,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			'action' => $this->_helper->url('save'),
 			'method' => Zend_Form::METHOD_POST,
 			'collections' => $filter->filter($collections->toArray()),
+			'categories' => $filter->filter($categories->toArray()),
 			'images' => $this->_helper->sessionSaver('modelImagesPath')
 		));
 
@@ -83,6 +85,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		}
 
 		$collections = $this->_helper->service('Collection')->getCollections('name');
+		$categories = $this->_helper->service('Category')->getCategories('name');
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
 		$images = $model->getPhotos();
@@ -102,6 +105,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			'action' => $this->_helper->url('save'),
 			'method' => Zend_Form::METHOD_POST,
 			'collections' => $filter->filter($collections->toArray()),
+			'categories' => $filter->filter($categories->toArray()),
 			'images' => $imagesData
 		));
 		$data = $model->toArray();
@@ -146,6 +150,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		}
 
 		$collections = $this->_helper->service('Collection')->getCollections('name');
+		$categories = $this->_helper->service('Category')->getCategories('name');
 		$filter = new Skaya_Filter_Array_Map('name', 'id');
 
 		$images = $model->getPhotos();
@@ -163,6 +168,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$form = new Admin_Form_Model(array(
 			'name' => 'model',
 			'collections' => $filter->filter($collections->toArray()),
+			'categories' => $filter->filter($categories->toArray()),
 			'images' => $imagesData
 		));
 

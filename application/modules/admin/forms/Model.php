@@ -13,6 +13,8 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 
 	protected $_collections = array();
 
+	protected $_categories = array();
+
 	public function init() {
 		$this
 			->addElement('hidden', 'id', array('label' => 'id'))
@@ -20,6 +22,7 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 			->addElement('text', 'key', array('label' => 'Short Key:', 'required' => true, 'class' => 'key-target'))
 			->addElement('textarea', 'description', array('label' => 'Description:', 'rows' => 10, 'cols' => 40))
 			->addElement('select', 'collection_id', array('label' => 'Collection:', 'required' => true, 'multiOptions' => $this->getCollections()))
+			->addElement('select', 'category_id', array('label' => 'Category:', 'required' => true, 'multiOptions' => $this->getCategories()))
 			->addElement('checkbox', 'is_collection_title', array('label' => 'Main Collection Model:'))
 			->addElement($this->_getImageElement(), 'modelTitle');
 	}
@@ -58,6 +61,15 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 
 	public function getImages() {
 		return $this->_images;
+	}
+
+	public function setCategories($categories) {
+		$this->_categories = $categories;
+		return $this;
+	}
+
+	public function getCategories() {
+		return $this->_categories;
 	}
 
 }
