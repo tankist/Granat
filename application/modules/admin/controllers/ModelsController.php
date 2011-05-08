@@ -228,12 +228,27 @@ class Admin_ModelsController extends Zend_Controller_Action {
 	}
 
 	public function deleteAction() {
-		$model_id = $this->_getParam('id');
-		$model = $this->_helper->service('Model')->getModelById($model_id);
-		if ($model->isEmpty()) {
-			throw new Zend_Controller_Action_Exception('Model ID NOT Found', 404);
+		$modelsIds = (array)$this->_getParam('model', $this->_getParam('id'));
+		/**
+		 * @var Service_Model $service
+		 */
+		$service = $this->_helper->service('Model');
+		$i = 0;
+		foreach($modelsIds as $model_id) {
+			/**
+			 * @var Model_Model $model
+			 */
+			$model = $service->getModelById($model_id);
+			if ($model->isEmpty()) {
+				$this->_helper->flashMessenger->fail('Model ID NOT Found');
+				continue;
+			}
+			$model->delete();
+			$i++;
 		}
-		$model->delete();
+		if ($i > 0) {
+			$this->_helper->flashMessenger->success($i . ($i > 1?' models were':' model was') . ' deleted');
+		}
 		$this->_redirect($this->_helper->url(''));
 	}
 

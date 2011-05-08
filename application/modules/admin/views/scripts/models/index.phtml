@@ -2,7 +2,7 @@
 	<li><a href="<?=$this->url(array('action' => 'add'))?>">Add model</a></li>
 	<li><a href="#" onclick="$('#delete-models').submit();return false;">Delete Selected</a></li>
 </ul>
-<form id="delete-models" action="<?=$this->url(array('module'=>'admin','controller'=>'models','action'=>'delete-models'),null, true)?>" method="post">
+<form id="delete-models" action="<?=$this->url(array('module'=>'admin','controller'=>'models','action'=>'delete'),null, true)?>" method="post">
 <table>
 	<tr>
 		<th class="checkbox"><input type="checkbox" class="select-all" name="all" id="models-select-all" /></th>
