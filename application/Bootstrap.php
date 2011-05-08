@@ -49,4 +49,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		return $authPlugin;
 	}
 
+	protected function _initDbCharset() {
+		$this->bootstrap('db');
+		$db = $this->getResource('db');
+		if ($db instanceof Zend_Db_Adapter_Abstract) {
+			$db->exec('SET NAMES utf8');
+		}
+	}
+
 }
