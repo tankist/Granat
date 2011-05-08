@@ -13,7 +13,7 @@
 	<?php $i = 0; foreach ($this->models as $model) { ?>
 	<tr<?=($i++ & 1)?' class="odd"':''?>>
 		<td class="checkbox"><input type="checkbox" name="model[<?=$model->id?>]" id="model-<?=$model->id?>" value="<?=$model->id?>"></td>
-		<td><?=$model->name?></td>
+		<td><label for="model-<?=$model->id?>"><?=$model->name?></label></td>
 		<td><a href="<?=$this->url(array('action' => 'edit', 'id' => $model->id))?>">Edit</a></td>
 		<td><a href="<?=$this->url(array('action' => 'delete', 'id' => $model->id))?>">Delete</a></td>
 	</tr><?php } ?>

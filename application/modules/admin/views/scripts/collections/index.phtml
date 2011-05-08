@@ -13,7 +13,7 @@
 	<?php $i = 0; foreach ($this->collections as $collection) { ?>
 	<tr<?=($i++ & 1)?' class="odd"':''?>>
 		<td class="checkbox"><input type="checkbox" name="collection[<?=$collection->id?>]" id="collection-<?=$collection->id?>" value="<?=$collection->id?>"></td>
-		<td><?=$collection->name?></td>
+		<td><label for="collection-<?=$collection->id?>"><?=$collection->name?></label></td>
 		<td><a href="<?=$this->url(array('action' => 'edit', 'id' => $collection->id))?>">Edit</a></td>
 		<td><a href="<?=$this->url(array('action' => 'delete', 'id' => $collection->id))?>">Delete</a></td>
 	</tr><?php } ?>
