@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `gr_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `gr_collections` table : 
+# Structure for the `gr_collections` table :
 #
 
 DROP TABLE IF EXISTS `gr_collections`;
@@ -40,7 +40,7 @@ CREATE TABLE `gr_collections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `gr_fabrics` table : 
+# Structure for the `gr_fabrics` table :
 #
 
 DROP TABLE IF EXISTS `gr_fabrics`;
@@ -56,7 +56,7 @@ CREATE TABLE `gr_fabrics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `gr_models` table : 
+# Structure for the `gr_models` table :
 #
 
 DROP TABLE IF EXISTS `gr_models`;
@@ -67,7 +67,7 @@ CREATE TABLE `gr_models` (
   `description` text,
   `collection_id` int(11) unsigned NOT NULL,
   `category_id` INT( 11 ) UNSIGNED NOT NULL,
-  `main_photo_id` INT( 11 ) UNSIGNED NOT NULL
+  `main_photo_id` INT( 11 ) UNSIGNED NOT NULL,
   `key` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `gr_model_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `gr_photos` table : 
+# Structure for the `gr_photos` table :
 #
 
 DROP TABLE IF EXISTS `gr_photos`;
@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `gr_photos`;
 CREATE TABLE `gr_photos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hash` varchar(10) NOT NULL,
-  `extension` VARCHAR(5) NOT NULL
+  `extension` VARCHAR(5) NOT NULL,
   `model_id` int(11) unsigned NOT NULL,
   `order` int(3) unsigned NOT NULL DEFAULT '0',
   `is_model_title` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -112,7 +112,7 @@ CREATE TABLE `gr_photos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `gr_users` table : 
+# Structure for the `gr_users` table :
 #
 
 DROP TABLE IF EXISTS `gr_users`;
