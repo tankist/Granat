@@ -243,6 +243,17 @@ class Admin_ModelsController extends Zend_Controller_Action {
 				$this->_helper->flashMessenger->fail('Model ID NOT Found');
 				continue;
 			}
+			$modelPhotosPath = realpath($this->_helper->imagePath($model));
+			if ($modelPhotosPath) {
+				$iterator = new RecursiveDirectoryIterator($modelPhotosPath);
+				foreach($iterator as /** @SplFileInfo */$file) {
+					if ($file->isFile()) {
+						$path = $file->getPathname();
+						unlink($path);
+					}
+				}
+				unlink($modelPhotosPath);
+			}
 			$model->delete();
 			$i++;
 		}
