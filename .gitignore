@@ -4,6 +4,7 @@ cache/
 tests/report/
 www/tests
 www/uploads
+www/images/crap
 *.log
 *.bak
 .idea/
