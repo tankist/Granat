@@ -23,7 +23,6 @@ class Admin_Form_Model extends Admin_Form_Abstract {
 			->addElement('textarea', 'description', array('label' => 'Description:', 'rows' => 10, 'cols' => 40))
 			->addElement('select', 'collection_id', array('label' => 'Collection:', 'required' => true, 'multiOptions' => $this->getCollections()))
 			->addElement('select', 'category_id', array('label' => 'Category:', 'required' => true, 'multiOptions' => $this->getCategories()))
-			->addElement('checkbox', 'is_collection_title', array('label' => 'Main Collection Model:'))
 			->addElement($this->_getImageElement(), 'modelTitle');
 	}
 
