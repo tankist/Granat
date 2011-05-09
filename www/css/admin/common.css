@@ -404,6 +404,10 @@ input[type=checkbox], input[type=radio] {
 	vertical-align: middle;
 }
 
+input[type=file] {
+	height:auto !important;
+}
+
 .zend_form dd input[type=checkbox] {
 	display: inline;
 	vertical-align: middle;

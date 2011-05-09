@@ -16,6 +16,8 @@ class Model_Photo extends Skaya_Model_Abstract {
 
 	const SIZE_BIG = 'big';
 
+	const SIZE_FABRIC = 'big';
+
 	const INDICATION_SUFFIX = 'suffix';
 
 	const INDICATION_PREFIX = 'prefix';
@@ -46,6 +48,12 @@ class Model_Photo extends Skaya_Model_Abstract {
 			'height' => 308,
 			'indication_type' => self::INDICATION_SUFFIX,
 			'indication' => 'b'
+		),
+		self::SIZE_FABRIC => array(
+			'width' => 150,
+			'height' => 150,
+			'indication_type' => self::INDICATION_SUFFIX,
+			'indication' => 'f'
 		)
 	);
 

@@ -4,6 +4,8 @@ class Admin_FabricsController extends Zend_Controller_Action {
 
 	const ITEMS_PER_PAGE = 20;
 
+	const FABRICS_PATH = './uploads/fabrics/';
+
 	/**
 	 * @var Model_User
 	 */
@@ -39,7 +41,8 @@ class Admin_FabricsController extends Zend_Controller_Action {
 		$form = new Admin_Form_Fabric(array(
 			'name' => 'user',
 			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
+			'method' => Zend_Form::METHOD_POST,
+			'imagePath' => realpath(self::FABRICS_PATH)
 		));
 
 		$sessionData = $this->_helper->sessionSaver('fabricData');
@@ -63,7 +66,8 @@ class Admin_FabricsController extends Zend_Controller_Action {
 		$form = new Admin_Form_Fabric(array(
 			'name' => 'fabric',
 			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
+			'method' => Zend_Form::METHOD_POST,
+			'imagePath' => realpath(self::FABRICS_PATH)
 		));
 		$data = $fabric->toArray();
 
@@ -92,14 +96,31 @@ class Admin_FabricsController extends Zend_Controller_Action {
 		}
 
 		$form = new Admin_Form_Fabric(array(
-			'name' => 'fabric'
+			'name' => 'fabric',
+			'imagePath' => realpath(self::FABRICS_PATH)
 		));
 
 		if ($request->isPost() && $form->isValid($request->getPost())) {
 			$data = $form->getValues();
+
+			if (!$fabric->isEmpty()) {
+				$photoFilename = $form->getImagePath() . DIRECTORY_SEPARATOR . $data['photo'];
+				if (file_exists($photoFilename)) {
+					/**
+					 * @var Model_Photo $oldFile
+					 */
+					$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
+					@unlink($form->getImagePath() . $oldFile->getFilename());
+					@unlink($form->getImagePath() . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+				}
+				else {
+					unset($data['photo']);
+				}
+			}
+
 			$fabric->populate($data);
 			$fabric->save();
-			$this->_helper->flashMessenger->addMessage(array('message' => 'Fabric saved Successfully', 'status' => 'success'));
+			$this->_helper->flashMessenger->success('Fabric saved Successfully');
 			$this->_redirect($this->_helper->url(''));
 		}
 		else {
@@ -121,8 +142,16 @@ class Admin_FabricsController extends Zend_Controller_Action {
 		if ($fabric->isEmpty()) {
 			throw new Zend_Controller_Action_Exception('Fabric ID NOT Found', 404);
 		}
+
+		$path = realpath(self::FABRICS_PATH);
+		if (file_exists($path . DIRECTORY_SEPARATOR . $fabric->photo)) {
+			$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
+			@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename());
+			@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+		}
+
 		$fabric->delete();
 		$this->_redirect($this->_helper->url(''));
 	}
-	
+
 }
