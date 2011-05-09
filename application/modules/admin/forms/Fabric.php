@@ -28,6 +28,7 @@ class Admin_Form_Fabric extends Admin_Form_Abstract {
 			->addElement('hidden', 'id', array('label' => 'id'))
 			->addElement('text', 'name', array('label' => 'Name', 'required' => true, 'class' => 'key-source'))
 			->addElement('text', 'key', array('label' => 'Short Key', 'required' => true, 'class' => 'key-target'))
+			->addElement('textarea', 'description', array('label' => 'Description'))
 			->addElement($image)
 			->addElement('button', 'submit', array('label' => 'Save', 'type' => 'submit'));
 
