@@ -137,20 +137,33 @@ class Admin_FabricsController extends Zend_Controller_Action {
 	}
 
 	public function deleteAction() {
-		$fabric_id = $this->_getParam('id');
-		$fabric = $this->_helper->service('Fabric')->getFabricById($fabric_id);
-		if ($fabric->isEmpty()) {
-			throw new Zend_Controller_Action_Exception('Fabric ID NOT Found', 404);
+		$fabricsIds = (array)$this->_getParam('fabric', $this->_getParam('id'));
+		/**
+		 * @var Service_Fabric $service
+		 */
+		$service = $this->_helper->service('Fabric');
+		$i = 0;
+		foreach($fabricsIds as $fabric_id) {
+			/**
+			 * @var Model_Fabric $fabric
+			 */
+			$fabric = $service->getFabricById($fabric_id);
+			if ($fabric->isEmpty()) {
+				$this->_helper->flashMessenger->fail('Fabric ID (' . $fabric_id . ') NOT Found');
+				continue;
+			}
+			$path = realpath(self::FABRICS_PATH);
+			if (file_exists($path . DIRECTORY_SEPARATOR . $fabric->photo)) {
+				$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
+				@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename());
+				@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+			}
+			$fabric->delete();
+			$i++;
 		}
-
-		$path = realpath(self::FABRICS_PATH);
-		if (file_exists($path . DIRECTORY_SEPARATOR . $fabric->photo)) {
-			$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
-			@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename());
-			@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+		if ($i > 0) {
+			$this->_helper->flashMessenger->success($i . ($i > 1?' fabrics were':' fabric was') . ' deleted');
 		}
-
-		$fabric->delete();
 		$this->_redirect($this->_helper->url(''));
 	}
 

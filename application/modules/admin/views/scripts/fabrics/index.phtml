@@ -2,7 +2,7 @@
 	<li><a href="<?=$this->url(array('action' => 'add'))?>">Add fabric</a></li>
 	<li><a href="#" onclick="$('#delete-fabrics').submit();return false;">Delete Selected</a></li>
 </ul>
-<form id="delete-fabrics" action="<?=$this->url(array('module'=>'admin','controller'=>'fabrics','action'=>'delete-fabrics'),null, true)?>" method="post">
+<form id="delete-fabrics" action="<?=$this->url(array('module'=>'admin','controller'=>'fabrics','action'=>'delete'),null, true)?>" method="post">
 <table>
 	<tr>
 		<th class="checkbox"><input type="checkbox" class="select-all" name="all" id="fabrics-select-all" /></th>
