@@ -7,13 +7,17 @@
 	<tr>
 		<th class="checkbox"><input type="checkbox" class="select-all" name="all" id="models-select-all" /></th>
 		<th>Name</th>
+		<th>Collection</th>
+		<th>Category</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
-	<?php $i = 0; foreach ($this->models as $model) { ?>
+	<?php $i = 0; foreach ($this->models as /** @var Model_Model $model */$model) { ?>
 	<tr<?=($i++ & 1)?' class="odd"':''?>>
 		<td class="checkbox"><input type="checkbox" name="model[<?=$model->id?>]" id="model-<?=$model->id?>" value="<?=$model->id?>"></td>
 		<td><label for="model-<?=$model->id?>"><?=$model->name?></label></td>
+		<td><a href="<?=$this->url(array('action' => 'edit', 'controller' => 'collections', 'id' => $model->getCollection()->id), null, true)?>"><?=$model->getCollection()->name?></a></td>
+		<td><?=$model->getCategory()->name?></td>
 		<td><a href="<?=$this->url(array('action' => 'edit', 'id' => $model->id))?>">Edit</a></td>
 		<td><a href="<?=$this->url(array('action' => 'delete', 'id' => $model->id))?>">Delete</a></td>
 	</tr><?php } ?>
