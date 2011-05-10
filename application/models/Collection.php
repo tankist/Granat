@@ -17,6 +17,11 @@ class Model_Collection extends Skaya_Model_Abstract {
 	protected $_mainModel;
 
 	/**
+	 * @var Model_Collection_Categories
+	 */
+	protected $_categories;
+
+	/**
 	 * @throws Skaya_Model_Exception
 	 * @param Model_Model $model
 	 * @return Skaya_Model_Abstract
@@ -35,9 +40,22 @@ class Model_Collection extends Skaya_Model_Abstract {
 	 */
 	public function getMainModel() {
 		if (empty($this->_mainModel)) {
-			$this->_mainModel = Skaya_Model_Service_Abstract::factory('Model')->getModelById($this->mainModelId);
+			$this->_mainModel = Skaya_Model_Service_Abstract::factory('Model')
+				->getModelById($this->mainModelId);
 		}
 		return $this->_mainModel;
+	}
+
+	/**
+	 * @return Model_Collection_Categories
+	 */
+	public function getCategories() {
+		if (empty($this->_categories)) {
+			$this->_categories = new Model_Collection_Categories(
+				$this->mappers->category->getCollectionCategories($this->id)
+			);
+		}
+		return $this->_categories;
 	}
 
 }

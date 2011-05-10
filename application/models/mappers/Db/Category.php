@@ -14,6 +14,11 @@ class Model_Mapper_Db_Category extends Skaya_Model_Mapper_Db_Abstract {
 
 	public function getCategories($order = null, $count = null, $offset = null) {
 		$categoryTable = self::_getTableByName(self::TABLE_NAME);
+
+		if ($order) {
+			$order = $this->_mapOrderStatement($order);
+		}
+		
 		$categoryBlob = $categoryTable->fetchAll(null, $order, $count, $offset);
 		return $this->getMappedArrayFromData($categoryBlob);
 	}
@@ -31,6 +36,23 @@ class Model_Mapper_Db_Category extends Skaya_Model_Mapper_Db_Abstract {
 			)
 		)));
 		return $paginator;
+	}
+
+	public function getCollectionCategories($collection_id, $order = null, $count = null, $offset = null) {
+		$categoriesTable = self::_getTableByName(self::TABLE_NAME);
+		$modelsTable = self::_getTableByName(Model_Mapper_Db_Model::TABLE_NAME);
+
+		$select = $categoriesTable->select()->setIntegrityCheck(false)
+			->from(array('c' => $categoriesTable->info(Zend_Db_Table_Abstract::NAME)))
+			->joinInner(array('m' => $modelsTable->info(Zend_Db_Table_Abstract::NAME)), 'm.category_id = c.id', array())
+			->where('m.collection_id = ?', (int)$collection_id);
+
+		if ($order) {
+			$order = $this->_mapOrderStatement($order);
+		}
+
+		$categoryBlob = $categoriesTable->fetchAll($select, $order, $count, $offset);
+		return $this->getMappedArrayFromData($categoryBlob);
 	}
 
 }

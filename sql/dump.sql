@@ -80,18 +80,6 @@ CREATE TABLE `gr_models` (
   CONSTRAINT `model_category` FOREIGN KEY (`category_id`) REFERENCES `gr_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Структура таблицы `gr_model_categories`
---
-
-CREATE TABLE IF NOT EXISTS `gr_model_categories` (
-  `category_id` int(11) unsigned NOT NULL,
-  `model_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`category_id`,`model_id`),
-  KEY `category_id` (`category_id`),
-  KEY `model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 #
 # Structure for the `gr_photos` table :
 #

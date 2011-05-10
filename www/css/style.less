@@ -89,37 +89,42 @@ ul.images {
 	.oh;
 	position:relative;
 	li {
+	    .one-third;
+	    .fl;
 		position:relative;
-		width:@collectionsItemWidth;
+		min-width:@collectionsItemWidth;
 		margin-bottom:100px;
-		h1 {
-			margin:5px 0 15px;
-		}
-		ul {
-			li {
-				display:inline;
-				font-size:11px;
-				border-left:1px solid @delimiterColor;
-
-				&:first-child {
-					border:none;
-				}
-				a{
-					margin:0 5px;
+		div {
+		    .oh;
+			width: @collectionsItemWidth;
+			h1 {
+				margin:5px 0 15px;
+			}
+			ul {
+				li {
+					display:inline;
+					font-size:11px;
+					border-left:1px solid @delimiterColor;
+					margin:0;
+					float:none;
+					&:first-child {
+						border:none;
+					}
+					a{
+						margin:0 5px;
+					}
 				}
 			}
+			&.one {
+				.fl;
+			}
+			&.two {
+				margin: 0 auto;
+			}
+			&.three {
+				.fr;
+			}
 		}
-	}
-	li.one {
-		.fl;
-	}
-	li.two {
-		left:50%;
-		margin-left:0 - (@collectionsItemWidth / 2);
-		position:absolute;
-	}	
-	li.three {
-		.fr;
 	}
 	.image {
 		.oh;
@@ -231,7 +236,7 @@ ul.images {
 	margin-top:65px;
 }
 #content {
-	width:1050px;
+	min-width:1050px;
 }
 #footer {
 	overflow-y:hidden;

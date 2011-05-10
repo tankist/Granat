@@ -165,33 +165,39 @@ ul.images li.active em {
   position: relative;
 }
 .collections li {
+  width: 33%;
+  float: left;
   position: relative;
-  width: 268px;
+  min-width: 268px;
   margin-bottom: 100px;
 }
-.collections li h1 {
+.collections li div {
+  overflow: hidden;
+  width: 268px;
+}
+.collections li div h1 {
   margin: 5px 0 15px;
 }
-.collections li ul li {
+.collections li div ul li {
   display: inline;
   font-size: 11px;
   border-left: 1px solid #ae4e43;
+  margin: 0;
+  float: none;
 }
-.collections li ul li:first-child {
+.collections li div ul li:first-child {
   border: none;
 }
-.collections li ul li a {
+.collections li div ul li a {
   margin: 0 5px;
 }
-.collections li.one {
+.collections li div.one {
   float: left;
 }
-.collections li.two {
-  left: 50%;
-  margin-left: -134px;
-  position: absolute;
+.collections li div.two {
+  margin: 0 auto;
 }
-.collections li.three {
+.collections li div.three {
   float: right;
 }
 .collections .image {
@@ -315,7 +321,7 @@ ul.images li.active em {
   margin-top: 65px;
 }
 #content {
-  width: 1050px;
+  min-width: 1050px;
 }
 #footer {
   overflow-y: hidden;

@@ -3,18 +3,17 @@ $i = 0;
 $classes = array('one', 'two', 'three');
 ?>
 <ul class="collections"><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
-	<li class="<?=$classes[$i++ % 3]?>">
-		<div class="image"><em>&nbsp;</em><a href="#roland"><img src="/images/crap/collection_1.jpg" alt="<?=$collection->name?>"></a></div>
-		<h1><a href="#roland"><?=$collection->name?></a></h1>
-		<ul class="categories">
-			<li><a href="#cat1">Прямой силуэт</a></li>
-			<li><a href="#cat1">Силуэт русалка</a></li>
-			<li><a href="#cat1">Пышные платья</a></li>
-			<li><a href="#cat1">А-образный силуэт</a></li>
-			<li><a href="#cat1">Стиль ампир</a></li>
-			<li><a href="#cat1">Большие размеры</a></li>
-		</ul>
+	<?php $categories = $collection->getCategories(); ?>
+	<li>
+		<div class="<?=$classes[$i++ % 3]?>">
+			<div class="image"><em>&nbsp;</em><a href="#roland"><img src="/images/crap/collection_1.jpg" alt="<?=$collection->name?>"></a></div>
+			<h1><a href="#roland"><?=$collection->name?></a></h1>
+			<?php if (count($categories) > 1) { ?><ul class="categories">
+			<?php foreach($categories as /** @var Model_Category $category */$category) { ?>
+				<li><a href="#cat1"><?=$category->name?></a></li>
+			<?php } ?>
+			</ul><?php } ?>
+		</div>
 	</li>
-	<?php if ($i % 3 == 0) { ?></ul><ul class="collections"><?php } ?>
 <?php } ?>
 </ul>
