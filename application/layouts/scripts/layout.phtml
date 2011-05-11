@@ -20,12 +20,15 @@
 	</style>
 	<![endif]-->
 </head>
+<?php
+$navigation = $this->getHelper('Navigation_Menu');
+?>
 <body>
 	<div id="bodywrapper">
 		<div id="logo"><a href="/">GraNat Natali Grechanaya</a></div>
 		<div id="bodycontainer">
 			<div id="header">
-				<?=$this->getHelper('Navigation_Menu')->renderMenu()?>
+				<?=$navigation->renderMenu()?>
 			</div>
 			<div id="body">
 				<div id="content"><?php echo $this->layout()->content; ?></div>
@@ -34,12 +37,7 @@
 		</div>
 		<div id="footer">
 			<div id="footer-wrapper">
-				<ul class="navigation fl">
-					<li><a href="">Студия</a></li>
-					<li><a href="">Галерея</a></li>
-					<li><a href="">Ткани</a></li>
-					<li class="last"><a href="">Контакты</a></li>
-				</ul>
+				<div class="fl"><?=$navigation->renderMenu()?></div>
 				<span id="copyright" class="fr">© 2011. GraNat.  Все права защищены</span>
 			</div>
 		</div>

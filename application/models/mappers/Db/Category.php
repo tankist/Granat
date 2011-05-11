@@ -45,7 +45,8 @@ class Model_Mapper_Db_Category extends Skaya_Model_Mapper_Db_Abstract {
 		$select = $categoriesTable->select()->setIntegrityCheck(false)
 			->from(array('c' => $categoriesTable->info(Zend_Db_Table_Abstract::NAME)))
 			->joinInner(array('m' => $modelsTable->info(Zend_Db_Table_Abstract::NAME)), 'm.category_id = c.id', array())
-			->where('m.collection_id = ?', (int)$collection_id);
+			->where('m.collection_id = ?', (int)$collection_id)
+			->group('c.id');
 
 		if ($order) {
 			$order = $this->_mapOrderStatement($order);

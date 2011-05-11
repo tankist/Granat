@@ -86,7 +86,12 @@ class Model_Model extends Skaya_Model_Abstract {
 	 */
 	public function getMainPhoto() {
 		if (empty($this->_mainPhoto)) {
-			$this->_mainPhoto = $this->getPhotoById($this->mainPhotoId);
+			if ($this->mainPhotoId > 0) {
+				$this->_mainPhoto = $this->getPhotoById($this->mainPhotoId);
+			}
+			else {
+				$this->_mainPhoto = Service_Photo::create();
+			}
 		}
 		return $this->_mainPhoto;
 	}

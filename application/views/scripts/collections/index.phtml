@@ -1,16 +1,33 @@
 <?php
 $i = 0;
 $classes = array('one', 'two', 'three');
+$wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 ?>
 <ul class="collections"><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
-	<?php $categories = $collection->getCategories(); ?>
+	<?php
+		$mainModelPhotoUrl = 'images/empty/middle.jpg';
+		$mainModelPhoto = $collection->getMainModel()->getMainPhoto();
+		if (!$mainModelPhoto->isEmpty()) {
+			$mainModelPhotoUrl = $this->imagePathHelper->direct($collection->getMainModel())
+								 . '/'
+			                     . $mainModelPhoto->getFilename(Model_Photo::SIZE_MIDDLE);
+		}
+	?>
 	<li>
 		<div class="<?=$classes[$i++ % 3]?>">
-			<div class="image"><em>&nbsp;</em><a href="#roland"><img src="/images/crap/collection_1.jpg" alt="<?=$collection->name?>"></a></div>
-			<h1><a href="#roland"><?=$collection->name?></a></h1>
-			<?php if (count($categories) > 1) { ?><ul class="categories">
+			<div class="image"><em>&nbsp;</em><a href="<?=$url=$this->url(array(
+			                                'collection_id' => $collection->id,
+			                                2 => $wikifyFilter->filter($collection->name)
+			                           ), 'collection', true)?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$collection->name?>"></a></div>
+			<h1><a href="<?=$url?>"><?=$collection->name?></a></h1>
+			<?php if (count($categories = $collection->getCategories()) > 1) { ?><ul class="categories">
 			<?php foreach($categories as /** @var Model_Category $category */$category) { ?>
-				<li><a href="#cat1"><?=$category->name?></a></li>
+				<li><a href="<?=$this->url(array(
+										'collection_id' => $collection->id,
+									    'category_id' => $category->id,
+										2 => $wikifyFilter->filter($collection->name),
+										4 => $wikifyFilter->filter($category->name)
+								   ), 'categorizedCollections', true)?>"><?=$category->name?></a></li>
 			<?php } ?>
 			</ul><?php } ?>
 		</div>
