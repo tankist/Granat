@@ -200,6 +200,12 @@ ul.images li.active em {
 .collections li div.three {
   float: right;
 }
+.collections li.clear {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  width: 100%;
+}
 .collections .image {
   overflow: hidden;
   position: relative;

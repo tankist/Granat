@@ -32,5 +32,6 @@ $wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 			</ul><?php } ?>
 		</div>
 	</li>
+	<?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
 <?php } ?>
 </ul>
