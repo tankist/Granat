@@ -10,6 +10,14 @@ class Model_Mapper_Db_Collection extends Skaya_Model_Mapper_Db_Abstract {
 		'mainModelId' => 'main_model_id'
 	);
 
+	public function unmap($data) {
+		$data = parent::unmap($data);
+		if (empty($data['main_model_id'])) {
+			unset($data['main_model_id']);
+		}
+		return $data;
+	}
+
 	public function getCollectionById($id) {
 		$collectionTable = self::_getTableByName(self::TABLE_NAME);
 		$collectionBlob = $collectionTable->fetchRowById($id);

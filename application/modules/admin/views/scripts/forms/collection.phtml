@@ -1,0 +1,48 @@
+<div class="models">
+	<div class="grey-h2">
+		<h2 class="fl">Collection info</h2>
+	</div>
+	<dl class="zend_form">
+		<?php foreach(array('name', 'description', 'key') as $field) {
+			echo $this->element->$field;
+		} ?>
+	</dl>
+	<dl class="zend_form last"><dt>&nbsp;</dt><dd>&nbsp;</dd></dl>
+</div>
+<?php if ($this->element->id) { ?>
+<div class="models">
+	<div class="grey-h2">
+		<h2 class="fl">Main (Title) model</h2>
+	</div>
+	<dl class="zend_form last">
+		<dt id="modelTitle-label">&nbsp;</dt>
+		<dd id="modelTitle-element">
+			<table id="files" width="50%" align="center">
+				<tr>
+					<td class="preview">
+						<ul><?php
+							$models = $this->element->mainModelId->getMultiOptions();
+							$mainModelId = $this->element->mainModelId->getValue();
+							if ($mainModelId == 0 && count($models) > 0) {
+								$mainModelId = reset(array_keys($models ));
+							}
+							foreach($models as $model_id => $model) { ?>
+							<li>
+								<label for="model-<?=$model_id?>"><div class="image">
+									<em>&nbsp;</em>
+									<img alt="<?=$model['name']?>" src="/<?=$model['path']?>/<?=$model['thumb']?>">
+								</div>
+								<input class="checkable" <?php if ($model_id == $mainModelId) {echo ' checked="checked"';} ?> type="radio" name="mainModelId" id="model-<?=$model_id?>" value="<?=$model_id?>" /><?=$model['name']?></label>
+							</li>
+						<? } ?></ul>
+					</td>
+				</tr>
+			</table>
+		</dd>
+	</dl>
+	<?=$this->element->id?>
+</div>
+<? } ?>
+<p align="center"><?=$this->formButton('submit', 'Save', array('type' => 'submit'))?></p>
+<?php $this->headLink()
+	->appendStylesheet('/css/admin/jquery.fileupload-ui.css') ?>

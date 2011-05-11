@@ -178,3 +178,11 @@ form.file_upload button,
 	#files button {
 		padding:inherit;
 		}
+	#files ul {
+		width:460px;
+		margin:0 auto;
+	}
+	#files ul li {
+		float:left;
+		margin:5px;
+	}

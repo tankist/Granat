@@ -55,15 +55,32 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 
 	public function editAction() {
 		$collection_id = $this->_getParam('id');
+		/**
+		 * @var Model_Collection $collection
+		 */
 		$collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
 		if ($collection->isEmpty()) {
 			throw new Zend_Controller_Action_Exception('Collection not found', 404);
 		}
 
+		$models = $collection->getModels();
+		$imagesData = array();
+		foreach($models as /** @var Model_Model $model */ $model) {
+			$imagesPath = $this->_helper->imagePath($model);
+			$image = $model->getMainPhoto();
+			$imagesData[$model->id] = array(
+				'id' => $model->id,
+				'name' => $model->name,
+				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'path' => $imagesPath
+			);
+		}
+
 		$form = new Admin_Form_Collection(array(
 			'name' => 'collection',
 			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
+			'method' => Zend_Form::METHOD_POST,
+			'models' => $imagesData
 		));
 		$data = $collection->toArray();
 
@@ -91,8 +108,12 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 			$collection = $this->_helper->service('Collection')->create();
 		}
 
+		$models = $collection->getModels();
+		$filter = new Skaya_Filter_Array_Map('name', 'id');
+
 		$form = new Admin_Form_Collection(array(
-			'name' => 'collection'
+			'name' => 'collection',
+			'models' => $filter->filter($models->toArray())
 		));
 
 		if ($request->isPost() && $form->isValid($request->getPost())) {
@@ -123,6 +144,10 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 		}
 		$collection->delete();
 		$this->_redirect($this->_helper->url(''));
+	}
+
+	protected function _mapModelsForm($model, $index) {
+		return array($model['id'], $model);
 	}
 
 }
