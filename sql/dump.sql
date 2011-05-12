@@ -119,11 +119,5 @@ CREATE TABLE `gr_users` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `gr_model_categories`
-	ADD FOREIGN KEY ( `category_id` ) REFERENCES `granat`.`gr_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
-
-ALTER TABLE `gr_model_categories`
-	ADD FOREIGN KEY ( `model_id` ) REFERENCES `granat`.`gr_models` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
-
 INSERT INTO `gr_users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `date_added`, `status`) VALUES
 (1, 'Victor', 'Gryshko', 'victor@skaya.net', 'cca8dd8babd4c9996c8dfee788a49d18', 'admin', '2011-05-07 17:02:53', 'active');
