@@ -25,4 +25,10 @@ class Service_Collection extends Skaya_Model_Service_Abstract {
 		return $paginator;
 	}
 
+	public function getNonEmptyCollectionsPaginator($order = null) {
+		$paginator = $this->_mappers->collection->getNonEmptyCollectionsPaginator($order);
+		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Collections'));
+		return $paginator;
+	}
+
 }
