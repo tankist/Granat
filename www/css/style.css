@@ -89,6 +89,15 @@ a.prev {
   top: 26px;
   background: url('../images/prev.png') no-repeat;
 }
+.center {
+  text-align: center;
+}
+.center-container {
+  display: inline-block;
+  height: auto;
+  overflow: visible;
+  vertical-align: middle;
+}
 ul.navigation {
   overflow: hidden;
   list-style: none;
@@ -160,6 +169,43 @@ ul.images li.active em {
   top: 9px;
   left: 9px;
 }
+.three-column-list {
+  overflow: hidden;
+  position: relative;
+}
+.three-column-list li {
+  width: 33%;
+  float: left;
+  position: relative;
+}
+.three-column-list li div {
+  overflow: hidden;
+}
+.three-column-list li div.one {
+  float: left;
+}
+.three-column-list li div.two {
+  margin: 0 auto;
+}
+.three-column-list li div.three {
+  float: right;
+}
+.three-column-list li.clear {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  width: 100%;
+}
+.three-column-list .image {
+  overflow: hidden;
+  position: relative;
+}
+.three-column-list .image em {
+  display: block;
+}
+.three-column-list .image img {
+  position: absolute;
+}
 .collections {
   overflow: hidden;
   position: relative;
@@ -168,28 +214,9 @@ ul.images li.active em {
   width: 33%;
   float: left;
   position: relative;
-  min-width: 268px;
-  margin-bottom: 100px;
 }
 .collections li div {
   overflow: hidden;
-  width: 268px;
-}
-.collections li div h1 {
-  margin: 5px 0 15px;
-}
-.collections li div ul li {
-  display: inline;
-  font-size: 11px;
-  border-left: 1px solid #ae4e43;
-  margin: 0;
-  float: none;
-}
-.collections li div ul li:first-child {
-  border: none;
-}
-.collections li div ul li a {
-  margin: 0 5px;
 }
 .collections li div.one {
   float: left;
@@ -212,12 +239,39 @@ ul.images li.active em {
 }
 .collections .image em {
   display: block;
+}
+.collections .image img {
+  position: absolute;
+}
+.collections li {
+  min-width: 268px;
+  margin-bottom: 100px;
+}
+.collections li div {
+  width: 268px;
+}
+.collections li div h1 {
+  margin: 5px 0 15px;
+}
+.collections li div ul li {
+  display: inline;
+  font-size: 11px;
+  border-left: 1px solid #ae4e43;
+  margin: 0;
+  float: none;
+}
+.collections li div ul li:first-child {
+  border: none;
+}
+.collections li div ul li a {
+  margin: 0 5px;
+}
+.collections .image em {
   width: 268px;
   height: 268px;
   background: transparent url('../images/collection-image-border.png') no-repeat;
 }
 .collections .image img {
-  position: absolute;
   top: 9px;
   left: 9px;
 }
@@ -229,22 +283,29 @@ ul.images li.active em {
   overflow: hidden;
   position: relative;
   margin-top: 20px;
-  margin-bottom: 40px;
 }
 .models li {
-  width: 232px;
-  text-align: center;
+  width: 33%;
+  float: left;
+  position: relative;
 }
-.models li.one {
+.models li div {
+  overflow: hidden;
+}
+.models li div.one {
   float: left;
 }
-.models li.two {
-  left: 50%;
-  margin-left: -116px;
-  position: absolute;
+.models li div.two {
+  margin: 0 auto;
 }
-.models li.three {
+.models li div.three {
   float: right;
+}
+.models li.clear {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  width: 100%;
 }
 .models .image {
   overflow: hidden;
@@ -252,17 +313,26 @@ ul.images li.active em {
 }
 .models .image em {
   display: block;
-  width: 232px;
-  height: 304px;
-  background: transparent url('../images/collection-image-border.png') no-repeat;
 }
 .models .image img {
   position: absolute;
-  top: 9px;
-  left: 9px;
+}
+.models li {
+  min-width: 232px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.models li div {
+  width: 232px;
 }
 .models .image em {
+  width: 232px;
+  height: 304px;
   background: transparent url('../images/model-image-border.png') no-repeat;
+}
+.models .image img {
+  top: 9px;
+  left: 9px;
 }
 .shape ul {
   font-family: Georgia, serif;
@@ -464,4 +534,24 @@ ul.images li.active em {
 #model-nav p {
   position: absolute;
   margin: 0;
+}
+ul#paginator {
+  overflow: hidden;
+}
+ul#paginator li {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 0 4px;
+  padding: 0;
+}
+ul#paginator li a {
+  text-indent: -100000000px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: transparent url('/images/pagination-bullet.png') no-repeat 4px center;
+}
+ul#paginator li.active a {
+  background-position: right center;
 }

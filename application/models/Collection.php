@@ -92,4 +92,21 @@ class Model_Collection extends Skaya_Model_Abstract {
 		return $this->_models;
 	}
 
+	public function getModelsPaginator($order = null) {
+		$paginator = $this->mappers->model->getCollectionModelsPaginator($this->id, $order);
+		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Models'));
+		return $paginator;
+	}
+
+	public function getCategoryModels(Model_Category $category, $order = null, $count = null, $offset = null) {
+		$modelsBlob = $this->mappers->model->getCollectionModelsByCategory($this->id, $category->id, $order, $count, $offset);
+		return new Model_Collection_Models($modelsBlob);
+	}
+
+	public function getCategoryModelsPaginator(Model_Category $category, $order = null) {
+		$paginator = $this->mappers->model->getCollectionModelsPaginatorByCategory($this->id, $category->id, $order);
+		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Models'));
+		return $paginator;
+	}
+
 }
