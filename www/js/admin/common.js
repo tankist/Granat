@@ -132,19 +132,4 @@ $(function() {
 			}
 		}
 	});
-
-	$('input.key-source').change(function(e) {
-		var $target = $('input.key-target');
-		if ($target.val() == '') {
-			$target.val($(this).val().wikify());
-		}
-	});
-
-	$('input.key-target').change(function(e) {
-		$(this).val($(this).val().wikify());
-	});
-
-	$('input.key-target').parents('form').submit(function(e) {
-		$('input.key-source, input.key-target').change();
-	});
 });

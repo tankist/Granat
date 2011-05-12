@@ -13,10 +13,8 @@ USE `granat`;
 CREATE TABLE IF NOT EXISTS `gr_categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `key` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `key` (`key`)
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -29,12 +27,10 @@ CREATE TABLE `gr_collections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` text,
-  `key` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL,
   `main_model_id` INT( 11 ) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `key` (`key`),
   KEY `order` (`order`),
   KEY `main_model_id` (`main_model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -49,10 +45,8 @@ CREATE TABLE `gr_fabrics` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `description` text,
-  `key` VARCHAR( 50 ) NOT NULL,
   `photo` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `key` (`key`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -68,10 +62,8 @@ CREATE TABLE `gr_models` (
   `collection_id` int(11) unsigned NOT NULL,
   `category_id` INT( 11 ) UNSIGNED NOT NULL,
   `main_photo_id` INT( 11 ) UNSIGNED NOT NULL,
-  `key` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `key` (`key`),
   KEY `collection_id` (`collection_id`),
   KEY `category_id` (`category_id`),
   KEY `main_photo_id` (`main_photo_id`),
