@@ -22,13 +22,16 @@ $prev = $model->getPreviousModel();
 	<h1><?=$collection->name?></h1>
 	<hr>
 	<div class="models">
-		<div id="image" class="image fl"><em>&nbsp;</em><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></div>
+		<div id="image" class="image fl">
+			<em>&nbsp;</em>
+			<a rel="prettyPhoto" href="/<?=$mainModelPhotoPath . '/' . $mainModelPhoto->getFilename()?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></a>
+		</div>
 		<?php if (count($photos) > 0) { ?>
 		<div id="thumbnailsContainer"><ul id="thumbnails" class="fl">
 			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
 				<div class="profile-image small">
 					<em>&nbsp;</em>
-					<a href="#<?=$photo->hash?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_BIG)?>">
+					<a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_BIG)?>">
 						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_SMALL)?>" alt="<?=$model->name?>">
 					</a>
 				</div>
@@ -63,8 +66,10 @@ $prev = $model->getPreviousModel();
 	$this->headScript()
 		->appendFile('/js/jscrollpane/jquery.mousewheel.js')
 		->appendFile('/js/jscrollpane/jquery.jscrollpane.min.js')
+		->appendFile('/js/prettyPhoto/jquery.prettyPhoto.js')
 		->appendFile('/js/model.js');
 
 	$this->headLink()
-		->appendStylesheet('/css/jquery.jscrollpane.css');
+		->appendStylesheet('/css/jquery.jscrollpane.css')
+		->appendStylesheet('/css/prettyPhoto.css');
 ?>
