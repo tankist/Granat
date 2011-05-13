@@ -17,7 +17,7 @@ $classes = array('one', 'two', 'three');
 			<div class="image"><em>&nbsp;</em><a href="<?=$url=$this->url(array(
 			                                'collection_id' => $collection->id,
 			                                'collection_name_hash' => $this->urlPartTranslit($collection->name)
-			                           ), 'collection', true)?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$collection->name?>"></a></div>
+			                           ), 'collectionModelsChain', true)?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$collection->name?>"></a></div>
 			<h1><a href="<?=$url?>"><?=$collection->name?></a></h1>
 			<?php if (count($categories = $collection->getCategories()) > 1) { ?><ul class="categories">
 			<?php foreach($categories as /** @var Model_Category $category */$category) { ?>
@@ -26,7 +26,7 @@ $classes = array('one', 'two', 'three');
 									    'category_id' => $category->id,
 										'collection_name_hash' => $this->urlPartTranslit($collection->name),
 										'category_name_hash' => $this->urlPartTranslit($category->name)
-								   ), 'categorizedCollectionChain', true)?>"><?=$category->name?></a></li>
+								   ), 'categories', true)?>"><?=$category->name?></a></li>
 			<?php } ?>
 			</ul><?php } ?>
 		</div>
@@ -34,3 +34,4 @@ $classes = array('one', 'two', 'three');
 	<?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
 <?php } ?>
 </ul>
+<?=$this->paginationControl($this->collections, null, null, array('routeName' => 'gallery'))?>

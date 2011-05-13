@@ -6,8 +6,8 @@ $classes = array('one', 'two', 'three');
 	<ul><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
 		<li><a href="<?=$this->url(array(
 		                                'collection_id' => $collection->id,
-			                            2 => $this->urlPartTranslit($collection->name)
-		                           ), 'collection', true)?>"><?=$collection->name?></a></li>
+			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
+		                           ), 'collectionModelsChain', true)?>"><?=$collection->name?></a></li>
 	<?php } ?></ul>
 </div>
 <div id="collection" class="left-sidebar-body">
@@ -28,7 +28,7 @@ $classes = array('one', 'two', 'three');
 					<em>&nbsp;</em>
 					<a href="<?=$url=$this->url(array(
 								'model_id' => $model->id,
-								2 => $this->urlPartTranslit($model->name)
+								'model_name_hash' => $this->urlPartTranslit($model->name)
 						   ), 'model', true)?>">
 						<img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>">
 					</a>
@@ -39,19 +39,23 @@ $classes = array('one', 'two', 'three');
 		<?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
 	<?php } ?></ul>
 	<?php
-		$paginationPartial = 'pagination/models.phtml';
-		$routeParams = array(
-			'collection_id' => $this->collection->id,
-			'collection_name_hash' => $this->urlPartTranslit($this->collection->name)
-		);
-		if ($this->category && !$this->category->isEmpty()) {
-			$paginationPartial = 'pagination/models-category.phtml';
-			$routeParams['category_id'] = $this->category->id;
-			$routeParams['category_name_hash'] = $this->urlPartTranslit($this->category->name);
+		$routeName = 'allModels';
+		$routeParams = array();
+		if ($this->collection && !$this->collection->isEmpty()) {
+			$routeName = 'collectionChain';
+			$routeParams = array(
+				'collection_id' => $this->collection->id,
+				'collection_name_hash' => $this->urlPartTranslit($this->collection->name)
+			);
+			if ($this->category && !$this->category->isEmpty()) {
+				$routeParams['category_id'] = $this->category->id;
+				$routeParams['category_name_hash'] = $this->urlPartTranslit($this->category->name);
+				$routeName = 'categorizedCollectionChain';
+			}
 		}
 	?>
-	<?=$this->paginationControl($this->models, null, $paginationPartial, array(
-		'route' => $routeName,
-		'routeParams' => $routeParams
+	<?=$this->paginationControl($this->models, null, null, array(
+		'routeParams' => $routeParams,
+		'routeName' => $routeName
 	))?>
 </div>
