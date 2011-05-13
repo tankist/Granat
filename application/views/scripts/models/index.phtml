@@ -1,15 +1,8 @@
 <?php
 $i = 0;
 $classes = array('one', 'two', 'three');
-?><div id="sidebar" class="shape">
-	<h1>Наши коллекции</h1>
-	<ul><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
-		<li><a href="<?=$this->url(array(
-		                                'collection_id' => $collection->id,
-			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
-		                           ), 'collectionModelsChain', true)?>"><?=$collection->name?></a></li>
-	<?php } ?></ul>
-</div>
+?>
+<?=$this->partial('models/_left-column.phtml', array('collections' => $this->collections))?>
 <div id="collection" class="left-sidebar-body">
 	<?php if (!$this->collection->isEmpty()) { ?><h1><?=$this->collection->name?></h1>
 	<hr><?php } ?>

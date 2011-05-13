@@ -9,6 +9,9 @@
 @paginatorItemWidth : 20px;
 @paginatorItemHeight : 20px;
 
+@smallImageWidth : 102px;
+@smallImageHeight : 107px;
+
 @delimiterColor : #ae4e43;
 
 ul.navigation {
@@ -79,8 +82,8 @@ ul.images {
 	&.small {
 		em {
 			background:url('../images/profile-image-border-small.png') no-repeat;
-			width:102px;
-			height:107px;
+			width : @smallImageWidth;
+			height : @smallImageHeight;
 		}
 		 img {
 			top:9px;
@@ -167,6 +170,9 @@ ul.images {
 .left-sidebar-body {
 	.oh;
 	margin-left:40px + @sidebarWidth;
+	hr {
+		margin-top: 10px;
+	}
 }
 .models {
     .three-column-list;
@@ -364,13 +370,18 @@ ul.images {
 		.oh;
 		clear:both;
 		margin-bottom:7px;
-		width:102px;
+		width : @smallImageWidth;
+		min-width: @smallImageWidth;
+	}
+	div {
+		width: 102px;
 	}
 }
 #model-nav {
     .oh;
     clear:both;
 	position:relative;
+	margin-top:50px;
 	ul {
 		li {
 		    width:50%;

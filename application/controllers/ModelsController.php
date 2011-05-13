@@ -42,7 +42,24 @@ class ModelsController extends Zend_Controller_Action {
 	}
 
 	public function viewAction() {
-		// action body
+		$request = $this->getRequest();
+		$model_id = $request->getParam('model_id');
+		/**
+		 * @var Model_Model $model
+		 */
+		$model = $this->_helper->service('Model')->getModelById($model_id);
+		if ($model->isEmpty()) {
+			throw new Zend_Controller_Action_Exception('Model not found', 404);
+		}
+		$this->view->model = $model;
+		$this->view->imagePathHelper = $this->_helper->imagePath;
+
+		/**
+		 * @var Skaya_Paginator $collections
+		 */
+		$collections = $this->_helper->service('Collection')->getNonEmptyCollectionsPaginator();
+		$collections->setItemCountPerPage(100000)->setCurrentPageNumber(1);
+		$this->view->collections = $collections;
 	}
 
 }

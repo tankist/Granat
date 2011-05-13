@@ -1,53 +1,61 @@
-<div id="sidebar" class="shape">
-	<h1>Наши коллекции</h1>
-	<ul>
-		<li><a href="#ketty">Ketty Perry</a></li>
-		<li><a href="#trololo">Ololo Trololo</a></li>
-		<li class="active"><a href="#helen">Helen Banks</a></li>
-		<li><a href="#babka">Babka Paraska</a></li>
-		<li><a href="#roland">Roland Emmelrich</a></li>
-		<li><a href="#kelvin">Kelvin Klein</a></li>
-	</ul>
-</div>
+<?php
+$i = 0;
+$classes = array('one', 'two', 'three');
+/** @var Model_Model $model */
+$model = $this->model;
+$mainModelPhotoUrl = 'images/empty/big.jpg';
+$mainModelPhoto = $model->getMainPhoto();
+$mainModelPhotoPath  = $this->imagePathHelper->direct($model);
+if (!$mainModelPhoto->isEmpty()) {
+	$mainModelPhotoUrl = $mainModelPhotoPath
+						 . '/'
+						 . $mainModelPhoto->getFilename(Model_Photo::SIZE_BIG);
+}
+$photos = $model->getPhotos();
+$collection = $model->getCollection();
+
+$next = $model->getNextModel();
+$prev = $model->getPreviousModel();
+?>
+<?=$this->partial('models/_left-column.phtml', array('collections' => $this->collections))?>
 <div id="model" class="left-sidebar-body">
-	<h1>Babka Paraska Model New</h1>
+	<h1><?=$collection->name?></h1>
 	<hr>
 	<div class="models">
-		<div class="image fl"><em>&nbsp;</em><img src="/images/crap/collection_model_1.jpg" alt="Платье Кармэн"></div>
+		<div class="image fl"><em>&nbsp;</em><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></div>
+		<?php if (count($photos) > 0) { ?>
 		<ul id="thumbnails" class="fl">
-			<li>
+			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
 				<div class="profile-image small">
 					<em>&nbsp;</em>
-					<a href="#model1">
-						<img src="/images/crap/image8.jpg" alt="Платье Кармэн">
+					<a href="#<?=$photo->hash?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_BIG)?>">
+						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_SMALL)?>" alt="<?=$model->name?>">
 					</a>
 				</div>
-			</li>
-			<li>
-				<div class="profile-image small">
-					<em>&nbsp;</em>
-					<a href="#model1">
-						<img src="/images/crap/image8.jpg" alt="Платье Кармэн">
-					</a>
-				</div>
-			</li>
-			<li>
-				<div class="profile-image small">
-					<em>&nbsp;</em>
-					<a href="#model1">
-						<img src="/images/crap/image8.jpg" alt="Платье Кармэн">
-					</a>
-				</div>
-			</li>
+			</li><?php } ?>
 		</ul>
-		<h2>Платье Кармэн</h2>
-		<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
+		<?php } ?>
+		<h2><?=$model->name?></h2>
+		<p><?=$model->description?></p>
 	</div>
 	<div id="model-nav">
 		<ul>
-			<li class="prev"><a href="#prev">&lt;&lt;&nbsp;Предыдущая модель</a></li>
-			<li class="next"><a href="#next">Следующая модель&nbsp;&gt;&gt;</a></li>
+			<?php if (!$prev->isEmpty()) { ?>
+			<li class="prev"><a href="<?=$this->url(array(
+								'model_id' => $prev->id,
+								'model_name_hash' => $this->urlPartTranslit($prev->name)
+						   ), 'model', true)?>">&lt;&lt;&nbsp;Предыдущая модель</a></li>
+			<?php } ?>
+			<?php if (!$next->isEmpty()) { ?>
+			<li class="next"><a href="<?=$this->url(array(
+								'model_id' => $next->id,
+								'model_name_hash' => $this->urlPartTranslit($next->name)
+						   ), 'model', true)?>">Следующая модель&nbsp;&gt;&gt;</a></li>
+			<?php } ?>
 		</ul>
-		<p><a href="#back">&lt;&lt;&nbsp;Назад к коллекции</a></p>
+		<p><a href="<?=$this->url(array(
+		                                'collection_id' => $collection->id,
+			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
+		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;Назад к коллекции</a></p>
 	</div>
 </div>

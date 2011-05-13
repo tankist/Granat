@@ -279,6 +279,9 @@ ul.images li.active em {
   overflow: hidden;
   margin-left: 240px;
 }
+.left-sidebar-body hr {
+  margin-top: 10px;
+}
 .models {
   overflow: hidden;
   position: relative;
@@ -509,11 +512,16 @@ ul.images li.active em {
   clear: both;
   margin-bottom: 7px;
   width: 102px;
+  min-width: 102px;
+}
+#thumbnails div {
+  width: 102px;
 }
 #model-nav {
   overflow: hidden;
   clear: both;
   position: relative;
+  margin-top: 50px;
 }
 #model-nav ul li {
   width: 50%;
