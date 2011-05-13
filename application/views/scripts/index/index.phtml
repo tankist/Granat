@@ -60,12 +60,11 @@
 	<div class="shapes-container oh">
 		<div id="models" class="shape">
 			<h1 id="models-h1">Наши модели</h1>
-			<ul class="random">
-				<li style="margin-left: 8px;"><a href="">Roland Mouret</a></li>
-				<li style="margin-left: 54px;"><a href="">Kerry Taylor</a></li>
-				<li style="margin-left: 57px;"><a href="">Givenchy</a></li>
-				<li style="margin-left: 72px;"><a href="">Хепберн</a></li>
-				<li style="margin-left: 23px;"><a href="">Manoukian</a></li>
+			<ul class="random"><?php foreach($this->randomModels as /** @var Model_Model $model */$model) { ?>
+				<li><a href="<?=$this->url(array(
+								'model_id' => $model->id,
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><?=$model->name?></a></li><?php } ?>
 			</ul>
 		</div>
 		<div id="materials" class="shape half">
@@ -117,3 +116,6 @@
 		</div>
 	</div>
 </div>
+<?php
+	$this->headScript()->appendFile('/js/js.js');
+?>
