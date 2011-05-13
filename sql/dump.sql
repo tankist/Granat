@@ -113,3 +113,65 @@ CREATE TABLE `gr_users` (
 
 INSERT INTO `gr_users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `date_added`, `status`) VALUES
 (1, 'Victor', 'Gryshko', 'victor@skaya.net', 'cca8dd8babd4c9996c8dfee788a49d18', 'admin', '2011-05-07 17:02:53', 'active');
+
+delimiter $$
+
+CREATE DEFINER = 'granat'@'localhost' FUNCTION `getNextModelId`(
+        model_id INTEGER(11)
+    )
+    RETURNS int(11)
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	DECLARE collection_id INTEGER;
+	DECLARE next_id INTEGER;
+	DECLARE first_id INTEGER;
+
+    SELECT m.collection_id INTO collection_id FROM `gr_models` AS m
+    	WHERE m.id = model_id
+        LIMIT 1;
+
+    SELECT m.id INTO next_id FROM `gr_models` AS m
+    	WHERE (m.id > model_id) AND (m.`collection_id` = collection_id)
+        LIMIT 1;
+
+    SELECT m.id INTO first_id FROM `gr_models` AS m
+    	WHERE (m.id <> model_id) AND (m.`collection_id` = collection_id)
+        LIMIT 1;
+
+	RETURN IFNULL(next_id, first_id);
+END$$
+
+CREATE DEFINER = 'granat'@'localhost' FUNCTION `getPrevModelId`(
+        model_id INTEGER(11)
+    )
+    RETURNS int(11)
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	DECLARE collection_id INTEGER;
+	DECLARE prev_id INTEGER;
+	DECLARE last_id INTEGER;
+
+    SELECT m.collection_id INTO collection_id FROM `gr_models` AS m
+    	WHERE m.id = model_id
+        LIMIT 1;
+
+    SELECT m.id INTO prev_id FROM `gr_models` AS m
+    	WHERE (m.id < model_id) AND (m.`collection_id` = collection_id)
+        ORDER BY m.id DESC
+        LIMIT 1;
+
+    SELECT m.id INTO last_id FROM `gr_models` AS m
+    	WHERE (m.id <> model_id) AND (m.`collection_id` = collection_id)
+        ORDER BY m.id DESC
+        LIMIT 1;
+
+	RETURN IFNULL(prev_id, last_id);
+END$$
+
+delimiter ;
