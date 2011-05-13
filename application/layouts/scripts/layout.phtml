@@ -1,9 +1,8 @@
 <?=$this->doctype()?>
 <html lang="ru-RU">
 <head>
-	<title>Granat</title>
 	<meta http-equiv="Content-Encoding" charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="/css/style.css" media="all"/>
+	<?php echo $this->headLink()->prependStylesheet('/css/style.css') ?>
 	<!--[if IE]>
 	<style type="text/css">
 		hr {filter:alpha(opacity=43);}
@@ -11,14 +10,15 @@
 	<![endif]-->
 	<!--[if lt IE 8]>
 	<style type="text/css">
-	
+
 	</style>
 	<![endif]-->
 	<!--[if lt IE 7]>
 	<style type="text/css">
-	
+
 	</style>
 	<![endif]-->
+	<?=$this->headTitle()?>
 </head>
 <?php
 $navigation = $this->getHelper('Navigation_Menu');
@@ -42,7 +42,10 @@ $navigation = $this->getHelper('Navigation_Menu');
 			</div>
 		</div>
 	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/js.js"></script>
+<?php
+	echo $this->headScript()
+		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js')
+		->appendFile('/js/js.js');
+?>
 </body>
 </html>

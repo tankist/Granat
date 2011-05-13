@@ -359,22 +359,25 @@ ul.images {
 	position:absolute;
 	width:@sidebarWidth;
 }
-#thumbnails {
+#thumbnailsContainer {
     .fl;
 	margin-left:10px;
 	margin-right:20px;
 	overflow-x:hidden;
 	overflow-y:auto;
 	height:342px;
+}
+#thumbnails {
+    width : @smallImageWidth + 22px;
 	li {
 		.oh;
 		clear:both;
 		margin-bottom:7px;
 		width : @smallImageWidth;
 		min-width: @smallImageWidth;
-	}
-	div {
-		width: 102px;
+		div {
+			width: 102px;
+		}
 	}
 }
 #model-nav {

@@ -24,7 +24,7 @@ $prev = $model->getPreviousModel();
 	<div class="models">
 		<div class="image fl"><em>&nbsp;</em><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></div>
 		<?php if (count($photos) > 0) { ?>
-		<ul id="thumbnails" class="fl">
+		<div id="thumbnailsContainer"><ul id="thumbnails" class="fl">
 			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
 				<div class="profile-image small">
 					<em>&nbsp;</em>
@@ -33,7 +33,7 @@ $prev = $model->getPreviousModel();
 					</a>
 				</div>
 			</li><?php } ?>
-		</ul>
+		</ul></div>
 		<?php } ?>
 		<h2><?=$model->name?></h2>
 		<p><?=$model->description?></p>
@@ -59,3 +59,12 @@ $prev = $model->getPreviousModel();
 		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;Назад к коллекции</a></p>
 	</div>
 </div>
+<?php
+	$this->headScript()
+		->appendFile('/js/jscrollpane/jquery.mousewheel.js')
+		->appendFile('/js/jscrollpane/jquery.jscrollpane.min.js')
+		->appendFile('/js/model.js');
+
+	$this->headLink()
+		->appendStylesheet('/css/jquery.jscrollpane.css');
+?>
