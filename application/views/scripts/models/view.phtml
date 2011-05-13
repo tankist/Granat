@@ -22,7 +22,7 @@ $prev = $model->getPreviousModel();
 	<h1><?=$collection->name?></h1>
 	<hr>
 	<div class="models">
-		<div class="image fl"><em>&nbsp;</em><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></div>
+		<div id="image" class="image fl"><em>&nbsp;</em><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></div>
 		<?php if (count($photos) > 0) { ?>
 		<div id="thumbnailsContainer"><ul id="thumbnails" class="fl">
 			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
