@@ -5,7 +5,7 @@ class IndexController extends Zend_Controller_Action {
 	const RANDOM_ITEMS_COUNT = 5;
 
 	public function init() {
-		/* Initialize action controller here */
+		$this->view->imagePathHelper = $this->_helper->imagePath;
 	}
 
 	public function indexAction() {

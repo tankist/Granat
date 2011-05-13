@@ -1,37 +1,19 @@
 <h1 id="catalog-h1">Наш каталог</h1>
 <hr>
 <div id="catalog">
-	<a href="" class="arrow prev"><span></span></a>
+	<a href="#prev" class="arrow prev"><span></span></a>
 	<div class="oh images-container">
-		<ul class="images" style="width: 2000%; left: -192px;">
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image1.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image2.jpg" alt="" height="103" width="140"></a></li>
-			<li class="active"><a href=""><em>&nbsp;</em><img src="/images/crap/image3.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image4.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image5.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image1.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image2.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image3.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image4.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image5.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image1.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image2.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image3.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image4.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image5.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image1.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image2.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image3.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image4.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image5.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image1.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image2.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image3.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image4.jpg" alt="" height="103" width="140"></a></li>
-			<li><a href=""><em>&nbsp;</em><img src="/images/crap/image5.jpg" alt="" height="103" width="140"></a></li>
-		</ul>
+		<ul class="images" style="width: 2000%;"><?php
+			foreach($this->models as /** @var Model_Model $model */$model) {
+				$imagePath = $this->imagePathHelper->direct($model);
+		?>
+			<li><a title="<?=$model->name?>" href="<?=$this->url(array(
+								'model_id' => $model->id,
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><em>&nbsp;</em><img src="/<?=$imagePath?>/<?=$model->getMainPhoto()->getFilename(Model_Photo::SIZE_ROLL)?>" alt="<?=$model->name?>" height="103" width="140"></a></li>
+		<?php } ?></ul>
 	</div>
-	<a href="" class="arrow next"><span></span></a>
+	<a href="#next" class="arrow next"><span></span></a>
 </div>
 <h1 id="about-us-h1">Несколько слов о нас</h1>
 <hr>

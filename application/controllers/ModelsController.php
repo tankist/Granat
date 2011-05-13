@@ -3,7 +3,7 @@
 class ModelsController extends Zend_Controller_Action {
 
 	public function init() {
-		/* Initialize action controller here */
+		$this->view->imagePathHelper = $this->_helper->imagePath;
 	}
 
 	public function indexAction() {
@@ -29,7 +29,6 @@ class ModelsController extends Zend_Controller_Action {
 		}
 		$models->setItemCountPerPage(6)->setCurrentPageNumber($page = $request->getParam('page', 1));
 		$this->view->models = $models;
-		$this->view->imagePathHelper = $this->_helper->imagePath;
 		$this->view->page = $page;
 		$this->view->collection = $collection;
 
@@ -52,7 +51,6 @@ class ModelsController extends Zend_Controller_Action {
 			throw new Zend_Controller_Action_Exception('Model not found', 404);
 		}
 		$this->view->model = $model;
-		$this->view->imagePathHelper = $this->_helper->imagePath;
 
 		/**
 		 * @var Skaya_Paginator $collections
