@@ -1,13 +1,12 @@
 <?php
 $i = 0;
 $classes = array('one', 'two', 'three');
-$wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 ?><div id="sidebar" class="shape">
 	<h1>Наши коллекции</h1>
 	<ul><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
 		<li><a href="<?=$this->url(array(
 		                                'collection_id' => $collection->id,
-			                            2 => $wikifyFilter->filter($collection->name)
+			                            2 => $this->urlPartTranslit($collection->name)
 		                           ), 'collection', true)?>"><?=$collection->name?></a></li>
 	<?php } ?></ul>
 </div>
@@ -29,7 +28,7 @@ $wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 					<em>&nbsp;</em>
 					<a href="<?=$url=$this->url(array(
 								'model_id' => $model->id,
-								2 => $wikifyFilter->filter($model->name)
+								2 => $this->urlPartTranslit($model->name)
 						   ), 'model', true)?>">
 						<img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>">
 					</a>
@@ -43,12 +42,12 @@ $wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 		$paginationPartial = 'pagination/models.phtml';
 		$routeParams = array(
 			'collection_id' => $this->collection->id,
-			'collection_name_hash' => $wikifyFilter->filter($this->collection->name)
+			'collection_name_hash' => $this->urlPartTranslit($this->collection->name)
 		);
 		if ($this->category && !$this->category->isEmpty()) {
 			$paginationPartial = 'pagination/models-category.phtml';
 			$routeParams['category_id'] = $this->category->id;
-			$routeParams['category_name_hash'] = $wikifyFilter->filter($this->category->name);
+			$routeParams['category_name_hash'] = $this->urlPartTranslit($this->category->name);
 		}
 	?>
 	<?=$this->paginationControl($this->models, null, $paginationPartial, array(

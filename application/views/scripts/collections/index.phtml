@@ -1,7 +1,6 @@
 <?php
 $i = 0;
 $classes = array('one', 'two', 'three');
-$wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 ?>
 <ul class="collections"><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
 	<?php
@@ -17,7 +16,7 @@ $wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 		<div class="<?=$classes[$i++ % 3]?>">
 			<div class="image"><em>&nbsp;</em><a href="<?=$url=$this->url(array(
 			                                'collection_id' => $collection->id,
-			                                'collection_name_hash' => $wikifyFilter->filter($collection->name)
+			                                'collection_name_hash' => $this->urlPartTranslit($collection->name)
 			                           ), 'collection', true)?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$collection->name?>"></a></div>
 			<h1><a href="<?=$url?>"><?=$collection->name?></a></h1>
 			<?php if (count($categories = $collection->getCategories()) > 1) { ?><ul class="categories">
@@ -25,8 +24,8 @@ $wikifyFilter = new Zend_Filter_PregReplace('$[^a-zA-Zа-яА-Я0-9]+$i', '-');
 				<li><a href="<?=$this->url(array(
 										'collection_id' => $collection->id,
 									    'category_id' => $category->id,
-										'collection_name_hash' => $wikifyFilter->filter($collection->name),
-										'category_name_hash' => $wikifyFilter->filter($category->name)
+										'collection_name_hash' => $this->urlPartTranslit($collection->name),
+										'category_name_hash' => $this->urlPartTranslit($category->name)
 								   ), 'categorizedCollectionChain', true)?>"><?=$category->name?></a></li>
 			<?php } ?>
 			</ul><?php } ?>
