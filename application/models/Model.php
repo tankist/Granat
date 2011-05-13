@@ -86,11 +86,15 @@ class Model_Model extends Skaya_Model_Abstract {
 	 */
 	public function getMainPhoto() {
 		if (empty($this->_mainPhoto)) {
+			$this->_mainPhoto = Service_Photo::create();
 			if ($this->mainPhotoId > 0) {
 				$this->_mainPhoto = $this->getPhotoById($this->mainPhotoId);
 			}
 			else {
-				$this->_mainPhoto = Service_Photo::create();
+				$photos = $this->getPhotos(null, 1);
+				if (count($photos) > 0) {
+					$this->_mainPhoto = $photos[0];
+				}
 			}
 		}
 		return $this->_mainPhoto;
@@ -134,6 +138,36 @@ class Model_Model extends Skaya_Model_Abstract {
 			$this->_collection = Skaya_Model_Service_Abstract::factory('Collection')->getCollectionById($this->collection_id);
 		}
 		return $this->_collection;
+	}
+
+	/**
+	 * @return Model_Model
+	 */
+	public function resetCollection() {
+		unset($this->_collection);
+		return $this;
+	}
+
+	/**
+	 * @return Model_Model
+	 */
+	public function resetCategory() {
+		unset($this->_category);
+		return $this;
+	}
+
+	/**
+	 * @return Model_Model
+	 */
+	public function getPreviousModel() {
+		return new self($this->getMapper()->getPreviousModel($this->id));
+	}
+
+	/**
+	 * @return Model_Model
+	 */
+	public function getNextModel() {
+		return new self($this->getMapper()->getNextModel($this->id));
 	}
 
 }

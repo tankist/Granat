@@ -82,4 +82,12 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		return $paginator;
 	}
 
+	public function getPreviousModel($model_id) {
+		return $this->getModelById(new Zend_Db_Expr('getPrevModelId(' . $model_id . ')'));
+	}
+
+	public function getNextModel($model_id) {
+		return $this->getModelById(new Zend_Db_Expr('getNextModelId(' . $model_id . ')'));
+	}
+
 }
