@@ -61,8 +61,8 @@ class Skaya_Controller_Plugin_Resource extends Zend_Controller_Plugin_Abstract {
 			return;
 		}
 		$bootstrap->setOptions($pluginOptions);
-		foreach ($pluginOptions['resources'] as $recourceName => $recourceOptions) {
-			$bootstrap->bootstrap($recourceName);
+		foreach ($pluginOptions['resources'] as $resourceName => $resourceOptions) {
+			$bootstrap->bootstrap($resourceName);
 		}
 		$this->_setBootstrap($bootstrap);
 	}
