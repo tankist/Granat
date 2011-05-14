@@ -20,16 +20,16 @@
  * @version    $Id$
  */
 
-// Call Model_Mapper_MapperBrokerTest::main() if this source file is executed directly.
+// Call Skaya_Model_Mapper_MapperBrokerTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Model_Mapper_MapperBrokerTest::main");
+    define("PHPUnit_MAIN_METHOD", "Skaya_Model_Mapper_MapperBrokerTest::main");
 }
 
-require_once APPLICATION_PATH . '/models/mappers/Interface.php';
-require_once APPLICATION_PATH . '/models/mappers/Abstract.php';
-require_once APPLICATION_PATH . '/models/Interface.php';
-require_once APPLICATION_PATH . '/models/Abstract.php';
-require_once APPLICATION_PATH . '/models/mappers/MapperBroker/PriorityStack.php';
+require_once 'Skaya/Model/Mapper/Interface.php';
+require_once 'Skaya/Model/Mapper/Abstract.php';
+require_once 'Skaya/Model/Interface.php';
+require_once 'Skaya/Model/Abstract.php';
+require_once 'Skaya/Model/Mapper/MapperBroker/PriorityStack.php';
 
 /**
  * @category   Zend
@@ -41,7 +41,7 @@ require_once APPLICATION_PATH . '/models/mappers/MapperBroker/PriorityStack.php'
  * @group      Model_Mapper
  * @group      Model_Mapper_Mapper
  */
-class Model_Mapper_MapperBrokerTest extends ControllerTestCase
+class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
 {
     /**
      * @var Zend_Controller_Front
@@ -57,7 +57,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
     public static function main()
     {
 
-        $suite  = new PHPUnit_Framework_TestSuite("Model_Mapper_MapperBrokerTest");
+        $suite  = new PHPUnit_Framework_TestSuite("Skaya_Model_Mapper_MapperBrokerTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
@@ -68,13 +68,13 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $this->front->setParam('noViewRenderer', true)
                     ->setParam('noErrorHandler', true)
                     ->throwExceptions(true);
-        Model_Mapper_MapperBroker::resetMappers();
+        Skaya_Model_Mapper_MapperBroker::resetMappers();
     }
 
     public function testGetExistingMapperThrowsExceptionWithUnregisteredMapper()
     {
         try {
-            $received = Model_Mapper_MapperBroker::getExistingMapper('testMapper');
+            $received = Skaya_Model_Mapper_MapperBroker::getExistingMapper('testMapper');
             $this->fail('Retrieving unregistered Mappers should throw an exception');
         } catch (Exception $e) {
             // success
@@ -91,10 +91,10 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $response = new Zend_Controller_Response_Cli();
         $this->front->setResponse($response);
 
-        $mapper = new Model_Mapper_MapperBroker_TestMapper();
-        Model_Mapper_MapperBroker::addMapper($mapper);
+        $mapper = new Skaya_Model_Mapper_MapperBroker_TestMapper();
+        Skaya_Model_Mapper_MapperBroker::addMapper($mapper);
 
-        $controller = new Model_Mapper_MapperBrokerModel($request, $response, array());
+        $controller = new Skaya_Model_Mapper_MapperBrokerModel($request, $response, array());
         $controller->test();
         $received = $controller->getMapper('testMapper');
         $this->assertSame($mapper, $received);
@@ -104,19 +104,19 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
     public function testLoadingAndCheckingMappersStatically()
     {
         $mapper = new Model_Mapper_Mapper_Redirector();
-        Model_Mapper_MapperBroker::addMapper($mapper);
+        Skaya_Model_Mapper_MapperBroker::addMapper($mapper);
 
-        $this->assertTrue(Model_Mapper_MapperBroker::hasMapper('redirector'));
+        $this->assertTrue(Skaya_Model_Mapper_MapperBroker::hasMapper('redirector'));
     }
 
     public function testLoadingAndRemovingMappersStatically()
     {
         $mapper = new Model_Mapper_Mapper_Redirector();
-        Model_Mapper_MapperBroker::addMapper($mapper);
+        Skaya_Model_Mapper_MapperBroker::addMapper($mapper);
 
-        $this->assertTrue(Model_Mapper_MapperBroker::hasMapper('redirector'));
-        Model_Mapper_MapperBroker::removeMapper('redirector');
-        $this->assertFalse(Model_Mapper_MapperBroker::hasMapper('redirector'));
+        $this->assertTrue(Skaya_Model_Mapper_MapperBroker::hasMapper('redirector'));
+        Skaya_Model_Mapper_MapperBroker::removeMapper('redirector');
+        $this->assertFalse(Skaya_Model_Mapper_MapperBroker::hasMapper('redirector'));
     }
      public function testReturningMapper()
     {
@@ -149,7 +149,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $this->front->returnResponse(true);
 
         require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files/Mappers/TestMapper.php';
-        Model_Mapper_MapperBroker::addMapper(new MyApp_TestMapper());
+        Skaya_Model_Mapper_MapperBroker::addMapper(new MyApp_TestMapper());
 
         $response = $this->front->dispatch($request);
         $this->assertEquals('running direct call', $response->getBody());
@@ -175,7 +175,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $this->front->returnResponse(true);
 
         require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files/Mappers/TestMapper.php';
-        Model_Mapper_MapperBroker::addMapper(new MyApp_TestMapper());
+        Skaya_Model_Mapper_MapperBroker::addMapper(new MyApp_TestMapper());
 
         $response = $this->front->dispatch($request);
         $this->assertEquals('MyApp_TestMapper', $response->getBody());
@@ -189,7 +189,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
 
         $this->front->returnResponse(true);
 
-        Model_Mapper_MapperBroker::addPath(
+        Skaya_Model_Mapper_MapperBroker::addPath(
             dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Mappers',
             'MyApp'
             );
@@ -200,11 +200,11 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
 
     public function testGetExistingMappers()
     {
-        Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_Redirector());
+        Skaya_Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_Redirector());
         // already included in setup, techinically we shouldnt be able to do this, but until 2.0 - its allowed
-        Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_ViewRenderer()); // @todo in future this should throw an exception
+        Skaya_Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_ViewRenderer()); // @todo in future this should throw an exception
 
-        $mappers = Model_Mapper_MapperBroker::getExistingMappers();
+        $mappers = Skaya_Model_Mapper_MapperBroker::getExistingMappers();
         $this->assertTrue(is_array($mappers));
         $this->assertEquals(2, count($mappers));
         $this->assertContains('ViewRenderer', array_keys($mappers));
@@ -213,24 +213,24 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
 
     public function testGetMapperStatically()
     {
-        $mapper = Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
+        $mapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
         $this->assertTrue($mapper instanceof Model_Mapper_Mapper_ViewRenderer);
 
-        $mappers = Model_Mapper_MapperBroker::getExistingMappers();
+        $mappers = Skaya_Model_Mapper_MapperBroker::getExistingMappers();
         $this->assertTrue(is_array($mappers));
         $this->assertEquals(1, count($mappers));
     }
 
     public function testMapperPullsResponseFromRegisteredActionController()
     {
-        $mapper = Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
+        $mapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
 
         $aRequest   = new Zend_Controller_Request_Http();
         $aRequest->setModuleName('default')
                  ->setControllerName('Model_Mapper_Mapper-broker')
                  ->setActionName('index');
         $aResponse  = new Zend_Controller_Response_Cli();
-        $controller = new Model_Mapper_MapperBrokerModel($aRequest, $aResponse, array());
+        $controller = new Skaya_Model_Mapper_MapperBrokerModel($aRequest, $aResponse, array());
 
         $fRequest   = new Zend_Controller_Request_Http();
         $fRequest->setModuleName('foo')
@@ -252,7 +252,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
 
     public function testMapperPullsResponseFromFrontControllerWithNoRegisteredActionController()
     {
-        $mapper = Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
+        $mapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
         $this->assertNull($mapper->getActionController());
 
         $aRequest   = new Zend_Controller_Request_Http();
@@ -279,12 +279,12 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
 
     public function testMapperPathStackIsLifo()
     {
-        Model_Mapper_MapperBroker::addPath(
+        Skaya_Model_Mapper_MapperBroker::addPath(
             dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Mappers',
             'MyApp'
             );
 
-        $urlMapper = Model_Mapper_MapperBroker::getStaticMapper('url');
+        $urlMapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('url');
         $this->assertTrue($urlMapper instanceof MyApp_Url);
     }
 
@@ -293,7 +293,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
      */
     public function testPluginLoaderShouldHaveDefaultPrefixPath()
     {
-        $loader = Model_Mapper_MapperBroker::getPluginLoader();
+        $loader = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
         $paths  = $loader->getPaths('Model_Mapper_Mapper');
         $this->assertFalse(empty($paths));
     }
@@ -305,7 +305,7 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
             ->returnResponse(true);
 
         $path = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files/Mappers';
-        Model_Mapper_MapperBroker::addPath($path, 'MyApp\Controller\Action\Mapper\\');
+        Skaya_Model_Mapper_MapperBroker::addPath($path, 'MyApp\Controller\Action\Mapper\\');
 
         $request  = new Zend_Controller_Request_Http('http://framework.zend.com/Mapper-broker/test-can-load-namespaced-Mapper/');
         $response = $this->front->dispatch($request);
@@ -317,16 +317,16 @@ class Model_Mapper_MapperBrokerTest extends ControllerTestCase
      */
     public function testBrokerShouldAcceptCustomPluginLoaderInstance()
     {
-        $loader = Model_Mapper_MapperBroker::getPluginLoader();
+        $loader = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
         $custom = new Zend_Loader_PluginLoader();
-        Model_Mapper_MapperBroker::setPluginLoader($custom);
-        $test   = Model_Mapper_MapperBroker::getPluginLoader();
+        Skaya_Model_Mapper_MapperBroker::setPluginLoader($custom);
+        $test   = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
         $this->assertNotSame($loader, $test);
         $this->assertSame($custom, $test);
     }
 }
 
-class Model_Mapper_MapperBroker_TestMapper extends Model_Mapper_Abstract
+class Skaya_Model_Mapper_MapperBroker_TestMapper extends Skaya_Model_Mapper_Abstract
 {
     public $count = 0;
 
@@ -348,7 +348,7 @@ class Model_Mapper_MapperBroker_TestMapper extends Model_Mapper_Abstract
     }
 }
 
-class Model_Mapper_MapperBrokerModel extends Model_Abstract
+class Skaya_Model_Mapper_MapperBrokerModel extends Skaya_Model_Abstract
 {
     public $mapper;
 
@@ -363,7 +363,7 @@ class Model_Mapper_MapperBrokerModel extends Model_Abstract
     }
 }
 
-// Call Model_Mapper_MapperBrokerTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Model_Mapper_MapperBrokerTest::main") {
-    Model_Mapper_MapperBrokerTest::main();
+// Call Skaya_Model_Mapper_MapperBrokerTest::main() if this source file is executed directly.
+if (PHPUnit_MAIN_METHOD == "Skaya_Model_Mapper_MapperBrokerTest::main") {
+    Skaya_Model_Mapper_MapperBrokerTest::main();
 }

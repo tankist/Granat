@@ -14,6 +14,7 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         // указываем функцию, которая будет выполнена до запуска тестов
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
+	    Zend_Controller_Front::getInstance()->getRouter()->addDefaultRoutes();
     }
 
     protected function appBootstrap()

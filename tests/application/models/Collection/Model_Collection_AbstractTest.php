@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Z:\home\granat.lan\application\models\Collection\Abstract.php';
+//require_once 'Z:\home\granat.lan\application\models\Collection\Abstract.php';
 
 /**
  * Test class for Model_Collection_Abstract.
@@ -19,7 +19,7 @@ class Model_Collection_AbstractTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Model_Collection_Abstract;
+        $this->object = PHPUnit_Framework_MockObject_Generator::generate('Skaya_Model_Collection_Abstract');
     }
 
     /**
