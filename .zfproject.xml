@@ -17,8 +17,6 @@
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="Collections">
           <actionMethod actionName="index"/>
-          <actionMethod actionName="get"/>
-          <actionMethod actionName="model"/>
         </controllerFile>
         <controllerFile controllerName="Fabrics">
           <actionMethod actionName="index"/>
@@ -236,12 +234,6 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="logout"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Collections">
-            <viewScriptFile forActionName="get"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Collections">
-            <viewScriptFile forActionName="model"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Fabrics">
             <viewScriptFile forActionName="get"/>

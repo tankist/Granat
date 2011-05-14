@@ -1,7 +1,7 @@
 <?=$this->doctype()?>
 <html lang="ru-RU">
 <head>
-	<meta http-equiv="Content-Encoding" charset="UTF-8">
+	<meta http-equiv="Content-Encoding" content="UTF-8">
 	<?php echo $this->headLink()->prependStylesheet('/css/style.css') ?>
 	<!--[if IE]>
 	<style type="text/css">
@@ -18,17 +18,17 @@
 
 	</style>
 	<![endif]-->
-	<?=$this->headTitle()?>
+	<?php $this->headTitle()->prepend('Ателье ГраНат в Николаеве - '); echo $this->headTitle()?>
 </head>
 <?php
-$navigation = $this->getHelper('Navigation_Menu');
+$navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 ?>
 <body>
 	<div id="bodywrapper">
 		<div id="logo"><a href="/">GraNat Natali Grechanaya</a></div>
 		<div id="bodycontainer">
 			<div id="header">
-				<?=$navigation->renderMenu()?>
+				<?=$navigation?>
 			</div>
 			<div id="body">
 				<div id="content"><?php echo $this->layout()->content; ?></div>
@@ -37,8 +37,8 @@ $navigation = $this->getHelper('Navigation_Menu');
 		</div>
 		<div id="footer">
 			<div id="footer-wrapper">
-				<div class="fl"><?=$navigation->renderMenu()?></div>
-				<span id="copyright" class="fr">© 2011. GraNat.  Все права защищены</span>
+				<div class="fl"><?=$navigation?></div>
+				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.  Все права защищены</span>
 			</div>
 		</div>
 	</div>

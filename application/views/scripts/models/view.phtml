@@ -72,4 +72,6 @@ $prev = $model->getPreviousModel();
 	$this->headLink()
 		->appendStylesheet('/css/jquery.jscrollpane.css')
 		->appendStylesheet('/css/prettyPhoto.css');
+
+	$this->headTitle('Коллекция «' . $model->getCollection()->name . '» - «' . $model->name . '»');
 ?>

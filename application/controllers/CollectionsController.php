@@ -18,12 +18,4 @@ class CollectionsController extends Zend_Controller_Action {
 		$this->view->page = $page;
 	}
 
-	public function getAction() {
-		// action body
-	}
-
-	public function modelAction() {
-		// action body
-	}
-
 }

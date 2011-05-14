@@ -35,6 +35,8 @@ $classes = array('one', 'two', 'three');
 		$routeName = 'allModels';
 		$routeParams = array();
 		if ($this->collection && !$this->collection->isEmpty()) {
+			$this->headTitle('Коллекция «' . $this->collection->name . '» - ');
+
 			$routeName = 'collectionChain';
 			$routeParams = array(
 				'collection_id' => $this->collection->id,
@@ -52,3 +54,4 @@ $classes = array('one', 'two', 'three');
 		'routeName' => $routeName
 	))?>
 </div>
+<?php $this->headTitle('Модели') ?>
