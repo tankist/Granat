@@ -1,2 +1,20 @@
+<div id="fabrics">
+	<h1>Коллекция тканей</h1>
+	<hr>
+	<?php if (count($this->fabrics) > 0) { ?>
+	<ul><?php foreach($this->fabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
+		<li>
+			<div><em></em><img src="" alt="">
 
+				<h2></h2>
+
+				<p></p>
+			</div>
+		</li>
+	<?php } ?></ul>
+	<?php } ?>
+	<?=$this->paginationControl($this->fabrics, null, null, array(
+		'routeName' => 'fabrics'
+	))?>
+</div>
 <?php $this->headTitle('Ткани') ?>
