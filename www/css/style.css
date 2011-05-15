@@ -387,7 +387,7 @@ ul.images li.active em {
   position: absolute;
   top: 0;
   left: -50px;
-  background: url('../images/logo.png') no-repeat 0 0;
+  background: url('../images/logo_bg.png') no-repeat 0 0;
   z-index: 1;
 }
 #header {
