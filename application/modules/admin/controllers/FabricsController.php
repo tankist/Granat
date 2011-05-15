@@ -104,16 +104,16 @@ class Admin_FabricsController extends Zend_Controller_Action {
 			$data = $form->getValues();
 
 			if (!$fabric->isEmpty()) {
-				$photoFilename = $form->getImagePath() . DIRECTORY_SEPARATOR . $data['photo'];
-				if (file_exists($photoFilename)) {
+				$photoFilename = $form->getImagePath() . DIRECTORY_SEPARATOR . $fabric->photo;
+				if (file_exists($photoFilename) && is_file($photoFilename)) {
 					/**
 					 * @var Model_Photo $oldFile
 					 */
 					$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
-					@unlink($form->getImagePath() . $oldFile->getFilename());
-					@unlink($form->getImagePath() . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+					@unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename());
+					@unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
 				}
-				else {
+				elseif (!isset($data['photo'])) {
 					unset($data['photo']);
 				}
 			}
