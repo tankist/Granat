@@ -6,15 +6,14 @@
 		<li>
 			<div><em></em><img src="" alt="">
 
-				<h2></h2>
-
-				<p></p>
+				<h2><?=$fabric->name?></h2>
+				<p><?=$fabric->description?></p>
 			</div>
 		</li>
 	<?php } ?></ul>
 	<?php } ?>
 	<?=$this->paginationControl($this->fabrics, null, null, array(
-		'routeName' => 'fabrics'
+		'routeName' => 'allFabrics'
 	))?>
 </div>
 <?php $this->headTitle('Ткани') ?>

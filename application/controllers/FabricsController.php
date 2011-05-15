@@ -1,25 +1,25 @@
 <?php
 
-class FabricsController extends Zend_Controller_Action
-{
+class FabricsController extends Zend_Controller_Action {
 
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
+	const FABRICS_PER_PAGE = 5;
 
-    public function indexAction()
-    {
-        // action body
-    }
+	public function init() {
+		/* Initialize action controller here */
+	}
 
-    public function getAction()
-    {
-        // action body
-    }
+	public function indexAction() {
+		/**
+		 * @var Skaya_Paginator $fabrics
+		 */
+		$this->view->fabrics = $fabrics = $this->_helper->service('Fabric')->getFabricsPaginator();
+		$fabrics
+			->setCurrentPageNumber($this->getRequest()->getParam('page', 1))
+			->setItemCountPerPage(self::FABRICS_PER_PAGE);
+	}
 
+	public function getAction() {
+		// action body
+	}
 
 }
-
-
-
