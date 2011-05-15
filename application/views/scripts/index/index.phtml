@@ -1,5 +1,6 @@
 <h1 id="catalog-h1">Наш каталог</h1>
 <hr>
+<?php if (count($this->models) > 0) { ?>
 <div id="catalog">
 	<a href="#prev" class="arrow prev"><span></span></a>
 	<div class="oh images-container">
@@ -15,6 +16,7 @@
 	</div>
 	<a href="#next" class="arrow next"><span></span></a>
 </div>
+<?php } ?>
 <h1 id="about-us-h1">Несколько слов о нас</h1>
 <hr>
 <div id="aboutus-container" class="oh">
@@ -99,6 +101,9 @@
 	</div>
 </div>
 <?php
-	$this->headScript()->appendFile('/js/index.js');
+	$this->headScript()
+		->appendFile('/js/jscrollpane/jquery.mousewheel.js')
+		->appendFile('/js/scrollable/scrollable.js')
+		->appendFile('/js/index.js');
 	$this->headTitle('Главная');
 ?>
