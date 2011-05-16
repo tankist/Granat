@@ -337,6 +337,34 @@ ul.images li.active em {
   top: 9px;
   left: 9px;
 }
+.fabrics {
+  margin-top: 20px;
+}
+.fabrics li {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.fabrics .image {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  margin-right: 20px;
+}
+.fabrics .image em {
+  display: block;
+}
+.fabrics .image img {
+  position: absolute;
+}
+.fabrics .image em {
+  width: 168px;
+  height: 168px;
+  background: transparent url('../images/fabric-border.png') no-repeat;
+}
+.fabrics .image img {
+  top: 9px;
+  left: 9px;
+}
 .shape ul {
   font-family: Georgia, serif;
   font-size: 13px;

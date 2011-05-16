@@ -5,12 +5,16 @@
 @sidebarWidth : 200px;
 @collectionItemWidth : 232px;
 @collectionItemHeight : 304px;
+@fabricWidth : 150px;
+@fabricHeight : 150px;
 
 @paginatorItemWidth : 20px;
 @paginatorItemHeight : 20px;
 
 @smallImageWidth : 102px;
 @smallImageHeight : 107px;
+
+@imageBorderWidth : 9px;
 
 @delimiterColor : #ae4e43;
 
@@ -86,8 +90,8 @@ ul.images {
 			height : @smallImageHeight;
 		}
 		 img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
@@ -162,8 +166,8 @@ ul.images {
 			background:transparent url('../images/collection-image-border.png') no-repeat;
 		}
 		img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
@@ -192,8 +196,29 @@ ul.images {
 			background:transparent url('../images/model-image-border.png') no-repeat;
 		}
 		img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
+		}
+	}
+}
+.fabrics {
+	margin-top:20px;
+	li {
+		.oh;
+		margin-bottom:20px;
+	}
+	.image {
+	    .three-column-list .image;
+	    .fl;
+		margin-right:20px;
+		em {
+		    width:@fabricWidth + 2 * @imageBorderWidth;
+			height:@fabricHeight + 2 * @imageBorderWidth;
+			background:transparent url('../images/fabric-border.png') no-repeat;
+		}
+		img {
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
