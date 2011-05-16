@@ -8,8 +8,8 @@
 	<ul class="fabrics"><?php foreach($this->fabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
 		<li>
 			<div class="image">
-				<em></em>
-				<img src="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename(Model_Photo::SIZE_FABRIC)?>" alt="<?=$fabric->name?>">
+				<a rel="prettyPhoto" title="<?=$fabric->name?>" href="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename()?>"><em></em>
+				<img src="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename(Model_Photo::SIZE_FABRIC)?>" alt="<?=$fabric->name?>"></a>
 			</div>
 			<h2><?=$fabric->name?></h2>
 			<p><?=$fabric->description?></p>
@@ -20,4 +20,13 @@
 		'routeName' => 'allFabrics'
 	))?>
 </div>
-<?php $this->headTitle('Ткани') ?>
+<?php
+	$this->headScript()
+		->appendFile('/js/prettyPhoto/jquery.prettyPhoto.js')
+		->appendFile('/js/fabrics.js');
+
+	$this->headLink()
+		->appendStylesheet('/css/prettyPhoto.css');
+
+	$this->headTitle('Ткани');
+?>
