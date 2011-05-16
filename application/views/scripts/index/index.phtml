@@ -53,13 +53,8 @@
 		</div>
 		<div id="materials" class="shape half">
 			<h1 id="materials-h1">Коллекция тканей</h1>
-			<ul class="random">
-				<li style="margin-left: 60px;"><a href="">Стрейч-атлас</a></li>
-				<li style="margin-left: 143px;"><a href="">Шифон</a></li>
-				<li style="margin-left: 216px;"><a href="">Сатин</a></li>
-				<li style="margin-left: 175px;"><a href="">Шантильи</a></li>
-				<li style="margin-left: 120px;"><a href="">Гипюр</a></li>
-				<li style="margin-left: 111px;"><a href="">Шелк</a></li>
+			<ul class="random"><?php foreach($this->randomFabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
+				<li><a href="<?=$this->url(array(), 'fabrics', true)?>"><?=$fabric->name?></a></li><?php } ?>
 			</ul>
 		</div>
 	</div>
