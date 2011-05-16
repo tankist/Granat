@@ -58,8 +58,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 
 	protected function _initRoutes() {
+		$this->bootstrap('frontcontroller');
 		$routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/router.ini', APPLICATION_ENV);
-		Zend_Controller_Front::getInstance()->getRouter()->addConfig($routes, 'routes');
+		$this->getResource('frontcontroller')->getRouter()->addConfig($routes, 'routes');
+	}
+
+	protected function _initYandexMaps() {
+		$this->bootstrap('frontcontroller');
+		$options = $this->getOption('ymaps');
+		$this->getResource('frontcontroller')->setParam('ymaps', $options);
 	}
 
 }

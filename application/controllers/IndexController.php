@@ -29,23 +29,8 @@ class IndexController extends Zend_Controller_Action {
 	}
 
 	public function contactsAction() {
-		// action body
+		$yandexMapsOptions = $this->getInvokeArg('ymaps');
+		$this->view->apiKey = (is_array($yandexMapsOptions) && array_key_exists('key', $yandexMapsOptions))?$yandexMapsOptions['key']:'';
 	}
-
-	public function loginAction() {
-		// action body
-	}
-
-	public function logoutAction() {
-		// action body
-	}
-
 
 }
-
-
-
-
-
-
-

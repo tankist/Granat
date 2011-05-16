@@ -1,2 +1,100 @@
+<div id="contacts">
+	<h1>Как нас найти?</h1>
+	<hr>
+	<ul>
+		<li class="vcard">
+			<div class="oh store">
+				<h2>Салон-ателье &laquo;Гранат&raquo;</h2>
 
-<?php $this->headTitle('Контактная информация') ?>
+				<p class="time"><strong>Ежедневно с 9.00 до 18.00</strong> (выходной - воскресенье)</p>
+
+				<p class="address">Наш адрес: <span class="adr">ул. Адмирала Макарова, 26</span></p>
+
+				<p class="phone">Телефон: <span class="tel">+380509288713</span></p>
+				<?php if (!empty($this->apiKey)) { ?>
+				<a href="#map" class="mapLink">Посмотреть на карте &gt;&gt;</a>
+			</div>
+
+			<div class="mapContainer">
+				<!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту  (начало) -->
+<script src="http://api-maps.yandex.ru/1.1/?key=<?=$this->apiKey?>&modules=pmap&wizard=constructor" type="text/javascript"></script>
+<script type="text/javascript">
+    YMaps.jQuery(window).load(function () {
+        var map = new YMaps.Map(YMaps.jQuery("#YMapsID-3350")[0]);
+        map.setCenter(new YMaps.GeoPoint(31.983893,46.969668), 16, YMaps.MapType.MAP);
+        map.addControl(new YMaps.Zoom());
+        map.addControl(new YMaps.ToolBar());
+        YMaps.MapType.PMAP.getName = function () { return "Народная"; };
+        map.addControl(new YMaps.TypeControl([
+            YMaps.MapType.MAP,
+            YMaps.MapType.SATELLITE,
+            YMaps.MapType.HYBRID,
+            YMaps.MapType.PMAP
+        ], [0, 1, 2, 3]));
+
+        YMaps.Styles.add("constructor#pmrdmPlacemark", {
+            iconStyle : {
+                href : "http://api-maps.yandex.ru/i/0.3/placemarks/pmrdm.png",
+                size : new YMaps.Point(28,29),
+                offset: new YMaps.Point(-8,-27)
+            }
+        });
+
+
+        YMaps.Styles.add("constructor#66C7FFc85Polyline", {
+            lineStyle : {
+                strokeColor : "66C7FFc8",
+                strokeWidth : 5
+            }
+        });
+
+        YMaps.Styles.add("constructor#FF3732c85Polyline", {
+            lineStyle : {
+                strokeColor : "FF3732c8",
+                strokeWidth : 5
+            }
+        });
+       map.addOverlay(createObject("Placemark", new YMaps.GeoPoint(31.979539,46.971792), "constructor#pmrdmPlacemark", "Салон-Ателье \"Гранат\""));
+       map.addOverlay(createObject("Polyline", [new YMaps.GeoPoint(31.989292,46.966967),new YMaps.GeoPoint(31.985955,46.967154),new YMaps.GeoPoint(31.983235,46.967373),new YMaps.GeoPoint(31.981352,46.967488),new YMaps.GeoPoint(31.981352,46.967782),new YMaps.GeoPoint(31.982103,46.968884),new YMaps.GeoPoint(31.983144,46.970375),new YMaps.GeoPoint(31.979378,46.971572)], "constructor#66C7FFc85Polyline", ""));
+       map.addOverlay(createObject("Polyline", [], "constructor#FF3732c85Polyline", ""));
+
+        function createObject (type, point, style, description) {
+            var allowObjects = ["Placemark", "Polyline", "Polygon"],
+                index = YMaps.jQuery.inArray( type, allowObjects),
+                constructor = allowObjects[(index == -1) ? 0 : index];
+                description = description || "";
+
+            var object = new YMaps[constructor](point, {style: style, hasBalloon : !!description});
+            object.description = description;
+
+            return object;
+        }
+
+	    window.maps = window.maps || [];
+	    window.maps.push(map);
+    });
+</script>
+
+<div id="YMapsID-3350" style="width:600px;height:420px"></div>
+<div style="width:600px;text-align:right;font-family:Arial"><a href="http://api.yandex.ru/maps/tools/constructor/" style="color:#1A3DC1">Создано с помощью инструментов Яндекс.Карт</a></div>
+<!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту (конец) -->
+			</div><?php } ?>
+		</li>
+		<!--<li>
+			<h2></h2>
+
+			<p class="time"></p>
+
+			<p class="address"></p>
+
+			<p class="phone"></p>
+			<a href=""></a>
+		</li>-->
+	</ul>
+</div>
+<?php
+	$this->headScript()
+		->appendFile('/js/contacts.js');
+
+	$this->headTitle('Контактная информация');
+?>

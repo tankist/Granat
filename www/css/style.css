@@ -44,6 +44,10 @@ a {
 a:hover {
   text-decoration: underline;
 }
+strong, .strong {
+  color: white;
+  font-weight: bold;
+}
 h1 {
   font-family: 'MajesticRegular';
   font-size: 30px;
@@ -593,4 +597,31 @@ ul#paginator li a {
 }
 ul#paginator li.active a {
   background-position: right center;
+}
+#contacts ul li {
+  border-bottom: 1px solid #8f493d;
+}
+#contacts ul li .store {
+  position: relative;
+}
+#contacts ul li .store p.time {
+  margin: 18px 0;
+}
+#contacts ul li .store p.phone {
+  margin-bottom: 25px;
+}
+#contacts .mapLink {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7px;
+}
+#contacts .mapContainer {
+  display: none;
+}
+#contacts .mapContainer .YMaps {
+  margin: 0 auto;
+}
+.YMaps {
+  color: #000000;
 }

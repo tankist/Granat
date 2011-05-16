@@ -241,8 +241,7 @@ ul.images {
 	margin:13px 0;
 }
 .tel, .fn, .email, .adr {
-	color:white;
-	font-weight:bold;
+	.strong;
 }
 /*** Blocks ***/
 #bodywrapper {
@@ -453,4 +452,37 @@ ul#paginator {
 			background-position: right center;
 		}
 	}
+}
+#contacts {
+	ul {
+		li {
+			border-bottom: 1px solid #8f493d;
+			.store {
+				position: relative;
+				p {
+					&.time {
+						margin: 18px 0;
+					}
+					&.phone {
+						margin-bottom: 25px;
+					}
+				}
+			}
+		}
+	}
+	.mapLink {
+		position: absolute;
+		right: 0;
+		top:50%;
+		margin-top: -7px;
+	}
+	.mapContainer {
+		display: none;
+		.YMaps {
+			margin: 0 auto;
+		}
+	}
+}
+.YMaps {
+	color : #000000;
 }
