@@ -406,8 +406,8 @@ ul.images li.active em {
 }
 #bodycontainer, #footer-wrapper {
   margin: 0 auto;
-  width: 84%;
-  min-width: 1010px;
+  width: 90%;
+  min-width: 1050px;
   min-height: 100%;
   z-index: 2;
   position: relative;
@@ -449,15 +449,14 @@ ul.images li.active em {
   height: 100px;
 }
 #header ul.navigation {
-  float: right;
+  float: left;
   font-family: Georgia, Times New Roman, serif;
   font-size: 18px;
-  height: 86px;
-  background: url('../images/separator.png') no-repeat center right;
+  margin: 32px 0;
   padding-right: 20px;
 }
 #header ul.navigation li {
-  margin: 32px 15px;
+  margin: 0 15px;
 }
 #header ul.navigation li a {
   padding: 1px 15px;
@@ -468,6 +467,12 @@ ul.images li.active em {
 }
 #header ul.navigation li.active a {
   background: url('../images/active-li-bg.png') repeat;
+}
+#menu-separator {
+  float: right;
+  width: 1px;
+  background: url('../images/separator.png') no-repeat center right;
+  height: 86px;
 }
 #footer ul.navigation li {
   border-right: 1px solid #713e41;

@@ -256,8 +256,8 @@ ul.images {
 	}
 #bodycontainer, #footer-wrapper {
 	.center-block;
-	width:84%;
-	min-width:1010px;
+	width:90%;
+	min-width:1050px;
 	min-height: 100%;
 	z-index:2;
 	position:relative;
@@ -299,14 +299,13 @@ ul.images {
 		height:100px;
 	}
 #header ul.navigation {
-	.fr;
+	.fl;
 	font-family:Georgia, Times New Roman, serif;
 	font-size:18px;
-	height:86px;
-	background:url('../images/separator.png') no-repeat center right;
+	margin:32px 0;
 	padding-right:20px;
 	li {
-		margin:32px 15px;
+		margin:0 15px;
 		a {
 			padding:1px 15px;
 			line-height:27px;
@@ -318,6 +317,12 @@ ul.images {
 			}
 		}
 	}
+}
+#menu-separator {
+	.fr;
+    width:1px;
+	background:url('../images/separator.png') no-repeat center right;
+	height:86px;
 }
 #footer ul.navigation {
 	li {
