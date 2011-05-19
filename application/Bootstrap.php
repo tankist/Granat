@@ -69,4 +69,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$this->getResource('frontcontroller')->setParam('ymaps', $options);
 	}
 
+	protected function _initTranslation() {
+		Zend_Controller_Action_HelperBroker::addHelper(new Skaya_Controller_Action_Helper_Translator());
+	}
+
 }
