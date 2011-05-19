@@ -58,9 +58,28 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 
 	protected function _initRoutes() {
-		$this->bootstrap('frontcontroller');
+		$this->bootstrap('frontcontroller')->bootstrap('locale');
+		/**
+		 * @var Zend_Controller_Front $front
+		 */
+		$front = $this->getResource('frontcontroller');
 		$routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/router.ini', APPLICATION_ENV);
-		$this->getResource('frontcontroller')->getRouter()->addConfig($routes, 'routes');
+		/**
+		 * @var Zend_Controller_Router_Rewrite $router
+		 */
+		$router = $front->getRouter();
+		$router->addConfig($routes, 'routes');
+		$routes = $router->getRoutes();
+
+		$langRoute = $router->getRoute('language');
+
+		foreach ($routes as $name => $route) {
+			if (!in_array($name, array('language', 'default', 'defaultmodule'))) {
+				$router->addRoute($name, $langRoute->chain($route));
+			}
+		}
+
+		$front->registerPlugin(new Skaya_Controller_Plugin_MultilingualRouter('ru'));
 	}
 
 	protected function _initYandexMaps() {
