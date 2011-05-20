@@ -47,19 +47,19 @@ $prev = $model->getPreviousModel();
 			<li class="prev"><a href="<?=$this->url(array(
 								'model_id' => $prev->id,
 								'model_name_hash' => $this->urlPartTranslit($prev->name)
-						   ), 'model', true)?>">&lt;&lt;&nbsp;Предыдущая модель</a></li>
+						   ), 'model', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Предыдущая модель')?></a></li>
 			<?php } ?>
 			<?php if (!$next->isEmpty()) { ?>
 			<li class="next"><a href="<?=$this->url(array(
 								'model_id' => $next->id,
 								'model_name_hash' => $this->urlPartTranslit($next->name)
-						   ), 'model', true)?>">Следующая модель&nbsp;&gt;&gt;</a></li>
+						   ), 'model', true)?>"><?=$this->translate('Следующая модель')?>&nbsp;&gt;&gt;</a></li>
 			<?php } ?>
 		</ul>
 		<p><a href="<?=$this->url(array(
 		                                'collection_id' => $collection->id,
 			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
-		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;Назад к коллекции</a></p>
+		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Назад к коллекции')?></a></p>
 	</div>
 </div>
 <?php
@@ -73,5 +73,5 @@ $prev = $model->getPreviousModel();
 		->appendStylesheet('/css/jquery.jscrollpane.css')
 		->appendStylesheet('/css/prettyPhoto.css');
 
-	$this->headTitle('Коллекция «' . $model->getCollection()->name . '» - «' . $model->name . '»');
+	$this->headTitle($this->translate('Коллекция') . ' «' . $model->getCollection()->name . '» - «' . $model->name . '»');
 ?>

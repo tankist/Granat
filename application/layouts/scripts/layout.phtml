@@ -19,7 +19,7 @@
 
 	</style>
 	<![endif]-->
-	<?php $this->headTitle()->prepend('Ателье ГраНат в Николаеве - '); echo $this->headTitle()?>
+	<?php $this->headTitle()->prepend($this->translate('Ателье ГраНат в Николаеве') . ' - '); echo $this->headTitle()?>
 </head>
 <?php
 $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
@@ -52,7 +52,7 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		<div id="footer">
 			<div id="footer-wrapper">
 				<div class="fl"><?=$navigation?></div>
-				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.  Все права защищены</span>
+				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.&nbsp;<?=$this->translate('Все права защищены')?></span>
 			</div>
 		</div>
 	</div>

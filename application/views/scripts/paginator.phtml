@@ -9,7 +9,7 @@ if ($this->pageCount > 1) {
 	$routeParams['page'] = $i;
 ?>
 	<li p="<?=$i?>"<?php if ($this->current == $i) echo ' class="active"' ?>>
-		<a href="<?=$this->url($routeParams, $routeName)?>" title="Page <?=$i?>"><?=$i?></a>
+		<a href="<?=$this->url($routeParams, $routeName)?>" title="<?=$this->translate('Страница')?> <?=$i?>"><?=$i?></a>
 	</li>
 <? } ?>
 </ul>
