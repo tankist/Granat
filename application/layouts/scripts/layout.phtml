@@ -29,9 +29,20 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		<div id="logo">&nbsp;</div>
 		<div id="bodycontainer">
 			<div id="header">
+				<div id="languages">
+					<div class="fr oh">
+						<p class="fl">Язык:&nbsp;</p>
+						<ul class="fl">
+							<li<?=($this->language == 'ru')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'ru'))?>">Рус</a></li>
+							<li<?=($this->language == 'en')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'en'))?>"">Eng</a></li>
+						</ul>
+					</div>
+
+				</div>
 				<a class="fl" href="<?=$this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
 				<?=$navigation?>
 				<div id="menu-separator">&nbsp;</div>
+				<div id="slogan">&nbsp;</div>
 			</div>
 			<div id="body">
 				<div id="content"><?php echo $this->layout()->content; ?></div>

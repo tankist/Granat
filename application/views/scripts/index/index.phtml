@@ -1,4 +1,4 @@
-<h1 id="catalog-h1">Наш каталог</h1>
+<h1 id="catalog-h1"><?=$this->translate('Наш каталог')?></h1>
 <hr>
 <?php if (count($this->models) > 0) { ?>
 <div id="catalog">
@@ -17,7 +17,7 @@
 	<a href="#next" class="arrow next"><span></span></a>
 </div>
 <?php } ?>
-<h1 id="about-us-h1">Несколько слов о нас</h1>
+<h1 id="about-us-h1"><?=$this->translate('Несколько слов о нас')?></h1>
 <hr>
 <div id="aboutus-container" class="oh">
 	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
@@ -43,7 +43,7 @@
 <div id="shapes">
 	<div class="shapes-container oh">
 		<div id="models" class="shape">
-			<h1 id="models-h1">Наши модели</h1>
+			<h1 id="models-h1"><?=$this->translate('Наши модели')?></h1>
 			<ul class="random"><?php foreach($this->randomModels as /** @var Model_Model $model */$model) { ?>
 				<li><a href="<?=$this->url(array(
 								'model_id' => $model->id,
@@ -52,7 +52,7 @@
 			</ul>
 		</div>
 		<div id="materials" class="shape half">
-			<h1 id="materials-h1">Коллекция тканей</h1>
+			<h1 id="materials-h1"><?=$this->translate('Коллекция тканей')?></h1>
 			<ul class="random"><?php foreach($this->randomFabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
 				<li><a href="<?=$this->url(array(), 'fabrics', true)?>"><?=$fabric->name?></a></li><?php } ?>
 			</ul>
@@ -61,7 +61,7 @@
 	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
 </div>
 <div id="services">
-	<h1>Услуги</h1>
+	<h1><?=$this->translate('Услуги')?></h1>
 	<hr>
 	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
 	<div class="one-third fl">

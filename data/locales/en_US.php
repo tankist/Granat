@@ -8,5 +8,9 @@ return array(
 
 	'Наш каталог' => 'Our models',
 	'Несколько слов о нас' => 'About Us',
-	'Услуги' => 'Service'
+	'Наши модели' => 'Our models',
+	'Коллекция тканей' => 'Fabrics collection',
+	'Услуги' => 'Service',
+
+	
 );
