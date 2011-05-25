@@ -2,7 +2,7 @@
 
 ?>
 <div id="fabrics">
-	<h1>Коллекция тканей</h1>
+	<h1><?=$this->translate('Коллекция тканей')?></h1>
 	<hr>
 	<?php if (count($this->fabrics) > 0) { ?>
 	<ul class="fabrics"><?php foreach($this->fabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
@@ -28,5 +28,5 @@
 	$this->headLink()
 		->appendStylesheet('/css/prettyPhoto.css');
 
-	$this->headTitle('Ткани');
+	$this->headTitle($this->translate('Коллекция тканей'));
 ?>

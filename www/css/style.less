@@ -275,8 +275,50 @@ ul.images {
 #header {
 	.oh;
 	padding-top:35px;
-	background:url('../images/slogan.png') no-repeat right 47px;
-	padding-right:252px;
+	ul.navigation {
+		.fl;
+		font-family:Georgia, Times New Roman, serif;
+		font-size:18px;
+		margin:32px 0;
+		padding-right:20px;
+		li {
+			margin:0 15px;
+			a {
+				padding:1px 15px;
+				line-height:27px;
+			}
+			&.active {
+				background:url('../images/main-li-separator.png') no-repeat center left;
+				a {
+					background:url('../images/active-li-bg.png') repeat;
+				}
+			}
+		}
+	}
+	#languages {
+		.oh;
+		p {
+			margin: 2px;
+		}
+		ul {
+			font-family:Georgia, Times New Roman, serif;
+			font-size:14px;
+			li {
+				.fl;
+				margin:0 5px;
+				a {
+					padding:1px 5px;
+					line-height:20px;
+				}
+				&.active {
+					background:url('../images/main-li-separator-lang.png') no-repeat center left;
+					a {
+						background:url('../images/active-li-bg.png') repeat;
+					}
+				}
+			}
+		}
+	}
 }
 #body {
 	margin-top:65px;
@@ -298,31 +340,18 @@ ul.images {
 	#footer-spacer {
 		height:100px;
 	}
-#header ul.navigation {
-	.fl;
-	font-family:Georgia, Times New Roman, serif;
-	font-size:18px;
-	margin:32px 0;
-	padding-right:20px;
-	li {
-		margin:0 15px;
-		a {
-			padding:1px 15px;
-			line-height:27px;
-		}
-		&.active {
-			background:url('../images/main-li-separator.png') no-repeat center left;
-			a {
-				background:url('../images/active-li-bg.png') repeat;
-			}
-		}
-	}
-}
 #menu-separator {
 	.fr;
-    width:1px;
-	background:url('../images/separator.png') no-repeat center right;
+    width:222px;
+	height:99px;
+	background:url('../images/slogan.png') no-repeat center right;
+	margin-left: 30px;
+}
+#slogan {
+	.fr;
+	width:1px;
 	height:86px;
+	background:url('../images/separator.png') no-repeat center right;
 }
 #footer ul.navigation {
 	li {

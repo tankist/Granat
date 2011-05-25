@@ -19,7 +19,7 @@
 
 	</style>
 	<![endif]-->
-	<?php $this->headTitle()->prepend('Ателье ГраНат в Николаеве - '); echo $this->headTitle()?>
+	<?php $this->headTitle()->prepend($this->translate('Ателье ГраНат в Николаеве') . ' - '); echo $this->headTitle()?>
 </head>
 <?php
 $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
@@ -29,9 +29,20 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		<div id="logo">&nbsp;</div>
 		<div id="bodycontainer">
 			<div id="header">
-				<a class="fl" href="<?=$this->url(array())?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
+				<div id="languages">
+					<div class="fr oh">
+						<p class="fl">Язык:&nbsp;</p>
+						<ul class="fl">
+							<li<?=($this->language == 'ru')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'ru'))?>">Рус</a></li>
+							<li<?=($this->language == 'en')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'en'))?>"">Eng</a></li>
+						</ul>
+					</div>
+
+				</div>
+				<a class="fl" href="<?=$this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
 				<?=$navigation?>
 				<div id="menu-separator">&nbsp;</div>
+				<div id="slogan">&nbsp;</div>
 			</div>
 			<div id="body">
 				<div id="content"><?php echo $this->layout()->content; ?></div>
@@ -41,7 +52,7 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		<div id="footer">
 			<div id="footer-wrapper">
 				<div class="fl"><?=$navigation?></div>
-				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.  Все права защищены</span>
+				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.&nbsp;<?=$this->translate('Все права защищены')?></span>
 			</div>
 		</div>
 	</div>

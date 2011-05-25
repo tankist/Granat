@@ -1,0 +1,104 @@
+<h1 id="catalog-h1"><?=$this->translate('Наш каталог')?></h1>
+<hr>
+<?php if (count($this->models) > 0) { ?>
+<div id="catalog">
+	<a href="#prev" class="arrow prev"><span></span></a>
+	<div class="oh images-container">
+		<ul class="images" style="width: 2000%;"><?php
+			foreach($this->models as /** @var Model_Model $model */$model) {
+				$imagePath = $this->imagePathHelper->direct($model);
+		?>
+			<li><a title="<?=$model->name?>" href="<?=$this->url(array(
+								'model_id' => $model->id,
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><em>&nbsp;</em><img src="/<?=$imagePath?>/<?=$model->getMainPhoto()->getFilename(Model_Photo::SIZE_ROLL)?>" alt="<?=$model->name?>" height="103" width="140"></a></li>
+		<?php } ?></ul>
+	</div>
+	<a href="#next" class="arrow next"><span></span></a>
+</div>
+<?php } ?>
+<h1 id="about-us-h1"><?=$this->translate('Несколько слов о нас')?></h1>
+<hr>
+<div id="aboutus-container" class="oh">
+	<p>&laquo;GraNat&raquo;-studio invites you to visit us. Here you'll find everything you need in order to be most compelling in everyday life, and on holidays.</p>
+	<div class="half vcard fl">
+		<div class="profile-image big">
+			<em>&nbsp;</em>
+			<img src="/images/crap/image6.jpg" alt="Natali Grechanaya" class="photo">
+		</div>
+		<p>I'm the founder and lead designer of my studio&laquo;<span class="org">GraNat</span>&raquo; <a href=""><span class="fn">Natali Grechanaya</span></a></p>
+		<p>We can discuss the details of your order by phone: <span class="tel">+380509288713</span></p>
+		<p>Also you can send your suggestions via e-mail to: <a class="email" href="mailto:natalya_grechanaya@mail.ru">natalya_grechanaya@mail.ru</a></p>
+	</div>
+	<div class="half vcard fl">
+		<div class="profile-image big">
+			<em>&nbsp;</em>
+			<img src="/images/crap/image7.jpg" alt="Natali Grechanaya" class="photo">
+		</div>
+		<p>Orders for any style: elegant, lush, strong, mischievous, and sea accessories - each of these things are dreams to find their perfect owner. We are not limited only by lush exclusive or short wedding dresses in the catalog of well-known manufacturers</p>
+		<p>Our address: <span class="adr"><span class="street-address">Ukraine, Mykolaiv, Adm. Makarova str., 26</span></span></p>
+		<p><a href="<?=$this->url(array(), 'contacts')?>" class="map">Find on map</a></p>
+	</div>
+</div>
+<div id="shapes">
+	<div class="shapes-container oh">
+		<div id="models" class="shape">
+			<h1 id="models-h1"><?=$this->translate('Наши модели')?></h1>
+			<ul class="random"><?php foreach($this->randomModels as /** @var Model_Model $model */$model) { ?>
+				<li><a href="<?=$this->url(array(
+								'model_id' => $model->id,
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><?=$model->name?></a></li><?php } ?>
+			</ul>
+		</div>
+		<div id="materials" class="shape half">
+			<h1 id="materials-h1"><?=$this->translate('Коллекция тканей')?></h1>
+			<ul class="random"><?php foreach($this->randomFabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
+				<li><a href="<?=$this->url(array(), 'fabrics', true)?>"><?=$fabric->name?></a></li><?php } ?>
+			</ul>
+		</div>
+	</div>
+	<p>For each item, using the desire to create, to imagine, you can find your approach, allow to please you, and more!</p>
+</div>
+<div id="services">
+	<h1><?=$this->translate('Услуги')?></h1>
+	<hr>
+	<p>We operate in the market services sector for four years. Almost all of the masters are working with the founding studios. The motto of our team: "Run your job well enough - customers need to impress!"</p>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image8.jpg" alt="Визажист" class="photo" height="90" width="84">
+			</div>
+			<h2>Visagiste</h2>
+			<p>Bring your image to perfection by our professional makeup artists</p>
+		</div>
+	</div>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image9.jpg" alt="Парикмахер" class="photo" height="90" width="84">
+			</div>
+			<h2>Hairdresser</h2>
+			<p>Our hairdressers will make you a hair of any complexity.</p>
+		</div>
+	</div>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image10.jpg" alt="Стилист" class="photo" height="90" width="84">
+			</div>
+			<h2>Stylist</h2>
+			<p>Create your own unique style, and our stylists will help you with this.</p>
+		</div>
+	</div>
+</div>
+<?php
+	$this->headScript()
+		->appendFile('/js/jscrollpane/jquery.mousewheel.js')
+		->appendFile('/js/scrollable/scrollable.js')
+		->appendFile('/js/index.js');
+	$this->headTitle($this->translate('Главная'));
+?>

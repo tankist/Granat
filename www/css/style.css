@@ -425,28 +425,6 @@ ul.images li.active em {
 #header {
   overflow: hidden;
   padding-top: 35px;
-  background: url('../images/slogan.png') no-repeat right 47px;
-  padding-right: 252px;
-}
-#body {
-  margin-top: 65px;
-}
-#content {
-  min-width: 1050px;
-}
-#footer {
-  overflow-y: hidden;
-  height: 46px;
-  padding-top: 54px;
-  margin-top: -100px;
-}
-#footer-wrapper {
-  overflow-y: hidden;
-  border-top: 1px solid #613e3e;
-  padding-top: 17px;
-}
-#footer-spacer {
-  height: 100px;
 }
 #header ul.navigation {
   float: left;
@@ -468,11 +446,62 @@ ul.images li.active em {
 #header ul.navigation li.active a {
   background: url('../images/active-li-bg.png') repeat;
 }
+#header #languages {
+  overflow: hidden;
+}
+#header #languages p {
+  margin: 2px;
+}
+#header #languages ul {
+  font-family: Georgia, Times New Roman, serif;
+  font-size: 14px;
+}
+#header #languages ul li {
+  float: left;
+  margin: 0 5px;
+}
+#header #languages ul li a {
+  padding: 1px 5px;
+  line-height: 20px;
+}
+#header #languages ul li.active {
+  background: url('../images/main-li-separator-lang.png') no-repeat center left;
+}
+#header #languages ul li.active a {
+  background: url('../images/active-li-bg.png') repeat;
+}
+#body {
+  margin-top: 65px;
+}
+#content {
+  min-width: 1050px;
+}
+#footer {
+  overflow-y: hidden;
+  height: 46px;
+  padding-top: 54px;
+  margin-top: -100px;
+}
+#footer-wrapper {
+  overflow-y: hidden;
+  border-top: 1px solid #613e3e;
+  padding-top: 17px;
+}
+#footer-spacer {
+  height: 100px;
+}
 #menu-separator {
   float: right;
+  width: 222px;
+  height: 99px;
+  background: url('../images/slogan.png') no-repeat center right;
+  margin-left: 30px;
+}
+#slogan {
+  float: right;
   width: 1px;
-  background: url('../images/separator.png') no-repeat center right;
   height: 86px;
+  background: url('../images/separator.png') no-repeat center right;
 }
 #footer ul.navigation li {
   border-right: 1px solid #713e41;

@@ -1,5 +1,5 @@
 <div id="contacts">
-	<h1>Как нас найти?</h1>
+	<h1><?=$this->translate('Как нас найти')?></h1>
 	<hr>
 	<ul>
 		<li class="vcard">
@@ -12,7 +12,7 @@
 
 				<p class="phone">Телефон: <span class="tel">+380509288713</span></p>
 				<?php if (!empty($this->apiKey)) { ?>
-				<a href="#map" class="mapLink">Посмотреть на карте &gt;&gt;</a>
+				<a href="#map" class="mapLink"><?=$this->translate('Посмотреть на карте')?> &gt;&gt;</a>
 			</div>
 
 			<div class="mapContainer">
@@ -96,5 +96,5 @@
 	$this->headScript()
 		->appendFile('/js/contacts.js');
 
-	$this->headTitle('Контактная информация');
+	$this->headTitle($this->translate('Контактная информация'));
 ?>

@@ -21,6 +21,12 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->models = $service->getRandomModels(self::SLIDER_ITEMS_COUNT);
 		$this->view->randomModels = $service->getRandomModels(self::RANDOM_ITEMS_COUNT);
 		$this->view->randomFabrics = $this->_helper->service('Fabric')->getFabrics('RAND()', self::RANDOM_ITEMS_COUNT);
+
+		/**
+		 * @var Zend_Controller_Action_Helper_ViewRenderer
+		 */
+		$viewRenderer = $this->_helper->viewRenderer;
+		$viewRenderer->setScriptAction('index-' . $this->view->language);
 	}
 
 	public function contactsAction() {
