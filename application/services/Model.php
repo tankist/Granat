@@ -25,4 +25,9 @@ class Service_Model extends Skaya_Model_Service_Abstract {
 		return $paginator;
 	}
 
+	public function getRandomModels($count = null) {
+		$modelsBlob = $this->_mappers->model->getRandomModels($count);
+		return new Model_Collection_Models($modelsBlob);
+	}
+
 }

@@ -170,4 +170,8 @@ class Model_Model extends Skaya_Model_Abstract {
 		return new self($this->getMapper()->getNextModel($this->id));
 	}
 
+    public function getMapper() {
+        return new Model_Mapper_Decorator_Cache_Model(parent::getMapper());
+    }
+
 }

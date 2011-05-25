@@ -10,6 +10,13 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		'mainPhotoId' => 'main_photo_id'
 	);
 
+    /**
+     * @cachable
+     * @cache_id model_$id
+     * @cache_tags model item
+     * @param  $id
+     * @return array
+     */
 	public function getModelById($id) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchRowById($id);
@@ -89,5 +96,12 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 	public function getNextModel($model_id) {
 		return $this->getModelById(new Zend_Db_Expr('getNextModelId(' . $model_id . ')'));
 	}
+
+    public function getRandomModels($count = null) {
+        $modelTable = self::_getTableByName(self::TABLE_NAME);
+        $select = $modelTable->select()->order('RAND()')->limit($count);
+        $modelBlob = $modelTable->fetchAll($select);
+		return $this->getMappedArrayFromData($modelBlob);
+    }
 
 }

@@ -92,4 +92,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Controller_Action_HelperBroker::addHelper(new Skaya_Controller_Action_Helper_Translator());
 	}
 
+    protected function _initMapperBrocker() {
+        Skaya_Model_Mapper_MapperBroker::getPluginLoader()->addPrefixPath('Model_Mapper', APPLICATION_PATH . '/models/mappers');
+    }
+
 }

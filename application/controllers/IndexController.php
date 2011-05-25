@@ -4,27 +4,22 @@ class IndexController extends Zend_Controller_Action {
 
 	const RANDOM_ITEMS_COUNT = 5;
 
+	const SLIDER_ITEMS_COUNT = 25;
+
 	public function init() {
 		$this->view->imagePathHelper = $this->_helper->imagePath;
 	}
 
 	public function indexAction() {
+        /**
+         * @var Service_Model
+         */
+        $service = $this->_helper->service('Model');
 		/**
 		 * @var Model_Collection_Models $models
 		 */
-		$this->view->models = $models = $this->_helper->service('Model')->getModels('RAND()');
-
-		$randomModels = new Model_Collection_Models();
-		$modelsCount = $randomCount = count($models);
-		if ($randomCount > self::RANDOM_ITEMS_COUNT) {
-			$randomCount = self::RANDOM_ITEMS_COUNT;
-		}
-		$keys = array_rand(range(0, $modelsCount - 1), $randomCount);
-		for ($i=0;$i<count($keys);$i++) {
-			$randomModels[$i] = $models[$keys[$i]];
-		}
-
-		$this->view->randomModels = $randomModels;
+		$this->view->models = $service->getRandomModels(self::SLIDER_ITEMS_COUNT);
+		$this->view->randomModels = $service->getRandomModels(self::RANDOM_ITEMS_COUNT);
 		$this->view->randomFabrics = $this->_helper->service('Fabric')->getFabrics('RAND()', self::RANDOM_ITEMS_COUNT);
 	}
 
