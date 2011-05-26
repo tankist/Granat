@@ -12,7 +12,7 @@ $classes = array('one', 'two', 'three');
 		if (!$mainModelPhoto->isEmpty()) {
 			$mainModelPhotoUrl = $this->imagePathHelper->direct($model)
 								 . '/'
-			                     . $mainModelPhoto->getFilename(Model_Photo::SIZE_BIG);
+			                     . $mainModelPhoto->getFilename(Model_ModelPhoto::SIZE_BIG);
 		}
 	?>
 		<li>

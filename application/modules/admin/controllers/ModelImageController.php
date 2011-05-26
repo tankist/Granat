@@ -42,9 +42,9 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 			$tokens = explode('.', $filename);
 			$extension = array_pop($tokens);
 			/**
-			 * @var Model_Photo $image
+			 * @var Model_ModelPhoto $image
 			 */
-			$image = $this->_helper->service('Photo')->create(array(
+			$image = $this->_helper->service('ModelPhoto')->create(array(
 				'hash' => join('.', $tokens),
 				'extension' => $extension
 			));
@@ -58,7 +58,7 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 			$imageData = array(
 				'path' => $imagesPath,
 				'name' => $image->getFilename(),
-				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
 				'id' => $id
 			);
 			if ($model->isEmpty()) {
@@ -98,7 +98,7 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 		$model = $this->_helper->service('Model')->getModelById($model_id);
 		if (!$model->isEmpty()) {
 			/**
-			 * @var Model_Photo $image
+			 * @var Model_ModelPhoto $image
 			 */
 			$image = $model->getPhotoById($image_id);
 			if (!$image->isEmpty()) {
@@ -114,9 +114,9 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 				return;
 			}
 			/**
-			 * @var Model_Photo $image
+			 * @var Model_ModelPhoto $image
 			 */
-			$image = $this->_helper->service('Photo')->create(array(
+			$image = $this->_helper->service('ModelPhoto')->create(array(
 				'filename' => $imageData['name']
 			));
 			$this->_delete($image, $imageData['path']);
@@ -125,12 +125,12 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 		}
 	}
 
-	protected function _delete(Model_Photo $image, $path = null) {
+	protected function _delete(Model_ModelPhoto $image, $path = null) {
 		if (!$path || !file_exists($path)) {
 			$path = $this->_helper->imagePath($image->getModel());
 		}
 		$sizes = array('');
-		foreach (array_merge($sizes, array_keys(Model_Photo::getThumbnailPack())) as $size) {
+		foreach (array_merge($sizes, array_keys(Model_ModelPhoto::getThumbnailPack())) as $size) {
 			$filename = $image->getFilename($size);
 			$filePath = realpath($path . DIRECTORY_SEPARATOR . $filename);
 			if ($filePath && file_exists($filePath) && is_writable($filePath)) {

@@ -9,7 +9,7 @@ $classes = array('one', 'two', 'three');
 		if (!$mainModelPhoto->isEmpty()) {
 			$mainModelPhotoUrl = $this->imagePathHelper->direct($collection->getMainModel())
 								 . '/'
-			                     . $mainModelPhoto->getFilename(Model_Photo::SIZE_MIDDLE);
+			                     . $mainModelPhoto->getFilename(Model_ModelPhoto::SIZE_MIDDLE);
 		}
 	?>
 	<li>

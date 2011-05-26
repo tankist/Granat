@@ -23,15 +23,15 @@ class Model_Model extends Skaya_Model_Abstract {
 	protected $_collection;
 
 	/**
-	 * @var Model_Photo
+	 * @var Model_ModelPhoto
 	 */
 	protected $_mainPhoto;
 
 	/**
-	 * @param Model_Photo $photo
+	 * @param Model_ModelPhoto $photo
 	 * @return Model_Model
 	 */
-	public function addPhoto(Model_Photo $photo) {
+	public function addPhoto(Model_ModelPhoto $photo) {
 		$photo->model_id = $this->id;
 		$photo->save();
 		return $this;
@@ -39,11 +39,11 @@ class Model_Model extends Skaya_Model_Abstract {
 
 	/**
 	 * @param  $photo_id
-	 * @return Model_Photo
+	 * @return Model_ModelPhoto
 	 */
 	public function getPhotoById($photo_id) {
-		$photoBlob = $this->mappers->photo->getModelPhotoById($this->id, $photo_id);
-		return new Model_Photo($photoBlob);
+		$photoBlob = $this->mappers->modelPhoto->getModelPhotoById($this->id, $photo_id);
+		return new Model_ModelPhoto($photoBlob);
 	}
 
 	/**
@@ -53,8 +53,8 @@ class Model_Model extends Skaya_Model_Abstract {
 	 * @return Model_Collection_Photos
 	 */
 	public function getPhotos($order = null, $count = null, $offset = null) {
-		$photosBlob = $this->mappers->photo->getModelPhotos($this->id, $order, $count, $offset);
-		return new Model_Collection_Photos($photosBlob);
+		$photosBlob = $this->mappers->modelPhoto->getModelPhotos($this->id, $order, $count, $offset);
+		return new Model_Collection_ModelPhotos($photosBlob);
 	}
 
 	/**
@@ -62,17 +62,17 @@ class Model_Model extends Skaya_Model_Abstract {
 	 * @return Skaya_Paginator
 	 */
 	public function getPhotosPaginator($order = null) {
-		$paginator = $this->mappers->photo->getModelPhotosPaginator($this->id, $order);
+		$paginator = $this->mappers->modelPhoto->getModelPhotosPaginator($this->id, $order);
 		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Photos'));
 		return $paginator;
 	}
 
 	/**
 	 * @throws Skaya_Model_Exception
-	 * @param Model_Photo $photo
+	 * @param Model_ModelPhoto $photo
 	 * @return Skaya_Model_Abstract
 	 */
-	public function setMainPhoto(Model_Photo $photo) {
+	public function setMainPhoto(Model_ModelPhoto $photo) {
 		if ($photo->model_id != $this->id) {
 			throw new Skaya_Model_Exception('This photo is not belongs to this model');
 		}
@@ -82,11 +82,11 @@ class Model_Model extends Skaya_Model_Abstract {
 	}
 
 	/**
-	 * @return Model_Photo
+	 * @return Model_ModelPhoto
 	 */
 	public function getMainPhoto() {
 		if (empty($this->_mainPhoto)) {
-			$this->_mainPhoto = Service_Photo::create();
+			$this->_mainPhoto = Service_ModelPhoto::create();
 			if ($this->mainPhotoId > 0) {
 				$this->_mainPhoto = $this->getPhotoById($this->mainPhotoId);
 			}

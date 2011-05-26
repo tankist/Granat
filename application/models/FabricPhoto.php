@@ -1,17 +1,37 @@
 <?php
 class Model_FabricPhoto extends Model_Photo {
 
+	const SIZE_FABRIC = 'fabric';
+
+	protected static $_thumbnailPack = array(
+		self::SIZE_FABRIC => array(
+			'width' => 150,
+			'height' => 150,
+			'indication_type' => self::INDICATION_SUFFIX,
+			'indication' => 'f'
+		)
+	);
+
 	/**
 	 * @var Model_Fabric
 	 */
 	protected $_fabric;
 
 	/**
-	 * @throws Skaya_Model_Exception
+	 * @static
+	 * @param  $thumbnailPack
 	 * @return void
 	 */
-	public function getModel() {
-		throw new Skaya_Model_Exception('Fabric do not belong to any model');
+	public static function setThumbnailPack($thumbnailPack) {
+		self::$_thumbnailPack = $thumbnailPack;
+	}
+
+	/**
+	 * @static
+	 * @return array
+	 */
+	public static function getThumbnailPack() {
+		return self::$_thumbnailPack;
 	}
 
 	public function getFabric() {
@@ -20,5 +40,10 @@ class Model_FabricPhoto extends Model_Photo {
 		}
 		return $this->_fabric;
 	}
+
+    public function getSize($size) {
+        $sizes = self::getThumbnailPack();
+        return (array_key_exists($size, $sizes))?$sizes[$size]:array();
+    }
 
 }

@@ -107,11 +107,11 @@ class Admin_FabricsController extends Zend_Controller_Action {
 				$photoFilename = $form->getImagePath() . DIRECTORY_SEPARATOR . $fabric->photo;
 				if (file_exists($photoFilename) && is_file($photoFilename)) {
 					/**
-					 * @var Model_Photo $oldFile
+					 * @var Model_FabricPhoto $oldFile
 					 */
-					$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
+					$oldFile = Service_FabricPhoto::create(array('filename' => $fabric->photo));
 					@unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename());
-					@unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+					@unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_FabricPhoto::SIZE_FABRIC));
 				}
 				elseif (!isset($data['photo'])) {
 					unset($data['photo']);
@@ -154,9 +154,9 @@ class Admin_FabricsController extends Zend_Controller_Action {
 			}
 			$path = realpath(self::FABRICS_PATH);
 			if (file_exists($path . DIRECTORY_SEPARATOR . $fabric->photo)) {
-				$oldFile = Service_Photo::create(array('filename' => $fabric->photo));
+				$oldFile = Service_FabricPhoto::create(array('filename' => $fabric->photo));
 				@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename());
-				@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_Photo::SIZE_FABRIC));
+				@unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_FabricPhoto::SIZE_FABRIC));
 			}
 			$fabric->delete();
 			$i++;

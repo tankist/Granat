@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mapper_Db_Photo extends Skaya_Model_Mapper_Db_Abstract {
+class Model_Mapper_Db_ModelPhoto extends Skaya_Model_Mapper_Db_Abstract {
 
 	const TABLE_NAME = 'Photos';
 

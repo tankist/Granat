@@ -9,7 +9,7 @@ $mainModelPhotoPath  = $this->imagePathHelper->direct($model);
 if (!$mainModelPhoto->isEmpty()) {
 	$mainModelPhotoUrl = $mainModelPhotoPath
 						 . '/'
-						 . $mainModelPhoto->getFilename(Model_Photo::SIZE_BIG);
+						 . $mainModelPhoto->getFilename(Model_ModelPhoto::SIZE_BIG);
 }
 $photos = $model->getPhotos();
 $collection = $model->getCollection();
@@ -28,11 +28,11 @@ $prev = $model->getPreviousModel();
 		</div>
 		<?php if (count($photos) > 0) { ?>
 		<div id="thumbnailsContainer"><ul id="thumbnails" class="fl">
-			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
+			<?php foreach($photos as /** @var Model_ModelPhoto $photo */$photo) { ?><li>
 				<div class="profile-image small">
 					<em>&nbsp;</em>
-					<a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_BIG)?>">
-						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_SMALL)?>" alt="<?=$model->name?>">
+					<a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_ModelPhoto::SIZE_BIG)?>">
+						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_ModelPhoto::SIZE_SMALL)?>" alt="<?=$model->name?>">
 					</a>
 				</div>
 			</li><?php } ?>

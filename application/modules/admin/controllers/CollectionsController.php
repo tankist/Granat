@@ -71,7 +71,7 @@ class Admin_CollectionsController extends Zend_Controller_Action {
 			$imagesData[$model->id] = array(
 				'id' => $model->id,
 				'name' => $model->name,
-				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
 				'path' => $imagesPath
 			);
 		}
