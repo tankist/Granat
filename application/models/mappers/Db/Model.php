@@ -12,7 +12,7 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 
     /**
      * @cachable
-     * @cache_id model_$id
+     * @cache_id model_{$id}
      * @cache_tags model item
      * @param  $id
      * @return array
@@ -23,6 +23,14 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		return $this->getMappedArrayFromData($modelBlob);
 	}
 
+    /**
+     * @cachable
+     * @cache_tags models list
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getModels($order = null, $count = null, $offset = null) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchAll(null, $order, $count, $offset);

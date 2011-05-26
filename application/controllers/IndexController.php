@@ -12,7 +12,7 @@ class IndexController extends Zend_Controller_Action {
 
 	public function indexAction() {
         /**
-         * @var Service_Model
+         * @var Service_Model $service
          */
         $service = $this->_helper->service('Model');
 		/**

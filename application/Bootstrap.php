@@ -100,4 +100,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Skaya_Model_Mapper_MapperBroker::getPluginLoader()->addPrefixPath('Model_Mapper', APPLICATION_PATH . '/models/mappers');
     }
 
+    protected function _initCache() {
+        $this->bootstrap('cachemanager')->bootstrap('translate')->bootstrap('locale')->bootstrap('db');
+        /**
+         * @var Zend_Cache_Manager $cacheManager
+         */
+        $cacheManager = $this->getResource('cachemanager');
+        if ($database = $cacheManager->getCache('database')) {
+            Zend_Db_Table_Abstract::setDefaultMetadataCache($database);
+            Zend_Paginator::setCache($database);
+            Skaya_Model_Mapper_Decorator_Cache::setCache($database);
+        }
+        if ($locale = $cacheManager->getCache('locale')) {
+            Zend_Translate::setCache($locale);
+            Zend_Locale::setCache($locale);
+        }
+    }
+
 }
