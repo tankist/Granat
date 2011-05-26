@@ -27,6 +27,16 @@ class Model_Model extends Skaya_Model_Abstract {
 	 */
 	protected $_mainPhoto;
 
+    /**
+     * @var Model_Mapper_Db_Model
+     */
+    protected $_mapper;
+
+    /**
+     * @var Model_Mapper_Db_ModelPhoto
+     */
+    protected $_photoMapper;
+
 	/**
 	 * @param Model_ModelPhoto $photo
 	 * @return Model_Model
@@ -42,7 +52,7 @@ class Model_Model extends Skaya_Model_Abstract {
 	 * @return Model_ModelPhoto
 	 */
 	public function getPhotoById($photo_id) {
-		$photoBlob = $this->mappers->modelPhoto->getModelPhotoById($this->id, $photo_id);
+		$photoBlob = $this->getPhotoMapper()->getModelPhotoById($this->id, $photo_id);
 		return new Model_ModelPhoto($photoBlob);
 	}
 
@@ -53,7 +63,7 @@ class Model_Model extends Skaya_Model_Abstract {
 	 * @return Model_Collection_Photos
 	 */
 	public function getPhotos($order = null, $count = null, $offset = null) {
-		$photosBlob = $this->mappers->modelPhoto->getModelPhotos($this->id, $order, $count, $offset);
+		$photosBlob = $this->getPhotoMapper()->getModelPhotos($this->id, $order, $count, $offset);
 		return new Model_Collection_ModelPhotos($photosBlob);
 	}
 
@@ -62,7 +72,7 @@ class Model_Model extends Skaya_Model_Abstract {
 	 * @return Skaya_Paginator
 	 */
 	public function getPhotosPaginator($order = null) {
-		$paginator = $this->mappers->modelPhoto->getModelPhotosPaginator($this->id, $order);
+		$paginator = $this->getPhotoMapper()->getModelPhotosPaginator($this->id, $order);
 		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Photos'));
 		return $paginator;
 	}
@@ -170,8 +180,24 @@ class Model_Model extends Skaya_Model_Abstract {
 		return new self($this->getMapper()->getNextModel($this->id));
 	}
 
+    /**
+     * @return Model_Mapper_Decorator_Cache_Model
+     */
     public function getMapper() {
-        return new Model_Mapper_Decorator_Cache_Model(parent::getMapper());
+        if (!$this->_mapper) {
+            $this->_mapper = new Model_Mapper_Decorator_Cache_Model(parent::getMapper());
+        }
+        return $this->_mapper;
+    }
+
+    /**
+     * @return Model_Mapper_Db_ModelPhoto
+     */
+    public function getPhotoMapper() {
+        if (!$this->_photoMapper) {
+            $this->_photoMapper = new Model_Mapper_Decorator_Cache_ModelPhoto($this->mappers->modelPhoto);
+        }
+        return $this->_photoMapper;
     }
 
 }

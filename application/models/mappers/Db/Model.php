@@ -50,6 +50,15 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		return $paginator;
 	}
 
+    /**
+     * @cachable
+     * @cache_tags models list
+     * @param  $collection_id
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getCollectionModels($collection_id, $order = null, $count = null, $offset = null) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchAllByCollectionId($collection_id, $order, $count, $offset);

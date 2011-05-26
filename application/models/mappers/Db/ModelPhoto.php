@@ -6,12 +6,27 @@ class Model_Mapper_Db_ModelPhoto extends Skaya_Model_Mapper_Db_Abstract {
 
 	protected $_mapperTableName = self::TABLE_NAME;
 
+    /**
+     * @cachable
+     * @cache_id model_photo_{$id}
+     * @cache_tags model_photo item
+     * @param  $id
+     * @return array
+     */
 	public function getPhotoById($id) {
 		$photoTable = self::_getTableByName(self::TABLE_NAME);
 		$photoBlob = $photoTable->fetchRowById($id);
 		return $this->getMappedArrayFromData($photoBlob);
 	}
 
+    /**
+     * @cachable
+     * @cache_id model_photo_{$id}
+     * @cache_tags model_photo item
+     * @param  $model_id
+     * @param  $id
+     * @return array
+     */
 	public function getModelPhotoById($model_id, $id) {
 		$photoTable = self::_getTableByName(self::TABLE_NAME);
 		$photoBlob = $photoTable->fetchRowByIdAndModelId($id, $model_id);
@@ -37,6 +52,15 @@ class Model_Mapper_Db_ModelPhoto extends Skaya_Model_Mapper_Db_Abstract {
 		return $paginator;
 	}
 
+    /**
+     * @cachable
+     * @cache_tags model_photos list
+     * @param  $model_id
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getModelPhotos($model_id, $order = null, $count = null, $offset = null) {
 		$photoTable = self::_getTableByName(self::TABLE_NAME);
 		$photoBlob = $photoTable->fetchAll($photoTable->select()->where('model_id = ?', (int)$model_id), $order, $count, $offset);

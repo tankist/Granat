@@ -18,6 +18,11 @@ class Model_ModelPhoto extends Model_Photo {
 
 	protected $_modelName = 'ModelPhoto';
 
+    /**
+     * @var Model_Mapper_Decorator_Cache_ModelPhoto
+     */
+    protected $_mapper;
+
 	protected static $_thumbnailPack = array(
 		self::SIZE_SMALL => array(
 			'width' => 84,
@@ -72,6 +77,16 @@ class Model_ModelPhoto extends Model_Photo {
     public function getSize($size) {
         $sizes = self::getThumbnailPack();
         return (array_key_exists($size, $sizes))?$sizes[$size]:array();
+    }
+
+    /**
+     * @return Model_Mapper_Decorator_Cache_ModelPhoto
+     */
+    public function getMapper() {
+        if (!$this->_mapper) {
+            $this->_mapper = new Model_Mapper_Decorator_Cache_ModelPhoto(parent::getMapper());
+        }
+        return $this->_mapper;
     }
 
 }
