@@ -14,7 +14,7 @@ class Skaya_Controller_Plugin_MultilingualRouter extends Zend_Controller_Plugin_
 		$uri = $request->getRequestUri();
 		if (!is_int(stripos($uri, '/ru')) && !is_int(stripos($uri, '/en'))) {
 			$uri = '/' . $this->getDefaultLanguage() . $uri;
-			$request->setRequestUri($uri)->setPathInfo($uri);
+			$request->setRequestUri($uri)->setPathInfo();
 			$request->setParam('lang', $this->getDefaultLanguage());
 		}
 	}
