@@ -6,12 +6,27 @@ class Model_Mapper_Db_Category extends Skaya_Model_Mapper_Db_Abstract {
 
 	protected $_mapperTableName = self::TABLE_NAME;
 
+    /**
+     * @cachable
+     * @cache_id category_{$category_id}
+     * @cache_tags category item
+     * @param  $category_id
+     * @return array
+     */
 	public function getCategoryById($category_id) {
 		$categoryTable = self::_getTableByName(self::TABLE_NAME);
 		$categoryBlob = $categoryTable->fetchRowById($category_id);
 		return $this->getMappedArrayFromData($categoryBlob);
 	}
 
+    /**
+     * @cachable
+     * @cache_tags categories list
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getCategories($order = null, $count = null, $offset = null) {
 		$categoryTable = self::_getTableByName(self::TABLE_NAME);
 
@@ -38,6 +53,16 @@ class Model_Mapper_Db_Category extends Skaya_Model_Mapper_Db_Abstract {
 		return $paginator;
 	}
 
+    /**
+     * @cachable
+     * @cache_id collection_categories_{$collection_id}
+     * @cache_tags categories list
+     * @param  $collection_id
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getCollectionCategories($collection_id, $order = null, $count = null, $offset = null) {
 		$categoriesTable = self::_getTableByName(self::TABLE_NAME);
 		$modelsTable = self::_getTableByName(Model_Mapper_Db_Model::TABLE_NAME);

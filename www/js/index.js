@@ -13,4 +13,12 @@ $(function() {
 			$this.css('margin-left', prevMargin = Math.randomFromRange(min, max));
 		});
 	})();
+
+	$('#catalog')
+		.scrollable({
+			items : '.images',
+			circular:true,
+			mousewheel:true
+		})
+		.find('.arrow').click(function(e) { e.preventDefault(); });
 });

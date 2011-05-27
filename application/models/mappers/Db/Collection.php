@@ -18,6 +18,13 @@ class Model_Mapper_Db_Collection extends Skaya_Model_Mapper_Db_Abstract {
 		return $data;
 	}
 
+    /**
+     * @cachable
+     * @cache_id collection_{$id}
+     * @cache_tags collection item
+     * @param  $id
+     * @return array
+     */
 	public function getCollectionById($id) {
 		$collectionTable = self::_getTableByName(self::TABLE_NAME);
 		$collectionBlob = $collectionTable->fetchRowById($id);

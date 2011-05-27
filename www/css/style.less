@@ -5,12 +5,16 @@
 @sidebarWidth : 200px;
 @collectionItemWidth : 232px;
 @collectionItemHeight : 304px;
+@fabricWidth : 150px;
+@fabricHeight : 150px;
 
 @paginatorItemWidth : 20px;
 @paginatorItemHeight : 20px;
 
 @smallImageWidth : 102px;
 @smallImageHeight : 107px;
+
+@imageBorderWidth : 9px;
 
 @delimiterColor : #ae4e43;
 
@@ -86,8 +90,8 @@ ul.images {
 			height : @smallImageHeight;
 		}
 		 img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
@@ -162,8 +166,8 @@ ul.images {
 			background:transparent url('../images/collection-image-border.png') no-repeat;
 		}
 		img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
@@ -192,8 +196,29 @@ ul.images {
 			background:transparent url('../images/model-image-border.png') no-repeat;
 		}
 		img {
-			top:9px;
-			left:9px;
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
+		}
+	}
+}
+.fabrics {
+	margin-top:20px;
+	li {
+		.oh;
+		margin-bottom:30px;
+	}
+	.image {
+	    .three-column-list .image;
+	    .fl;
+		margin-right:20px;
+		em {
+		    width:@fabricWidth + 2 * @imageBorderWidth;
+			height:@fabricHeight + 2 * @imageBorderWidth;
+			background:transparent url('../images/fabric-border.png') no-repeat;
+		}
+		img {
+			top:@imageBorderWidth;
+			left:@imageBorderWidth;
 		}
 	}
 }
@@ -216,8 +241,7 @@ ul.images {
 	margin:13px 0;
 }
 .tel, .fn, .email, .adr {
-	color:white;
-	font-weight:bold;
+	.strong;
 }
 /*** Blocks ***/
 #bodywrapper {
@@ -232,8 +256,8 @@ ul.images {
 	}
 #bodycontainer, #footer-wrapper {
 	.center-block;
-	width:84%;
-	min-width:1010px;
+	width:90%;
+	min-width:1050px;
 	min-height: 100%;
 	z-index:2;
 	position:relative;
@@ -245,14 +269,56 @@ ul.images {
 	position:absolute;
 	top:0;
 	left:-50px;
-	background:url('../images/logo.png') no-repeat 0 0;
+	background:url('../images/logo_bg.png') no-repeat 0 0;
 	z-index:1;
 }
 #header {
 	.oh;
 	padding-top:35px;
-	background:url('../images/slogan.png') no-repeat right 47px;
-	padding-right:252px;
+	ul.navigation {
+		.fl;
+		font-family:Georgia, Times New Roman, serif;
+		font-size:18px;
+		margin:32px 0;
+		padding-right:20px;
+		li {
+			margin:0 15px;
+			a {
+				padding:1px 15px;
+				line-height:27px;
+			}
+			&.active {
+				background:url('../images/main-li-separator.png') no-repeat center left;
+				a {
+					background:url('../images/active-li-bg.png') repeat;
+				}
+			}
+		}
+	}
+	#languages {
+		.oh;
+		p {
+			margin: 2px;
+		}
+		ul {
+			font-family:Georgia, Times New Roman, serif;
+			font-size:14px;
+			li {
+				.fl;
+				margin:0 5px;
+				a {
+					padding:1px 5px;
+					line-height:20px;
+				}
+				&.active {
+					background:url('../images/main-li-separator-lang.png') no-repeat center left;
+					a {
+						background:url('../images/active-li-bg.png') repeat;
+					}
+				}
+			}
+		}
+	}
 }
 #body {
 	margin-top:65px;
@@ -274,26 +340,18 @@ ul.images {
 	#footer-spacer {
 		height:100px;
 	}
-#header ul.navigation {
+#menu-separator {
 	.fr;
-	font-family:Georgia, Times New Roman, serif;
-	font-size:18px;
+    width:222px;
+	height:99px;
+	background:url('../images/slogan.png') no-repeat center right;
+	margin-left: 30px;
+}
+#slogan {
+	.fr;
+	width:1px;
 	height:86px;
 	background:url('../images/separator.png') no-repeat center right;
-	padding-right:20px;
-	li {
-		margin:32px 15px;
-		a {
-			padding:1px 15px;
-			line-height:27px;
-		}
-		&.active {
-			background:url('../images/main-li-separator.png') no-repeat center left;
-			a {
-				background:url('../images/active-li-bg.png') repeat;
-			}
-		}
-	}
 }
 #footer ul.navigation {
 	li {
@@ -428,4 +486,37 @@ ul#paginator {
 			background-position: right center;
 		}
 	}
+}
+#contacts {
+	ul {
+		li {
+			border-bottom: 1px solid #8f493d;
+			.store {
+				position: relative;
+				p {
+					&.time {
+						margin: 18px 0;
+					}
+					&.phone {
+						margin-bottom: 25px;
+					}
+				}
+			}
+		}
+	}
+	.mapLink {
+		position: absolute;
+		right: 0;
+		top:50%;
+		margin-top: -7px;
+	}
+	.mapContainer {
+		display: none;
+		.YMaps {
+			margin: 0 auto;
+		}
+	}
+}
+.YMaps {
+	color : #000000;
 }

@@ -9,7 +9,7 @@ $mainModelPhotoPath  = $this->imagePathHelper->direct($model);
 if (!$mainModelPhoto->isEmpty()) {
 	$mainModelPhotoUrl = $mainModelPhotoPath
 						 . '/'
-						 . $mainModelPhoto->getFilename(Model_Photo::SIZE_BIG);
+						 . $mainModelPhoto->getFilename(Model_ModelPhoto::SIZE_BIG);
 }
 $photos = $model->getPhotos();
 $collection = $model->getCollection();
@@ -28,11 +28,11 @@ $prev = $model->getPreviousModel();
 		</div>
 		<?php if (count($photos) > 0) { ?>
 		<div id="thumbnailsContainer"><ul id="thumbnails" class="fl">
-			<?php foreach($photos as /** @var Model_Photo $photo */$photo) { ?><li>
+			<?php foreach($photos as /** @var Model_ModelPhoto $photo */$photo) { ?><li>
 				<div class="profile-image small">
 					<em>&nbsp;</em>
-					<a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_BIG)?>">
-						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_Photo::SIZE_SMALL)?>" alt="<?=$model->name?>">
+					<a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>" data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_ModelPhoto::SIZE_BIG)?>">
+						<img src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(Model_ModelPhoto::SIZE_SMALL)?>" alt="<?=$model->name?>">
 					</a>
 				</div>
 			</li><?php } ?>
@@ -47,19 +47,19 @@ $prev = $model->getPreviousModel();
 			<li class="prev"><a href="<?=$this->url(array(
 								'model_id' => $prev->id,
 								'model_name_hash' => $this->urlPartTranslit($prev->name)
-						   ), 'model', true)?>">&lt;&lt;&nbsp;Предыдущая модель</a></li>
+						   ), 'model', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Предыдущая модель')?></a></li>
 			<?php } ?>
 			<?php if (!$next->isEmpty()) { ?>
 			<li class="next"><a href="<?=$this->url(array(
 								'model_id' => $next->id,
 								'model_name_hash' => $this->urlPartTranslit($next->name)
-						   ), 'model', true)?>">Следующая модель&nbsp;&gt;&gt;</a></li>
+						   ), 'model', true)?>"><?=$this->translate('Следующая модель')?>&nbsp;&gt;&gt;</a></li>
 			<?php } ?>
 		</ul>
 		<p><a href="<?=$this->url(array(
 		                                'collection_id' => $collection->id,
 			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
-		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;Назад к коллекции</a></p>
+		                           ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Назад к коллекции')?></a></p>
 	</div>
 </div>
 <?php
@@ -73,5 +73,5 @@ $prev = $model->getPreviousModel();
 		->appendStylesheet('/css/jquery.jscrollpane.css')
 		->appendStylesheet('/css/prettyPhoto.css');
 
-	$this->headTitle('Коллекция «' . $model->getCollection()->name . '» - «' . $model->name . '»');
+	$this->headTitle($this->translate('Коллекция') . ' «' . $model->getCollection()->name . '» - «' . $model->name . '»');
 ?>

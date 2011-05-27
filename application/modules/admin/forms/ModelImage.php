@@ -17,7 +17,7 @@ class Admin_Form_ModelImage extends Admin_Form_Abstract {
 			->setIsArray(true);
 		$image->addFilter(new Skaya_Filter_File_Rename($this->getImagesPath()));
 		$image->addFilter(new Skaya_Filter_File_Thumbnail(
-			Model_Photo::getThumbnailPack()
+			Model_ModelPhoto::getThumbnailPack()
 		));
 
 		$this

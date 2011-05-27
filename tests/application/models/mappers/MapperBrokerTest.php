@@ -201,7 +201,6 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
     public function testGetExistingMappers()
     {
         Skaya_Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_Redirector());
-        // already included in setup, techinically we shouldnt be able to do this, but until 2.0 - its allowed
         Skaya_Model_Mapper_MapperBroker::addMapper(new Model_Mapper_Mapper_ViewRenderer()); // @todo in future this should throw an exception
 
         $mappers = Skaya_Model_Mapper_MapperBroker::getExistingMappers();

@@ -1,5 +1,5 @@
 <div id="sidebar" class="shape">
-	<h1>Наши коллекции</h1>
+	<h1><?=$this->translate('Наши коллекции')?></h1>
 	<ul><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
 		<li><a href="<?=$this->url(array(
 		                                'collection_id' => $collection->id,

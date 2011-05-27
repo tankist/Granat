@@ -91,11 +91,11 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$images = $model->getPhotos();
 		$imagesData = $this->_helper->sessionSaver('modelImagesPath');
 		$imagesPath = $this->_helper->imagePath($model);
-		foreach($images as /** @var Model_Photo $image */ $image) {
+		foreach($images as /** @var Model_ModelPhoto $image */ $image) {
 			$imagesData[$image->id] = array(
 				'id' => $image->id,
 				'name' => $image->getFilename(),
-				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
 				'path' => $imagesPath
 			);
 		}
@@ -156,11 +156,11 @@ class Admin_ModelsController extends Zend_Controller_Action {
 		$images = $model->getPhotos();
 		$imagesData = $this->_helper->sessionSaver('modelImagesPath');
 		$imagesPath = $this->_helper->imagePath($model);
-		foreach($images as /** @var Model_Photo $image */ $image) {
+		foreach($images as /** @var Model_ModelPhoto $image */ $image) {
 			$imagesData[$image->id] = array(
 				'id' => $image->id,
 				'name' => $image->getFilename(),
-				'thumb' => $image->getFilename(Model_Photo::SIZE_SMALL),
+				'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
 				'path' => $imagesPath
 			);
 		}
@@ -180,16 +180,16 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$images = (array)$this->_helper->sessionSaver('modelImagesPath');
 			$modelFolder = $this->_helper->imagePath($model);
 			/**
-			 * @var Service_Photo $photoService
+			 * @var Service_ModelPhoto $photoService
 			 */
-			$photoService = $this->_helper->service('Photo');
+			$photoService = $this->_helper->service('ModelPhoto');
 			$titleChanged = false;
 			foreach($images as $imageData) {
 				$path = $imageData['path'];
 				$image = $photoService->create(array(
 					'filename' => $imageData['name']
 				));
-				foreach(array_merge(array(''), array_keys(Model_Photo::getThumbnailPack())) as $size) {
+				foreach(array_merge(array(''), array_keys(Model_ModelPhoto::getThumbnailPack())) as $size) {
 					$filename = $image->getFilename($size);
 					$filePath = realpath($path . DIRECTORY_SEPARATOR . $filename);
 					if (is_readable($filePath) && is_file($filePath)) {

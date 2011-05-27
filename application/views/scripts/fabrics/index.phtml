@@ -1,2 +1,32 @@
+<?php
 
-<?php $this->headTitle('Ткани') ?>
+?>
+<div id="fabrics">
+	<h1><?=$this->translate('Коллекция тканей')?></h1>
+	<hr>
+	<?php if (count($this->fabrics) > 0) { ?>
+	<ul class="fabrics"><?php foreach($this->fabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
+		<li>
+			<div class="image">
+				<a rel="prettyPhoto" title="<?=$fabric->name?>" href="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename()?>"><em></em>
+				<img src="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename(Model_FabricPhoto::SIZE_FABRIC)?>" alt="<?=$fabric->name?>"></a>
+			</div>
+			<h2><?=$fabric->name?></h2>
+			<p><?=$fabric->description?></p>
+		</li>
+	<?php } ?></ul>
+	<?php } ?>
+	<?=$this->paginationControl($this->fabrics, null, null, array(
+		'routeName' => 'allFabrics'
+	))?>
+</div>
+<?php
+	$this->headScript()
+		->appendFile('/js/prettyPhoto/jquery.prettyPhoto.js')
+		->appendFile('/js/fabrics.js');
+
+	$this->headLink()
+		->appendStylesheet('/css/prettyPhoto.css');
+
+	$this->headTitle($this->translate('Коллекция тканей'));
+?>

@@ -10,12 +10,27 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		'mainPhotoId' => 'main_photo_id'
 	);
 
+    /**
+     * @cachable
+     * @cache_id model_{$id}
+     * @cache_tags model item
+     * @param  $id
+     * @return array
+     */
 	public function getModelById($id) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchRowById($id);
 		return $this->getMappedArrayFromData($modelBlob);
 	}
 
+    /**
+     * @cachable
+     * @cache_tags models list
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getModels($order = null, $count = null, $offset = null) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchAll(null, $order, $count, $offset);
@@ -35,6 +50,15 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 		return $paginator;
 	}
 
+    /**
+     * @cachable
+     * @cache_tags models list
+     * @param  $collection_id
+     * @param null $order
+     * @param null $count
+     * @param null $offset
+     * @return array
+     */
 	public function getCollectionModels($collection_id, $order = null, $count = null, $offset = null) {
 		$modelTable = self::_getTableByName(self::TABLE_NAME);
 		$modelBlob = $modelTable->fetchAllByCollectionId($collection_id, $order, $count, $offset);
@@ -89,5 +113,12 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
 	public function getNextModel($model_id) {
 		return $this->getModelById(new Zend_Db_Expr('getNextModelId(' . $model_id . ')'));
 	}
+
+    public function getRandomModels($count = null) {
+        $modelTable = self::_getTableByName(self::TABLE_NAME);
+        $select = $modelTable->select()->order('RAND()')->limit($count);
+        $modelBlob = $modelTable->fetchAll($select);
+		return $this->getMappedArrayFromData($modelBlob);
+    }
 
 }

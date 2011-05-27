@@ -26,6 +26,21 @@ class Model_Collection extends Skaya_Model_Abstract {
 	 */
 	protected $_models;
 
+    /**
+     * @var Model_Mapper_Db_Collection
+     */
+    protected $_mapper;
+
+    /**
+     * @var Model_Mapper_Db_Model
+     */
+    protected $_modelMapper;
+
+    /**
+     * @var Model_Mapper_Db_Category
+     */
+    protected $_categoryMapper;
+
 	/**
 	 * @throws Skaya_Model_Exception
 	 * @param Model_Model $model
@@ -71,7 +86,7 @@ class Model_Collection extends Skaya_Model_Abstract {
 	public function getCategories($order = null, $count = null, $offset = null) {
 		if (empty($this->_categories)) {
 			$this->_categories = new Model_Collection_Categories(
-				$this->mappers->category->getCollectionCategories($this->id, $order, $count, $offset)
+				$this->getCategoryMapper()->getCollectionCategories($this->id, $order, $count, $offset)
 			);
 		}
 		return $this->_categories;
@@ -86,27 +101,57 @@ class Model_Collection extends Skaya_Model_Abstract {
 	public function getModels($order = null, $count = null, $offset = null) {
 		if (empty($this->_models)) {
 			$this->_models = new Model_Collection_Models(
-				$this->mappers->model->getCollectionModels($this->id, $order, $count, $offset)
+				$this->getModelMapper()->getCollectionModels($this->id, $order, $count, $offset)
 			);
 		}
 		return $this->_models;
 	}
 
 	public function getModelsPaginator($order = null) {
-		$paginator = $this->mappers->model->getCollectionModelsPaginator($this->id, $order);
+		$paginator = $this->getModelMapper()->getCollectionModelsPaginator($this->id, $order);
 		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Models'));
 		return $paginator;
 	}
 
 	public function getCategoryModels(Model_Category $category, $order = null, $count = null, $offset = null) {
-		$modelsBlob = $this->mappers->model->getCollectionModelsByCategory($this->id, $category->id, $order, $count, $offset);
+		$modelsBlob = $this->getModelMapper()->getCollectionModelsByCategory($this->id, $category->id, $order, $count, $offset);
 		return new Model_Collection_Models($modelsBlob);
 	}
 
 	public function getCategoryModelsPaginator(Model_Category $category, $order = null) {
-		$paginator = $this->mappers->model->getCollectionModelsPaginatorByCategory($this->id, $category->id, $order);
+		$paginator = $this->getModelMapper()->getCollectionModelsPaginatorByCategory($this->id, $category->id, $order);
 		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Models'));
 		return $paginator;
 	}
+
+    /**
+     * @return Model_Mapper_Decorator_Cache_Collection
+     */
+    public function getMapper() {
+        if (!$this->_mapper) {
+            $this->_mapper = new Model_Mapper_Decorator_Cache_Collection(parent::getMapper());
+        }
+        return $this->_mapper;
+    }
+
+    /**
+     * @return Model_Mapper_Db_Model
+     */
+    public function getModelMapper() {
+        if (!$this->_modelMapper) {
+            $this->_modelMapper = new Model_Mapper_Decorator_Cache_Model($this->mappers->model);
+        }
+        return $this->_modelMapper;
+    }
+
+    /**
+     * @return Model_Mapper_Db_Category
+     */
+    public function getCategoryMapper() {
+        if (!$this->_categoryMapper) {
+            $this->_categoryMapper = new Model_Mapper_Decorator_Cache_Category($this->mappers->category);
+        }
+        return $this->_categoryMapper;
+    }
 
 }

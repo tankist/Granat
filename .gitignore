@@ -3,6 +3,7 @@ docs/
 cache/
 tests/report/
 www/tests
+www/psd
 www/uploads
 www/images/crap
 *.log

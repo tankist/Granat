@@ -44,6 +44,10 @@ a {
 a:hover {
   text-decoration: underline;
 }
+strong, .strong {
+  color: white;
+  font-weight: bold;
+}
 h1 {
   font-family: 'MajesticRegular';
   font-size: 30px;
@@ -337,6 +341,34 @@ ul.images li.active em {
   top: 9px;
   left: 9px;
 }
+.fabrics {
+  margin-top: 20px;
+}
+.fabrics li {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.fabrics .image {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  margin-right: 20px;
+}
+.fabrics .image em {
+  display: block;
+}
+.fabrics .image img {
+  position: absolute;
+}
+.fabrics .image em {
+  width: 168px;
+  height: 168px;
+  background: transparent url('../images/fabric-border.png') no-repeat;
+}
+.fabrics .image img {
+  top: 9px;
+  left: 9px;
+}
 .shape ul {
   font-family: Georgia, serif;
   font-size: 13px;
@@ -374,8 +406,8 @@ ul.images li.active em {
 }
 #bodycontainer, #footer-wrapper {
   margin: 0 auto;
-  width: 84%;
-  min-width: 1010px;
+  width: 90%;
+  min-width: 1050px;
   min-height: 100%;
   z-index: 2;
   position: relative;
@@ -387,14 +419,56 @@ ul.images li.active em {
   position: absolute;
   top: 0;
   left: -50px;
-  background: url('../images/logo.png') no-repeat 0 0;
+  background: url('../images/logo_bg.png') no-repeat 0 0;
   z-index: 1;
 }
 #header {
   overflow: hidden;
   padding-top: 35px;
-  background: url('../images/slogan.png') no-repeat right 47px;
-  padding-right: 252px;
+}
+#header ul.navigation {
+  float: left;
+  font-family: Georgia, Times New Roman, serif;
+  font-size: 18px;
+  margin: 32px 0;
+  padding-right: 20px;
+}
+#header ul.navigation li {
+  margin: 0 15px;
+}
+#header ul.navigation li a {
+  padding: 1px 15px;
+  line-height: 27px;
+}
+#header ul.navigation li.active {
+  background: url('../images/main-li-separator.png') no-repeat center left;
+}
+#header ul.navigation li.active a {
+  background: url('../images/active-li-bg.png') repeat;
+}
+#header #languages {
+  overflow: hidden;
+}
+#header #languages p {
+  margin: 2px;
+}
+#header #languages ul {
+  font-family: Georgia, Times New Roman, serif;
+  font-size: 14px;
+}
+#header #languages ul li {
+  float: left;
+  margin: 0 5px;
+}
+#header #languages ul li a {
+  padding: 1px 5px;
+  line-height: 20px;
+}
+#header #languages ul li.active {
+  background: url('../images/main-li-separator-lang.png') no-repeat center left;
+}
+#header #languages ul li.active a {
+  background: url('../images/active-li-bg.png') repeat;
 }
 #body {
   margin-top: 65px;
@@ -416,26 +490,18 @@ ul.images li.active em {
 #footer-spacer {
   height: 100px;
 }
-#header ul.navigation {
+#menu-separator {
   float: right;
-  font-family: Georgia, Times New Roman, serif;
-  font-size: 18px;
+  width: 222px;
+  height: 99px;
+  background: url('../images/slogan.png') no-repeat center right;
+  margin-left: 30px;
+}
+#slogan {
+  float: right;
+  width: 1px;
   height: 86px;
   background: url('../images/separator.png') no-repeat center right;
-  padding-right: 20px;
-}
-#header ul.navigation li {
-  margin: 32px 15px;
-}
-#header ul.navigation li a {
-  padding: 1px 15px;
-  line-height: 27px;
-}
-#header ul.navigation li.active {
-  background: url('../images/main-li-separator.png') no-repeat center left;
-}
-#header ul.navigation li.active a {
-  background: url('../images/active-li-bg.png') repeat;
 }
 #footer ul.navigation li {
   border-right: 1px solid #713e41;
@@ -565,4 +631,31 @@ ul#paginator li a {
 }
 ul#paginator li.active a {
   background-position: right center;
+}
+#contacts ul li {
+  border-bottom: 1px solid #8f493d;
+}
+#contacts ul li .store {
+  position: relative;
+}
+#contacts ul li .store p.time {
+  margin: 18px 0;
+}
+#contacts ul li .store p.phone {
+  margin-bottom: 25px;
+}
+#contacts .mapLink {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7px;
+}
+#contacts .mapContainer {
+  display: none;
+}
+#contacts .mapContainer .YMaps {
+  margin: 0 auto;
+}
+.YMaps {
+  color: #000000;
 }

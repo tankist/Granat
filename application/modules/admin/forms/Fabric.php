@@ -21,8 +21,7 @@ class Admin_Form_Fabric extends Admin_Form_Abstract {
 			$image->addFilter(new Skaya_Filter_File_Rename($this->getImagePath()));
 		}
 
-		$sizes = Model_Photo::getThumbnailPack();
-		$image->addFilter(new Skaya_Filter_File_Thumbnail(array($sizes[Model_Photo::SIZE_FABRIC])));
+		$image->addFilter(new Skaya_Filter_File_Thumbnail(Model_FabricPhoto::getThumbnailPack()));
 
 		$this
 			->addElement('hidden', 'id', array('label' => 'id'))
