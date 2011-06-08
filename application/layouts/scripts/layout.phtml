@@ -1,5 +1,5 @@
 <?=$this->doctype()?>
-<html lang="ru-RU">
+<html lang="<?=key(Zend_Locale::getDefault())?>">
 <head>
 	<meta http-equiv="Content-Encoding" content="text/html; charset=utf-8">
 	<link rel="icon" type="image/png" href="/favicon.png" />
@@ -60,19 +60,10 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 	echo $this->headScript()
 		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js');
 ?>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-22620249-1']);
-  _gaq.push(['_trackPageview']);
-  _gaq.push(['_trackPageLoadTime']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<?php if ('production' == APPLICATION_ENV) { ?>
+<?=$this->googleAnalytics('UA-22620249-1')
+		->trackPageview()
+		->trackPageLoadTime()?>
+<?php } ?>
 </body>
 </html>
