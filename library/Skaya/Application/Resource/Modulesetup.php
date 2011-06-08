@@ -10,6 +10,9 @@ class Skaya_Application_Resource_Modulesetup extends Zend_Application_Resource_R
 	 * @return void
 	 */
 	protected function _getModuleSetup() {
+		/**
+		 * @var Zend_Application_Bootstrap_BootstrapAbstract $bootstrap
+		 */
 		$bootstrap = $this->getBootstrap();
 		
 		if (!($bootstrap instanceof Zend_Application_Bootstrap_Bootstrap)) {
@@ -17,17 +20,23 @@ class Skaya_Application_Resource_Modulesetup extends Zend_Application_Resource_R
 		}
 		
 		$bootstrap->bootstrap('frontcontroller');
+		/**
+		 * @var Zend_Controller_Front $front
+		 */
 		$front = $bootstrap->getResource('frontcontroller');
 		$modules = $front->getControllerDirectory();
  
 		foreach (array_keys($modules) as $module) {
+			if ($front->getDefaultModule() == $module) {
+				continue;
+			}
 			$configPath  = $front->getModuleDirectory($module) 
 						 . DIRECTORY_SEPARATOR . 'configs';
 			if (file_exists($configPath)) {
 				$cfgdir = new DirectoryIterator($configPath);
-				$appOptions = $this->getBootstrap()->getOptions();
+				$appOptions = $bootstrap->getOptions();
  
-				foreach ($cfgdir as $file) {
+				foreach ($cfgdir as /** @var SplFileInfo $file */$file) {
 					if ($file->isFile()) {
 						$filename = $file->getFilename();
 						$options = $this->_loadOptions($configPath 
