@@ -118,7 +118,7 @@ class Skaya_Filter_File_Thumbnail implements Zend_Filter_Interface
 			$widthFactor = $width / $newWidth;
 			$heightFactor = $height / $newHeight;
 
-			if ($widthFactor > $heightFactor) {
+			if ($widthFactor < $heightFactor) {
 				$image->cropImage($width, floor($newHeight*$widthFactor), 0, 0/*(($height-($newHeight*$widthFactor))/2)*/);
 			}
 			else {
