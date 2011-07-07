@@ -109,9 +109,22 @@ class Skaya_Filter_File_Thumbnail implements Zend_Filter_Interface
 			$thumb_name = $this->getNewName($value, $option);
 			
 			$image = new Imagick($value);
-			$image->cropThumbnailImage($option['width'],$option['height']);
-			
-			
+			$geo = $image->getImageGeometry();
+			$width = $geo['width'];
+			$height = $geo['height'];
+			$newWidth = $option['width'];
+			$newHeight = $option['height'];
+
+			$widthFactor = $width / $newWidth;
+			$heightFactor = $height / $newHeight;
+
+			if ($widthFactor > $heightFactor) {
+				$image->cropImage($width, floor($newHeight*$widthFactor), 0, 0/*(($height-($newHeight*$widthFactor))/2)*/);
+			}
+			else {
+				$image->cropImage(ceil($newWidth*$heightFactor), $height, (($width-($newWidth*$heightFactor))/2), 0);
+			}
+			$image->thumbnailimage($newWidth, $newHeight, true);
 			$image->writeImage($thumb_name);
 		}
 		
