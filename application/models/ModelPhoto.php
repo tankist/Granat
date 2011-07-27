@@ -31,8 +31,8 @@ class Model_ModelPhoto extends Model_Photo {
 			'indication' => 's'
 		),
 		self::SIZE_ROLL => array(
-			'width' => 142,
-			'height' => 105,
+			'width' => 140,
+			'height' => 155,
 			'indication_type' => self::INDICATION_SUFFIX,
 			'indication' => 'r'
 		),

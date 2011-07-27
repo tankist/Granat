@@ -85,12 +85,12 @@ a.arrow {
 }
 a.next {
   right: -6px;
-  top: 26px;
+  top: 52px;
   background: url('../images/next.png') no-repeat;
 }
 a.prev {
   left: -9px;
-  top: 26px;
+  top: 52px;
   background: url('../images/prev.png') no-repeat;
 }
 .center {
@@ -113,7 +113,7 @@ div.images-container {
   overflow: hidden;
   margin: 0 auto;
   position: relative;
-  height: 122px;
+  height: 175px;
   width: 920px;
 }
 ul.images {
@@ -131,7 +131,7 @@ ul.images li em {
   background: url('../images/image-border.png') no-repeat;
   display: block;
   width: 157px;
-  height: 122px;
+  height: 175px;
 }
 ul.images li img {
   position: absolute;
@@ -158,7 +158,7 @@ ul.images li.active em {
 .profile-image.big em {
   background: url('../images/profile-image-border.png') no-repeat;
   width: 159px;
-  height: 171px;
+  height: 201px;
 }
 .profile-image.big img {
   top: 10px;
@@ -516,8 +516,8 @@ ul.images li.active em {
   overflow: hidden;
   position: relative;
   width: 1000px;
-  height: 122px;
-  margin: 18px auto 67px auto;
+  height: 175px;
+  margin: 18px auto 50px auto;
 }
 #aboutus-container {
   overflow: hidden;
