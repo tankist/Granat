@@ -26,9 +26,9 @@ class Skaya_View_Helper_UrlPartTranslit extends Zend_View_Helper_Abstract {
 		if (!($this->_translitFilter instanceof Zend_Filter_Interface)) {
 			$this->_translitFilter = new Zend_Filter();
 			$this->_translitFilter
+				->addFilter(new Skaya_Filter_Translit())
 				->addFilter(new Zend_Filter_StringToLower())
-				->addFilter(new Zend_Filter_PregReplace('$[^a-zа-я0-9]+$iu', '-'))
-				->addFilter(new Skaya_Filter_Translit());
+				->addFilter(new Zend_Filter_PregReplace('$[^\w\d]+$iu', '-'));
 		}
 		return $this->_translitFilter;
 	}

@@ -10,7 +10,7 @@
 
 				<p class="address">Наш адрес: <span class="adr">ул. Адмирала Макарова, 26</span></p>
 
-				<p class="phone">Телефон: <span class="tel">+380509288713</span></p>
+				<p class="phone">Телефон: <span class="tel">(050) 928-87-13</span></p>
 				<?php if (!empty($this->apiKey)) { ?>
 				<a href="#map" class="mapLink"><?=$this->translate('Посмотреть на карте')?> &gt;&gt;</a>
 			</div>
@@ -80,16 +80,21 @@
 <!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту (конец) -->
 			</div><?php } ?>
 		</li>
-		<!--<li>
-			<h2></h2>
+        <li class="vcard">
+			<div class="oh store">
+				<h2>Салон-магазин &laquo;Гранат&raquo;</h2>
 
-			<p class="time"></p>
+				<p class="time"><strong>Ежедневно с 9.00 до 18.00</strong> (выходной - воскресенье)</p>
 
-			<p class="address"></p>
+				<p class="address">Наш адрес: <span class="adr">ул. Советская / Большая Морская, 67/7</span></p>
 
-			<p class="phone"></p>
-			<a href=""></a>
-		</li>-->
+				<p class="phone">Телефон: <span class="tel">(0512) 37-00-82</span></p>
+				<?php /*if (!empty($this->apiKey)) { ?>
+				<a href="#map" class="mapLink"><?=$this->translate('Посмотреть на карте')?> &gt;&gt;</a>
+			</div>
+
+			<div class="mapContainer"></div><?php }*/ ?>
+		</li>
 	</ul>
 </div>
 <?php
