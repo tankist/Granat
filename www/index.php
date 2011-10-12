@@ -17,36 +17,37 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /** Zend_Application */
 require_once 'Zend/Cache.php';
 
-$frontendOptions = array(
-    'lifetime' => 7200,
-    'regexps' => array(
-        // кэширование всего IndexController
-        '^/.*$' => array(
-            'cache' => true,
-            'cache_with_get_variables' => true,
-            'cache_with_cookie_variables' => true,
-            'make_id_with_cookie_variables' => false
-        ),
+if (APPLICATION_ENV == 'production') {
+    $frontendOptions = array(
+        'lifetime' => 7200,
+        'regexps' => array(
+            // кэширование всего IndexController
+            '^/.*$' => array(
+                'cache' => true,
+                'cache_with_get_variables' => true,
+                'cache_with_cookie_variables' => true,
+                'make_id_with_cookie_variables' => false
+            ),
 
-        // не кэшируем админку
-        '^/admin/*' => array('cache' => false)
-    )
-);
+            // не кэшируем админку
+            '^/admin/*' => array('cache' => false)
+        )
+    );
 
-$backendOptions = array(
-    'cache_dir' => APPLICATION_PATH . '/../cache/page/'
-);
+    $backendOptions = array(
+        'cache_dir' => APPLICATION_PATH . '/../cache/page/'
+    );
 
-// получение объекта Zend_Cache_Frontend_Page
-/** @var $cache Zend_Cache_Frontend_Page */
-$cache = Zend_Cache::factory('Page',
-                             'File',
-                             $frontendOptions,
-                             $backendOptions);
+    // получение объекта Zend_Cache_Frontend_Page
+    /** @var $cache Zend_Cache_Frontend_Page */
+    $cache = Zend_Cache::factory('Page',
+                                 'File',
+                                 $frontendOptions,
+                                 $backendOptions);
 
-$cache->start();
+    $cache->start();
+}
 
-require_once 'Zend/Cache/Core.php';
 require_once 'Skaya/Application.php';
 
 $configCache = Zend_Cache::factory(
