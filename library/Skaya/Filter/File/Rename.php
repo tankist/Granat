@@ -145,7 +145,7 @@ class Skaya_Filter_File_Rename implements Zend_Filter_Interface
 		return $file['target'];
 	}
 	
-	public function getId() {
+	public static function getId() {
 		$length = 5;
 		$num = range(0, 9);  
 		$alf = range('a', 'z');  

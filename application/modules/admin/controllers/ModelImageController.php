@@ -38,39 +38,40 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 
 		if ($request->isPost() && $form->isValid($request->getPost())) {
 			$data = $form->getValues();
-			$filename = $data['name'];
-			$tokens = explode('.', $filename);
-			$extension = array_pop($tokens);
-			/**
-			 * @var Model_ModelPhoto $image
-			 */
-			$image = $this->_helper->service('ModelPhoto')->create(array(
-				'hash' => join('.', $tokens),
-				'extension' => $extension
-			));
-			if (!$model->isEmpty()) {
-				$model->addPhoto($image);
-				$id = $image->id;
-			}
-			else {
-				$id = md5(time());
-			}
-			$imageData = array(
-				'path' => $imagesPath,
-				'name' => $image->getFilename(),
-				'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
-				'id' => $id
-			);
-			if ($model->isEmpty()) {
-				$path = $this->_helper->sessionSaver('modelImagesPath');
-				if (!is_array($path)) {
-					$path = array();
-				}
-				$path[$id] = $imageData;
-				$this->_helper->sessionSaver('modelImagesPath', $path);
-			}
+			if ($file = $data['name']) {
+                $files = $this->_helper->avatar->upload($file, $imagesPath);
+                if (!empty($files) && $big = $files[Model_ModelPhoto::SIZE_BIG]) {
+                    /**
+                     * @var Model_ModelPhoto $image
+                     */
+                    $image = $this->_helper->service('ModelPhoto')->create();
+                    $image->setFilename($big, Model_ModelPhoto::SIZE_BIG);
 
-			$this->view->assign($imageData);
+                    if (!$model->isEmpty()) {
+                        $model->addPhoto($image);
+                        $id = $image->id;
+                    }
+                    else {
+                        $id = md5(time());
+                    }
+                    $imageData = array(
+                        'path' => $imagesPath,
+                        'name' => $image->getFilename(),
+                        'thumb' => $image->getFilename(Model_ModelPhoto::SIZE_SMALL),
+                        'id' => $id
+                    );
+                    if ($model->isEmpty()) {
+                        $path = $this->_helper->sessionSaver('modelImagesPath');
+                        if (!is_array($path)) {
+                            $path = array();
+                        }
+                        $path[$id] = $imageData;
+                        $this->_helper->sessionSaver('modelImagesPath', $path);
+                    }
+
+                    $this->view->assign($imageData);
+                }
+            }
 
 		} else {
 			$errorString = '';

@@ -16,9 +16,6 @@ class Admin_Form_ModelImage extends Admin_Form_Abstract {
 			->addValidator('IsImage', false, array('image/gif', 'image/jpeg', 'image/png', 'image/pjpeg'))
 			->setIsArray(true);
 		$image->addFilter(new Skaya_Filter_File_Rename($this->getImagesPath()));
-		$image->addFilter(new Skaya_Filter_File_Thumbnail(
-			Model_ModelPhoto::getThumbnailPack()
-		));
 
 		$this
 			->addElement($image)

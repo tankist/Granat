@@ -42,10 +42,10 @@ class Model_Photo extends Skaya_Model_Abstract {
 		}
 		switch ($indicationType) {
 			case self::INDICATION_PREFIX:
-				$filename = $modifier . '_' . $this->hash . '.' . $this->extension;
+				$filename = $modifier . $this->hash . '.' . $this->extension;
 				break;
 			case self::INDICATION_SUFFIX:
-				$filename = $this->hash . '_' . $modifier . '.' . $this->extension;
+				$filename = $this->hash . $modifier . '.' . $this->extension;
 				break;
 			default:
 				$filename = $this->hash . '.' . $this->extension;
@@ -57,16 +57,16 @@ class Model_Photo extends Skaya_Model_Abstract {
 	/**
 	 * @throws Skaya_Model_Exception
 	 * @param  string $filename
+	 * @param  int $size
 	 * @return Model_Photo
 	 */
-	public function setFilename($filename) {
-		if ($dotPos = strrpos($filename, '.')) {
-			$this->hash = substr($filename, 0, $dotPos);
-			$this->extension = substr($filename, $dotPos + 1);
-		}
-		else {
-			throw new Skaya_Model_Exception('Incorrect filename passed');
-		}
+	public function setFilename($filename, $size = null) {
+		$this->hash = pathinfo($filename, PATHINFO_FILENAME);
+        $this->extension = pathinfo($filename, PATHINFO_EXTENSION);
+        if ($size && array_key_exists($size, $this->getThumbnailPack())) {
+            $tp = $this->getThumbnailPack();
+            $this->hash = str_replace($tp[$size]['indication'], '', $this->hash);
+        }
 		return $this;
 	}
 
