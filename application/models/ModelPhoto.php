@@ -28,25 +28,25 @@ class Model_ModelPhoto extends Model_Photo {
 			'width' => 84,
 			'height' => 90,
 			'indication_type' => self::INDICATION_SUFFIX,
-			'indication' => 's'
+			'indication' => '_s'
 		),
 		self::SIZE_ROLL => array(
 			'width' => 140,
 			'height' => 155,
 			'indication_type' => self::INDICATION_SUFFIX,
-			'indication' => 'r'
+			'indication' => '_r'
 		),
 		self::SIZE_MIDDLE => array(
 			'width' => 250,
 			'height' => 250,
 			'indication_type' => self::INDICATION_SUFFIX,
-			'indication' => 'm'
+			'indication' => '_m'
 		),
 		self::SIZE_BIG => array(
 			'width' => 214,
 			'height' => 286,
 			'indication_type' => self::INDICATION_SUFFIX,
-			'indication' => 'b'
+			'indication' => '_b'
 		)
 	);
 
