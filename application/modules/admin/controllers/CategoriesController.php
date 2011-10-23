@@ -1,149 +1,164 @@
 <?php
 
-class Admin_CategoriesController extends Zend_Controller_Action {
+class Admin_CategoriesController extends Zend_Controller_Action
+{
 
-	const ITEMS_PER_PAGE = 20;
+    const ITEMS_PER_PAGE = 20;
 
-	/**
-	 * @var Model_User
-	 */
-	protected $_user;
+    /**
+     * @var Model_User
+     */
+    protected $_user;
 
-	public function init() {
-		$this->_helper->getHelper('AjaxContext')->initContext('json');
-		$this->_user = $this->_helper->user();
-	}
+    /**
+     * @var Service_Category
+     */
+    protected $_categoriesService;
 
-	public function indexAction() {
-		$request = $this->getRequest();
-		$page = $request->getParam('page', 1);
-		$this->view->order = $order = $request->getParam('order');
-		$this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
-		$orderString = null;
-		if ($order) {
-			$orderString = $order . ' ' . $orderType;
-		}
+    public function init()
+    {
+        $this->_helper->getHelper('AjaxContext')->initContext('json');
+        $this->_user = $this->_helper->user();
+        $this->_categoriesService = $this->_helper->service('Category');
+        /** @var $mapper Model_Mapper_Decorator_Cache_Category */
+        if (($mapper = $this->_categoriesService->getMapper()) &&
+            $mapper instanceof Skaya_Model_Mapper_Decorator_Cachable
+        ) {
+            $mapper->setEnabled(false);
+        }
+    }
 
-		/**
-		 * @var Skaya_Paginator $categoriesPaginator
-		 */
-		$categoriesPaginator = $this->_helper->service('Category')->getCategoriesPaginator($orderString);
+    public function indexAction()
+    {
+        $request = $this->getRequest();
+        $page = $request->getParam('page', 1);
+        $this->view->order = $order = $request->getParam('order');
+        $this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
+        $orderString = null;
+        if ($order) {
+            $orderString = $order . ' ' . $orderType;
+        }
 
-		$this->view->paginator = $categoriesPaginator;
-		$categoriesPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
-		$this->view->categories = $categoriesPaginator->getCurrentItems();
-		$this->view->page = $page;
-	}
+        /**
+         * @var Skaya_Paginator $categoriesPaginator
+         */
+        $categoriesPaginator = $this->_categoriesService->getCategoriesPaginator($orderString);
 
-	public function addAction() {
-		$form = new Admin_Form_Category(array(
-			'name' => 'user',
-			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
-		));
+        $this->view->paginator = $categoriesPaginator;
+        $categoriesPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
+        $this->view->categories = $categoriesPaginator->getCurrentItems();
+        $this->view->page = $page;
+    }
 
-		$sessionData = $this->_helper->sessionSaver('categoryData');
-		if ($sessionData) {
-			$form->populate($sessionData);
-			$this->_helper->sessionSaver->delete('categoryData');
-		}
+    public function addAction()
+    {
+        $form = new Admin_Form_Category(array(
+                'name' => 'user',
+                'action' => $this->_helper->url('save'),
+                'method' => Zend_Form::METHOD_POST
+            ));
 
-		$form->removeElement('id');
-		$form->prepareDecorators();
-		$this->view->form = $form;
-	}
+        $sessionData = $this->_helper->sessionSaver('categoryData');
+        if ($sessionData) {
+            $form->populate($sessionData);
+            $this->_helper->sessionSaver->delete('categoryData');
+        }
 
-	public function editAction() {
-		$category_id = $this->_getParam('id');
-		/**
-		 * @var Model_Category $category
-		 */
-		$category = $this->_helper->service('Category')->getCategoryById($category_id);
-		if ($category->isEmpty()) {
-			throw new Zend_Controller_Action_Exception('Category not found', 404);
-		}
+        $form->removeElement('id');
+        $form->prepareDecorators();
+        $this->view->form = $form;
+    }
 
-		$form = new Admin_Form_Category(array(
-			'name' => 'category',
-			'action' => $this->_helper->url('save'),
-			'method' => Zend_Form::METHOD_POST
-		));
-		$data = $category->toArray();
+    public function editAction()
+    {
+        $category_id = $this->_getParam('id');
+        /**
+         * @var Model_Category $category
+         */
+        $category = $this->_categoriesService->getCategoryById($category_id);
+        if ($category->isEmpty()) {
+            throw new Zend_Controller_Action_Exception('Category not found', 404);
+        }
 
-		$sessionData = $this->_helper->sessionSaver('categoryData');
-		if ($sessionData) {
-			$data = $sessionData;
-			$this->_helper->sessionSaver->delete('categoryData');
-		}
+        $form = new Admin_Form_Category(array(
+                'name' => 'category',
+                'action' => $this->_helper->url('save'),
+                'method' => Zend_Form::METHOD_POST
+            ));
+        $data = $category->toArray();
 
-		$form->populate($data);
-		$form->prepareDecorators();
-		$this->view->form = $form;
-	}
+        $sessionData = $this->_helper->sessionSaver('categoryData');
+        if ($sessionData) {
+            $data = $sessionData;
+            $this->_helper->sessionSaver->delete('categoryData');
+        }
 
-	public function saveAction() {
-		$request = $this->getRequest();
-		$category_id = $request->getParam('id');
-		if (!empty($category_id)) {
-			/**
-			 * @var Model_Category $category
-			 */
-			$category = $this->_helper->service('Category')->getCategoryById($category_id);
-			if ($category->isEmpty()) {
-				throw new Zend_Controller_Action_Exception('Category not found', 404);
-			}
-		}
-		else {
-			$category = $this->_helper->service('Category')->create();
-		}
+        $form->populate($data);
+        $form->prepareDecorators();
+        $this->view->form = $form;
+    }
 
-		$form = new Admin_Form_Category(array(
-			'name' => 'category'
-		));
+    public function saveAction()
+    {
+        $request = $this->getRequest();
+        $category_id = $request->getParam('id');
+        if (!empty($category_id)) {
+            /**
+             * @var Model_Category $category
+             */
+            $category = $this->_categoriesService->getCategoryById($category_id);
+            if ($category->isEmpty()) {
+                throw new Zend_Controller_Action_Exception('Category not found', 404);
+            }
+        }
+        else {
+            $category = $this->_categoriesService->create();
+        }
 
-		if ($request->isPost() && $form->isValid($request->getPost())) {
-			$data = $form->getValues();
-			$category->populate($data);
-			$category->save();
-			$this->_helper->flashMessenger->success('Category saved Successfully');
-			$this->_redirect($this->_helper->url(''));
-		}
-		else {
-			$this->_helper->flashMessenger->addErrorsFromForm($form);
-			$data = $form->getValues();
-			$this->_helper->sessionSaver('categoryData', $data);
-			if (!empty($category_id)) {
-				$this->_redirect($this->_helper->url('edit', null, null, array('id' => $category_id)));
-			}
-			else {
-				$this->_redirect($this->_helper->url('add'));
-			}
-		}
-	}
+        $form = new Admin_Form_Category(array(
+                'name' => 'category'
+            ));
 
-	public function deleteAction() {
-		$categoryIds = (array)$this->_getParam('category', $this->_getParam('id'));
-		/**
-		 * @var Service_Category $service
-		 */
-		$service = $this->_helper->service('Category');
-		$i = 0;
-		foreach($categoryIds as $category_id) {
-			/**
-			 * @var Model_Category $category
-			 */
-			$category = $service->getCategoryById($category_id);
-			if ($category->isEmpty()) {
-				$this->_helper->flashMessenger->fail('Category ID NOT Found');
-				continue;
-			}
-			$category->delete();
-			$i++;
-		}
-		if ($i > 0) {
-			$this->_helper->flashMessenger->success($i . ($i > 1?' categories were':' category was') . ' deleted');
-		}
-		$this->_redirect($this->_helper->url(''));
-	}
+        if ($request->isPost() && $form->isValid($request->getPost())) {
+            $data = $form->getValues();
+            $category->populate($data);
+            $category->save();
+            $this->_helper->flashMessenger->success('Category saved Successfully');
+            $this->_redirect($this->_helper->url(''));
+        }
+        else {
+            $this->_helper->flashMessenger->addErrorsFromForm($form);
+            $data = $form->getValues();
+            $this->_helper->sessionSaver('categoryData', $data);
+            if (!empty($category_id)) {
+                $this->_redirect($this->_helper->url('edit', null, null, array('id' => $category_id)));
+            }
+            else {
+                $this->_redirect($this->_helper->url('add'));
+            }
+        }
+    }
+
+    public function deleteAction()
+    {
+        $categoryIds = (array)$this->_getParam('category', $this->_getParam('id'));
+        $i = 0;
+        foreach ($categoryIds as $category_id) {
+            /**
+             * @var Model_Category $category
+             */
+            $category = $this->_categoriesService->getCategoryById($category_id);
+            if ($category->isEmpty()) {
+                $this->_helper->flashMessenger->fail('Category ID NOT Found');
+                continue;
+            }
+            $category->delete();
+            $i++;
+        }
+        if ($i > 0) {
+            $this->_helper->flashMessenger->success($i . ($i > 1 ? ' categories were' : ' category was') . ' deleted');
+        }
+        $this->_redirect($this->_helper->url(''));
+    }
 
 }

@@ -2,18 +2,18 @@
 class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 	/**
 	* Auth provider
-	* 
+	*
 	* @var Zend_Auth
 	*/
 	protected $_auth = null;
-	
+
 	/**
 	* Acl provider
-	* 
+	*
 	* @var Zend_Acl
 	*/
 	protected $_acl = array();
-	
+
 	protected $_noauth = array();
 
 	protected $_noacl = array();
@@ -31,7 +31,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			->setAuth($auth)
 			->setAcl($acl, $module)
 			->setIsSeparateAuthNamespace($isSeparateAuthNamespace);
-			
+
 		$defaultModuleName = Zend_Controller_Front::getInstance()->getDefaultModule();
 		if ($module != $defaultModuleName) {
 			$this->setNoAuthRules(array(
@@ -39,7 +39,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 				'controller' => 'login',
 				'action' => 'index'
 			), $defaultModuleName);
-			
+
 			$this->setNoAclRules(array(
 				'module' => 'default',
 				'controller' => 'error',
@@ -149,14 +149,14 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 		$controller = $request->getControllerName();
 		$action = $request->getActionName();
 		$module = (is_string($request->getModuleName()))?strtolower($request->getModuleName()):'default';
-		
+
 		$auth = $this->getAuth();
 		$acl = $this->getAcl($module);
-		
+
 		if (!$auth || !$acl) {
 			return false;
 		}
-		
+
 		$role = Model_User::USER_ROLE_GUEST;
 		if ($auth->hasIdentity()) {
 			$identity = $auth->getIdentity();
@@ -171,7 +171,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 			}
 		}
 		$resource = $controller;
-	
+
 		if (!$acl->has($resource)) {
 			$resource = null;
 		}
@@ -185,6 +185,7 @@ class Skaya_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract {
 		if (isset($identity)) {
 			$request->setParam('__user', $identity);
 		}
+        return true;
 	}
 
 	/**

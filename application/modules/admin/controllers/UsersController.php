@@ -17,7 +17,7 @@ class Admin_UsersController extends Zend_Controller_Action {
 	}
 
 	public function loginAction() {
-		$request = $this->getRequest();
+		$request = $this->getRequest();   echo 'Dump';
 
 		$loginForm = new Admin_Form_Login(array(
 			'name' => 'loginForm',

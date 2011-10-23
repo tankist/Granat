@@ -2,7 +2,7 @@
 
 class Model_Mapper_Decorator_Cache_User extends Skaya_Model_Mapper_Decorator_Cache {
 
-    public function getCacheId($method, $params) {
+    public function getCacheId($method, $params = array()) {
         switch ($method) {
             case 'save':
             case 'delete':
@@ -15,7 +15,7 @@ class Model_Mapper_Decorator_Cache_User extends Skaya_Model_Mapper_Decorator_Cac
         return parent::getCacheId($method, $params);
     }
 
-    public function getCacheTags($method, $params) {
+    public function getCacheTags($method, $params = array()) {
         switch ($method) {
             case 'save':
             case 'delete':
@@ -24,5 +24,5 @@ class Model_Mapper_Decorator_Cache_User extends Skaya_Model_Mapper_Decorator_Cac
         }
         return parent::getCacheTags($method, $params);
     }
-    
+
 }
