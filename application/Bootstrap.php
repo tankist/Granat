@@ -14,7 +14,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initAutoloadNamespace()
     {
-        $this->getApplication()->getAutoloader()->registerNamespace(array('Skaya_'));
+        Zend_Controller_Action_HelperBroker::addPrefix('Sch_Controller_Action_Helper');
     }
 
     protected function _initSessionNamespace()

@@ -23,6 +23,8 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 	}
 
 	public function uploadAction() {
+        /** @var $log Zend_Log */
+        $log = $this->getInvokeArg('bootstrap')->log;
 		$request = $this->getRequest();
 		$model_id = $request->getParam('model_id');
 		/**
@@ -39,6 +41,8 @@ class Admin_ModelImageController extends Zend_Controller_Action {
 		if ($request->isPost() && $form->isValid($request->getPost())) {
 			$data = $form->getValues();
 			if ($file = $data['name']) {
+                $log->info($_FILES);
+                $log->info($imagesPath);
                 $files = $this->_helper->avatar->upload($file, $imagesPath);
                 if (!empty($files) && $big = $files[Model_ModelPhoto::SIZE_BIG]) {
                     /**
