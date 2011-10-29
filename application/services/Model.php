@@ -1,43 +1,53 @@
 <?php
 
-class Service_Model extends Skaya_Model_Service_Abstract {
+use \Entities\Model, \Entities\ModelPhoto;
+
+class Service_Model extends Sch_Service_Abstract
+{
+
+    protected $_entityName = '\Entites\Model';
 
     /**
-     * @var Model_Mapper_Db_Model
+     * @param string $title
+     * @return Entities\Model
      */
-    protected $_mapper;
-
-    protected function __construct() {
-        parent::__construct();
-        $this->_mapper = new Model_Mapper_Decorator_Cache_Model($this->_mappers->model);
+    public function create($title)
+    {
+        return new Model($title);
     }
 
-	public static function create($data = array()) {
-		if (array_key_exists('id', $data)) {
-			unset($data['id']);
-		}
-		return new Model_Model($data);
-	}
+    /**
+     * @param string $filename
+     * @return Entities\ModelPhoto
+     */
+    public function createPhoto($filename)
+    {
+        return new ModelPhoto($filename);
+    }
 
-	public function getModelById($id) {
-		$modelData = $this->_mapper->getModelById($id);
-		return new Model_Model($modelData);
-	}
+    /**
+     * @param int $id
+     * @return \Entities\ModelPhoto
+     */
+    public function getPhotoById($id)
+    {
+        $model = $this->getEntityManager()->getRepository('\Entities\ModelPhoto')->findOneBy(array('id' => (int)$id));
+        return $model;
+    }
 
-	public function getModels($order = null, $count = null, $offset = null) {
-		$modelsBlob = $this->_mapper->getModels($order, $count, $offset);
-		return new Model_Collection_Models($modelsBlob);
-	}
+    public function getPhotos()
+    {
+        return $this->getEntityManager()->getRepository('\Entities\ModelPhoto')->findAll();
+    }
 
-	public function getModelsPaginator($order = null) {
-		$paginator = $this->_mapper->getModelsPaginator($order);
-		$paginator->addFilter(new Skaya_Filter_Array_Collection('Model_Collection_Models'));
-		return $paginator;
-	}
+    public function getModelsPaginator($order = null)
+    {
+        // @todo
+    }
 
-	public function getRandomModels($count = null) {
-		$modelsBlob = $this->_mapper->getRandomModels($count);
-		return new Model_Collection_Models($modelsBlob);
-	}
+    public function getRandomModels($count = null)
+    {
+        // @todo
+    }
 
 }
