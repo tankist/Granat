@@ -176,7 +176,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 			$data = $form->getValues();
 			$model->populate($data);
 			$model->save();
-			
+
 			$images = (array)$this->_helper->sessionSaver('modelImagesPath');
 			$modelFolder = $this->_helper->imagePath($model);
 			/**
@@ -210,7 +210,7 @@ class Admin_ModelsController extends Zend_Controller_Action {
 					$model->setMainPhoto($mainPhoto);
 				}
 			}
-			
+
 			$this->_helper->flashMessenger->success('Model saved Successfully');
 			$this->_redirect($this->_helper->url(''));
 		}

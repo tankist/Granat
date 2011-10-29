@@ -13,13 +13,11 @@ class Admin_Form_ModelImage extends Admin_Form_Abstract {
 		$image
 			->setTransferAdapter(new Zend_File_Transfer_Adapter_Http(array('magicFile' => '/usr/local/apache/conf/magic')))
 			->addValidator('Size', false, 8*1024000)
-			->addValidator('IsImage', false, array('image/gif', 'image/jpeg', 'image/png', 'image/pjpeg'))
-            ->addFilter(new Skaya_Filter_File_Rename($this->getImagesPath()))
+//			->addValidator('IsImage', false, array('image/gif', 'image/jpeg', 'image/png', 'image/pjpeg'))
+//            ->addFilter(new Skaya_Filter_File_Rename($this->getImagesPath()))
 			->setIsArray(true);
 
-        if ($imagesPath = $this->getImagesPath()) {
-            $image->setDestination($imagesPath);
-        }
+        $image->setDestination('uploads/temp/');
 
 		$this
 			->addElement($image)

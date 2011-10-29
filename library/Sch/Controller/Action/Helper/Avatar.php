@@ -6,14 +6,14 @@ class Sch_Controller_Action_Helper_Avatar extends Zend_Controller_Action_Helper_
     public function upload($file, $uploadPath = null)
     {
         //Создаем фильтр для переименования файлов
-        $renameFilter = new Zend_Filter_File_Rename($uploadPath);
+        $renameFilter = new Skaya_Filter_File_Rename($uploadPath);
 
         $avatarFile = $renameFilter->setFile(
             array(
-                 'target' => $uploadPath . DIRECTORY_SEPARATOR . $file,
+                 'target' => $uploadPath,
                  'overwrite' => true
             )
-        )->filter($uploadPath . DIRECTORY_SEPARATOR . $file);
+        )->filter('uploads/temp/' . DIRECTORY_SEPARATOR . $file);
 
         $thumbnailtFilenameFilter = new Sch_Filter_ThumbFilename();
         $files = array();

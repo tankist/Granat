@@ -57,5 +57,3 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
     }
 
 }
-
-?>
