@@ -30,7 +30,9 @@ abstract class Skaya_Model_Service_Abstract {
 		return self::$_instances[$serviceName];
 	}
 
-	abstract public static function create($data = array());
+	public static function create($data = array()) {
+
+    }
 
     /**
      * @param Skaya_Model_Mapper_Interface $mapper

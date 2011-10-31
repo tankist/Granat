@@ -10,7 +10,7 @@ class Model_Mapper_Db_Collection extends Skaya_Model_Mapper_Db_Abstract {
 		'mainModelId' => 'main_model_id'
 	);
 
-	public function unmap($data) {
+	public function unmap($data = array()) {
 		$data = parent::unmap($data);
 		if (empty($data['main_model_id'])) {
 			unset($data['main_model_id']);
