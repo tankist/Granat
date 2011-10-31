@@ -17,7 +17,7 @@ $(function() {
 	$('#catalog')
 		.scrollable({
 			items : '.images',
-			circular:true,
+			circular:($('#catalog .images li').length > 5),
 			mousewheel:true
 		})
 		.find('.arrow').click(function(e) { e.preventDefault(); });
