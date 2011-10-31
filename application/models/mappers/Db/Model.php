@@ -113,7 +113,7 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
             ->from(array('m' => $modelTable->info(Skaya_Model_DbTable_Abstract::NAME)), array('id' => 'm.id'))
             ->joinLeft(array('gm' => $modelTable->info(Skaya_Model_DbTable_Abstract::NAME)), 'gm.collection_id = m.collection_id AND gm.id > m.id', array())
             ->where('gm.id = ?', $model_id)
-            ->order('m.id ASC')
+            ->order('m.id DESC')
             ->limit(1);
         $prevModel = $modelTable->fetchRow($select);
         return $this->getModelById(($prevModel)?$prevModel->id:0);
@@ -127,7 +127,7 @@ class Model_Mapper_Db_Model extends Skaya_Model_Mapper_Db_Abstract {
             ->from(array('m' => $modelTable->info(Skaya_Model_DbTable_Abstract::NAME)), array('id' => 'm.id'))
             ->joinLeft(array('gm' => $modelTable->info(Skaya_Model_DbTable_Abstract::NAME)), 'gm.collection_id = m.collection_id AND gm.id < m.id', array())
             ->where('gm.id = ?', $model_id)
-            ->order('m.id DESC')
+            ->order('m.id ASC')
             ->limit(1);
         $nextModel = $modelTable->fetchRow($select);
         return $this->getModelById(($nextModel)?$nextModel->id:0);
