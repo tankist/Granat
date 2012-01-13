@@ -1,143 +1,145 @@
-@import  url(../reset.css);
+@import url(../reset.css);
 
-html,body {
-	height: 100%;
-	font: 11px Verdana,Tahoma;
+html, body {
+    height: 100%;
+    font: 11px Verdana, Tahoma;
 }
 
 a {
-	text-decoration: none;
-	color: #3d9abb;
+    text-decoration: none;
+    color: #3d9abb;
 }
 
 dt {
-	width: 123px;
-	padding-top: 10px;
+    width: 123px;
+    padding-top: 10px;
 }
 
 dd {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 dd input {
-	border: 1px solid #ccc;
-	height: 17px;
-	width: 146px;
-	color: #96999c;
-	margin: 2px 0 0;
+    border: 1px solid #ccc;
+    height: 17px;
+    width: 146px;
+    color: #96999c;
+    margin: 2px 0 0;
 }
 
 .remember {
-	line-height: 28px;
+    line-height: 28px;
 }
 
 .remember input {
-	width: auto;
-	vertical-align: text-top;
+    width: auto;
+    vertical-align: text-top;
 }
 
 #body {
-	height: 100%;
-	min-height: 100%;
-	width: 100%;
-	position: absolute;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 #container {
-	left: 50%;
-	top: 50%;
-	margin-top: -128px;
-	position: relative;
-	width: 164px;
-	margin-left: -82px;
+    left: 50%;
+    top: 50%;
+    margin-top: -128px;
+    position: relative;
+    width: 164px;
+    margin-left: -82px;
 }
 
-input#login,input#forgot {
-	clear: both;
-	display: block;
-	border: medium none;
-	height: 23px;
-	cursor: pointer;
-	color: #fff;
-	text-indent: -1000px;
-	margin-top: 14px;
+input#login, input#forgot {
+    clear: both;
+    display: block;
+    border: medium none;
+    height: 23px;
+    cursor: pointer;
+    color: #fff;
+    text-indent: -1000px;
+    margin-top: 14px;
 }
 
 input#login {
-	background: url(/images/admin/login/n_log_but.png) no-repeat scroll 0 0 transparent;
-	width: 72px;
+    background: url(/images/admin/login/n_log_but.png) no-repeat scroll 0 0 transparent;
+    width: 72px;
 }
 
 input#forgot {
-	background: url(/images/admin/login/n_log_forgot.png) no-repeat scroll 0 0 transparent;
-	width: 123px;
-	margin-bottom: 25px;
+    background: url(/images/admin/login/n_log_forgot.png) no-repeat scroll 0 0 transparent;
+    width: 123px;
+    margin-bottom: 25px;
 }
 
-.messages .try,.messages.error .back {
-	display: none;
+.messages .try, .messages.error .back {
+    display: none;
 }
 
-.messages .back,.messages.error .try {
-	display: inherit;
+.messages .back, .messages.error .try {
+    display: inherit;
 }
 
 .form_container {
-	position: relative;
-	overflow: hidden;
-	float: left;
-	height: 255px;
-	width: 164px;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    height: 255px;
+    width: 164px;
 }
 
 .form_container h1 {
-	text-indent: -1000px;
+    text-indent: -1000px;
 }
 
 .form_container h1.login {
-	background: url(/images/admin/login/n_login_text.png) no-repeat scroll 0 0 transparent;
-	width: 54px;
-	height: 13px;
+    background: url(/images/admin/login/n_login_text.png) no-repeat scroll 0 0 transparent;
+    width: 54px;
+    height: 13px;
 }
 
 .form_container h1.forgot {
-	background: url(/images/admin/login/n_forgot_text.png) no-repeat scroll 0 0 transparent;
-	height: 14px;
+    background: url(/images/admin/login/n_forgot_text.png) no-repeat scroll 0 0 transparent;
+    height: 14px;
 }
 
 .items {
-	position: absolute;
-	width: 100em;
+    position: absolute;
+    width: 100em;
 }
 
 .items > div {
-	float: left;
-	height: 218px;
-	padding-top: 37px;
-	/*padding-left: 44px;*/
-	margin:0 4px;
-	color: #7d7d7d;
-	width: 160px;
+    float: left;
+    height: 218px;
+    padding-top: 37px;
+    /*padding-left: 44px;*/
+    margin: 0 4px;
+    color: #7d7d7d;
+    width: 160px;
 }
 
 .messages p.error {
-	margin-top: 20px;
-	height: 40px;
+    margin-top: 20px;
+    height: 40px;
 }
 
 .logo {
-	float: left;
-	width: auto;
-	padding: 0;
+    float: left;
+    width: auto;
+    padding: 0;
 }
+
 #footer-container {
-	bottom: 0;
+    bottom: 0;
     left: 50%;
     margin-left: -204px;
     position: absolute;
     width: 408px;
-	}
+}
+
 #footer {
-	text-align: center;
-	padding:10px 0;
-	}
+    text-align: center;
+    padding: 10px 0;
+}

@@ -14,7 +14,7 @@
 namespace DoctrineExtensions\PHPUnit\Event;
 
 use \Doctrine\ORM\EntityManager,
-    \Doctrine\Common\EventArgs;
+\Doctrine\Common\EventArgs;
 
 class EntityManagerEventArgs extends EventArgs
 {

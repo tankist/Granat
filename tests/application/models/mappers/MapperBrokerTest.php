@@ -57,7 +57,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
     public static function main()
     {
 
-        $suite  = new PHPUnit_Framework_TestSuite("Skaya_Model_Mapper_MapperBrokerTest");
+        $suite = new PHPUnit_Framework_TestSuite("Skaya_Model_Mapper_MapperBrokerTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
@@ -66,8 +66,8 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $this->front = Zend_Controller_Front::getInstance();
         $this->front->resetInstance();
         $this->front->setParam('noViewRenderer', true)
-                    ->setParam('noErrorHandler', true)
-                    ->throwExceptions(true);
+            ->setParam('noErrorHandler', true)
+            ->throwExceptions(true);
         Skaya_Model_Mapper_MapperBroker::resetMappers();
     }
 
@@ -86,8 +86,8 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $this->front->setControllerDirectory(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files');
         $request = new Zend_Controller_Request_Http();
         $request->setModuleName('default')
-                ->setControllerName('Model_Mapper_Mapper-broker')
-                ->setActionName('index');
+            ->setControllerName('Model_Mapper_Mapper-broker')
+            ->setActionName('index');
         $response = new Zend_Controller_Response_Cli();
         $this->front->setResponse($response);
 
@@ -118,7 +118,8 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         Skaya_Model_Mapper_MapperBroker::removeMapper('redirector');
         $this->assertFalse(Skaya_Model_Mapper_MapperBroker::hasMapper('redirector'));
     }
-     public function testReturningMapper()
+
+    public function testReturningMapper()
     {
         $this->front->setControllerDirectory(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files');
         $request = new Zend_Controller_Request_Http('http://framework.zend.com/Mapper-broker/test-get-redirector/');
@@ -192,7 +193,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         Skaya_Model_Mapper_MapperBroker::addPath(
             dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Mappers',
             'MyApp'
-            );
+        );
 
         $response = $this->front->dispatch($request);
         $this->assertEquals('MyApp_TestMapper', $response->getBody());
@@ -224,24 +225,24 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
     {
         $mapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
 
-        $aRequest   = new Zend_Controller_Request_Http();
+        $aRequest = new Zend_Controller_Request_Http();
         $aRequest->setModuleName('default')
-                 ->setControllerName('Model_Mapper_Mapper-broker')
-                 ->setActionName('index');
-        $aResponse  = new Zend_Controller_Response_Cli();
+            ->setControllerName('Model_Mapper_Mapper-broker')
+            ->setActionName('index');
+        $aResponse = new Zend_Controller_Response_Cli();
         $controller = new Skaya_Model_Mapper_MapperBrokerModel($aRequest, $aResponse, array());
 
-        $fRequest   = new Zend_Controller_Request_Http();
+        $fRequest = new Zend_Controller_Request_Http();
         $fRequest->setModuleName('foo')
-                 ->setControllerName('foo-bar')
-                 ->setActionName('baz');
-        $fResponse  = new Zend_Controller_Response_Cli();
+            ->setControllerName('foo-bar')
+            ->setActionName('baz');
+        $fResponse = new Zend_Controller_Response_Cli();
         $this->front->setRequest($fRequest)
-                    ->setResponse($fResponse);
+            ->setResponse($fResponse);
 
         $mapper->setActionController($controller);
 
-        $hRequest  = $mapper->getRequest();
+        $hRequest = $mapper->getRequest();
         $this->assertSame($hRequest, $aRequest);
         $this->assertNotSame($hRequest, $fRequest);
         $hResponse = $mapper->getResponse();
@@ -254,21 +255,21 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $mapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('viewRenderer');
         $this->assertNull($mapper->getActionController());
 
-        $aRequest   = new Zend_Controller_Request_Http();
+        $aRequest = new Zend_Controller_Request_Http();
         $aRequest->setModuleName('default')
-                 ->setControllerName('Model_Mapper_Mapper-broker')
-                 ->setActionName('index');
-        $aResponse  = new Zend_Controller_Response_Cli();
+            ->setControllerName('Model_Mapper_Mapper-broker')
+            ->setActionName('index');
+        $aResponse = new Zend_Controller_Response_Cli();
 
-        $fRequest   = new Zend_Controller_Request_Http();
+        $fRequest = new Zend_Controller_Request_Http();
         $fRequest->setModuleName('foo')
-                 ->setControllerName('foo-bar')
-                 ->setActionName('baz');
-        $fResponse  = new Zend_Controller_Response_Cli();
+            ->setControllerName('foo-bar')
+            ->setActionName('baz');
+        $fResponse = new Zend_Controller_Response_Cli();
         $this->front->setRequest($fRequest)
-                    ->setResponse($fResponse);
+            ->setResponse($fResponse);
 
-        $hRequest  = $mapper->getRequest();
+        $hRequest = $mapper->getRequest();
         $this->assertNotSame($hRequest, $aRequest);
         $this->assertSame($hRequest, $fRequest);
         $hResponse = $mapper->getResponse();
@@ -281,7 +282,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         Skaya_Model_Mapper_MapperBroker::addPath(
             dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Mappers',
             'MyApp'
-            );
+        );
 
         $urlMapper = Skaya_Model_Mapper_MapperBroker::getStaticMapper('url');
         $this->assertTrue($urlMapper instanceof MyApp_Url);
@@ -293,7 +294,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
     public function testPluginLoaderShouldHaveDefaultPrefixPath()
     {
         $loader = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
-        $paths  = $loader->getPaths('Model_Mapper_Mapper');
+        $paths = $loader->getPaths('Model_Mapper_Mapper');
         $this->assertFalse(empty($paths));
     }
 
@@ -306,7 +307,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $path = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files/Mappers';
         Skaya_Model_Mapper_MapperBroker::addPath($path, 'MyApp\Controller\Action\Mapper\\');
 
-        $request  = new Zend_Controller_Request_Http('http://framework.zend.com/Mapper-broker/test-can-load-namespaced-Mapper/');
+        $request = new Zend_Controller_Request_Http('http://framework.zend.com/Mapper-broker/test-can-load-namespaced-Mapper/');
         $response = $this->front->dispatch($request);
         $this->assertEquals('MyApp\Controller\Action\Mapper\NamespacedMapper', $response->getBody());
     }
@@ -319,7 +320,7 @@ class Skaya_Model_Mapper_MapperBrokerTest extends ControllerTestCase
         $loader = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
         $custom = new Zend_Loader_PluginLoader();
         Skaya_Model_Mapper_MapperBroker::setPluginLoader($custom);
-        $test   = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
+        $test = Skaya_Model_Mapper_MapperBroker::getPluginLoader();
         $this->assertNotSame($loader, $test);
         $this->assertSame($custom, $test);
     }
@@ -333,17 +334,20 @@ class Skaya_Model_Mapper_MapperBroker_TestMapper extends Skaya_Model_Mapper_Abst
     {
         ++$this->count;
     }
-    
-    public function save($data) {
-        
+
+    public function save($data)
+    {
+
     }
-    
-    public function delete($data) {
-        
+
+    public function delete($data)
+    {
+
     }
-    
-    public function search($conditions, $order = null, $count = null, $offset = null) {
-        
+
+    public function search($conditions, $order = null, $count = null, $offset = null)
+    {
+
     }
 }
 

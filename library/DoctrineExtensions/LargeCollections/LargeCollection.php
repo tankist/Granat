@@ -14,8 +14,8 @@
 namespace DoctrineExtensions\LargeCollections;
 
 use Doctrine\ORM\EntityManager,
-    Doctrine\ORM\PersistentCollection,
-    Doctrine\Common\Collections\Collection;
+Doctrine\ORM\PersistentCollection,
+Doctrine\Common\Collections\Collection;
 
 class LargeCollection
 {
@@ -55,9 +55,9 @@ class LargeCollection
                 throw new \UnexpectedValueException("Only Relations with Entities using Single Primary Keys are supported.");
             }
 
-            $dql = 'SELECT COUNT(r.' . $targetMetadata->identifier[0] . ') AS collectionCount '.
-                   'FROM ' . $sourceMetadata->name . ' o LEFT JOIN o.' . $assoc['fieldName'] . ' r ' .
-                   'WHERE ' . $this->getWhereConditions($sourceMetadata);
+            $dql = 'SELECT COUNT(r.' . $targetMetadata->identifier[0] . ') AS collectionCount ' .
+                'FROM ' . $sourceMetadata->name . ' o LEFT JOIN o.' . $assoc['fieldName'] . ' r ' .
+                'WHERE ' . $this->getWhereConditions($sourceMetadata);
             $query = $em->createQuery($dql);
 
             $this->setParameters($collection, $query);
@@ -69,7 +69,7 @@ class LargeCollection
 
     /**
      * Return the slice from any given collection, using optimized queries for unitialized PersistentCollections.
-     * 
+     *
      * @param Collection $collection
      * @param int $limit
      * @param int $offset
@@ -112,8 +112,8 @@ class LargeCollection
             $assocField = $assoc['mappedBy'];
         }
 
-        $dql = 'SELECT r FROM ' . $targetMetadata->name . ' r JOIN r.' . $assocField . ' o '.
-               'WHERE ' . $this->getWhereConditions($sourceMetadata);
+        $dql = 'SELECT r FROM ' . $targetMetadata->name . ' r JOIN r.' . $assocField . ' o ' .
+            'WHERE ' . $this->getWhereConditions($sourceMetadata);
         $query = $em->createQuery($dql);
 
         $this->setParameters($collection, $query);
@@ -125,7 +125,8 @@ class LargeCollection
     private function getWhereConditions($sourceMetadata)
     {
         $i = 0;
-        $whereConditions = array_map(function($fieldName) use(&$i) {
+        $whereConditions = array_map(function($fieldName) use(&$i)
+        {
             return 'o.' . $fieldName . ' = ?' . ++$i;
         }, $sourceMetadata->identifier);
         return implode(" AND ", $whereConditions);

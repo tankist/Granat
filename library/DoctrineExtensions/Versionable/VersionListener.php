@@ -2,10 +2,10 @@
 namespace DoctrineExtensions\Versionable;
 
 use Doctrine\Common\EventSubscriber,
-    Doctrine\ORM\Events,
-    Doctrine\ORM\Event\OnFlushEventArgs,
-    Doctrine\ORM\EntityManager,
-    DoctrineExtensions\Versionable\Entity\ResourceVersion;
+Doctrine\ORM\Events,
+Doctrine\ORM\Event\OnFlushEventArgs,
+Doctrine\ORM\EntityManager,
+DoctrineExtensions\Versionable\Entity\ResourceVersion;
 
 class VersionListener implements EventSubscriber
 {
@@ -34,7 +34,7 @@ class VersionListener implements EventSubscriber
                 if (!$entityClass->isVersioned) {
                     throw Exception::versionedEntityRequired();
                 }
-                
+
                 $entityId = $entityClass->getIdentifierValues($entity);
                 if (count($entityId) == 1 && current($entityId)) {
                     $entityId = current($entityId);
@@ -42,7 +42,8 @@ class VersionListener implements EventSubscriber
                     throw Exception::singleIdentifierRequired();
                 }
 
-                $oldValues = array_map(function($changeSetField) {
+                $oldValues = array_map(function($changeSetField)
+                {
                     return $changeSetField[0];
                 }, $uow->getEntityChangeSet($entity));
 
@@ -53,7 +54,7 @@ class VersionListener implements EventSubscriber
 
                 $resourceVersion = new ResourceVersion($entityClass->name, $entityId, $oldValues, $entityVersion);
 
-                $em->persist( $resourceVersion );
+                $em->persist($resourceVersion);
                 $uow->computeChangeSet($resourceClass, $resourceVersion);
             }
         }

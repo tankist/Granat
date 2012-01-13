@@ -27,6 +27,6 @@ class Exception extends \Exception
 
     static public function unknownVersion($version)
     {
-        return new self('Trying to access an unknown version '.$version.'.');
+        return new self('Trying to access an unknown version ' . $version . '.');
     }
 }

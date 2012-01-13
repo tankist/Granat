@@ -1,69 +1,76 @@
-<?=$this->doctype()?>
+<?= $this->doctype() ?>
 <html lang="<?=key(Zend_Locale::getDefault())?>">
 <head>
-	<meta http-equiv="Content-Encoding" content="text/html; charset=utf-8">
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	<?php echo $this->headLink()->prependStylesheet('/css/style.css') ?>
-	<!--[if IE]>
-	<style type="text/css">
-		hr {filter:alpha(opacity=43);}
-	</style>
-	<![endif]-->
-	<!--[if lt IE 8]>
-	<style type="text/css">
+    <meta http-equiv="Content-Encoding" content="text/html; charset=utf-8">
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <?php echo $this->headLink()->prependStylesheet('/css/style.css') ?>
+    <!--[if IE]>
+    <style type="text/css">
+        hr {
+            filter: alpha(opacity = 43);
+        }
+    </style>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <style type="text/css">
 
-	</style>
-	<![endif]-->
-	<!--[if lt IE 7]>
-	<style type="text/css">
+    </style>
+    <![endif]-->
+    <!--[if lt IE 7]>
+    <style type="text/css">
 
-	</style>
-	<![endif]-->
-	<?php $this->headTitle()->prepend($this->translate('Ателье ГраНат в Николаеве') . ' - '); echo $this->headTitle()?>
+    </style>
+    <![endif]-->
+    <?php $this->headTitle()->prepend($this->translate('Ателье ГраНат в Николаеве') . ' - '); echo $this->headTitle()?>
 </head>
 <?php
 $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 ?>
 <body>
-	<div id="bodywrapper">
-		<div id="logo">&nbsp;</div>
-		<div id="bodycontainer">
-			<div id="header">
-				<div id="languages">
-					<div class="fr oh">
-						<p class="fl">Язык:&nbsp;</p>
-						<ul class="fl">
-							<li<?=($this->language == 'ru')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'ru'))?>">Рус</a></li>
-							<li<?=($this->language == 'en')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'en'))?>"">Eng</a></li>
-						</ul>
-					</div>
+<div id="bodywrapper">
+    <div id="logo">&nbsp;</div>
+    <div id="bodycontainer">
+        <div id="header">
+            <div id="languages">
+                <div class="fr oh">
+                    <p class="fl">Язык:&nbsp;</p>
+                    <ul class="fl">
+                        <li<?=($this->language == 'ru') ? ' class="active"' : ''?>><a
+                            href="<?=$this->url(array('lang' => 'ru'))?>">Рус</a></li>
+                        <li<?=($this->language == 'en') ? ' class="active"' : ''?>><a
+                            href="<?=$this->url(array('lang' => 'en'))?>"">Eng</a></li>
+                    </ul>
+                </div>
 
-				</div>
-				<a class="fl" href="<?=$this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
-				<?=$navigation?>
-				<div id="menu-separator">&nbsp;</div>
-				<div id="slogan">&nbsp;</div>
-			</div>
-			<div id="body">
-				<div id="content"><?php echo $this->layout()->content; ?></div>
-			</div>
-			<div id="footer-spacer">&nbsp;</div>
-		</div>
-		<div id="footer">
-			<div id="footer-wrapper">
-				<div class="fl"><?=$navigation?></div>
-				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.&nbsp;<?=$this->translate('Все права защищены')?></span>
-			</div>
-		</div>
-	</div>
+            </div>
+            <a class="fl" href="<?=$this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95"
+                                                                          alt="GraNat Natali Grechanaya"></a>
+            <?=$navigation?>
+            <div id="menu-separator">&nbsp;</div>
+            <div id="slogan">&nbsp;</div>
+        </div>
+        <div id="body">
+            <div id="content"><?php echo $this->layout()->content; ?></div>
+        </div>
+        <div id="footer-spacer">&nbsp;</div>
+    </div>
+    <div id="footer">
+        <div id="footer-wrapper">
+            <div class="fl"><?=$navigation?></div>
+            <span id="copyright" class="fr">© <?=date('Y')?>
+                . GraNat.&nbsp;<?=$this->translate('Все права защищены')?></span>
+        </div>
+    </div>
+</div>
 <?php
-	echo $this->headScript()
-		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js');
+echo $this->headScript()
+    ->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js');
 ?>
 <?php if ('production' == APPLICATION_ENV) { ?>
-<?=$this->googleAnalytics('UA-22620249-1')
-		->trackPageview()
-		->trackPageLoadTime()?>
-<?php } ?>
+    <?=
+    $this->googleAnalytics('UA-22620249-1')
+        ->trackPageview()
+        ->trackPageLoadTime()?>
+    <?php } ?>
 </body>
 </html>

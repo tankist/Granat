@@ -48,6 +48,6 @@ class DateAdd extends FunctionNode
         return 'DATE_ADD(' .
             $this->firstDateExpression->dispatch($sqlWalker) . ', INTERVAL ' .
             $this->intervalExpression->dispatch($sqlWalker) . ' ' . $this->unit .
-        ')';
+            ')';
     }
 }

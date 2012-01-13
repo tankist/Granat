@@ -30,7 +30,7 @@ class VersionManager
 
     /**
      * Return all versions of an versionable entity.
-     * 
+     *
      * @param Versionable $resource
      * @return ResourceVersion[]
      */
@@ -42,13 +42,13 @@ class VersionManager
 
         // INDEX BY bug?
         $query = $this->_em->createQuery(
-            "SELECT v FROM DoctrineExtensions\Versionable\Entity\ResourceVersion v INDEX BY v.version ".
-            "WHERE v.resourceName = ?1 AND v.resourceId = ?2 ORDER BY v.version DESC");
+            "SELECT v FROM DoctrineExtensions\Versionable\Entity\ResourceVersion v INDEX BY v.version " .
+                "WHERE v.resourceName = ?1 AND v.resourceId = ?2 ORDER BY v.version DESC");
         $query->setParameter(1, $versionableClassName);
         $query->setParameter(2, $resourceId);
 
         $newVersions = array();
-        foreach($query->getResult() AS $version) {
+        foreach ($query->getResult() AS $version) {
             $newVersions[$version->getVersion()] = $version;
         }
         return $newVersions;

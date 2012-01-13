@@ -71,7 +71,7 @@ abstract class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
     protected function createQueryDataTable($tableName, $sql = null)
     {
         if ($sql == null) {
-            $sql = 'SELECT * FROM '.$tableName;
+            $sql = 'SELECT * FROM ' . $tableName;
         }
 
         return $this->getConnection()->createQueryTable($tableName, $sql);

@@ -1,87 +1,91 @@
 <?php
 
-class Admin_UsersController extends Zend_Controller_Action {
+class Admin_UsersController extends Zend_Controller_Action
+{
 
-	/**
-	 * @var Model_User
-	 */
-	protected $_user;
+    /**
+     * @var Service_User
+     */
+    protected $_manager = null;
 
-	public function init() {
-		$this->_helper->getHelper('AjaxContext')->initContext('json');
-		$this->_user = $this->_helper->user();
-	}
+    public function init()
+    {
+        Zend_Layout::getMvcInstance()
+            ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
+            ->setLayout('login');
+        $this->_helper->getHelper('AjaxContext')->initContext('json');
+        $this->_manager = new Service_User($this->_helper->Em());
+    }
 
-	public function indexAction() {
-		// action body
-	}
+    public function indexAction()
+    {
+        // action body
+    }
 
-	public function loginAction() {
-		$request = $this->getRequest();   echo 'Dump';
+    public function loginAction()
+    {
+        $request = $this->getRequest();
+        $this->view->error_login = false;
 
-		$loginForm = new Admin_Form_Login(array(
-			'name' => 'loginForm',
-			'class' => 'login_box',
-			'action' => $this->_helper->url('login')
-		));
+        $loginForm = new Admin_Form_Login();
+        if ($request->isPost()) {
+            if ($loginForm->isValid($request->getPost())) {
+                $data = $loginForm->getValues();
+                if ($this->_authenticate($data)) {
+                    /** @var $me \Entities\User */
+                    if ($me = $this->_helper->currentUser()) {
+                        $me->setOnline(true)->setOnlineLast(new DateTime());
+                        $this->_manager->save($me);
+                    }
+                    $this->_redirect($this->_getParam('back', '/'));
+                }
+            }
+            $this->view->error_login = true;
+        }
+        $this->view->loginForm = $loginForm->prepareDecorators();
+    }
 
-		$notEmptyValidator = new Zend_Validate_NotEmpty();
-		$notEmptyValidator->setMessage('Email & Password are Required', Zend_Validate_NotEmpty::IS_EMPTY);
+    public function logoutAction()
+    {
+        /** @var $me \Entities\User */
+        if ($me = $this->_helper->currentUser()) {
+            $me->setOnline(false)->setOnlineLast(new DateTime());
+            $this->_manager->save($me);
+        }
+        Zend_Auth::getInstance()->clearIdentity();
+        Zend_Session::destroy();
+        $this->_redirect('/');
+    }
 
-		$loginForm->email->addValidator($notEmptyValidator, true);
-		$loginForm->password->addValidator($notEmptyValidator, true);
+    private function _authenticate($data)
+    {
+        if (empty($data['email']) || empty($data['password'])) {
+            return false;
+        }
 
-		if ($request->isPost()) {
-			if ($loginForm->isValid($request->getPost())) {
-				$user = Service_User::create(array(
-					'email' => $loginForm->email->getValue(),
-					'password' => $loginForm->password->getValue()
-				));
-				$auth = Zend_Auth::getInstance();
-				$authResult = $auth->authenticate($user);
-				if ($authResult->isValid()) {
-					$user->lastLoginDate = time();
-					$user->save();
-					if (!$request->isXmlHttpRequest()) {
-						$referer = $loginForm->referer->getValue();
-						$this->_redirect(($referer) ? $referer : '/' . $request->getModuleName());
-					}
-				}
-				else {
-					$this->view->error = array(
-						'form' => $authResult->getMessages()
-					);
-				}
-			}
-			else {
-				$errors = $loginForm->getMessages();
-				if (isset($errors['email']['isEmpty']) && isset($errors['password']['isEmpty'])) {
-					unset($errors['password']['isEmpty']);
-					if (count($errors['password']) == 0) {
-						unset($errors['password']);
-					}
-				}
-				$this->view->error = $errors;
-			}
-		}
-		else {
-			Zend_Layout::getMvcInstance()->setLayout('login_layout', true);
-			$forgotForm = new Admin_Form_ForgotPassword(array(
-				'name' => 'forgotForm',
-				'action' => $this->_helper->url('forget')
-			));
+        if (!empty($data['rememberMe']) && $data['rememberMe']) {
+            Zend_Session::rememberMe(86400 * 15);
+        } else {
+            Zend_Session::forgetMe();
+        }
 
-			$loginForm->referer->setValue($request->getRequestUri());
+        $authAdapter = new Sch_Auth_Adapter_Doctrine2(
+            $this->_helper->Em(),
+            'Entities\User',
+            'email',
+            'password'
+        );
+        $authAdapter->setIdentity($data['login']);
+        $authAdapter->setCredential(md5($data['password']));
 
-			$this->view->loginForm = $loginForm->prepareDecorators();
-			$this->view->forgotForm = $forgotForm->prepareDecorators();
-		}
-	}
+        $auth = Zend_Auth::getInstance();
+        $result = $auth->authenticate($authAdapter);
+        if ($result->isValid()) {
+            $auth->getStorage()->write($result->getIdentity());
+            return true;
+        }
 
-	public function logoutAction() {
-		Zend_Auth::getInstance()->clearIdentity();
-		$this->_redirect('/admin');
-	}
-
+        return false;
+    }
 
 }

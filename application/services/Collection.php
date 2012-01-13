@@ -7,15 +7,6 @@ class Service_Collection extends Sch_Service_Abstract
 
     protected $_entityName = '\Entites\Collection';
 
-    /**
-     * @param string $title
-     * @return Entities\Collection
-     */
-    public function create($title)
-    {
-        return new Collection($title);
-    }
-
     public function getCollectionsPaginator($order = null)
     {
         // @todo

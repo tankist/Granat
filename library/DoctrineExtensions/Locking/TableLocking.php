@@ -14,8 +14,8 @@
 namespace DoctrineExtensions\Locking;
 
 use Doctrine\Common\EventSubscriber,
-    Doctrine\ORM\Events,
-    Doctrine\ORM\Event\OnFlushEventArgs;
+Doctrine\ORM\Events,
+Doctrine\ORM\Event\OnFlushEventArgs;
 
 class TableLocking implements EventSubscriber
 {
@@ -68,14 +68,14 @@ class TableLocking implements EventSubscriber
             if ($tablesSql != '') {
                 $tablesSql .= ', ';
             }
-            $tablesSql .= $tableName.' WRITE';
+            $tablesSql .= $tableName . ' WRITE';
         }
 
         $this->_conn = $em->getConnection();
 
         // http://dev.mysql.com/doc/refman/5.1/en/lock-tables-and-transactions.html
         $this->_conn->exec('SET autocommit = 0');
-        $this->_conn->exec('LOCK TABLES '.$tablesSql);
+        $this->_conn->exec('LOCK TABLES ' . $tablesSql);
     }
 
     public function unlockTables()

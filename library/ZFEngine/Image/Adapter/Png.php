@@ -86,7 +86,8 @@ class ZFEngine_Image_Adapter_Png extends ZFEngine_Image_Adapter_Abstract
      * @param integer $quality
      * @return integer
      */
-    private static function _quality($quality) {
+    private static function _quality($quality)
+    {
         return 9 - round($quality * 9 / 100);
     }
 

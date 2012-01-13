@@ -1,5 +1,4 @@
 <?php
-
 class Sch_Filter_ThumbFilename implements Zend_Filter_Interface
 {
 
@@ -31,9 +30,9 @@ class Sch_Filter_ThumbFilename implements Zend_Filter_Interface
     public function filter($value)
     {
         $pathinfo = pathinfo($value);
-        $dirname = ($pathinfo['dirname'] == '.')?'':$pathinfo['dirname'] . DIRECTORY_SEPARATOR;
-        $filename = ($this->getFilename())?$this->getFilename():$pathinfo['filename'];
-        $extension = ($this->getExtension())?$this->getExtension():$pathinfo['extension'];
+        $dirname = ($pathinfo['dirname'] == '.') ? '' : $pathinfo['dirname'] . DIRECTORY_SEPARATOR;
+        $filename = ($this->getFilename()) ? : $pathinfo['filename'];
+        $extension = ($this->getExtension()) ? : $pathinfo['extension'];
         if ($prefix = $this->getPrefix()) {
             $filename = $prefix . $filename;
         }

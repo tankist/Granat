@@ -6,7 +6,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
     const ITEMS_PER_PAGE = 20;
 
     /**
-     * @var Model_User
+     * @var \Entities\User
      */
     protected $_user;
 
@@ -17,15 +17,12 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
     public function init()
     {
+        Zend_Layout::getMvcInstance()
+            ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
+            ->setLayout('admin');
         $this->_helper->getHelper('AjaxContext')->initContext('json');
-        $this->_user = $this->_helper->user();
+        $this->_user = $this->_helper->currentUser();
         $this->_categoriesService = $this->_helper->service('Category');
-        /** @var $mapper Model_Mapper_Decorator_Cache_Category */
-        if (($mapper = $this->_categoriesService->getMapper()) &&
-            $mapper instanceof Skaya_Model_Mapper_Decorator_Cachable
-        ) {
-            $mapper->setEnabled(false);
-        }
     }
 
     public function indexAction()
@@ -53,10 +50,10 @@ class Admin_CategoriesController extends Zend_Controller_Action
     public function addAction()
     {
         $form = new Admin_Form_Category(array(
-                'name' => 'user',
-                'action' => $this->_helper->url('save'),
-                'method' => Zend_Form::METHOD_POST
-            ));
+            'name' => 'user',
+            'action' => $this->_helper->url('save'),
+            'method' => Zend_Form::METHOD_POST
+        ));
 
         $sessionData = $this->_helper->sessionSaver('categoryData');
         if ($sessionData) {
@@ -75,16 +72,16 @@ class Admin_CategoriesController extends Zend_Controller_Action
         /**
          * @var Model_Category $category
          */
-        $category = $this->_categoriesService->getCategoryById($category_id);
+        $category = $this->_categoriesService->getById($category_id);
         if ($category->isEmpty()) {
             throw new Zend_Controller_Action_Exception('Category not found', 404);
         }
 
         $form = new Admin_Form_Category(array(
-                'name' => 'category',
-                'action' => $this->_helper->url('save'),
-                'method' => Zend_Form::METHOD_POST
-            ));
+            'name' => 'category',
+            'action' => $this->_helper->url('save'),
+            'method' => Zend_Form::METHOD_POST
+        ));
         $data = $category->toArray();
 
         $sessionData = $this->_helper->sessionSaver('categoryData');
@@ -106,7 +103,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
             /**
              * @var Model_Category $category
              */
-            $category = $this->_categoriesService->getCategoryById($category_id);
+            $category = $this->_categoriesService->getById($category_id);
             if ($category->isEmpty()) {
                 throw new Zend_Controller_Action_Exception('Category not found', 404);
             }
@@ -116,8 +113,8 @@ class Admin_CategoriesController extends Zend_Controller_Action
         }
 
         $form = new Admin_Form_Category(array(
-                'name' => 'category'
-            ));
+            'name' => 'category'
+        ));
 
         if ($request->isPost() && $form->isValid($request->getPost())) {
             $data = $form->getValues();
@@ -147,7 +144,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
             /**
              * @var Model_Category $category
              */
-            $category = $this->_categoriesService->getCategoryById($category_id);
+            $category = $this->_categoriesService->getById($category_id);
             if ($category->isEmpty()) {
                 $this->_helper->flashMessenger->fail('Category ID NOT Found');
                 continue;

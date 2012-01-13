@@ -22,7 +22,7 @@ class Skaya_Filter_File_Rename extends Zend_Filter_File_Rename
             return $value;
         }
 
-        $dir = (file_exists($file['target']))?dirname($file['target']):dirname($file['source']);
+        $dir = (file_exists($file['target'])) ? dirname($file['target']) : dirname($file['source']);
 
         if (($file['overwrite'] == true) && (file_exists($file['target']))) {
             unlink($file['target']);

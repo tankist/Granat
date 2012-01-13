@@ -1,20 +1,20 @@
-<?$this->headTitle('Edit model')?>
-<?=$this->form?>
+<? $this->headTitle('Edit model') ?>
+<?= $this->form ?>
 <dl class="zend_form upload_form">
-	<dt>&nbsp;</dt>
-	<dd>
-		<?=$this->formImage?>
-	</dd>
+    <dt>&nbsp;</dt>
+    <dd>
+        <?=$this->formImage?>
+    </dd>
 </dl>
 <dl class="zend_form upload_form">
-	<dt>&nbsp;</dt>
-	<dd>
-		<p><?=$this->formButton('submit', 'Save', array('class' => 'submit'))?></p>
-	</dd>
+    <dt>&nbsp;</dt>
+    <dd>
+        <p><?=$this->formButton('submit', 'Save', array('class' => 'submit'))?></p>
+    </dd>
 </dl>
 <?php $this->headScript()
-	->appendFile('/js/dot.js') ?>
+    ->appendFile('/js/dot.js') ?>
 
 <?php
 $this->headLink()
-	->appendStylesheet('/css/admin/ui/jquery-ui-1.8.11.custom.css') ?>
+    ->appendStylesheet('/css/admin/ui/jquery-ui-1.8.11.custom.css') ?>

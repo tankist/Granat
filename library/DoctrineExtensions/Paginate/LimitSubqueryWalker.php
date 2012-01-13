@@ -19,10 +19,10 @@
 namespace DoctrineExtensions\Paginate;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
-    Doctrine\ORM\Query\AST\SelectStatement,
-    Doctrine\ORM\Query\AST\SimpleSelectExpression,
-    Doctrine\ORM\Query\AST\PathExpression,
-    Doctrine\ORM\Query\AST\AggregateExpression;
+Doctrine\ORM\Query\AST\SelectStatement,
+Doctrine\ORM\Query\AST\SimpleSelectExpression,
+Doctrine\ORM\Query\AST\PathExpression,
+Doctrine\ORM\Query\AST\AggregateExpression;
 
 /**
  * Replaces the selectClause of the AST with a SELECT DISTINCT root.id equivalent
@@ -62,8 +62,8 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
         }
 
         $pathExpression = new PathExpression(
-                        PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION, $parentName,
-                        $parent['metadata']->getSingleIdentifierFieldName()
+            PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION, $parentName,
+            $parent['metadata']->getSingleIdentifierFieldName()
         );
         $pathExpression->type = PathExpression::TYPE_STATE_FIELD;
 
@@ -74,9 +74,9 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
         if (isset($AST->orderByClause)) {
             foreach ($AST->orderByClause->orderByItems as $item) {
                 $pathExpression = new PathExpression(
-                                PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION,
-                                $item->expression->identificationVariable,
-                                $item->expression->field
+                    PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION,
+                    $item->expression->identificationVariable,
+                    $item->expression->field
                 );
                 $pathExpression->type = PathExpression::TYPE_STATE_FIELD;
                 $AST->selectClause->selectExpressions[] = new SimpleSelectExpression($pathExpression);

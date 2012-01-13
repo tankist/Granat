@@ -36,9 +36,9 @@ class ZFEngine_Filter_File_ImageResize implements Zend_Filter_Interface
      * @var array
      */
     private $_options = array('width' => 0,
-                              'height' => 0,
-                              'quality' => 100,
-                              'saveProportions' => false );
+        'height' => 0,
+        'quality' => 100,
+        'saveProportions' => false);
 
     /**
      * Set options
@@ -67,13 +67,13 @@ class ZFEngine_Filter_File_ImageResize implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-        if (! file_exists($value)) {
+        if (!file_exists($value)) {
             return $value;
         }
 
         $image = ZFEngine_Image::factory($value);
         $image->resize($this->_options['width'], $this->_options['height'], $this->_options['saveProportions'])
-              ->save();
+            ->save();
 
         return $value;
     }

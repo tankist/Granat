@@ -2,56 +2,57 @@
 $i = 0;
 $classes = array('one', 'two', 'three');
 ?>
-<?=$this->partial('models/_left-column.phtml', array('collections' => $this->collections))?>
+<?= $this->partial('models/_left-column.phtml', array('collections' => $this->collections)) ?>
 <div id="collection" class="left-sidebar-body">
-	<?php if (!$this->collection->isEmpty()) { ?><h1><?=$this->collection->name?></h1>
+    <?php if (!$this->collection->isEmpty()) { ?><h1><?=$this->collection->name?></h1>
 	<hr><?php } ?>
-	<ul class="models"><?php foreach($this->models as /** @var Model_Model $model */$model) {
-		$mainModelPhotoUrl = 'images/empty/big.jpg';
-		$mainModelPhoto = $model->getMainPhoto();
-		if (!$mainModelPhoto->isEmpty()) {
-			$mainModelPhotoUrl = $this->imagePathHelper->direct($model)
-								 . '/'
-			                     . $mainModelPhoto->getFilename(Model_ModelPhoto::SIZE_BIG);
-		}
-	?>
-		<li>
-			<div class="<?=$classes[$i++ % 3]?>">
-				<div class="image">
-					<em>&nbsp;</em>
-					<a href="<?=$url=$this->url(array(
-								'model_id' => $model->id,
-								'model_name_hash' => $this->urlPartTranslit($model->name)
-						   ), 'model', true)?>">
-						<img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>">
-					</a>
-				</div>
-				<a href="<?=$url?>"><span><?=$model->name?></span></a>
-			</div>
-		</li>
-		<?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
-	<?php } ?></ul>
-	<?php
-		$routeName = 'allModels';
-		$routeParams = array();
-		if ($this->collection && !$this->collection->isEmpty()) {
-			$this->headTitle('Коллекция «' . $this->collection->name . '» - ');
+    <ul class="models"><?php foreach ($this->models as /** @var Model_Model $model */
+                                      $model) {
+        $mainModelPhotoUrl = 'images/empty/big.jpg';
+        $mainModelPhoto = $model->getMainPhoto();
+        if (!$mainModelPhoto->isEmpty()) {
+            $mainModelPhotoUrl = $this->imagePathHelper->direct($model)
+                . '/'
+                . $mainModelPhoto->getFilename(\Entities\Model\Photo::SIZE_BIG);
+        }
+        ?>
+        <li>
+            <div class="<?=$classes[$i++ % 3]?>">
+                <div class="image">
+                    <em>&nbsp;</em>
+                    <a href="<?=$url = $this->url(array(
+                        'model_id' => $model->id,
+                        'model_name_hash' => $this->urlPartTranslit($model->name)
+                    ), 'model', true)?>">
+                        <img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>">
+                    </a>
+                </div>
+                <a href="<?=$url?>"><span><?=$model->name?></span></a>
+            </div>
+        </li>
+        <?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
+        <?php } ?></ul>
+    <?php
+    $routeName = 'allModels';
+    $routeParams = array();
+    if ($this->collection && !$this->collection->isEmpty()) {
+        $this->headTitle('Коллекция «' . $this->collection->name . '» - ');
 
-			$routeName = 'collectionChain';
-			$routeParams = array(
-				'collection_id' => $this->collection->id,
-				'collection_name_hash' => $this->urlPartTranslit($this->collection->name)
-			);
-			if ($this->category && !$this->category->isEmpty()) {
-				$routeParams['category_id'] = $this->category->id;
-				$routeParams['category_name_hash'] = $this->urlPartTranslit($this->category->name);
-				$routeName = 'categorizedCollectionChain';
-			}
-		}
-	?>
-	<?=$this->paginationControl($this->models, null, null, array(
-		'routeParams' => $routeParams,
-		'routeName' => $routeName
-	))?>
+        $routeName = 'collectionChain';
+        $routeParams = array(
+            'collection_id' => $this->collection->id,
+            'collection_name_hash' => $this->urlPartTranslit($this->collection->name)
+        );
+        if ($this->category && !$this->category->isEmpty()) {
+            $routeParams['category_id'] = $this->category->id;
+            $routeParams['category_name_hash'] = $this->urlPartTranslit($this->category->name);
+            $routeName = 'categorizedCollectionChain';
+        }
+    }
+    ?>
+    <?=$this->paginationControl($this->models, null, null, array(
+    'routeParams' => $routeParams,
+    'routeName' => $routeName
+))?>
 </div>
 <?php $this->headTitle($this->translate('Модели')) ?>

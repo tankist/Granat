@@ -1,9 +1,10 @@
 <div id="sidebar" class="shape">
-	<h1><?=$this->translate('Наши коллекции')?></h1>
-	<ul><?php foreach($this->collections as /** @var Model_Collection $collection */$collection) { ?>
-		<li><a href="<?=$this->url(array(
-		                                'collection_id' => $collection->id,
-			                            'collection_name_hash' => $this->urlPartTranslit($collection->name)
-		                           ), 'collectionModelsChain', true)?>"><?=$collection->name?></a></li>
-	<?php } ?></ul>
+    <h1><?=$this->translate('Наши коллекции')?></h1>
+    <ul><?php foreach ($this->collections as /** @var Model_Collection $collection */
+                       $collection) { ?>
+        <li><a href="<?=$this->url(array(
+            'collection_id' => $collection->id,
+            'collection_name_hash' => $this->urlPartTranslit($collection->name)
+        ), 'collectionModelsChain', true)?>"><?=$collection->name?></a></li>
+        <?php } ?></ul>
 </div>

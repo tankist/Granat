@@ -110,9 +110,9 @@ class Firebug implements SqlLogger
         $this->_totalElapsedTime += $time;
         $this->_totalNumberQueries++;
         $this->_message->addRow(array(
-                                     (string)round($time, 5),
-                                     $this->_sql,
-                                     $this->_params)
+                (string)round($time, 5),
+                $this->_sql,
+                $this->_params)
         );
 
         $this->updateMessageLabel();

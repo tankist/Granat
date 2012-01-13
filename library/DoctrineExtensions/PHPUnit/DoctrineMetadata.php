@@ -72,7 +72,7 @@ class DoctrineMetadata implements \PHPUnit_Extensions_Database_DB_IMetaData
     public function getTableColumns($tableName)
     {
         $table = $this->_getTable($tableName);
-        
+
         $columnNames = array();
         foreach ($table->getColumns() AS $column) {
             $columnNames[] = $column->getName();
@@ -89,7 +89,7 @@ class DoctrineMetadata implements \PHPUnit_Extensions_Database_DB_IMetaData
         if (isset($this->_tables[$tableName])) {
             return $this->_tables[$tableName];
         } else {
-            throw new TestException("Table '".$tableName."' does not exist in database.");
+            throw new TestException("Table '" . $tableName . "' does not exist in database.");
         }
     }
 

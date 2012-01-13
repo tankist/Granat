@@ -1,6 +1,7 @@
 <?php
 
-class Sch_Form extends Zend_Form {
+class Sch_Form extends Zend_Form
+{
 
     /**
      * @return Sch_Form
@@ -19,12 +20,27 @@ class Sch_Form extends Zend_Form {
     public function populateEntity(\Entities\AbstractEntity $entity)
     {
         $values = array();
-        foreach ($this->getElements() as $elementName => /** @var Zend_Form_Element $element */$element) {
-            if (isset($entity->{$elementName})) {
-                $values[$elementName] = $entity->{$elementName};
+        foreach ($this->getElements() as $elementName => /** @var Zend_Form_Element $element */
+                 $element) {
+            $populateMethodName = '_populate' . ucfirst(Zend_Filter::filterStatic($elementName, 'Word_UnderscoreToCamelCase')) . 'Entity';
+            if (method_exists($this, $populateMethodName)) {
+                $values[$elementName] = call_user_func(array($this, $populateMethodName), $entity);
+                continue;
+            }
+            if (isset($entity->{$elementName}) && $value = $entity->{$elementName}) {
+                if ($value instanceof \Entities\AbstractEntity && method_exists($value, 'getId')) {
+                    $value = $value->getId();
+                }
+                $values[$elementName] = $value;
             }
         }
-        foreach ($this->getSubForms() as $subFormName => /** @var Zend_Form_SubForm $subForm */$subForm) {
+        foreach ($this->getSubForms() as $subFormName => /** @var Zend_Form_SubForm $subForm */
+                 $subForm) {
+            $populateMethodName = '_populate' . ucfirst(Zend_Filter::filterStatic($subFormName, 'Word_UnderscoreToCamelCase')) . 'Entity';
+            if (method_exists($this, $populateMethodName)) {
+                $values[$subFormName] = call_user_func(array($this, $populateMethodName), $entity);
+                continue;
+            }
             if (isset($entity->{$subFormName})) {
                 $data = $entity->{$subFormName};
                 if ($subForm instanceof Sch_Form && $data instanceof \Entities\AbstractEntity) {
@@ -73,13 +89,23 @@ class Sch_Form extends Zend_Form {
      */
     protected function _prepareSubformsDecorators()
     {
-        foreach ($this->getSubForms() as $subFormName => $subForm) {
-            $prepareMethodName = '_prepare' . ucfirst(Zend_Filter::filterStatic($subFormName, 'Word_UnderscoreToCamelCase')) . 'SubformDecorators';
+
+        foreach ($this->getSubForms() as $subFormName => /** @var $subForm Zend_Form */
+                 $subForm) {
+            $prepareMethodName = '_prepare' .
+                ucfirst(Zend_Filter::filterStatic($subFormName, 'Word_UnderscoreToCamelCase')) .
+                'SubformDecorators';
+            if (method_exists($subForm, 'prepareDecorators')) {
+                call_user_func(array($subForm, 'prepareDecorators'));
+            }
             if (method_exists($this, $prepareMethodName)) {
                 call_user_func(array($this, $prepareMethodName), $subForm);
             }
-            if (method_exists($subForm, 'prepareDecorators')) {
-                call_user_func(array($subForm, 'prepareDecorators'));
+            if ($subForm->getDecorator('Zend_Form_Decorator_Form')) {
+                $subForm->removeDecorator('Zend_Form_Decorator_Form');
+            }
+            if ($subForm->getDecorator('Form')) {
+                $subForm->removeDecorator('Form');
             }
         }
         return $this;

@@ -1,17 +1,18 @@
 <?php
 if ($this->pageCount > 1) {
-	$routeParams = (isset($this->routeParams))?$this->routeParams:array();
-	$routeName = (isset($this->routeName))?$this->routeName:'default';
-?>
+    $routeParams = (isset($this->routeParams)) ? $this->routeParams : array();
+    $routeName = (isset($this->routeName)) ? $this->routeName : 'default';
+    ?>
 <div class="center">
-<ul class="oh inline center-container" id="paginator">
-<? for ($i=$this->firstPageInRange;$i<=$this->lastPageInRange;$i++) {
-	$routeParams['page'] = $i;
-?>
-	<li p="<?=$i?>"<?php if ($this->current == $i) echo ' class="active"' ?>>
-		<a href="<?=$this->url($routeParams, $routeName)?>" title="<?=$this->translate('Страница')?> <?=$i?>"><?=$i?></a>
-	</li>
-<? } ?>
-</ul>
+    <ul class="oh inline center-container" id="paginator">
+        <? for ($i = $this->firstPageInRange; $i <= $this->lastPageInRange; $i++) {
+        $routeParams['page'] = $i;
+        ?>
+        <li p="<?=$i?>"<?php if ($this->current == $i) echo ' class="active"' ?>>
+            <a href="<?=$this->url($routeParams, $routeName)?>"
+               title="<?=$this->translate('Страница')?> <?=$i?>"><?=$i?></a>
+        </li>
+        <? } ?>
+    </ul>
 </div>
 <? } ?>

@@ -26,7 +26,8 @@ class InstallSql extends AbstractDoctrineTask
      */
     private $installSqlFile = null;
 
-    public function setInstallSqlFile($installSqlFile) {
+    public function setInstallSqlFile($installSqlFile)
+    {
         $this->installSqlFile = $installSqlFile;
     }
 
@@ -48,9 +49,9 @@ class InstallSql extends AbstractDoctrineTask
 
         $sql = $schemaTool->getCreateSchemaSql($classes);
 
-        $code = "<?php\n\nreturn ".var_export($sql, true).";\n";
+        $code = "<?php\n\nreturn " . var_export($sql, true) . ";\n";
         file_put_contents($this->installSqlFile, $code);
 
-        $this->log("Wrote the Array of SQL statements to create schema to file ".$this->installSqlFile);
+        $this->log("Wrote the Array of SQL statements to create schema to file " . $this->installSqlFile);
     }
 }

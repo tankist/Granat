@@ -29,11 +29,11 @@
  */
 abstract class ZFEngine_Image_Adapter_Abstract
 {
-        // Master Dimension
-        const NONE = 1;
-        const AUTO = 2;
-        const HEIGHT = 3;
-        const WIDTH = 4;
+    // Master Dimension
+    const NONE = 1;
+    const AUTO = 2;
+    const HEIGHT = 3;
+    const WIDTH = 4;
 
 
     /**
@@ -51,7 +51,7 @@ abstract class ZFEngine_Image_Adapter_Abstract
 
     /**
      * Конструктор. Открывает файл изображения
-     * 
+     *
      * @param string $filename
      * @return ZFEngine_Image_Adapter_Abstract
      */
@@ -82,7 +82,7 @@ abstract class ZFEngine_Image_Adapter_Abstract
      * @return ZFEngine_Image_Adapter_Abstract
      */
     abstract public function save($quality = 75);
-    
+
     /**
      * Сохранить изображение в другой файл
      *
@@ -171,16 +171,16 @@ abstract class ZFEngine_Image_Adapter_Abstract
              * и результирующего изображения
              */
             $ratio = min(($this->getWidth() / $maxWidth),
-                         ($this->getHeight() / $maxHeight));
+                ($this->getHeight() / $maxHeight));
 
             // Ширина и высота результирующего изображения
             $dstWidth = $maxWidth;
             $dstHeight = $maxHeight;
-            
+
             /*
-             * Вычисляем размеры области оригинального изображения
-             * которую будем копировать
-             */
+            * Вычисляем размеры области оригинального изображения
+            * которую будем копировать
+            */
             $srcWidth = round($maxWidth * $ratio);
             $srcHeight = round($maxHeight * $ratio);
 
@@ -207,10 +207,10 @@ abstract class ZFEngine_Image_Adapter_Abstract
          * на подготовленный "холст"
          */
         imagecopyresampled($image, $this->_image,
-                           0, 0,
-                           $srcX, $srcY,
-                           $dstWidth, $dstHeight,
-                           $srcWidth, $srcHeight);
+            0, 0,
+            $srcX, $srcY,
+            $dstWidth, $dstHeight,
+            $srcWidth, $srcHeight);
 
         $this->_image = $image;
 
@@ -227,7 +227,7 @@ abstract class ZFEngine_Image_Adapter_Abstract
     {
         $this->_image = imagerotate($this->_image, $degrees, -1);
 
-         // сохраняем прозрачность для gif и png
+        // сохраняем прозрачность для gif и png
         imagealphablending($this->_image, true);
         imagesavealpha($this->_image, true);
 
@@ -236,14 +236,14 @@ abstract class ZFEngine_Image_Adapter_Abstract
 
     /**
      * Ширина изображения
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getWidth()
     {
         return imagesx($this->_image);
     }
-    
+
     /**
      * Высота изображения
      *
@@ -261,8 +261,8 @@ abstract class ZFEngine_Image_Adapter_Abstract
      */
     public function filterGrayscale()
     {
-        $width    = $this->getWidth();
-        $height   = $this->getHeight();
+        $width = $this->getWidth();
+        $height = $this->getHeight();
 
         $image = imagecreate($width, $height);
 
@@ -271,8 +271,8 @@ abstract class ZFEngine_Image_Adapter_Abstract
         }
 
         imagecopymerge($image, $this->_image,
-                       0, 0, 0, 0,
-                       $width, $height, 100);
+            0, 0, 0, 0,
+            $width, $height, 100);
 
         $this->_image = $image;
 
@@ -284,7 +284,8 @@ abstract class ZFEngine_Image_Adapter_Abstract
      *
      * @return string
      */
-    public function getFileName() {
+    public function getFileName()
+    {
         return basename($this->getFullPath());
     }
 
@@ -293,7 +294,8 @@ abstract class ZFEngine_Image_Adapter_Abstract
      *
      * @return string
      */
-    public function getFullPath() {
+    public function getFullPath()
+    {
         return $this->_filename;
     }
 
@@ -310,14 +312,15 @@ abstract class ZFEngine_Image_Adapter_Abstract
         $startX = ($this->getWidth() - 5) - $watermark->getWidth();
         $startY = ($this->getHeight() - 5) - $watermark->getHeight();
         imagecopy($this->_image, $watermark->getImageResourse(),
-                  $startX, $startY,
-                  0, 0,
-                  $watermark->getWidth(), $watermark->getHeight());
+            $startX, $startY,
+            0, 0,
+            $watermark->getWidth(), $watermark->getHeight());
 
         return $this;
     }
 
-    public function getImageResourse() {
+    public function getImageResourse()
+    {
         return $this->_image;
     }
 

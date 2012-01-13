@@ -99,9 +99,9 @@ class TestConnection implements \PHPUnit_Extensions_Database_DB_IDatabaseConnect
      */
     public function getRowCount($tableName, $whereClause = NULL)
     {
-        $sql = "SELECT count(*) FROM ".$tableName;
+        $sql = "SELECT count(*) FROM " . $tableName;
         if ($whereClause !== null) {
-            $sql .= " WHERE ".$whereClause;
+            $sql .= " WHERE " . $whereClause;
         }
 
         return $this->_conn->fetchColumn($sql);

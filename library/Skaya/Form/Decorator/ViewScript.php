@@ -1,29 +1,31 @@
 <?php
-class Skaya_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript {
+class Skaya_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript
+{
 
-	/**
-	 * Merges given two belongsTo (array notation) strings
-	 *
-	 * @param  string $baseBelongsTo
-	 * @param  string $belongsTo
-	 * @return string
-	 */
-	public function mergeBelongsTo($baseBelongsTo, $belongsTo) {
-		$endOfArrayName = strpos($belongsTo, '[');
+    /**
+     * Merges given two belongsTo (array notation) strings
+     *
+     * @param  string $baseBelongsTo
+     * @param  string $belongsTo
+     * @return string
+     */
+    public function mergeBelongsTo($baseBelongsTo, $belongsTo)
+    {
+        $endOfArrayName = strpos($belongsTo, '[');
 
-		if ($endOfArrayName === false) {
-			return $baseBelongsTo . '[' . $belongsTo . ']';
-		}
+        if ($endOfArrayName === false) {
+            return $baseBelongsTo . '[' . $belongsTo . ']';
+        }
 
-		$arrayName = substr($belongsTo, 0, $endOfArrayName);
+        $arrayName = substr($belongsTo, 0, $endOfArrayName);
 
-		return $baseBelongsTo . '[' . $arrayName . ']' . substr($belongsTo, $endOfArrayName);
-	}
+        return $baseBelongsTo . '[' . $arrayName . ']' . substr($belongsTo, $endOfArrayName);
+    }
 
-	public function render($content)
+    public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
@@ -37,12 +39,12 @@ class Skaya_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript {
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
 
-        $vars              = $this->getOptions();
-        $vars['element']   = $element;
-        $vars['content']   = $content;
+        $vars = $this->getOptions();
+        $vars['element'] = $element;
+        $vars['content'] = $content;
         $vars['decorator'] = $this;
 
-	    $this->_prepareElement();
+        $this->_prepareElement();
 
         $viewModule = $this->getViewModule();
         if (empty($viewModule)) {
@@ -64,35 +66,36 @@ class Skaya_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript {
         }
     }
 
-	protected function _prepareElement() {
-		$element = $this->getElement();
+    protected function _prepareElement()
+    {
+        $element = $this->getElement();
 
-		if ($element instanceof Zend_Form) {
-			$translator = $element->getTranslator();
-			$view = $element->getView();
-			$belongsTo = $element->getElementsBelongTo();
+        if ($element instanceof Zend_Form) {
+            $translator = $element->getTranslator();
+            $view = $element->getView();
+            $belongsTo = $element->getElementsBelongTo();
 
-			foreach ($element as $item) {
-				$item->setView($view)
-					->setTranslator($translator);
-				if ($item instanceof Zend_Form_Element) {
-					$item->setBelongsTo($belongsTo);
-				} elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
-					if ($item->isArray()) {
-						$name = $this->mergeBelongsTo($belongsTo, $item->getElementsBelongTo());
-						$item->setElementsBelongTo($name, true);
-					} else {
-						$item->setElementsBelongTo($belongsTo, true);
-					}
-				} elseif (!empty($belongsTo) && ($item instanceof Zend_Form_DisplayGroup)) {
-					foreach ($item as $element) {
-						$element->setBelongsTo($belongsTo);
-					}
-				}
-			}
-		}
+            foreach ($element as $item) {
+                $item->setView($view)
+                    ->setTranslator($translator);
+                if ($item instanceof Zend_Form_Element) {
+                    $item->setBelongsTo($belongsTo);
+                } elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
+                    if ($item->isArray()) {
+                        $name = $this->mergeBelongsTo($belongsTo, $item->getElementsBelongTo());
+                        $item->setElementsBelongTo($name, true);
+                    } else {
+                        $item->setElementsBelongTo($belongsTo, true);
+                    }
+                } elseif (!empty($belongsTo) && ($item instanceof Zend_Form_DisplayGroup)) {
+                    foreach ($item as $element) {
+                        $element->setBelongsTo($belongsTo);
+                    }
+                }
+            }
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
 }

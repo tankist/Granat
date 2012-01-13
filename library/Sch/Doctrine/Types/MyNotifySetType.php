@@ -16,32 +16,32 @@ class MyNotifySetType extends Type
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
         // return the SQL used to create your column type. To create a portable column type, use the $platform.
-        return 'SET("snovsoob","snpostblog","snpobsch","snpbkg","snpbkp","snpgur","snpgn","snpga","snpgs","snoizbm","sdizb","pkpost","pkponrpost","snos","prekl")';	
+        return 'SET("snovsoob","snpostblog","snpobsch","snpbkg","snpbkp","snpgur","snpgn","snpga","snpgs","snoizbm","sdizb","pkpost","pkponrpost","snos","prekl")';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         // This is executed when the value is read from the database. Make your conversions here, optionally using the $platform.
         $arr = array();
-        if ($value<>'') {
-        	$ar2 = explode(',',$value);
-        	foreach ($ar2 as $val) {
-//        		$s = substr($val,1,strlen($val)-2);
-        		$arr[$val] = 1;
-        	}
+        if ($value <> '') {
+            $ar2 = explode(',', $value);
+            foreach ($ar2 as $val) {
+                //        		$s = substr($val,1,strlen($val)-2);
+                $arr[$val] = 1;
+            }
         }
-    	return $arr;
+        return $arr;
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         // This is executed when the value is written to the database. Make your conversions here, optionally using the $platform.
         $arr = array();
-    	foreach ($value as $key=>$val ){
-        	$arr[] = $key;
+        foreach ($value as $key => $val) {
+            $arr[] = $key;
         }
         $s = join(',', $arr);
-    	return $s;
+        return $s;
     }
 
     public function getName()

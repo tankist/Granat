@@ -42,14 +42,14 @@ class Model extends AbstractEntity
     protected $category;
 
     /**
-     * @var \Entities\ModelPhoto
-     * @OneToOne(targetEntity="ModelPhoto")
+     * @var \Entities\Model\Photo
+     * @OneToOne(targetEntity="Photo")
      */
     protected $mainPhoto;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @OneToMany(targetEntity="ModelPhoto", mappedBy="model", cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="Photo", mappedBy="model", cascade={"persist", "remove"})
      */
     protected $photos;
 
@@ -122,7 +122,7 @@ class Model extends AbstractEntity
     }
 
     /**
-     * @param \Entities\ModelPhoto $mainPhoto
+     * @param \Entities\Model\Photo $mainPhoto
      * @return \Entities\Model
      */
     public function setMainPhoto($mainPhoto)
@@ -135,7 +135,7 @@ class Model extends AbstractEntity
     }
 
     /**
-     * @return \Entities\ModelPhoto
+     * @return \Entities\Model\Photo
      */
     public function getMainPhoto()
     {
@@ -161,10 +161,10 @@ class Model extends AbstractEntity
     }
 
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $photos
+     * @param \Entities\Model\Photo $photo
      * @return \Entities\Model
      */
-    public function addPhotos(ModelPhoto $photo)
+    public function addPhoto(\Entities\Model\Photo $photo)
     {
         $this->photos[] = $photo;
         $photo->setModel($this);

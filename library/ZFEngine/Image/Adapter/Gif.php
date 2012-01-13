@@ -39,7 +39,7 @@ class ZFEngine_Image_Adapter_Gif extends ZFEngine_Image_Adapter_Abstract
     {
         $this->_filename = $filename;
         $this->_image = imagecreatefromgif($this->_filename);
-        
+
         return $this;
     }
 

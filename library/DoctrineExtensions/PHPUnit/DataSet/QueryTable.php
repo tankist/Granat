@@ -29,9 +29,9 @@ class QueryTable extends \PHPUnit_Extensions_Database_DataSet_QueryTable
 
             /* @var $table Doctrine\DBAL\Schema\Table */
             $table = $this->databaseConnection
-                          ->getConnection()
-                          ->getSchemaManager()
-                          ->listTableDetails($this->tableName);
+                ->getConnection()
+                ->getSchemaManager()
+                ->listTableDetails($this->tableName);
 
             $columnNames = array();
             foreach ($table->getColumns() AS $column) {

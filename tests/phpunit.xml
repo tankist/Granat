@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit bootstrap="./application/bootstrap.php"
-    colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    stopOnFailure="true"
-    syntaxCheck="true">
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true"
+         syntaxCheck="true">
 
     <!-- запускаем все тесты из корневой директории -->
     <testsuite name="Granat Test Suite">
@@ -30,6 +30,7 @@
     </filter>
     <logging>
         <!-- логирование и создание отчета -->
-        <log type="coverage-html" target="./report" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-html" target="./report" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35"
+             highLowerBound="70"/>
     </logging>
 </phpunit>

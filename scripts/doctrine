@@ -1,4 +1,0 @@
-#!/Applications/XAMPP/xamppfiles/bin/php
-<?php
-
-include('doctrine.php');

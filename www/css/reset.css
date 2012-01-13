@@ -8,11 +8,11 @@ version: 2.8.0r4
  * YUI Reset
  * @module reset
  * @namespace
- * @requires 
+ * @requires
  */
 html {
-	color: #000;
-	background: #FFF;
+    color: #000;
+    background: #FFF;
 }
 
 body,
@@ -41,18 +41,18 @@ p,
 blockquote,
 th,
 td {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 fieldset,
 img {
-	border: 0;
+    border: 0;
 }
 
 address,
@@ -65,22 +65,22 @@ strong,
 th,
 var,
 optgroup {
-	font-style: inherit;
-	font-weight: inherit;
+    font-style: inherit;
+    font-weight: inherit;
 }
 
 del,
 ins {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 li {
-	list-style: none;
+    list-style: none;
 }
 
 caption,
 th {
-	text-align: left;
+    text-align: left;
 }
 
 h1,
@@ -89,32 +89,32 @@ h3,
 h4,
 h5,
 h6 {
-	font-size: 100%;
-	font-weight: normal;
+    font-size: 100%;
+    font-weight: normal;
 }
 
 q:before,
 q:after {
-	content: '';
+    content: '';
 }
 
 abbr,
 acronym {
-	border: 0;
-	font-variant: normal;
+    border: 0;
+    font-variant: normal;
 }
 
 sup {
-	vertical-align: baseline;
+    vertical-align: baseline;
 }
 
 sub {
-	vertical-align: baseline;
+    vertical-align: baseline;
 }
 
 /*because legend doesn't inherit in IE */
 legend {
-	color: #000;
+    color: #000;
 }
 
 input,
@@ -123,10 +123,10 @@ textarea,
 select,
 optgroup,
 option {
-	font-family: inherit;
-	font-size: inherit;
-	font-style: inherit;
-	font-weight: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
 }
 
 /*@purpose To enable resizing for IE */
@@ -135,5 +135,5 @@ input,
 button,
 textarea,
 select {
-	*font-size: 100%;
+    *font-size: 100%;
 }

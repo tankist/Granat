@@ -14,7 +14,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $params = array('action' => 'index', 'controller' => 'Categories', 'module' => 'admin');
         $url = $this->url($this->urlizeOptions($params));
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($params['module']);
         $this->assertController($params['controller']);
@@ -22,7 +22,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $this->assertQueryContentContains(
             'div#view-content p',
             'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+        );
     }
 
     public function testAddAction()
@@ -30,7 +30,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $params = array('action' => 'add', 'controller' => 'Categories', 'module' => 'admin');
         $url = $this->url($this->urlizeOptions($params));
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($params['module']);
         $this->assertController($params['controller']);
@@ -38,7 +38,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $this->assertQueryContentContains(
             'div#view-content p',
             'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+        );
     }
 
     public function testEditAction()
@@ -46,7 +46,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $params = array('action' => 'edit', 'controller' => 'Categories', 'module' => 'admin');
         $url = $this->url($this->urlizeOptions($params));
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($params['module']);
         $this->assertController($params['controller']);
@@ -54,7 +54,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $this->assertQueryContentContains(
             'div#view-content p',
             'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+        );
     }
 
     public function testDeleteAction()
@@ -62,7 +62,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $params = array('action' => 'delete', 'controller' => 'Categories', 'module' => 'admin');
         $url = $this->url($this->urlizeOptions($params));
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($params['module']);
         $this->assertController($params['controller']);
@@ -70,7 +70,7 @@ class Admin_CategoriesControllerTest extends Zend_Test_PHPUnit_ControllerTestCas
         $this->assertQueryContentContains(
             'div#view-content p',
             'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+        );
     }
 
 

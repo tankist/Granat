@@ -9,13 +9,6 @@ namespace Entities;
 class User extends AbstractEntity
 {
 
-    const ROLE_ADMIN = 1;
-    const ROLE_USER = 2;
-    const ROLE_MODERATOR = 3;
-    const STATUS_ACTIVE = 1;
-    const STATUS_BANNED = 2;
-    const STATUS_SUSPENDED = 3;
-
     /**
      * @var int
      * @Id @Column(type="integer")
@@ -63,6 +56,17 @@ class User extends AbstractEntity
      * @Column(type="boolean")
      */
     protected $status;
+    /**
+     * @var \DateTime
+     * @Column(type="datetime",nullable=true)
+     */
+    protected $onlineLast;
+
+    /**
+     * @var boolean
+     * @Column(type="boolean",nullable=true)
+     */
+    protected $online = false;
 
     public function __construct($firstName, $email, $password)
     {
@@ -212,5 +216,41 @@ class User extends AbstractEntity
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @param boolean $online
+     * @return \Entities\User
+     */
+    public function setOnline($online)
+    {
+        $this->online = $online;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getOnline()
+    {
+        return $this->online;
+    }
+
+    /**
+     * @param \DateTime $onlineLast
+     * @return \Entities\User
+     */
+    public function setOnlineLast($onlineLast)
+    {
+        $this->onlineLast = $onlineLast;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getOnlineLast()
+    {
+        return $this->onlineLast;
     }
 }

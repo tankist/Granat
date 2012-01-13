@@ -2,19 +2,19 @@
 
 // Define application environment
 defined('APPLICATION_ENV')
-|| define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-$__prefix = (APPLICATION_ENV == 'localdev' || APPLICATION_ENV == 'localtest')?'..':'app';
+$__prefix = (APPLICATION_ENV == 'localdev' || APPLICATION_ENV == 'localtest') ? '..' : 'app';
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/' . $__prefix . '/application'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/' . $__prefix . '/application'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-                                           realpath(APPLICATION_PATH . '/../library'),
-                                           get_include_path()
-                                       )));
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path()
+)));
 
 /** Zend_Application */
 require_once 'Zend/Cache.php';
@@ -43,9 +43,9 @@ if (APPLICATION_ENV == 'production') {
     // получение объекта Zend_Cache_Frontend_Page
     /** @var $cache Zend_Cache_Frontend_Page */
     $cache = Zend_Cache::factory('Page',
-                                 'File',
-                                 $frontendOptions,
-                                 $backendOptions);
+        'File',
+        $frontendOptions,
+        $backendOptions);
 
     $cache->start();
 }
@@ -61,7 +61,10 @@ $configCache = Zend_Cache::factory(
 // Create application, bootstrap, and run
 $application = new Skaya_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini',
+    array('config' => array(
+        APPLICATION_PATH . '/configs/application.ini',
+        APPLICATION_PATH . '/configs/doctrine.yaml',
+    )),
     $configCache
 );
 $application->bootstrap()

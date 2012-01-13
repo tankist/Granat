@@ -1,339 +1,339 @@
 <?xml version="1.0"?>
 <projectProfile type="default" version="1.10">
-  <projectDirectory>
-    <projectProfileFile filesystemName=".zfproject.xml"/>
-    <applicationDirectory classNamePrefix="">
-      <apisDirectory enabled="false"/>
-      <configsDirectory>
-        <applicationConfigFile type="ini"/>
-      </configsDirectory>
-      <controllersDirectory>
-        <controllerFile controllerName="Index">
-          <actionMethod actionName="index"/>
-          <actionMethod actionName="contacts"/>
-          <actionMethod actionName="login"/>
-          <actionMethod actionName="logout"/>
-        </controllerFile>
-        <controllerFile controllerName="Error"/>
-        <controllerFile controllerName="Collections">
-          <actionMethod actionName="index"/>
-        </controllerFile>
-        <controllerFile controllerName="Fabrics">
-          <actionMethod actionName="index"/>
-          <actionMethod actionName="get"/>
-        </controllerFile>
-        <controllerFile controllerName="Models">
-          <actionMethod actionName="index"/>
-          <actionMethod actionName="view"/>
-        </controllerFile>
-      </controllersDirectory>
-      <formsDirectory enabled="false"/>
-      <layoutsDirectory enabled="false"/>
-      <modelsDirectory>
-        <dbTableDirectory>
-          <dbTableFile dbTableName="gr_collections"/>
-          <dbTableFile dbTableName="gr_fabrics"/>
-          <dbTableFile dbTableName="gr_models"/>
-          <dbTableFile dbTableName="gr_photos"/>
-          <dbTableFile dbTableName="gr_users"/>
-        </dbTableDirectory>
-        <modelFile modelName="User"/>
-        <collectionsDirectory>
-          <collectionFile collectionName="Users" itemType="User"/>
-          <collectionFile collectionName="Photos" itemType="Photo"/>
-          <collectionFile collectionName="Models" itemType="Model"/>
-          <collectionFile collectionName="Fabrics" itemType="Fabric"/>
-          <collectionFile collectionName="Collections" itemType="Collection"/>
-          <collectionFile collectionName="Categorys" itemType="Category"/>
-        </collectionsDirectory>
-        <modelFile modelName="Photo"/>
-        <modelFile modelName="Model"/>
-        <modelFile modelName="Fabric"/>
-        <modelFile modelName="Collection"/>
-        <mappersDirectory>
-          <mappersDirectory type="db">
-            <mapperFile mapperName="User" type="Db">
-              <mapperGetter getterName="Email"/>
-            </mapperFile>
-            <mapperFile mapperName="Photo" type="Db"/>
-            <mapperFile mapperName="Model" type="Db"/>
-            <mapperFile mapperName="Fabric" type="Db"/>
-            <mapperFile mapperName="Collection" type="Db"/>
-            <mapperFile mapperName="Category" type="Db"/>
-          </mappersDirectory>
-        </mappersDirectory>
-        <modelFile modelName="Category"/>
-      </modelsDirectory>
-      <modulesDirectory>
-        <moduleDirectory moduleName="admin">
-          <apisDirectory enabled="false"/>
-          <configsDirectory enabled="false"/>
-          <controllersDirectory>
-            <controllerFile controllerName="Index">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="login"/>
-              <actionMethod actionName="logout"/>
-            </controllerFile>
-            <controllerFile controllerName="Collections">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="add"/>
-              <actionMethod actionName="edit"/>
-              <actionMethod actionName="save"/>
-              <actionMethod actionName="delete"/>
-            </controllerFile>
-            <controllerFile controllerName="Fabrics">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="add"/>
-              <actionMethod actionName="edit"/>
-              <actionMethod actionName="delete"/>
-              <actionMethod actionName="save"/>
-            </controllerFile>
-            <controllerFile controllerName="Users">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="login"/>
-              <actionMethod actionName="logout"/>
-            </controllerFile>
-            <controllerFile controllerName="Models">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="add"/>
-              <actionMethod actionName="edit"/>
-              <actionMethod actionName="save"/>
-              <actionMethod actionName="delete"/>
-            </controllerFile>
-            <controllerFile controllerName="ModelImage">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="upload"/>
-              <actionMethod actionName="delete"/>
-            </controllerFile>
-            <controllerFile controllerName="Categories">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="add"/>
-              <actionMethod actionName="edit"/>
-              <actionMethod actionName="delete"/>
-            </controllerFile>
-          </controllersDirectory>
-          <formsDirectory enabled="false">
-            <formFile formName="Collection"/>
-            <formFile formName="Model"/>
-            <formFile formName="Category"/>
-            <formFile formName="Fabric"/>
-          </formsDirectory>
-          <layoutsDirectory enabled="false"/>
-          <modelsDirectory/>
-          <viewsDirectory>
-            <viewScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="login"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="logout"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Collections">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Fabrics">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Collections">
-                <viewScriptFile forActionName="add"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Collections">
-                <viewScriptFile forActionName="edit"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Collections">
-                <viewScriptFile forActionName="save"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Collections">
-                <viewScriptFile forActionName="delete"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Fabrics">
-                <viewScriptFile forActionName="add"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Fabrics">
-                <viewScriptFile forActionName="edit"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Fabrics">
-                <viewScriptFile forActionName="delete"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Fabrics">
-                <viewScriptFile forActionName="save"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Users">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Models">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Users">
-                <viewScriptFile forActionName="login"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Users">
-                <viewScriptFile forActionName="logout"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Models">
-                <viewScriptFile forActionName="add"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Models">
-                <viewScriptFile forActionName="edit"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Models">
-                <viewScriptFile forActionName="save"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Models">
-                <viewScriptFile forActionName="delete"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="ModelImage">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="ModelImage">
-                <viewScriptFile forActionName="upload"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="ModelImage">
-                <viewScriptFile forActionName="delete"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Categories">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Categories">
-                <viewScriptFile forActionName="add"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Categories">
-                <viewScriptFile forActionName="edit"/>
-              </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Categories">
-                <viewScriptFile forActionName="delete"/>
-              </viewControllerScriptsDirectory>
-            </viewScriptsDirectory>
-            <viewHelpersDirectory/>
-            <viewFiltersDirectory/>
-          </viewsDirectory>
-        </moduleDirectory>
-      </modulesDirectory>
-      <viewsDirectory>
-        <viewScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Index">
-            <viewScriptFile forActionName="index"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Error">
-            <viewScriptFile forActionName="error"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Collections">
-            <viewScriptFile forActionName="index"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Fabrics">
-            <viewScriptFile forActionName="index"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Index">
-            <viewScriptFile forActionName="contacts"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Index">
-            <viewScriptFile forActionName="login"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Index">
-            <viewScriptFile forActionName="logout"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Fabrics">
-            <viewScriptFile forActionName="get"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Models">
-            <viewScriptFile forActionName="index"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Models">
-            <viewScriptFile forActionName="view"/>
-          </viewControllerScriptsDirectory>
-        </viewScriptsDirectory>
-        <viewHelpersDirectory/>
-        <viewFiltersDirectory enabled="false"/>
-      </viewsDirectory>
-      <bootstrapFile filesystemName="Bootstrap.php"/>
-      <servicesDirectory>
-        <serviceFile name="User"/>
-        <serviceFile name="Photo"/>
-        <serviceFile name="Model"/>
-        <serviceFile name="Fabric"/>
-        <serviceFile name="Collection"/>
-        <serviceFile name="User"/>
-        <serviceFile name="Photo"/>
-        <serviceFile name="Model"/>
-        <serviceFile name="Fabric"/>
-        <serviceFile name="Collection"/>
-        <serviceFile name="Category"/>
-      </servicesDirectory>
-    </applicationDirectory>
-    <dataDirectory enabled="false">
-      <cacheDirectory enabled="false"/>
-      <searchIndexesDirectory enabled="false"/>
-      <localesDirectory enabled="false"/>
-      <logsDirectory enabled="false"/>
-      <sessionsDirectory enabled="false"/>
-      <uploadsDirectory enabled="false"/>
-    </dataDirectory>
-    <docsDirectory>
-      <file filesystemName="README.txt"/>
-    </docsDirectory>
-    <libraryDirectory>
-      <zfStandardLibraryDirectory enabled="false"/>
-    </libraryDirectory>
-    <publicDirectory>
-      <publicStylesheetsDirectory enabled="false"/>
-      <publicScriptsDirectory enabled="false"/>
-      <publicImagesDirectory enabled="false"/>
-      <publicIndexFile filesystemName="index.php"/>
-      <htaccessFile filesystemName=".htaccess"/>
-    </publicDirectory>
-    <projectProvidersDirectory enabled="false"/>
-    <temporaryDirectory enabled="false"/>
-    <testsDirectory>
-      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
-      <testApplicationDirectory>
-        <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
-        <testApplicationControllerDirectory>
-          <testApplicationControllerFile/>
-          <testApplicationControllerFile/>
-          <testApplicationControllerFile/>
-          <testApplicationControllerFile/>
-          <testApplicationControllerFile/>
-          <testApplicationControllerFile forControllerName="Models">
-            <testApplicationActionMethod forActionName="index"/>
-            <testApplicationActionMethod forActionName="view"/>
-          </testApplicationControllerFile>
-        </testApplicationControllerDirectory>
-        <testApplicationModulesDirectory>
-          <testApplicationModuleDirectory forModuleName="admin">
-            <testApplicationControllerDirectory>
-              <testApplicationControllerFile forControllerName="Users">
-                <testApplicationActionMethod forActionName="index"/>
-                <testApplicationActionMethod forActionName="login"/>
-                <testApplicationActionMethod forActionName="logout"/>
-              </testApplicationControllerFile>
-              <testApplicationControllerFile forControllerName="Models">
-                <testApplicationActionMethod forActionName="index"/>
-                <testApplicationActionMethod forActionName="add"/>
-                <testApplicationActionMethod forActionName="edit"/>
-                <testApplicationActionMethod forActionName="save"/>
-                <testApplicationActionMethod forActionName="delete"/>
-              </testApplicationControllerFile>
-              <testApplicationControllerFile forControllerName="ModelImage">
-                <testApplicationActionMethod forActionName="index"/>
-                <testApplicationActionMethod forActionName="upload"/>
-                <testApplicationActionMethod forActionName="delete"/>
-              </testApplicationControllerFile>
-              <testApplicationControllerFile forControllerName="Categories">
-                <testApplicationActionMethod forActionName="index"/>
-                <testApplicationActionMethod forActionName="add"/>
-                <testApplicationActionMethod forActionName="edit"/>
-                <testApplicationActionMethod forActionName="delete"/>
-              </testApplicationControllerFile>
-            </testApplicationControllerDirectory>
-          </testApplicationModuleDirectory>
-        </testApplicationModulesDirectory>
-      </testApplicationDirectory>
-      <testLibraryDirectory>
-        <testLibraryBootstrapFile filesystemName="bootstrap.php"/>
-      </testLibraryDirectory>
-    </testsDirectory>
-  </projectDirectory>
+    <projectDirectory>
+        <projectProfileFile filesystemName=".zfproject.xml"/>
+        <applicationDirectory classNamePrefix="">
+            <apisDirectory enabled="false"/>
+            <configsDirectory>
+                <applicationConfigFile type="ini"/>
+            </configsDirectory>
+            <controllersDirectory>
+                <controllerFile controllerName="Index">
+                    <actionMethod actionName="index"/>
+                    <actionMethod actionName="contacts"/>
+                    <actionMethod actionName="login"/>
+                    <actionMethod actionName="logout"/>
+                </controllerFile>
+                <controllerFile controllerName="Error"/>
+                <controllerFile controllerName="Collections">
+                    <actionMethod actionName="index"/>
+                </controllerFile>
+                <controllerFile controllerName="Fabrics">
+                    <actionMethod actionName="index"/>
+                    <actionMethod actionName="get"/>
+                </controllerFile>
+                <controllerFile controllerName="Models">
+                    <actionMethod actionName="index"/>
+                    <actionMethod actionName="view"/>
+                </controllerFile>
+            </controllersDirectory>
+            <formsDirectory enabled="false"/>
+            <layoutsDirectory enabled="false"/>
+            <modelsDirectory>
+                <dbTableDirectory>
+                    <dbTableFile dbTableName="gr_collections"/>
+                    <dbTableFile dbTableName="gr_fabrics"/>
+                    <dbTableFile dbTableName="gr_models"/>
+                    <dbTableFile dbTableName="gr_photos"/>
+                    <dbTableFile dbTableName="gr_users"/>
+                </dbTableDirectory>
+                <modelFile modelName="User"/>
+                <collectionsDirectory>
+                    <collectionFile collectionName="Users" itemType="User"/>
+                    <collectionFile collectionName="Photos" itemType="Photo"/>
+                    <collectionFile collectionName="Models" itemType="Model"/>
+                    <collectionFile collectionName="Fabrics" itemType="Fabric"/>
+                    <collectionFile collectionName="Collections" itemType="Collection"/>
+                    <collectionFile collectionName="Categorys" itemType="Category"/>
+                </collectionsDirectory>
+                <modelFile modelName="Photo"/>
+                <modelFile modelName="Model"/>
+                <modelFile modelName="Fabric"/>
+                <modelFile modelName="Collection"/>
+                <mappersDirectory>
+                    <mappersDirectory type="db">
+                        <mapperFile mapperName="User" type="Db">
+                            <mapperGetter getterName="Email"/>
+                        </mapperFile>
+                        <mapperFile mapperName="Photo" type="Db"/>
+                        <mapperFile mapperName="Model" type="Db"/>
+                        <mapperFile mapperName="Fabric" type="Db"/>
+                        <mapperFile mapperName="Collection" type="Db"/>
+                        <mapperFile mapperName="Category" type="Db"/>
+                    </mappersDirectory>
+                </mappersDirectory>
+                <modelFile modelName="Category"/>
+            </modelsDirectory>
+            <modulesDirectory>
+                <moduleDirectory moduleName="admin">
+                    <apisDirectory enabled="false"/>
+                    <configsDirectory enabled="false"/>
+                    <controllersDirectory>
+                        <controllerFile controllerName="Index">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="login"/>
+                            <actionMethod actionName="logout"/>
+                        </controllerFile>
+                        <controllerFile controllerName="Collections">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="add"/>
+                            <actionMethod actionName="edit"/>
+                            <actionMethod actionName="save"/>
+                            <actionMethod actionName="delete"/>
+                        </controllerFile>
+                        <controllerFile controllerName="Fabrics">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="add"/>
+                            <actionMethod actionName="edit"/>
+                            <actionMethod actionName="delete"/>
+                            <actionMethod actionName="save"/>
+                        </controllerFile>
+                        <controllerFile controllerName="Users">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="login"/>
+                            <actionMethod actionName="logout"/>
+                        </controllerFile>
+                        <controllerFile controllerName="Models">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="add"/>
+                            <actionMethod actionName="edit"/>
+                            <actionMethod actionName="save"/>
+                            <actionMethod actionName="delete"/>
+                        </controllerFile>
+                        <controllerFile controllerName="ModelImage">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="upload"/>
+                            <actionMethod actionName="delete"/>
+                        </controllerFile>
+                        <controllerFile controllerName="Categories">
+                            <actionMethod actionName="index"/>
+                            <actionMethod actionName="add"/>
+                            <actionMethod actionName="edit"/>
+                            <actionMethod actionName="delete"/>
+                        </controllerFile>
+                    </controllersDirectory>
+                    <formsDirectory enabled="false">
+                        <formFile formName="Collection"/>
+                        <formFile formName="Model"/>
+                        <formFile formName="Category"/>
+                        <formFile formName="Fabric"/>
+                    </formsDirectory>
+                    <layoutsDirectory enabled="false"/>
+                    <modelsDirectory/>
+                    <viewsDirectory>
+                        <viewScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Index">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Index">
+                                <viewScriptFile forActionName="login"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Index">
+                                <viewScriptFile forActionName="logout"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Collections">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Fabrics">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Collections">
+                                <viewScriptFile forActionName="add"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Collections">
+                                <viewScriptFile forActionName="edit"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Collections">
+                                <viewScriptFile forActionName="save"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Collections">
+                                <viewScriptFile forActionName="delete"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Fabrics">
+                                <viewScriptFile forActionName="add"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Fabrics">
+                                <viewScriptFile forActionName="edit"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Fabrics">
+                                <viewScriptFile forActionName="delete"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Fabrics">
+                                <viewScriptFile forActionName="save"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Users">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Models">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Users">
+                                <viewScriptFile forActionName="login"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Users">
+                                <viewScriptFile forActionName="logout"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Models">
+                                <viewScriptFile forActionName="add"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Models">
+                                <viewScriptFile forActionName="edit"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Models">
+                                <viewScriptFile forActionName="save"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Models">
+                                <viewScriptFile forActionName="delete"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="ModelImage">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="ModelImage">
+                                <viewScriptFile forActionName="upload"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="ModelImage">
+                                <viewScriptFile forActionName="delete"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Categories">
+                                <viewScriptFile forActionName="index"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Categories">
+                                <viewScriptFile forActionName="add"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Categories">
+                                <viewScriptFile forActionName="edit"/>
+                            </viewControllerScriptsDirectory>
+                            <viewControllerScriptsDirectory forControllerName="Categories">
+                                <viewScriptFile forActionName="delete"/>
+                            </viewControllerScriptsDirectory>
+                        </viewScriptsDirectory>
+                        <viewHelpersDirectory/>
+                        <viewFiltersDirectory/>
+                    </viewsDirectory>
+                </moduleDirectory>
+            </modulesDirectory>
+            <viewsDirectory>
+                <viewScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Index">
+                        <viewScriptFile forActionName="index"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Error">
+                        <viewScriptFile forActionName="error"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Collections">
+                        <viewScriptFile forActionName="index"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Fabrics">
+                        <viewScriptFile forActionName="index"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Index">
+                        <viewScriptFile forActionName="contacts"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Index">
+                        <viewScriptFile forActionName="login"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Index">
+                        <viewScriptFile forActionName="logout"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Fabrics">
+                        <viewScriptFile forActionName="get"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Models">
+                        <viewScriptFile forActionName="index"/>
+                    </viewControllerScriptsDirectory>
+                    <viewControllerScriptsDirectory forControllerName="Models">
+                        <viewScriptFile forActionName="view"/>
+                    </viewControllerScriptsDirectory>
+                </viewScriptsDirectory>
+                <viewHelpersDirectory/>
+                <viewFiltersDirectory enabled="false"/>
+            </viewsDirectory>
+            <bootstrapFile filesystemName="Bootstrap.php"/>
+            <servicesDirectory>
+                <serviceFile name="User"/>
+                <serviceFile name="Photo"/>
+                <serviceFile name="Model"/>
+                <serviceFile name="Fabric"/>
+                <serviceFile name="Collection"/>
+                <serviceFile name="User"/>
+                <serviceFile name="Photo"/>
+                <serviceFile name="Model"/>
+                <serviceFile name="Fabric"/>
+                <serviceFile name="Collection"/>
+                <serviceFile name="Category"/>
+            </servicesDirectory>
+        </applicationDirectory>
+        <dataDirectory enabled="false">
+            <cacheDirectory enabled="false"/>
+            <searchIndexesDirectory enabled="false"/>
+            <localesDirectory enabled="false"/>
+            <logsDirectory enabled="false"/>
+            <sessionsDirectory enabled="false"/>
+            <uploadsDirectory enabled="false"/>
+        </dataDirectory>
+        <docsDirectory>
+            <file filesystemName="README.txt"/>
+        </docsDirectory>
+        <libraryDirectory>
+            <zfStandardLibraryDirectory enabled="false"/>
+        </libraryDirectory>
+        <publicDirectory>
+            <publicStylesheetsDirectory enabled="false"/>
+            <publicScriptsDirectory enabled="false"/>
+            <publicImagesDirectory enabled="false"/>
+            <publicIndexFile filesystemName="index.php"/>
+            <htaccessFile filesystemName=".htaccess"/>
+        </publicDirectory>
+        <projectProvidersDirectory enabled="false"/>
+        <temporaryDirectory enabled="false"/>
+        <testsDirectory>
+            <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+            <testApplicationDirectory>
+                <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
+                <testApplicationControllerDirectory>
+                    <testApplicationControllerFile/>
+                    <testApplicationControllerFile/>
+                    <testApplicationControllerFile/>
+                    <testApplicationControllerFile/>
+                    <testApplicationControllerFile/>
+                    <testApplicationControllerFile forControllerName="Models">
+                        <testApplicationActionMethod forActionName="index"/>
+                        <testApplicationActionMethod forActionName="view"/>
+                    </testApplicationControllerFile>
+                </testApplicationControllerDirectory>
+                <testApplicationModulesDirectory>
+                    <testApplicationModuleDirectory forModuleName="admin">
+                        <testApplicationControllerDirectory>
+                            <testApplicationControllerFile forControllerName="Users">
+                                <testApplicationActionMethod forActionName="index"/>
+                                <testApplicationActionMethod forActionName="login"/>
+                                <testApplicationActionMethod forActionName="logout"/>
+                            </testApplicationControllerFile>
+                            <testApplicationControllerFile forControllerName="Models">
+                                <testApplicationActionMethod forActionName="index"/>
+                                <testApplicationActionMethod forActionName="add"/>
+                                <testApplicationActionMethod forActionName="edit"/>
+                                <testApplicationActionMethod forActionName="save"/>
+                                <testApplicationActionMethod forActionName="delete"/>
+                            </testApplicationControllerFile>
+                            <testApplicationControllerFile forControllerName="ModelImage">
+                                <testApplicationActionMethod forActionName="index"/>
+                                <testApplicationActionMethod forActionName="upload"/>
+                                <testApplicationActionMethod forActionName="delete"/>
+                            </testApplicationControllerFile>
+                            <testApplicationControllerFile forControllerName="Categories">
+                                <testApplicationActionMethod forActionName="index"/>
+                                <testApplicationActionMethod forActionName="add"/>
+                                <testApplicationActionMethod forActionName="edit"/>
+                                <testApplicationActionMethod forActionName="delete"/>
+                            </testApplicationControllerFile>
+                        </testApplicationControllerDirectory>
+                    </testApplicationModuleDirectory>
+                </testApplicationModulesDirectory>
+            </testApplicationDirectory>
+            <testLibraryDirectory>
+                <testLibraryBootstrapFile filesystemName="bootstrap.php"/>
+            </testLibraryDirectory>
+        </testsDirectory>
+    </projectDirectory>
 </projectProfile>

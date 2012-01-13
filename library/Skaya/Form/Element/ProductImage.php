@@ -33,24 +33,24 @@
  */
 class Skaya_Form_Element_ProductImage extends Zend_Form_Element_Radio
 {
-	/**
-	 * Use formRadio view helper by default
-	 * @var string
-	 */
-	public $helper = 'ProductImage';
+    /**
+     * Use formRadio view helper by default
+     * @var string
+     */
+    public $helper = 'ProductImage';
 
-	/**
-	 * Load default decorators
-	 *
-	 * Disables "for" attribute of label if label decorator enabled.
-	 *
-	 * @return void
-	 */
-	public function loadDefaultDecorators()
-	{
-		parent::loadDefaultDecorators();
-		if (false !== $decorator = $this->getDecorator('Label')) {
-			$decorator->setOption('disableFor', true);
-		}
-	}
+    /**
+     * Load default decorators
+     *
+     * Disables "for" attribute of label if label decorator enabled.
+     *
+     * @return void
+     */
+    public function loadDefaultDecorators()
+    {
+        parent::loadDefaultDecorators();
+        if (false !== $decorator = $this->getDecorator('Label')) {
+            $decorator->setOption('disableFor', true);
+        }
+    }
 }

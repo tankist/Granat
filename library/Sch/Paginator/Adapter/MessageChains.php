@@ -21,15 +21,16 @@ class Sch_Paginator_Adapter_MessageChains extends Sch_Paginator_Adapter_Doctrine
     public function getItems($offset, $itemsCount)
     {
         $chains = parent::getItems($offset, $itemsCount);
-        foreach ($chains as /** @var \Entities\MessagesChain $chain */&$chain) {
+        foreach ($chains as /** @var \Entities\MessagesChain $chain */
+            &$chain) {
             if (null === $chain->getUnreadMessagesCount()) {
                 $unreadMessagesCount = $this->_getRepository()
-                        ->getUnreadMessagesCount($chain->getTo()->getId(), $chain->getId(), $chain->getFrom()->getId());
+                    ->getUnreadMessagesCount($chain->getTo()->getId(), $chain->getId(), $chain->getFrom()->getId());
                 $chain->setUnreadMessagesCount((int)$unreadMessagesCount);
             }
             if (null === $chain->getLastMessageReadDate()) {
                 $message = $this->_getRepository()
-                        ->getLastReadMessage($chain->getFrom()->getId(), $chain->getId(), $chain->getTo()->getId());
+                    ->getLastReadMessage($chain->getFrom()->getId(), $chain->getId(), $chain->getTo()->getId());
                 if ($message) {
                     $chain->setLastMessageReadDate($message->getDateRead());
                 }
@@ -45,8 +46,8 @@ class Sch_Paginator_Adapter_MessageChains extends Sch_Paginator_Adapter_Doctrine
     protected function _getRepository()
     {
         return $this->_queryBuilder
-                            ->getEntityManager()
-                            ->getRepository('Entities\Message');
+            ->getEntityManager()
+            ->getRepository('Entities\Message');
     }
 
 }

@@ -1,159 +1,162 @@
 body {
-	color : black;
+    color: black;
 }
 
 #body {
-	width:90%;
+    width: 90%;
 }
 
 th {
-	font-weight:bold;
-	text-decoration:underline;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
-th.order-product,td.order-product {
-	width: 242px;
+th.order-product, td.order-product {
+    width: 242px;
 }
 
-th.order-quantity,td.order-quantity {
-	width: 55px;
-	text-align: center;
+th.order-quantity, td.order-quantity {
+    width: 55px;
+    text-align: center;
 }
 
-th.order-price,td.order-price {
-	width: 99px;
-	text-align: right;
+th.order-price, td.order-price {
+    width: 99px;
+    text-align: right;
 }
 
 th.order-price {
-	padding-right: 20px;
+    padding-right: 20px;
 }
 
 td.order-price {
-	padding-right: 11px;
+    padding-right: 11px;
 }
 
 tr.order-shipping td {
-	border-top: 1px solid #a0a0a0;
+    border-top: 1px solid #a0a0a0;
 }
 
 tr.order-total td {
-	border-top: 1px solid #dfdfdf;
-	font-weight: bold;
+    border-top: 1px solid #dfdfdf;
+    font-weight: bold;
 }
 
 tr.order-total td.order-product {
-	text-transform: uppercase;
-	padding-left: 8px!important;
+    text-transform: uppercase;
+    padding-left: 8px !important;
 }
 
-th.order-shipping-info,td.order-shipping-info {
-	width: 342px;
-	padding-left: 18px!important;
+th.order-shipping-info, td.order-shipping-info {
+    width: 342px;
+    padding-left: 18px !important;
 }
 
 td.order-shipping-info dl {
-	line-height: 20px!important;
-	padding-top: 5px;
-	overflow: hidden;
-	background-color:transparent;
-	border:none;
+    line-height: 20px !important;
+    padding-top: 5px;
+    overflow: hidden;
+    background-color: transparent;
+    border: none;
 }
 
 td.order-shipping-info dt {
-	float: left;
-	clear:both;
-	line-height:inherit;
-	font-weight:bold;
+    float: left;
+    clear: both;
+    line-height: inherit;
+    font-weight: bold;
 }
 
-	td.order-shipping-info.shipping dt {
-		width: 180px;
-	}
+td.order-shipping-info.shipping dt {
+    width: 180px;
+}
 
-	td.order-shipping-info.total dt {
-		width: 120px;
-	}
+td.order-shipping-info.total dt {
+    width: 120px;
+}
 
 td.order-shipping-info dd {
-	width: auto;
-	float: left;
-	padding:0;
+    width: auto;
+    float: left;
+    padding: 0;
 }
 
 .order-shipping-control {
-	padding-left: 8px;
-	padding-top: 10px;
-	padding-bottom: 6px;
+    padding-left: 8px;
+    padding-top: 10px;
+    padding-bottom: 6px;
 }
 
 .order-shipping-control h4 {
-	background: none repeat scroll 0 0 #fff5cf;
-	padding-left: 10px;
-	padding-right: 10px;
-	line-height: 20px;
-	display: none;
-	margin: 10px 0;
+    background: none repeat scroll 0 0 #fff5cf;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 20px;
+    display: none;
+    margin: 10px 0;
 }
 
 .order-shipping-control.delivered h4 {
-	display: inline-block;
+    display: inline-block;
 }
 
 .order-shipping-control p {
-	line-height: 16px;
-	font-weight: bold;
+    line-height: 16px;
+    font-weight: bold;
 }
 
 .order-shipping-control form dl {
-	background: none repeat scroll 0 0 transparent;
-	border: medium none;
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
 }
 
-.order-shipping-control form dl.none #tracking_number-label,.order-shipping-control form dl.none #tracking_number,.order-shipping-control form dl.none #tracking_url-label,.order-shipping-control form dl.none #tracking_url,.order-shipping-control form dl.none #note-label,.order-shipping-control form dl.none #note {
-	display: none;
+.order-shipping-control form dl.none #tracking_number-label, .order-shipping-control form dl.none #tracking_number, .order-shipping-control form dl.none #tracking_url-label, .order-shipping-control form dl.none #tracking_url, .order-shipping-control form dl.none #note-label, .order-shipping-control form dl.none #note {
+    display: none;
 }
 
 .order-shipping-control form dt {
-	width: 128px;
-	float: left;
-	font-weight: bold;
-	text-align: right;
-	padding-right: 5px;
-	line-height: 23px;
+    width: 128px;
+    float: left;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 5px;
+    line-height: 23px;
 }
 
 .order-shipping-control form dd {
-	float: left;
-	line-height: 23px;
-	width: 247px;
-	padding: 0;
+    float: left;
+    line-height: 23px;
+    width: 247px;
+    padding: 0;
 }
 
-.order-shipping-control form input,.order-shipping-control form textarea {
-	width: 236px;
+.order-shipping-control form input, .order-shipping-control form textarea {
+    width: 236px;
 }
 
 .order-shipping-control form textarea {
-	overflow: auto;
-	height: 46px;
+    overflow: auto;
+    height: 46px;
 }
 
 .order-shipping-control dd div {
-	font-weight: normal;
-	line-height: 14px;
+    font-weight: normal;
+    line-height: 14px;
 }
+
 .exportListPrint {
-	overflow: hidden;
-	padding:10px 0;
-	}
+    overflow: hidden;
+    padding: 10px 0;
+}
 
 .order-info-left {
-	margin:15px auto;
-	}
-	.order-info-left td:first-child, .order-info-left th:first-child {
-		padding-left : 10px;
-		}
+    margin: 15px auto;
+}
+
+.order-info-left td:first-child, .order-info-left th:first-child {
+    padding-left: 10px;
+}
+
 .toptable {
-	margin:15px auto;
-	}
+    margin: 15px auto;
+}

@@ -36,6 +36,6 @@ class DateDiff extends FunctionNode
         return 'DATEDIFF(' .
             $this->firstDateExpression->dispatch($sqlWalker) . ', ' .
             $this->secondDateExpression->dispatch($sqlWalker) .
-        ')';
+            ')';
     }
 }

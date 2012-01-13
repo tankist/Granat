@@ -1,0 +1,120 @@
+production:
+
+    # ------------------------------------------------------------------------------
+    # Doctrine Cache Configuration
+    # ------------------------------------------------------------------------------
+
+    # Points to default cache instance to be used. Optional is only one cache is defined
+    resources:
+        doctrine:
+            cache:
+                defaultCacheInstance: default
+                instances:
+                    default:
+                        adapterClass: Doctrine\Common\Cache\MemcacheCache
+                        namespace: Granat_
+                        options:
+                            servers:
+                                0:
+                                    host: localhost
+                                    port: 11211
+                                    persistent: true
+                                    weight: 1
+                                    timeout: 1
+                                    retryInterval: 15
+                                    status: true
+            dbal:
+                defaultConnection: default
+                connections:
+                    default:
+                        parameters:
+                            driver: pdo_mysql
+                            dbname: p55336_granatco
+                            host: p55336.mysql.ihc.ru
+                            port: 3306
+                            user: p55336_granatco
+                            password: grAnAt
+
+    # ------------------------------------------------------------------------------
+    # Doctrine ORM Configuration
+    # ------------------------------------------------------------------------------
+
+    # Points to default EntityManager to be used. Optional if only one EntityManager is defined
+            orm:
+                defaultEntityManager: default
+                entityManagers:
+                    default:
+                        entityNamespaces:
+                            api: Entities
+                        connection: default
+                        proxy:
+                            autoGenerateClasses: false
+                            namespace: Proxies\Entities
+                            dir: APPLICATION_PATH/models/Proxies/Entities
+                        metadataCache: default
+                        queryCache: default
+                        resultCache: default
+                        DQLFunctions:
+                            numeric:
+                                PI: DoctrineExtensions\ORM\Query\Functions\Numeric\PiFunction
+                        metadataDrivers:
+                            annotationRegistry:
+                                annotationNamespaces:
+                                    0:
+                                        namespace: Gedmo\Mapping\Annotation
+                                        includePath: APPLICATION_PATH/../library/
+                                annotationFiles:
+                                    0: /Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php
+                            drivers:
+                                0:
+                                    adapterClass: Doctrine\ORM\Mapping\Driver\AnnotationDriver
+                                    mappingNamespace: Entities
+                                    mappingDirs:
+                                        0: APPLICATION_PATH/models/Entities
+                                    annotationReaderClass: Doctrine\Common\Annotations\AnnotationReader
+                                    annotationReaderCache: default
+                                    annotationReaderNamespaces:
+                                        Granat: Entities
+
+staging:
+    _extends: production
+    resources:
+        doctrine:
+            dbal:
+                connections:
+                    default:
+                        parameters:
+                            dbname: granat
+                            host: localhost
+                            port: 3306
+                            user: granat
+                            password: temp123
+
+testing:
+    _extends: production
+
+development:
+    _extends: production
+
+    resources:
+        doctrine:
+            dbal:
+                connections:
+                    default:
+                        parameters:
+                            dbname: granat
+                            host: localhost
+                            port: 3306
+                            user: granat
+                            password: temp123
+            cache:
+                instances:
+                    default:
+                        adapterClass: Doctrine\Common\Cache\ArrayCache
+                        namespace: Granat
+
+localdev:
+    _extends: development
+
+localtest:
+    _extends: testing

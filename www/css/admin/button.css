@@ -10,29 +10,35 @@ button {
     line-height: 24px;
     padding: 0 20px;
     text-transform: uppercase;
-    }
-	button span {
-		background-color: #6BBAD6;
-		}
-button.disabled, button.disabled span {
-		background-color: #CCCCCC;
-	}
-.second-button-link {
-	line-height:16px;
-	color:#c2c2c2;
-	}
-.button-plus, .button-minus {
-	width:11px;
-	height:11px;
-	vertical-align:middle;
-	display:inline;
-	margin-right:5px;
-	padding:0;
-	text-indent:-100000px;
 }
+
+button span {
+    background-color: #6BBAD6;
+}
+
+button.disabled, button.disabled span {
+    background-color: #CCCCCC;
+}
+
+.second-button-link {
+    line-height: 16px;
+    color: #c2c2c2;
+}
+
+.button-plus, .button-minus {
+    width: 11px;
+    height: 11px;
+    vertical-align: middle;
+    display: inline;
+    margin-right: 5px;
+    padding: 0;
+    text-indent: -100000px;
+}
+
 .button-plus {
-	background-image:url('/images/admin/btn_plus.png');
-	}
+    background-image: url('/images/admin/btn_plus.png');
+}
+
 .button-minus {
-	background-image:url('/images/admin/btn_minus.png');
-	} 
+    background-image: url('/images/admin/btn_minus.png');
+}

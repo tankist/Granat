@@ -6,52 +6,86 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initModule()
     {
         $loader = new Zend_Application_Module_Autoloader(array(
-                'namespace' => '',
-                'basePath' => APPLICATION_PATH,
-            ));
+            'namespace' => '',
+            'basePath' => APPLICATION_PATH,
+        ));
         return $loader;
     }
 
     protected function _initAutoloadNamespace()
     {
+        require_once '/Doctrine/Common/ClassLoader.php';
+
+        require_once APPLICATION_PATH .
+            '/../library/Symfony/Component/Di/sfServiceContainerAutoloader.php';
+
+        sfServiceContainerAutoloader::register();
+        $autoloader = \Zend_Loader_Autoloader::getInstance();
+
+        $doctrineAutoloader = new \Doctrine\Common\ClassLoader('Doctrine');
+        $autoloader->pushAutoloader(array($doctrineAutoloader, 'loadClass'), 'Doctrine');
+
+        $symfonyAutoloader = new \Doctrine\Common\ClassLoader('Symfony');
+        $autoloader->pushAutoloader(array($symfonyAutoloader, 'loadClass'), 'Symfony');
+
+        $doctrineExtensionsAutoloader = new \Doctrine\Common\ClassLoader('DoctrineExtensions');
+        $autoloader->pushAutoloader(array($doctrineExtensionsAutoloader, 'loadClass'), 'DoctrineExtensions');
+
+        $fmmAutoloader = new \Doctrine\Common\ClassLoader('Bisna');
+        $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Bisna');
+
+        $fmmAutoloader = new \Doctrine\Common\ClassLoader('Gedmo');
+        $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Gedmo');
+
+        $modelsPath = realpath(APPLICATION_PATH . '/models');
+
+        $fmmAutoloader = new \Doctrine\Common\ClassLoader('Entities', $modelsPath);
+        $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Entities');
+    }
+
+    protected function _initHelperBroker()
+    {
         Zend_Controller_Action_HelperBroker::addPrefix('Sch_Controller_Action_Helper');
+        Zend_Controller_Action_HelperBroker::addHelper(new Sch_Controller_Action_Helper_CurrentUser());
+        Zend_Controller_Action_HelperBroker::addHelper(new Sch_Controller_Action_Helper_IndexNavigation());
+    }
+
+    public function _initGedmo()
+    {
+        $this->bootstrap(array('locale', 'doctrine'));
+        /** @var $doctrineContainer \Bisna\Doctrine\Container */
+        $doctrineContainer = $this->getResource('doctrine');
+        /** @var $em \Doctrine\ORM\EntityManager */
+        $em = $doctrineContainer->getEntityManager();
+        $driver = $em->getConfiguration()->getMetadataDriverImpl();
+        $chain = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        if ($driver instanceof \Doctrine\ORM\Mapping\Driver\Driver) {
+            $chain->addDriver($driver, 'Entities');
+        }
+        elseif ($driver instanceof \Doctrine\ORM\Mapping\Driver\DriverChain) {
+            $chain = $driver;
+        }
+        $driver = $em->getConfiguration()->newDefaultAnnotationDriver(APPLICATION_PATH . '/../library/Gedmo/Translatable/Entity');
+        $chain->addDriver($driver, 'Gedmo\Translatable');
+        $em->getConfiguration()->setMetadataDriverImpl($chain);
+
+        $locale = $this->getResource('locale');
+        if (!($locale instanceof Zend_Locale)) {
+            if (!Zend_Locale::isLocale($locale)) {
+                $locale = new Zend_Locale();
+            }
+        }
+        $treeListener = new \Gedmo\Tree\TreeListener();
+        $translatableListener = new \Gedmo\Translatable\TranslationListener();
+        $translatableListener->setTranslatableLocale($locale->toString());
+        $em->getEventManager()->addEventSubscriber($treeListener);
+        $em->getEventManager()->addEventSubscriber($translatableListener);
     }
 
     protected function _initSessionNamespace()
     {
         $session = new Zend_Session_Namespace('Skaya');
         return $session;
-    }
-
-    protected function _initAuthAcl()
-    {
-        $this->bootstrap('acl');
-
-        $front = Zend_Controller_Front::getInstance();
-        $authPlugin = $front->getPlugin('Skaya_Controller_Plugin_Auth');
-        if (!$authPlugin) {
-            $authPlugin = new Skaya_Controller_Plugin_Auth(
-                Zend_Auth::getInstance(),
-                $this->getResource('acl')
-            );
-            $front->registerPlugin($authPlugin);
-        }
-        else {
-            $authPlugin
-                ->setAcl($this->getResource('acl'))
-                ->setAuth(Zend_Auth::getInstance());
-        }
-        $authPlugin->setIsSeparateAuthNamespace(true);
-        $options = $this->getOption('authacl');
-        foreach ((array)$options as $key => $value) {
-            if (strtolower($key) == 'noauth') {
-                $authPlugin->setNoAuthRules($value);
-            }
-            if (strtolower($key) == 'noacl') {
-                $authPlugin->setNoAclRules($value);
-            }
-        }
-        return $authPlugin;
     }
 
     protected function _initRoutes()
@@ -105,59 +139,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
-    protected function _initDoctrine()
-    {
-        $options = $this->getOptions();
-        $doctrinePath = $options['includePaths']['library'];
-        require_once $doctrinePath . '/Doctrine/Common/ClassLoader.php';
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-
-        $doctrineAutoloader = array(new \Doctrine\Common\ClassLoader(), 'loadClass');
-        $autoloader->pushAutoloader($doctrineAutoloader, 'Doctrine');
-
-        $classLoader = new \Doctrine\Common\ClassLoader('Entities', realpath(__DIR__ . '/models/'));
-        $autoloader->pushAutoloader(array($classLoader, 'loadClass'), 'Entities');
-        $classLoader = new \Doctrine\Common\ClassLoader('Symfony', realpath(__DIR__ . '/../library/Doctrine/'));
-        $autoloader->pushAutoloader(array($classLoader, 'loadClass'), 'Symfony');
-        $classLoader = new \Doctrine\Common\ClassLoader('Repository', realpath(__DIR__ . '/models/'));
-        $autoloader->pushAutoloader(array($classLoader, 'loadClass'), 'Repository');
-
-        $config = new \Doctrine\ORM\Configuration();
-        $driverImpl = $config->newDefaultAnnotationDriver(APPLICATION_PATH . '/models/Entities');
-        $config->setMetadataDriverImpl($driverImpl);
-        $config->setProxyDir(APPLICATION_PATH . '/models/Proxies');
-        $config->setProxyNamespace('Proxies');
-
-        if (APPLICATION_ENV == "development") {
-            $cache = new \Doctrine\Common\Cache\ArrayCache();
-            $config->setMetadataCacheImpl($cache);
-            $config->setQueryCacheImpl($cache);
-        }/* else {
-            $cacheOptions = $options['cache']['backendOptions'];
-            $cache = new \Doctrine\Common\Cache\MemcacheCache();
-            $memcache = new Memcache;
-            $memcache->connect($cacheOptions['servers']['host'], $cacheOptions['servers']['port']);
-            $cache->setMemcache($memcache);
-        }*/
-
-        if (APPLICATION_ENV == "development") {
-            $config->setAutoGenerateProxyClasses(true);
-        } else {
-            $config->setAutoGenerateProxyClasses(false);
-        }
-
-        $em = \Doctrine\ORM\EntityManager::create($options['db'], $config);
-        $em->getConnection()->setCharset('utf8');
-        Zend_Registry::set('em', $em);
-
-        return $em;
-    }
-
     protected function _initDoctrineLogger()
     {
-        $this->bootstrap('doctrine');
+        $this->bootstrap(array('locale', 'doctrine'));
+        /** @var $doctrineContainer \Bisna\Doctrine\Container */
+        $doctrineContainer = $this->getResource('doctrine');
         /** @var $em \Doctrine\ORM\EntityManager */
-        $em = $this->getResource('doctrine');
+        $em = $doctrineContainer->getEntityManager();
         $logger = null;
         if (APPLICATION_ENV == 'development') {
             $logger = new \Sch\Doctrine\Logger\Firebug();

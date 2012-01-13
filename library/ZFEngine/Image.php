@@ -25,9 +25,9 @@ class ZFEngine_Image
     public static function factory($filename)
     {
         // make sure the GD library is installed
-    	if (!function_exists('gd_info')) {
+        if (!function_exists('gd_info')) {
             require_once 'ZFEngine/Image/Exception.php';
-        	throw new ZFEngine_Image_Exception('You do not have the GD Library installed');
+            throw new ZFEngine_Image_Exception('You do not have the GD Library installed');
         }
 
         /**
@@ -37,7 +37,7 @@ class ZFEngine_Image
         if ($size === false) {
             require_once 'ZFEngine/Image/Exception.php';
             throw new ZFEngine_Image_Exception(sprintf('Изображение \'%s\' повреждено',
-                                                  $filename));
+                $filename));
         }
 
         /*
@@ -76,7 +76,7 @@ class ZFEngine_Image
          */
         $imageAdapter = new $adapterName($filename);
 
-        if (! $imageAdapter instanceof ZFEngine_Image_Adapter_Abstract) {
+        if (!$imageAdapter instanceof ZFEngine_Image_Adapter_Abstract) {
             require_once 'ZFEngine/Image/Exception.php';
             throw new ZFEngine_Image_Exception(sprintf('Класс адаптера \'%s\' не
                                                    наследует ZFEngine_Image_Adapter_Abstract'));

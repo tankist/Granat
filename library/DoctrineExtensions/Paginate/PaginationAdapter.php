@@ -132,7 +132,10 @@ class PaginationAdapter implements \Zend_Paginator_Adapter_Interface
             ->getScalarResult();
 
         $ids = array_map(
-            function ($e) { return current($e); },
+            function ($e)
+            {
+                return current($e);
+            },
             $ids
         );
 
