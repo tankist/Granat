@@ -1,12 +1,12 @@
 <?php
 
-namespace Entities;
+namespace Entities\Model;
 
 /**
  * @Entity
  * @Table(name="model_photos")
  */
-class ModelPhoto extends AbstractPhoto
+class Photo extends \Entities\AbstractPhoto
 {
 
     /**
@@ -17,7 +17,7 @@ class ModelPhoto extends AbstractPhoto
 
     /**
      * @param \Entities\Model $model
-     * @return \Entities\ModelPhoto
+     * @return \Entities\Model\Photo
      */
     public function setModel($model)
     {
