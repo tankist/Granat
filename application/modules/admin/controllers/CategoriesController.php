@@ -31,25 +31,30 @@ class Admin_CategoriesController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $page = $request->getParam('page', 1);
-        $this->view->order = $order = $request->getParam('order');
-        $this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
-        /**
-         * @var Skaya_Paginator $categoriesPaginator
-         */
-        $categoriesPaginator = $this->_service->getPaginator(array('order' => $order, 'orderType' => $orderType));
+        $order = $request->getParam('order');
+        $orderType = $request->getParam('orderType', 'ASC');
 
-        $this->view->paginator = $categoriesPaginator;
-        $categoriesPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
-        $this->view->categories = $categoriesPaginator->getCurrentItems();
-        $this->view->page = $page;
+        $categoriesPaginator = $this->_service->getPaginator(array(
+            'order' => $order,
+            'orderType' => $orderType
+        ));
+        $categoriesPaginator
+            ->setCurrentPageNumber($page)
+            ->setItemCountPerPage(self::ITEMS_PER_PAGE);
+
+        $this->view->assign(array(
+            'categories' => $categoriesPaginator,
+            'page' => $page,
+            'order' => $order,
+            'orderType' => $orderType
+        ));
     }
 
     public function addAction()
     {
         $form = new Admin_Form_Category(array(
             'name' => 'user',
-            'action' => $this->_helper->url('save'),
-            'method' => Zend_Form::METHOD_POST
+            'action' => $this->_helper->url('save')
         ));
 
         $sessionData = $this->_helper->sessionSaver('categoryData');
@@ -66,9 +71,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
     public function editAction()
     {
         $category_id = $this->_getParam('id');
-        /**
-         * @var Model_Category $category
-         */
+        /** @var \Entities\Category $category */
         $category = $this->_service->getById($category_id);
         if (!$category) {
             throw new Zend_Controller_Action_Exception('Category not found', 404);
@@ -76,8 +79,7 @@ class Admin_CategoriesController extends Zend_Controller_Action
 
         $form = new Admin_Form_Category(array(
             'name' => 'category',
-            'action' => $this->_helper->url('save'),
-            'method' => Zend_Form::METHOD_POST
+            'action' => $this->_helper->url('save')
         ));
         $data = $category->toArray();
 
@@ -95,35 +97,29 @@ class Admin_CategoriesController extends Zend_Controller_Action
     public function saveAction()
     {
         $request = $this->getRequest();
-        $category_id = $request->getParam('id');
-        if (!empty($category_id)) {
-            /**
-             * @var Model_Category $category
-             */
-            $category = $this->_service->getById($category_id);
-            if (!$category) {
+        $formParams = array();
+        if (($category_id = $request->getPost('id'))) {
+            /** @var $category \Entities\Category */
+            if (!($category = $this->_service->getById($category_id))) {
                 throw new Zend_Controller_Action_Exception('Category not found', 404);
             }
         }
-        else {
-            $category = $this->_service->create();
-        }
-
-        $form = new Admin_Form_Category(array(
-            'name' => 'category'
-        ));
+        $form = new Admin_Form_category($formParams);
 
         if ($request->isPost() && $form->isValid($request->getPost())) {
             $data = $form->getValues();
+            if (!isset($category)) {
+                $category = $this->_service->create($data['title']);
+            }
             $category->populate($data);
-            $category->save();
-            $this->_helper->flashMessenger->success('Category saved Successfully');
+            $this->_service->save($category);
+            $this->_helper->flashMessenger->success('Category "' . $category->getTitle() . '" saved Successfully');
+            $this->_service->getPaginator()->setItemCountPerPage(self::ITEMS_PER_PAGE)->clearPageItemCache();
             $this->_redirect($this->_helper->url(''));
         }
         else {
             $this->_helper->flashMessenger->addErrorsFromForm($form);
-            $data = $form->getValues();
-            $this->_helper->sessionSaver('categoryData', $data);
+            $this->_helper->sessionSaver('categoryData', $form->getValues());
             if (!empty($category_id)) {
                 $this->_redirect($this->_helper->url('edit', null, null, array('id' => $category_id)));
             }
