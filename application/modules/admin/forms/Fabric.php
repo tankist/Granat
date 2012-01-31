@@ -5,7 +5,7 @@
  * @property Zend_Form_Element_File $photo
  * @property Zend_Form_Element_Button $submit
  */
-class Admin_Form_Fabric extends Admin_Form_Abstract
+class Admin_Form_Fabric extends Sch_Form
 {
 
     protected $_imagePath = '';

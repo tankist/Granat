@@ -4,7 +4,7 @@
  * @property Zend_Form_Element_Button $forgot
  */
 
-class Admin_Form_ForgotPassword extends Admin_Form_Abstract
+class Admin_Form_ForgotPassword extends Sch_Form
 {
 
     public function init()

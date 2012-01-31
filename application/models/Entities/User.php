@@ -2,72 +2,80 @@
 
 namespace Entities;
 
+use \Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="users")
+ * @ORM\Entity
+ * @ORM\Table(name="users")
  */
 class User extends AbstractEntity
 {
 
     /**
      * @var int
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     * @Column(name="first_name", type="text")
+     * @ORM\Column(name="first_name", type="string")
      */
     protected $firstName;
 
     /**
      * @var string
-     * @Column(name="last_name", type="text")
+     * @ORM\Column(name="last_name", type="string")
      */
     protected $lastName;
 
     /**
      * @var string
-     * @Column(type="text")
+     * @ORM\Column(type="string")
      */
     protected $email;
 
     /**
      * @var string
-     * @Column(type="text")
+     * @ORM\Column(type="string", length=32)
      */
     protected $password;
 
     /**
      * @var int
+     * @ORM\Column(type="integer", length=1)
      */
-    protected $role;
+    protected $role = 0;
 
     /**
      * @var \DateTime
-     * @Column(type="datetime", name="date_added")
+     * @ORM\Column(type="datetime", name="date_added")
      */
     protected $dateAdded;
 
     /**
      * @var boolean
-     * @Column(type="boolean")
+     * @ORM\Column(type="boolean")
      */
     protected $status;
     /**
      * @var \DateTime
-     * @Column(type="datetime",nullable=true)
+     * @ORM\Column(type="datetime", nullable=true, name="online_last")
      */
     protected $onlineLast;
 
     /**
      * @var boolean
-     * @Column(type="boolean",nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $online = false;
 
+    /**
+     * @param $firstName
+     * @param $email
+     * @param $password
+     */
     public function __construct($firstName, $email, $password)
     {
         $this->firstName = $firstName;
@@ -220,19 +228,14 @@ class User extends AbstractEntity
 
     /**
      * @param boolean $online
-     * @return \Entities\User
-     */
-    public function setOnline($online)
-    {
-        $this->online = $online;
-        return $this;
-    }
-
-    /**
      * @return boolean
      */
-    public function getOnline()
+    public function isOnline($online = null)
     {
+        if ($online !== null) {
+            $this->online = $online;
+            $this->setOnlineLast(new \DateTime('now'));
+        }
         return $this->online;
     }
 
@@ -240,7 +243,7 @@ class User extends AbstractEntity
      * @param \DateTime $onlineLast
      * @return \Entities\User
      */
-    public function setOnlineLast($onlineLast)
+    public function setOnlineLast(\DateTime $onlineLast)
     {
         $this->onlineLast = $onlineLast;
         return $this;

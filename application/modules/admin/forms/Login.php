@@ -1,33 +1,53 @@
 <?php
+
 /**
- * @property Zend_Form_Element_Text $email
- * @property Zend_Form_Element_Password $password
- * @property Zend_Form_Element_Checkbox $is_remember
- * @property Zend_Form_Element_Hidden $referer
- * @property Zend_Form_Element_Button $login
+ * @class Admin_Form_Login
  */
-class Admin_Form_Login extends Admin_Form_Abstract
+class Admin_Form_Login extends Sch_Form
 {
 
+    /**
+     *
+     */
     public function init()
     {
-        $this
-            ->addElement('text', 'email', array('label' => 'Email:', 'required' => true, 'autoInsertNotEmptyValidator' => false))
-            ->addElement('password', 'password', array('label' => 'Password:', 'required' => true, 'autoInsertNotEmptyValidator' => false))
-            ->addElement('checkbox', 'is_remember', array('label' => 'Remember me'))
-            ->addElement('hidden', 'referer')
-            ->addElement('submit', 'login', array('label' => 'Login'));
+        $email = new Zend_Form_Element_Text('email');
+        $email->setRequired(true);
+
+        $password = new Zend_Form_Element_Password('password');
+        $password->setRequired(true);
+
+        $remember = new Zend_Form_Element_Checkbox('remember');
+
+        $this->addElements(array($email, $password, $remember));
     }
 
+    /**
+     * @return Sch_Form
+     */
     public function prepareDecorators()
     {
-        $this->setElementDecorators(array('ViewHelper'));
+        $this->setElementDecorators(array(
+            'ViewHelper',
+            'input' => new Zend_Form_Decorator_HtmlTag(array('tag' => 'div', 'class' => 'input')),
+            'Label',
+            'clear' => new Zend_Form_Decorator_HtmlTag(array('tag' => 'div', 'class' => 'clearfix')),
+        ));
         $this->setDecorators(array(
-            new Zend_Form_Decorator_ViewScript(array('viewScript' => 'forms/login.phtml')), 'FormErrors', 'Form'
+            new Sch_Form_Decorator_FormErrors(),
+            new Sch_Form_Decorator_ViewScript(array('viewScript' => 'forms/login.phtml')),
+            'Form'
         ));
         return parent::prepareDecorators();
     }
 
+    /**
+     * @param Zend_Form_Element_Checkbox $remember
+     */
+    public function _prepareRememberDecorators(Zend_Form_Element_Checkbox $remember)
+    {
+        $remember->setDecorators(array('ViewHelper'));
+    }
+
 }
 
-?>

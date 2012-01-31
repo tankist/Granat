@@ -4,7 +4,7 @@
  * @property Zend_Form_Element_Text $name
  * @property Zend_Form_Element_Button $submit
  */
-class Admin_Form_Category extends Admin_Form_Abstract
+class Admin_Form_Category extends Sch_Form
 {
 
     public function init()

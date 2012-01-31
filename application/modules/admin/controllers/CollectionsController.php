@@ -1,57 +1,62 @@
 <?php
 
+/**
+ * @class Admin_CollectionsController
+ */
 class Admin_CollectionsController extends Zend_Controller_Action
 {
 
     const ITEMS_PER_PAGE = 20;
 
     /**
-     * @var \Entities\User
+     * @var Service_Collection
      */
-    protected $_user;
+    protected $_service;
 
     public function init()
     {
+        $this->_service = new Service_Collection($this->_helper->Em());
         Zend_Layout::getMvcInstance()
             ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
             ->setLayout('admin');
-        $this->_helper->getHelper('AjaxContext')->initContext('json');
-        $this->_user = $this->_helper->currentUser();
+    }
+
+    public function preDispatch()
+    {
+        $this->_helper->navigator();
     }
 
     public function indexAction()
     {
         $request = $this->getRequest();
         $page = $request->getParam('page', 1);
-        $this->view->order = $order = $request->getParam('order');
-        $this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
-        /**
-         * @var Skaya_Paginator $collectionsPaginator
-         */
-        $orderString = null;
-        if ($order) {
-            $orderString = $order . ' ' . $orderType;
-        }
+        $order = $request->getParam('order');
+        $orderType = $request->getParam('orderType', 'ASC');
 
-        $collectionsPaginator = $this->_helper->service('Collection')->getCollectionsPaginator($orderString);
-
-        $this->view->paginator = $collectionsPaginator;
-        $collectionsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
-        $this->view->collections = $collectionsPaginator->getCurrentItems();
-        $this->view->page = $page;
+        $collectionsPaginator = $this->_service->getPaginator(array(
+            'order' => $order,
+            'orderType' => $orderType
+        ));
+        $collectionsPaginator
+            ->setCurrentPageNumber($page)
+            ->setItemCountPerPage(self::ITEMS_PER_PAGE);
+        $this->view->assign(array(
+            'order' => $order,
+            'orderType' => $orderType,
+            'collections' => $collectionsPaginator,
+            'page' => $page
+        ));
     }
 
     public function addAction()
     {
         $form = new Admin_Form_Collection(array(
-            'name' => 'user',
-            'action' => $this->_helper->url('save'),
-            'method' => Zend_Form::METHOD_POST
+            'name' => 'collection',
+            'action' => $this->_helper->url->url(array('action' => 'save'), 'admin-default')
         ));
 
-        $sessionData = $this->_helper->sessionSaver('collectionData');
-        if ($sessionData) {
-            $form->populate($sessionData);
+        if (($data = $this->_helper->sessionSaver('collectionData'))) {
+            $form->isValid($data);
             $this->_helper->sessionSaver->delete('collectionData');
         }
 
@@ -63,43 +68,38 @@ class Admin_CollectionsController extends Zend_Controller_Action
     public function editAction()
     {
         $collection_id = $this->_getParam('id');
-        /**
-         * @var Model_Collection $collection
-         */
-        $collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
-        if ($collection->isEmpty()) {
+        /** @var Entities\Collection $collection */
+        $collection = $this->_service->getById($collection_id);
+        if (!$collection) {
             throw new Zend_Controller_Action_Exception('Collection not found', 404);
         }
 
         $models = $collection->getModels();
         $imagesData = array();
-        foreach ($models as /** @var Model_Model $model */
-                 $model) {
-            $imagesPath = $this->_helper->imagePath($model);
+        foreach ($models as $model) {
+            $imagesPath = $this->_helper->attachmentPath($model);
             $image = $model->getMainPhoto();
-            $imagesData[$model->id] = array(
-                'id' => $model->id,
-                'name' => $model->name,
-                'thumb' => $image->getFilename(\Entities\Model\Photo::SIZE_SMALL),
+            $imagesData[$model->getId()] = array(
+                'id' => $model->getId(),
+                'name' => $model->getTitle(),
+                'thumb' => $image->getFilename(\Entities\Model\Photo::THUMBNAIL_SMALL),
                 'path' => $imagesPath
             );
         }
 
         $form = new Admin_Form_Collection(array(
             'name' => 'collection',
-            'action' => $this->_helper->url('save'),
-            'method' => Zend_Form::METHOD_POST,
+            'action' => $this->_helper->url->url(array('action' => 'save'), 'admin-default'),
             'models' => $imagesData
         ));
-        $data = $collection->toArray();
+        $form->populateEntity($collection);
 
-        $sessionData = $this->_helper->sessionSaver('collectionData');
-        if ($sessionData) {
-            $data = $sessionData;
+        $data = $this->_helper->sessionSaver('collectionData');
+        if ($data) {
+            $form->isValid($data);
             $this->_helper->sessionSaver->delete('collectionData');
         }
 
-        $form->populate($data);
         $form->prepareDecorators();
         $this->view->form = $form;
     }
@@ -107,36 +107,41 @@ class Admin_CollectionsController extends Zend_Controller_Action
     public function saveAction()
     {
         $request = $this->getRequest();
-        $collection_id = $request->getParam('id');
-        if (!empty($collection_id)) {
-            $collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
-            if ($collection->isEmpty()) {
+        $formParams = array();
+        if (($collection_id = $request->getPost('id'))) {
+            /** @var $collection \Entities\Collection */
+            if (!($collection = $this->_service->getById($collection_id))) {
                 throw new Zend_Controller_Action_Exception('Collection not found', 404);
             }
+            $filter = new Sch_Filter_Array_EntitiesCollection('title', 'id');
+            $formParams['models'] = $filter->filter($collection->getModels());
         }
-        else {
-            $collection = $this->_helper->service('Collection')->create();
-        }
-
-        $models = $collection->getModels();
-        $filter = new Skaya_Filter_Array_Map('name', 'id');
-
-        $form = new Admin_Form_Collection(array(
-            'name' => 'collection',
-            'models' => $filter->filter($models->toArray())
-        ));
+        $form = new Admin_Form_Collection($formParams);
 
         if ($request->isPost() && $form->isValid($request->getPost())) {
             $data = $form->getValues();
+            if (!isset($collection)) {
+                $collection = $this->_service->create($data['title']);
+            }
             $collection->populate($data);
-            $collection->save();
-            $this->_helper->flashMessenger->addMessage(array('message' => 'Collection saved Successfully', 'status' => 'success'));
+            if (!empty($data['mainModelId'])) {
+                if (!($mainModel = $collection->getMainModel()) || ($mainModel->getId() != $data['mainModelId'])) {
+                    $modelService = new Service_Model($this->_helper->Em());
+                    if (
+                        ($mainModel = $modelService->getById($data['mainModelId'])) &&
+                        $mainModel->getCollection()->getId() == $collection->getId()) {
+                            $collection->setMainModel($mainModel);
+                    }
+                }
+            }
+            $this->_service->save($collection);
+            $this->_helper->flashMessenger->success('Collection "' . $collection->getTitle() . '" saved Successfully');
+            $this->_service->getPaginator()->setItemCountPerPage(self::ITEMS_PER_PAGE)->clearPageItemCache();
             $this->_redirect($this->_helper->url(''));
         }
         else {
             $this->_helper->flashMessenger->addErrorsFromForm($form);
-            $data = $form->getValues();
-            $this->_helper->sessionSaver('collectionData', $data);
+            $this->_helper->sessionSaver('collectionData', $form->getValues());
             if (!empty($collection_id)) {
                 $this->_redirect($this->_helper->url('edit', null, null, array('id' => $collection_id)));
             }
@@ -148,18 +153,13 @@ class Admin_CollectionsController extends Zend_Controller_Action
 
     public function deleteAction()
     {
-        $collection_id = $this->_getParam('id');
-        $collection = $this->_helper->service('Collection')->getCollectionById($collection_id);
-        if ($collection->isEmpty()) {
+        $collection = $this->_service->getById($this->_getParam('id'));
+        if (!$collection) {
             throw new Zend_Controller_Action_Exception('Collection ID NOT Found', 404);
         }
-        $collection->delete();
+        $this->_service->delete($collection);
+        $this->_service->getPaginator()->setItemCountPerPage(self::ITEMS_PER_PAGE)->clearPageItemCache();
         $this->_redirect($this->_helper->url(''));
-    }
-
-    protected function _mapModelsForm($model, $index)
-    {
-        return array($model['id'], $model);
     }
 
 }

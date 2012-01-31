@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @class Sch_Controller_Action_Helper_CurrentUser
+ */
 class Sch_Controller_Action_Helper_CurrentUser extends Zend_Controller_Action_Helper_Abstract
 {
 
@@ -13,6 +16,10 @@ class Sch_Controller_Action_Helper_CurrentUser extends Zend_Controller_Action_He
      */
     protected $_identity;
 
+    /**
+     * @return Entities\User
+     * @throws Zend_Controller_Action_Exception
+     */
     public function getCurrentUser()
     {
         $identity = Zend_Auth::getInstance()->getIdentity();
@@ -26,7 +33,7 @@ class Sch_Controller_Action_Helper_CurrentUser extends Zend_Controller_Action_He
             $user = !empty($identity) ? $manager->getByEmail($identity) : null;
             $this->_currentUser = $user;
             if ($user) {
-                $user->setOnlineLast(new DateTime());
+                $user->isOnline(true);
                 $manager->save($user);
             }
             $this->getFrontController()->setParam('user', $this->_currentUser);
@@ -34,6 +41,9 @@ class Sch_Controller_Action_Helper_CurrentUser extends Zend_Controller_Action_He
         return $this->_currentUser;
     }
 
+    /**
+     * @return Entities\User
+     */
     public function direct()
     {
         return $this->getCurrentUser();

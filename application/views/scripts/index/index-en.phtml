@@ -1,4 +1,4 @@
-<h1 id="catalog-h1"><?=$this->translate('Наш каталог')?></h1>
+<h1 id="catalog-h1"><?php echo $this->translate('Наш каталог')?></h1>
 <hr>
 <?php if (count($this->models) > 0) { ?>
 <div id="catalog">
@@ -7,21 +7,21 @@
     <div class="oh images-container">
         <ul class="images" style="width: 2000%;"><?php
             foreach ($this->models as /** @var Model_Model $model */
-                     $model) {
-                $imagePath = $this->imagePathHelper->direct($model);
-                ?>
-                <li><a title="<?=$model->name?>" href="<?=$this->url(array(
-                    'model_id' => $model->id,
-                    'model_name_hash' => $this->urlPartTranslit($model->name)
-                ), 'model', true)?>"><em>&nbsp;</em><img
-                    src="/<?=$imagePath?>/<?=$model->getMainPhoto()->getFilename(\Entities\Model\Photo::SIZE_ROLL)?>"
-                    alt="<?=$model->name?>" height="103" width="140"></a></li>
-                <?php } ?></ul>
+            $model) {
+            $imagePath = $this->imagePathHelper->direct($model);
+            ?>
+            <li><a title="<?php echo $model->name?>" href="<?php echo $this->url(array(
+                                                                     'model_id' => $model->getId(),
+                                                                     'model_name_hash' => $this->urlPartTranslit($model->name)
+                                                                 ), 'model', true)?>"><em>&nbsp;</em><img
+                src="/<?php echo $imagePath?>/<?php echo $model->getMainPhoto()->getFilename(Model_ModelPhoto::THUMBNAIL_ROLL)?>"
+                alt="<?php echo $model->name?>" height="155" width="139"></a></li>
+            <?php } ?></ul>
     </div>
     <a href="#next" class="arrow next"><span></span></a>
 </div>
 <?php } ?>
-<h1 id="about-us-h1"><?=$this->translate('Несколько слов о нас')?></h1>
+<h1 id="about-us-h1"><?php echo $this->translate('Несколько слов о нас')?></h1>
 <hr>
 <div id="aboutus-container" class="oh">
     <p>&laquo;GraNat&raquo;-studio invites you to visit us. Here you'll find everything you need in order to be most
@@ -52,26 +52,31 @@
         <p>Our address: <span class="adr"><span class="street-address">Ukraine, Mykolaiv, Adm. Makarova str., 26</span></span>
         </p>
 
-        <p><a href="<?=$this->url(array(), 'contacts')?>" class="map">Find on map</a></p>
+        <p><span class="adr">
+            <span class="country-name">Ukraine</span>, <span class="locality">Mykolaiv</span>
+            <span class="street-address">Sovetskaya str. (Bol'shaya Morskaya, str. 67/7)</span>
+        </span>. Phone: <span class="tel">(0512) 37-00-99</span></p>
+
+        <p><a href="<?php echo $this->url(array(), 'contacts')?>" class="map">Find on map</a></p>
     </div>
 </div>
 <div id="shapes">
     <div class="shapes-container oh">
         <div id="models" class="shape">
-            <h1 id="models-h1"><?=$this->translate('Наши модели')?></h1>
+            <h1 id="models-h1"><?php echo $this->translate('Наши модели')?></h1>
             <ul class="random"><?php foreach ($this->randomModels as /** @var Model_Model $model */
-                                              $model) { ?>
-                <li><a href="<?=$this->url(array(
-                    'model_id' => $model->id,
-                    'model_name_hash' => $this->urlPartTranslit($model->name)
-                ), 'model', true)?>"><?=$model->name?></a></li><?php } ?>
+                $model) { ?>
+                <li><a href="<?php echo $this->url(array(
+                                               'model_id' => $model->getId(),
+                                               'model_name_hash' => $this->urlPartTranslit($model->name)
+                                           ), 'model', true)?>"><?php echo $model->name?></a></li><?php } ?>
             </ul>
         </div>
         <div id="materials" class="shape half">
-            <h1 id="materials-h1"><?=$this->translate('Коллекция тканей')?></h1>
+            <h1 id="materials-h1"><?php echo $this->translate('Коллекция тканей')?></h1>
             <ul class="random"><?php foreach ($this->randomFabrics as /** @var Model_Fabric $fabric */
-                                              $fabric) { ?>
-                <li><a href="<?=$this->url(array(), 'fabrics', true)?>"><?=$fabric->name?></a></li><?php } ?>
+                $fabric) { ?>
+                <li><a href="<?php echo $this->url(array(), 'fabrics', true)?>"><?php echo $fabric->name?></a></li><?php } ?>
             </ul>
         </div>
     </div>
@@ -79,7 +84,7 @@
         more!</p>
 </div>
 <div id="services">
-    <h1><?=$this->translate('Услуги')?></h1>
+    <h1><?php echo $this->translate('Услуги')?></h1>
     <hr>
     <p>We operate in the market services sector for four years. Almost all of the masters are working with the founding
         studios. The motto of our team: "Run your job well enough - customers need to impress!"</p>
@@ -119,7 +124,7 @@
     </div>
 </div>
 <?php
-$this->headScript()
+    $this->headScript()
     ->appendFile('/js/jscrollpane/jquery.mousewheel.js')
     ->appendFile('/js/scrollable/scrollable.js')
     ->appendFile('/js/index.js');

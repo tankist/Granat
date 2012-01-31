@@ -8,7 +8,7 @@
  * @property Zend_Form_Element_File $modelTitle
  * @property Zend_Form_Element_Button $submit
  */
-class Admin_Form_Model extends Admin_Form_Abstract
+class Admin_Form_Model extends Sch_Form
 {
 
     protected $_images = array();

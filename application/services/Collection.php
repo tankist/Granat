@@ -2,19 +2,31 @@
 
 use \Entities\Collection;
 
+/**
+ * @class Service_Collection
+ */
 class Service_Collection extends Sch_Service_Abstract
 {
 
-    protected $_entityName = '\Entites\Collection';
+    protected $_entityName = '\Entities\Collection';
 
-    public function getCollectionsPaginator($order = null)
+    /**
+     * @param array $params
+     * @return Zend_Paginator
+     */
+    public function getPaginator($params = array())
     {
-        // @todo
+        return parent::getPaginator($this->getRepository()->findAllQuery($params));
     }
 
-    public function getNonEmptyCollectionsPaginator($order = null)
+    /**
+     * @param array $params
+     * @return \Entities\Collection[]
+     */
+    public function getNonEmptyCollections($params = array())
     {
-        // @todo
+        $params['nonEmpty'] = true;
+        return $this->getRepository()->findAllQuery($params)->getQuery()->getResult();
     }
 
 }

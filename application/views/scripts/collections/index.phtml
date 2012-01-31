@@ -2,34 +2,34 @@
 $i = 0;
 $classes = array('one', 'two', 'three');
 ?>
-<ul class="collections"><?php foreach ($this->collections as /** @var Model_Collection $collection */
+<ul class="collections"><?php foreach ($this->collections as /** @var Entities\Collection $collection */
                                        $collection) { ?>
     <?php
     $mainModelPhotoUrl = 'images/empty/middle.jpg';
     $mainModelPhoto = $collection->getMainModel()->getMainPhoto();
-    if (!$mainModelPhoto->isEmpty()) {
+    if ($mainModelPhoto) {
         $mainModelPhotoUrl = $this->imagePathHelper->direct($collection->getMainModel())
             . '/'
-            . $mainModelPhoto->getFilename(\Entities\Model\Photo::SIZE_MIDDLE);
+            . $mainModelPhoto->getFilename(\Entities\Model\Photo::THUMBNAIL_MEDIUM);
     }
     ?>
     <li>
-        <div class="<?=$classes[$i++ % 3]?>">
-            <div class="image"><em>&nbsp;</em><a href="<?=$url = $this->url(array(
-                'collection_id' => $collection->id,
+        <div class="<?php echo $classes[$i++ % 3]?>">
+            <div class="image"><em>&nbsp;</em><a href="<?php echo $url = $this->url(array(
+                'collection_id' => $collection->getId(),
                 'collection_name_hash' => $this->urlPartTranslit($collection->name)
-            ), 'collectionModelsChain', true)?>"><img src="/<?=$mainModelPhotoUrl?>" alt="<?=$collection->name?>"></a>
+            ), 'collectionModelsChain', true)?>"><img src="/<?php echo $mainModelPhotoUrl?>" alt="<?php echo $collection->name?>"></a>
             </div>
-            <h1><a href="<?=$url?>"><?=$collection->name?></a></h1>
+            <h1><a href="<?php echo $url?>"><?php echo $collection->name?></a></h1>
             <?php if (count($categories = $collection->getCategories()) > 1) { ?><ul class="categories">
 			<?php foreach ($categories as /** @var Model_Category $category */
                            $category) { ?>
-        <li><a href="<?=$this->url(array(
-            'collection_id' => $collection->id,
-            'category_id' => $category->id,
+        <li><a href="<?php echo $this->url(array(
+            'collection_id' => $collection->getId(),
+            'category_id' => $category->getId(),
             'collection_name_hash' => $this->urlPartTranslit($collection->name),
             'category_name_hash' => $this->urlPartTranslit($category->name)
-        ), 'categories', true)?>"><?=$category->name?></a></li>
+        ), 'categories', true)?>"><?php echo $category->name?></a></li>
             <?php } ?>
 			</ul><?php } ?>
         </div>
@@ -37,5 +37,5 @@ $classes = array('one', 'two', 'three');
     <?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
     <?php } ?>
 </ul>
-<?= $this->paginationControl($this->collections, null, null, array('routeName' => 'gallery')) ?>
+<?php echo  $this->paginationControl($this->collections, null, null, array('routeName' => 'gallery')) ?>
 <?php $this->headTitle($this->translate('Галерея')) ?>

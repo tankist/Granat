@@ -56,14 +56,8 @@ class WhereInWalker extends TreeWalkerAdapter
     {
         $parent = null;
         $parentName = null;
-        foreach ($this->_getQueryComponents() AS $dqlAlias => $qComp) {
-
-            // skip mixed data in query
-            if (isset($qComp['resultVariable'])) {
-                continue;
-            }
-
-            if ($qComp['parent'] === null && $qComp['nestingLevel'] == 0) {
+        foreach ($this->_getQueryComponents() as $dqlAlias => $qComp) {
+            if (array_key_exists('parent', $qComp) && $qComp['parent'] === null && $qComp['nestingLevel'] == 0) {
                 $parent = $qComp;
                 $parentName = $dqlAlias;
                 break;
@@ -74,11 +68,27 @@ class WhereInWalker extends TreeWalkerAdapter
             PathExpression::TYPE_STATE_FIELD, $parentName, $parent['metadata']->getSingleIdentifierFieldName()
         );
         $pathExpression->type = PathExpression::TYPE_STATE_FIELD;
-        $inExpression = new InExpression($pathExpression);
-        $ns = $this->_getQuery()->getHint('pg.ns');
+
         $count = $this->_getQuery()->getHint('id.count');
-        for ($i = 1; $i <= $count; $i++) {
-            $inExpression->literals[] = new InputParameter(":{$ns}_$i");
+
+        if ($count > 0) {
+            // in new doctrine 2.2 version theres a different expression
+            if (property_exists('Doctrine\ORM\Query\AST\InExpression', 'expression')) {
+                $arithmeticExpression = new \Doctrine\ORM\Query\AST\ArithmeticExpression();
+                $arithmeticExpression->simpleArithmeticExpression = new \Doctrine\ORM\Query\AST\SimpleArithmeticExpression(
+                    array($pathExpression)
+                );
+                $inExpression = new InExpression($arithmeticExpression);
+            } else {
+                $inExpression = new InExpression($pathExpression);
+            }
+            $ns = $this->_getQuery()->getHint('pg.ns');
+            for ($i = 1; $i <= $count; $i++) {
+                $inExpression->literals[] = new InputParameter(":{$ns}_$i");
+            }
+        } else {
+            $inExpression = new \Doctrine\ORM\Query\AST\NullComparisonExpression($pathExpression);
+            $inExpression->not = false;
         }
         $conditionalPrimary = new ConditionalPrimary;
         $conditionalPrimary->simpleConditionalExpression = $inExpression;
@@ -122,7 +132,7 @@ class WhereInWalker extends TreeWalkerAdapter
                 );
             } else {
                 // error check to provide a more verbose error on failure
-                throw \Exception("Unknown conditionalExpression in WhereInWalker");
+                throw new \RuntimeException("Unknown conditionalExpression in WhereInWalker");
             }
         }
     }

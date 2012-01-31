@@ -2,57 +2,62 @@
 
 namespace Entities;
 
-use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\ArrayCollection,
+    \Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="models")
+ * @ORM\Entity(repositoryClass="Repository\Model")
+ * @ORM\Table(name="models")
  */
-class Model extends AbstractEntity
+class Model extends AbstractEntity implements Attachable
 {
     /**
      * @var int
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     * @Column(type="text")
+     * @ORM\Column(type="string")
      */
     protected $title;
 
     /**
      * @var string
-     * @Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 
     /**
      * @var \Entities\Collection
-     * @ManyToOne(targetEntity="Collection", inversedBy="models")
+     * @ORM\ManyToOne(targetEntity="Collection", inversedBy="models")
      */
     protected $collection;
 
     /**
      * @var \Entities\Category
-     * @ManyToOne(targetEntity="Category", inversedBy="models")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="models")
      */
     protected $category;
 
     /**
      * @var \Entities\Model\Photo
-     * @OneToOne(targetEntity="Photo")
+     * @ORM\OneToOne(targetEntity="Entities\Model\Photo")
+     * @ORM\JoinColumn(name="main_photo_id", referencedColumnName="id")
      */
     protected $mainPhoto;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @OneToMany(targetEntity="Photo", mappedBy="model", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Entities\Model\Photo", mappedBy="model", cascade={"persist", "remove"})
      */
     protected $photos;
 
+    /**
+     * @param $title
+     */
     public function __construct($title)
     {
         $this->title = $title;
@@ -177,5 +182,13 @@ class Model extends AbstractEntity
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachmentsPath()
+    {
+        return join('/', array('model', $this->getId()));
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @class Admin_FabricsController
+ */
 class Admin_FabricsController extends Zend_Controller_Action
 {
 
@@ -8,12 +11,18 @@ class Admin_FabricsController extends Zend_Controller_Action
     const FABRICS_PATH = './uploads/fabrics/';
 
     /**
+     * @var Service_Fabric
+     */
+    protected $_service;
+
+    /**
      * @var \Entities\User
      */
     protected $_user;
 
     public function init()
     {
+        $this->_service = new Service_Fabric($this->_helper->Em());
         Zend_Layout::getMvcInstance()
             ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
             ->setLayout('admin');
@@ -35,7 +44,7 @@ class Admin_FabricsController extends Zend_Controller_Action
             $orderString = $order . ' ' . $orderType;
         }
 
-        $fabricsPaginator = $this->_helper->service('Fabric')->getFabricsPaginator($orderString);
+        $fabricsPaginator = $this->_service->getFabricsPaginator($orderString);
 
         $this->view->paginator = $fabricsPaginator;
         $fabricsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
@@ -66,8 +75,8 @@ class Admin_FabricsController extends Zend_Controller_Action
     public function editAction()
     {
         $fabric_id = $this->_getParam('id');
-        $fabric = $this->_helper->service('Fabric')->getFabricById($fabric_id);
-        if ($fabric->isEmpty()) {
+        $fabric = $this->_service->getFabricById($fabric_id);
+        if (!$fabric) {
             throw new Zend_Controller_Action_Exception('Fabric not found', 404);
         }
 
@@ -95,13 +104,13 @@ class Admin_FabricsController extends Zend_Controller_Action
         $request = $this->getRequest();
         $fabric_id = $request->getParam('id');
         if (!empty($fabric_id)) {
-            $fabric = $this->_helper->service('Fabric')->getFabricById($fabric_id);
-            if ($fabric->isEmpty()) {
+            $fabric = $this->_service->getFabricById($fabric_id);
+            if (!$fabric) {
                 throw new Zend_Controller_Action_Exception('Fabric not found', 404);
             }
         }
         else {
-            $fabric = $this->_helper->service('Fabric')->create();
+            $fabric = $this->_service->create();
         }
 
         $form = new Admin_Form_Fabric(array(
@@ -112,13 +121,10 @@ class Admin_FabricsController extends Zend_Controller_Action
         if ($request->isPost() && $form->isValid($request->getPost())) {
             $data = $form->getValues();
 
-            if (!$fabric->isEmpty()) {
+            if ($fabric) {
                 $photoFilename = $form->getImagePath() . DIRECTORY_SEPARATOR . $fabric->photo;
                 if (file_exists($photoFilename) && is_file($photoFilename)) {
-                    /**
-                     * @var Model_FabricPhoto $oldFile
-                     */
-                    $oldFile = Service_FabricPhoto::create(array('filename' => $fabric->photo));
+                    $oldFile = $this->_service->create(array('filename' => $fabric->photo));
                     @unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename());
                     @unlink($form->getImagePath() . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_FabricPhoto::SIZE_FABRIC));
                 }
@@ -151,20 +157,20 @@ class Admin_FabricsController extends Zend_Controller_Action
         /**
          * @var Service_Fabric $service
          */
-        $service = $this->_helper->service('Fabric');
+        $service = $this->_service;
         $i = 0;
         foreach ($fabricsIds as $fabric_id) {
             /**
              * @var Model_Fabric $fabric
              */
             $fabric = $service->getFabricById($fabric_id);
-            if ($fabric->isEmpty()) {
+            if (!$fabric) {
                 $this->_helper->flashMessenger->fail('Fabric ID (' . $fabric_id . ') NOT Found');
                 continue;
             }
             $path = realpath(self::FABRICS_PATH);
             if (file_exists($path . DIRECTORY_SEPARATOR . $fabric->photo)) {
-                $oldFile = Service_FabricPhoto::create(array('filename' => $fabric->photo));
+                $oldFile = $this->_service->create(array('filename' => $fabric->photo));
                 @unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename());
                 @unlink($path . DIRECTORY_SEPARATOR . $oldFile->getFilename(Model_FabricPhoto::SIZE_FABRIC));
             }

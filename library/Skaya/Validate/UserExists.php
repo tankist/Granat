@@ -25,7 +25,7 @@ class Skaya_Validate_UserExists extends Zend_Validate_Abstract
         }
 
         $user = Skaya_Model_Service_Abstract::factory('User')->getUserByUsername($value);
-        if ($user->isEmpty()) {
+        if (!$user) {
             $this->_error(self::NON_EXISTENT, $value);
             return false;
         }

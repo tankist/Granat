@@ -1,6 +1,10 @@
 <?php
-use \Entities\AbstractEntity;
 
+use \Entities\AbstractEntity, Repository\AbstractRepository;
+
+/**
+ * @class Sch_Service_Abstract
+ */
 abstract class Sch_Service_Abstract
 {
 
@@ -13,10 +17,13 @@ abstract class Sch_Service_Abstract
     protected $_entityName;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \Repository\AbstractRepository
      */
     protected $_repository;
 
+    /**
+     * @param Doctrine\ORM\EntityManager $em
+     */
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
         $this->_em = $em;
@@ -93,7 +100,7 @@ abstract class Sch_Service_Abstract
     }
 
     /**
-     * @return \Doctrine\ORM\EntityRepository
+     * @return \Repository\AbstractRepository
      */
     public function getRepository()
     {
@@ -123,7 +130,7 @@ abstract class Sch_Service_Abstract
     }
 
     /**
-     * @param array $params
+     * @param array|\Doctrine\ORM\QueryBuilder $params
      * @return Zend_Paginator
      */
     public function getPaginator($params = array())

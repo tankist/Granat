@@ -1,16 +1,18 @@
-<h1 class="login">Login</h1>
-<dl>
-    <dt><?=$this->element->email->getLabel()?></dt>
-    <dd><?=$this->element->email?></dd>
-</dl>
-<dl>
-    <dt><?=$this->element->password->getLabel()?></dt>
-    <dd><?=$this->element->password?></dd>
-</dl>
-<div class="remember">
-    <?=$this->element->is_remember?>
-    <?=$this->formLabel('is_remember', $this->element->is_remember->getLabel())?>
+<div class="modal-header"><h3>GraNat</h3></div>
+<div class="modal-body">
+    <?php echo $this->element->email->setLabel('Email:')->setAttrib('class', 'span6') ?>
+    <?php echo $this->element->password->setLabel('Password:')->setAttrib('class', 'span6') ?>
+    <div class="clearfix">
+        <div class="input">
+            <ul class="inputs-list">
+                <li>
+                    <label><?php echo $this->element->remember ?>
+                    <span>Remember</span></label>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-<a class="forgot_password" href="#forgot-password">Forgot your password?</a>
-<?= $this->element->referer ?>
-<?= $this->element->login ?>
+<div class="modal-footer">
+    <input type="submit" class="btn primary" value="Login">
+</div>

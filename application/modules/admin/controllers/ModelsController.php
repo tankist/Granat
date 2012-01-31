@@ -1,22 +1,43 @@
 <?php
 
+/**
+ * @class Admin_ModelsController
+ */
 class Admin_ModelsController extends Zend_Controller_Action
 {
 
     const ITEMS_PER_PAGE = 20;
 
     /**
-     * @var \Entities\User
+     * @var Service_Model
      */
-    protected $_user;
+    protected $_service;
+
+    /**
+     * @var Service_Collection
+     */
+    protected $_collectionService;
+
+    /**
+     * @var Service_Category
+     */
+    protected $_categoryService;
 
     public function init()
     {
+        $em = $this->_helper->Em();
+        $this->_service = new Service_Model($em);
+        $this->_collectionService = new Service_Collection($em);
+        $this->_categoryService = new Service_Category($em);
         Zend_Layout::getMvcInstance()
             ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
             ->setLayout('admin');
-        $this->_helper->getHelper('AjaxContext')->initContext('json');
-        $this->_user = $this->_helper->currentUser();
+        $this->_helper->getHelper('AjaxContext')->initContext();
+    }
+
+    public function preDispatch()
+    {
+        $this->_helper->navigator();
     }
 
     public function indexAction()
@@ -25,15 +46,8 @@ class Admin_ModelsController extends Zend_Controller_Action
         $page = $request->getParam('page', 1);
         $this->view->order = $order = $request->getParam('order');
         $this->view->orderType = $orderType = $request->getParam('orderType', 'ASC');
-        /**
-         * @var Skaya_Paginator $modelsPaginator
-         */
-        $orderString = null;
-        if ($order) {
-            $orderString = $order . ' ' . $orderType;
-        }
-
-        $modelsPaginator = $this->_helper->service('Model')->getModelsPaginator($orderString);
+        /** @var $modelsPaginator Zend_Paginator */
+        $modelsPaginator = $this->_service->getPaginator(array('order' => $order, 'orderType' => $orderType));
 
         $this->view->paginator = $modelsPaginator;
         $modelsPaginator->setCurrentPageNumber($page)->setItemCountPerPage(self::ITEMS_PER_PAGE);
@@ -43,8 +57,8 @@ class Admin_ModelsController extends Zend_Controller_Action
 
     public function addAction()
     {
-        $collections = $this->_helper->service('Collection')->getCollections('name');
-        $categories = $this->_helper->service('Category')->getCategories('name');
+        $collections = $this->_collectionService->getCollections('name');
+        $categories = $this->_categoryService->getCategories('name');
         $filter = new Skaya_Filter_Array_Map('name', 'id');
 
         $form = new Admin_Form_Model(array(
@@ -87,24 +101,24 @@ class Admin_ModelsController extends Zend_Controller_Action
         /**
          * @var Model_Model $model
          */
-        $model = $this->_helper->service('Model')->getModelById($model_id);
-        if ($model->isEmpty()) {
+        $model = $this->_service->getById($model_id);
+        if (!$model) {
             throw new Zend_Controller_Action_Exception('Model not found', 404);
         }
 
-        $collections = $this->_helper->service('Collection')->getCollections('name');
-        $categories = $this->_helper->service('Category')->getCategories('name');
+        $collections = $this->_collectionService->getCollections('name');
+        $categories = $this->_categoryService->getCategories('name');
         $filter = new Skaya_Filter_Array_Map('name', 'id');
 
         $images = $model->getPhotos();
         $imagesData = $this->_helper->sessionSaver('modelImagesPath');
-        $imagesPath = $this->_helper->imagePath($model);
+        $imagesPath = $this->_helper->attachmentPath($model);
         foreach ($images as /** @var \Entities\Model\Photo $image */
                  $image) {
             $imagesData[$image->getId()] = array(
                 'id' => $image->getId(),
                 'name' => $image->getFilename(),
-                'thumb' => $image->getFilename(\Entities\Model\Photo::SIZE_SMALL),
+                'thumb' => $image->getFilename(\Entities\Model\Photo::THUMBNAIL_SMALL),
                 'path' => $imagesPath
             );
         }
@@ -147,8 +161,8 @@ class Admin_ModelsController extends Zend_Controller_Action
             /**
              * @var Model_Model $model
              */
-            $model = $this->_helper->service('Model')->getModelById($model_id);
-            if ($model->isEmpty()) {
+            $model = $this->_service->getById($model_id);
+            if (!$model) {
                 throw new Zend_Controller_Action_Exception('Model not found', 404);
             }
         }
@@ -156,22 +170,22 @@ class Admin_ModelsController extends Zend_Controller_Action
             /**
              * @var Model_Model $model
              */
-            $model = $this->_helper->service('Model')->create();
+            $model = $this->_service->create();
         }
 
-        $collections = $this->_helper->service('Collection')->getCollections('name');
-        $categories = $this->_helper->service('Category')->getCategories('name');
+        $collections = $this->_collectionService->getCollections('name');
+        $categories = $this->_categoryService->getCategories('name');
         $filter = new Skaya_Filter_Array_Map('name', 'id');
 
         $images = $model->getPhotos();
         $imagesData = $this->_helper->sessionSaver('modelImagesPath');
-        $imagesPath = $this->_helper->imagePath($model);
+        $imagesPath = $this->_helper->attachmentPath($model);
         foreach ($images as /** @var \Entities\Model\Photo $image */
                  $image) {
             $imagesData[$image->getId()] = array(
                 'id' => $image->getId(),
                 'name' => $image->getFilename(),
-                'thumb' => $image->getFilename(\Entities\Model\Photo::SIZE_SMALL),
+                'thumb' => $image->getFilename(\Entities\Model\Photo::THUMBNAIL_SMALL),
                 'path' => $imagesPath
             );
         }
@@ -189,11 +203,9 @@ class Admin_ModelsController extends Zend_Controller_Action
             $model->save();
 
             $images = (array)$this->_helper->sessionSaver('modelImagesPath');
-            $modelFolder = $this->_helper->imagePath($model);
-            /**
-             * @var Service_ModelPhoto $photoService
-             */
-            $photoService = $this->_helper->service('Photo');
+            $modelFolder = $this->_helper->attachmentPath($model);
+            /** @var $photoService Service_ModelPhoto */
+            $photoService = new Service_ModelPhoto($this->_helper->Em());
             $titleChanged = false;
             foreach ($images as $imageData) {
                 $path = $imageData['path'];
@@ -217,7 +229,7 @@ class Admin_ModelsController extends Zend_Controller_Action
 
             if (!$titleChanged && (int)$data['modelTitle'] > 0) {
                 $mainPhoto = $photoService->getById((int)$data['modelTitle']);
-                if (!$mainPhoto->isEmpty()) {
+                if ($mainPhoto) {
                     $model->setMainPhoto($mainPhoto);
                 }
             }
@@ -244,18 +256,18 @@ class Admin_ModelsController extends Zend_Controller_Action
         /**
          * @var Service_Model $service
          */
-        $service = $this->_helper->service('Model');
+        $service = $this->_service;
         $i = 0;
         foreach ($modelsIds as $model_id) {
             /**
              * @var Model_Model $model
              */
-            $model = $service->getModelById($model_id);
-            if ($model->isEmpty()) {
+            $model = $service->getById($model_id);
+            if (!$model) {
                 $this->_helper->flashMessenger->fail('Model ID NOT Found');
                 continue;
             }
-            $modelPhotosPath = realpath($this->_helper->imagePath($model));
+            $modelPhotosPath = realpath($this->_helper->attachmentPath($model));
             if ($modelPhotosPath) {
                 $iterator = new RecursiveDirectoryIterator($modelPhotosPath);
                 foreach ($iterator as /** @SplFileInfo */

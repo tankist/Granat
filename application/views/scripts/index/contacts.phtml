@@ -1,5 +1,5 @@
 <div id="contacts">
-    <h1><?=$this->translate('Как нас найти')?></h1>
+    <h1><?php echo $this->translate('Как нас найти')?></h1>
     <hr>
     <ul>
         <li class="vcard">
@@ -12,12 +12,12 @@
 
             <p class="phone">Телефон: <span class="tel">(050) 928-87-13</span></p>
             <?php if (!empty($this->apiKey)) { ?>
-            <a href="#map" class="mapLink"><?=$this->translate('Посмотреть на карте')?> &gt;&gt;</a>
+            <a href="#map" class="mapLink"><?php echo $this->translate('Посмотреть на карте')?> &gt;&gt;</a>
 			</div>
 
 			<div class="mapContainer">
                 <!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту  (начало) -->
-                <script src="http://api-maps.yandex.ru/1.1/?key=<?=$this->apiKey?>&modules=pmap&wizard=constructor"
+                <script src="http://api-maps.yandex.ru/1.1/?key=<?php echo $this->apiKey?>&modules=pmap&wizard=constructor"
                         type="text/javascript"></script>
                 <script type="text/javascript">
                     YMaps.jQuery(window).load(function () {
@@ -95,7 +95,7 @@
 
                 <p class="phone">Телефон: <span class="tel">(0512) 37-00-82</span></p>
                 <?php /*if (!empty($this->apiKey)) { ?>
-				<a href="#map" class="mapLink"><?=$this->translate('Посмотреть на карте')?> &gt;&gt;</a>
+				<a href="#map" class="mapLink"><?php echo $this->translate('Посмотреть на карте')?> &gt;&gt;</a>
 			</div>
 
 			<div class="mapContainer"></div><?php }*/ ?>

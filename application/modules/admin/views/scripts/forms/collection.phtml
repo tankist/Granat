@@ -1,17 +1,10 @@
-<div class="models">
-    <div class="grey-h2">
-        <h2 class="fl">Collection info</h2>
-    </div>
-    <dl class="zend_form">
-        <?php foreach (array('name', 'description') as $field) {
-        echo $this->element->$field;
-    } ?>
-    </dl>
-    <dl class="zend_form last">
-        <dt>&nbsp;</dt>
-        <dd>&nbsp;</dd>
-    </dl>
-</div>
+<?php $form = $this->element; ?>
+<?php echo $form->id ?>
+<?php echo $form->title->setAttrib('class', 'span7') ?>
+<?php echo $form->description->setAttribs(array(
+    'rows' => 10,
+    'class' => 'span7'
+)) ?>
 <?php if ($this->element->id) { ?>
 <div class="models">
     <div class="grey-h2">
@@ -32,16 +25,16 @@
                             foreach ($models as $model_id => $model) {
                                 ?>
                                 <li>
-                                    <label for="model-<?=$model_id?>">
+                                    <label for="model-<?php echo $model_id?>">
                                         <div class="image">
                                             <em>&nbsp;</em>
-                                            <img alt="<?=$model['name']?>"
-                                                 src="/<?=$model['path']?>/<?=$model['thumb']?>">
+                                            <img alt="<?php echo $model['title']?>"
+                                                 src="/<?php echo $model['path']?>/<?php echo $model['thumb']?>">
                                         </div>
                                         <input class="checkable" <?php if ($model_id == $mainModelId) {
                                             echo ' checked="checked"';
-                                        } ?> type="radio" name="mainModelId" id="model-<?=$model_id?>"
-                                               value="<?=$model_id?>"/><?=$model['name']?></label>
+                                        } ?> type="radio" name="mainModelId" id="model-<?php echo $model_id?>"
+                                               value="<?php echo $model_id?>"/><?php echo $model['title']?></label>
                                 </li>
                                 <? } ?></ul>
                     </td>
@@ -49,9 +42,11 @@
             </table>
         </dd>
     </dl>
-    <?=$this->element->id?>
+    <?php echo $this->element->id?>
 </div>
 <? } ?>
-<p align="center"><?=$this->formButton('submit', 'Save', array('type' => 'submit'))?></p>
+<div class="form-actions">
+    <?php echo $this->formButton('submit', 'Save changes', array('type' => 'submit', 'class' => 'btn primary'))?>
+</div>
 <?php $this->headLink()
     ->appendStylesheet('/css/admin/jquery.fileupload-ui.css') ?>

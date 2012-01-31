@@ -1,25 +1,17 @@
-<div id="body">
-    <div id="container">
-        <div class="form_container">
-            <div class="items">
-                <div id="login_error" class="messages">
-                    <h1 class="login">Login</h1>
-
-                    <p class="error"></p>
-                    <a class="back_to_login back" href="#back">Go Back &gt;</a>
-                    <a class="back_to_login try" href="#try">Try Again &gt;</a>
-                </div>
-                <div id="login_form"><?=$this->loginForm?></div>
-                <div id="forgot_form"><?=$this->forgotForm?></div>
-                <div id="forgot_error" class="messages">
-                    <h1 class="forgot">Login</h1>
-
-                    <p class="error"></p>
-                    <a class="forgot_password back" href="#back">&lt; Go Back</a>
-                    <a class="forgot_password try" href="#try">&lt; Try Again</a>
-                </div>
-            </div>
-        </div>
+<div class="login modal hide fade">
+    <?php echo $this->form ?>
+</div>
+<noscript>
+<div class="container" style="margin-top: -33px; position: absolute; top: 50%;">
+    <div class="alert-message block-message error">
+        <p><strong>Warning!</strong> You should turn on the javascript to log in.</p>
     </div>
 </div>
-<?php $this->headTitle('Login') ?>
+</noscript>
+<?php $this->headScript()->appendFile('/js/bootstrap/js/bootstrap-modal.js') ?>
+<?php $this->headScript()->captureStart() ?>
+$(function() {
+$('.modal').modal({show: true});
+})
+<?php $this->headScript()->captureEnd() ?>
+<?php $this->headTitle('GraNat admin') ?>

@@ -2,6 +2,9 @@
 
 use \Entities\AbstractEntity;
 
+/**
+ * @class Sch_Controller_Action_Helper_AttachmentPath
+ */
 class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action_Helper_Abstract
 {
 
@@ -15,7 +18,7 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
     {
         $path = ($relative) ? '' : $this->getRequest()->getServer('DOCUMENT_ROOT') . DIRECTORY_SEPARATOR;
         if (($entity instanceof AbstractEntity) && ($id = $entity->getId())) {
-            $path .= 'files' . DIRECTORY_SEPARATOR;
+            $path .= 'uploads' . DIRECTORY_SEPARATOR;
             if ($entity instanceof \Entities\Attachable) {
                 $path .= $entity->getAttachmentsPath();
             }
@@ -26,7 +29,7 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
                 $path .= $id . DIRECTORY_SEPARATOR;
             }
         } else {
-            $path .= 'files' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . md5(time()) . DIRECTORY_SEPARATOR;
+            $path .= 'uploads' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . md5(time()) . DIRECTORY_SEPARATOR;
         }
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
@@ -43,7 +46,7 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
     {
         $path = '/';
         if (($entity instanceof AbstractEntity) && ($id = $entity->getId())) {
-            $path .= 'files' . '/';
+            $path .= 'uploads' . '/';
             if ($entity instanceof \Entities\Attachable) {
                 $path .= $entity->getAttachmentsPath() . '/';
             }
@@ -54,11 +57,15 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
                 $path .= $id . '/';
             }
         } else {
-            $path .= 'files' . '/' . 'temp' . '/' . md5(time()) . '/';
+            $path .= 'uploads' . '/' . 'temp' . '/' . md5(time()) . '/';
         }
         return str_replace(DIRECTORY_SEPARATOR, '/', $path);
     }
 
+    /**
+     * @param $fullPath
+     * @return mixed
+     */
     public function getRelativePath($fullPath)
     {
         $root = str_replace(DIRECTORY_SEPARATOR, '/', $this->getRequest()->getServer('DOCUMENT_ROOT'));
@@ -76,5 +83,3 @@ class Sch_Controller_Action_Helper_AttachmentPath extends Zend_Controller_Action
     }
 
 }
-
-?>

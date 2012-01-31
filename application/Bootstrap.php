@@ -1,16 +1,10 @@
 <?php
 
+/**
+ * @class Bootstrap
+ */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-
-    protected function _initModule()
-    {
-        $loader = new Zend_Application_Module_Autoloader(array(
-            'namespace' => '',
-            'basePath' => APPLICATION_PATH,
-        ));
-        return $loader;
-    }
 
     protected function _initAutoloadNamespace()
     {
@@ -41,6 +35,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $fmmAutoloader = new \Doctrine\Common\ClassLoader('Entities', $modelsPath);
         $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Entities');
+
+        $fmmAutoloader = new \Doctrine\Common\ClassLoader('Repository', $modelsPath);
+        $autoloader->pushAutoloader(array($fmmAutoloader, 'loadClass'), 'Repository');
     }
 
     protected function _initHelperBroker()
@@ -50,38 +47,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Controller_Action_HelperBroker::addHelper(new Sch_Controller_Action_Helper_IndexNavigation());
     }
 
-    public function _initGedmo()
-    {
-        $this->bootstrap(array('locale', 'doctrine'));
-        /** @var $doctrineContainer \Bisna\Doctrine\Container */
-        $doctrineContainer = $this->getResource('doctrine');
-        /** @var $em \Doctrine\ORM\EntityManager */
-        $em = $doctrineContainer->getEntityManager();
-        $driver = $em->getConfiguration()->getMetadataDriverImpl();
-        $chain = new \Doctrine\ORM\Mapping\Driver\DriverChain();
-        if ($driver instanceof \Doctrine\ORM\Mapping\Driver\Driver) {
-            $chain->addDriver($driver, 'Entities');
-        }
-        elseif ($driver instanceof \Doctrine\ORM\Mapping\Driver\DriverChain) {
-            $chain = $driver;
-        }
-        $driver = $em->getConfiguration()->newDefaultAnnotationDriver(APPLICATION_PATH . '/../library/Gedmo/Translatable/Entity');
-        $chain->addDriver($driver, 'Gedmo\Translatable');
-        $em->getConfiguration()->setMetadataDriverImpl($chain);
-
-        $locale = $this->getResource('locale');
-        if (!($locale instanceof Zend_Locale)) {
-            if (!Zend_Locale::isLocale($locale)) {
-                $locale = new Zend_Locale();
-            }
-        }
-        $treeListener = new \Gedmo\Tree\TreeListener();
-        $translatableListener = new \Gedmo\Translatable\TranslationListener();
-        $translatableListener->setTranslatableLocale($locale->toString());
-        $em->getEventManager()->addEventSubscriber($treeListener);
-        $em->getEventManager()->addEventSubscriber($translatableListener);
-    }
-
+    /**
+     * @return Zend_Session_Namespace
+     */
     protected function _initSessionNamespace()
     {
         $session = new Zend_Session_Namespace('Skaya');
@@ -97,13 +65,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         /** @var $router Zend_Controller_Router_Rewrite */
         $router = $front->getRouter();
         $router->addConfig($routesConfig, 'routes');
+        /** @var $routes Zend_Controller_Router_Route[] */
         $routes = $router->getRoutes();
 
         /** @var $langRoute Zend_Controller_Router_Route */
-        $langRoute = $router->getRoute('language');
+        $langRoute = new Zend_Controller_Router_Route(':lang',
+            array('lang' => 'ru'),
+            array('lang' => '^(en|ru)$')
+        );
+
+        $defaultRoute = new Skaya_Controller_Router_Route_Chain();
+        $defaultRoute->chain($langRoute)->chain($router->getRoute('defaultmodule'));
+        $router->addRoute('default', $defaultRoute);
 
         foreach ($routes as $name => $route) {
-            if (!in_array($name, array('language', 'default', 'defaultmodule'))) {
+            if (!in_array($name, array('default', 'defaultmodule')) && !$route->isAbstract(true)) {
                 $chain = new Skaya_Controller_Router_Route_Chain();
                 $router->addRoute($name, $chain->chain($langRoute)->chain($route));
             }
@@ -115,8 +91,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initYandexMaps()
     {
         $this->bootstrap('frontcontroller');
-        $options = $this->getOption('ymaps');
-        $this->getResource('frontcontroller')->setParam('ymaps', $options);
+        /** @var $front Zend_Controller_Front */
+        $front = $this->getResource('frontcontroller');
+        $front->setParam('ymaps', $this->getOption('ymaps'));
     }
 
     protected function _initTranslation()
@@ -129,29 +106,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('cachemanager')->bootstrap('translate')->bootstrap('locale');
         /** @var $cacheManager Zend_Cache_Manager */
         $cacheManager = $this->getResource('cachemanager');
-        if ($database = $cacheManager->getCache('database')) {
+        if (($database = $cacheManager->getCache('database'))) {
             Zend_Db_Table_Abstract::setDefaultMetadataCache($database);
             Zend_Paginator::setCache($database);
         }
-        if ($locale = $cacheManager->getCache('locale')) {
+        if (($locale = $cacheManager->getCache('locale'))) {
             Zend_Translate::setCache($locale);
             Zend_Locale::setCache($locale);
         }
     }
 
-    protected function _initDoctrineLogger()
+    protected function _initTwitterBootstrap()
     {
-        $this->bootstrap(array('locale', 'doctrine'));
-        /** @var $doctrineContainer \Bisna\Doctrine\Container */
-        $doctrineContainer = $this->getResource('doctrine');
-        /** @var $em \Doctrine\ORM\EntityManager */
-        $em = $doctrineContainer->getEntityManager();
-        $logger = null;
-        if (APPLICATION_ENV == 'development') {
-            $logger = new \Sch\Doctrine\Logger\Firebug();
-            $em->getConfiguration()->setSQLLogger($logger);
-        }
-        return $logger;
+        Sch_Twitter_View_Helper_FlashMessages::setVersion(Sch_Twitter_View_Helper_FlashMessages::TWITTER_VERSION_2);
     }
 
 }

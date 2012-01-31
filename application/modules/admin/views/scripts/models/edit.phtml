@@ -1,15 +1,15 @@
 <? $this->headTitle('Edit model') ?>
-<?= $this->form ?>
+<?php echo  $this->form ?>
 <dl class="zend_form upload_form">
     <dt>&nbsp;</dt>
     <dd>
-        <?=$this->formImage?>
+        <?php echo $this->formImage?>
     </dd>
 </dl>
 <dl class="zend_form upload_form">
     <dt>&nbsp;</dt>
     <dd>
-        <p><?=$this->formButton('submit', 'Save', array('class' => 'submit'))?></p>
+        <p><?php echo $this->formButton('submit', 'Save', array('class' => 'submit'))?></p>
     </dd>
 </dl>
 <?php $this->headScript()

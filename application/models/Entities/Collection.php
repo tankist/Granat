@@ -1,46 +1,51 @@
 <?php
 namespace Entities;
 
-use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\ArrayCollection,
+    \Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="collections")
+ * @ORM\Entity(repositoryClass="Repository\Collection")
+ * @ORM\Table(name="collections")
  */
 class Collection extends AbstractEntity
 {
 
     /**
      * @var int
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     * @Column(type="text")
+     * @ORM\Column(type="string")
      */
     protected $title;
 
     /**
      * @var string
-     * @Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 
     /**
      * @var ArrayCollection
-     * @OneToMany(targetEntity="Model", mappedBy="collection", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Model", mappedBy="collection", cascade={"persist", "remove"})
      */
     protected $models;
 
     /**
      * @var \Entities\Model
-     * @OneToOne(targetEntity="Model")
+     * @ORM\OneToOne(targetEntity="Model")
+     * @ORM\JoinColumn(name="main_model_id", referencedColumnName="id")
      */
     protected $mainModel;
 
+    /**
+     * @param $title
+     */
     public function __construct($title)
     {
         $this->title = $title;
@@ -124,7 +129,7 @@ class Collection extends AbstractEntity
     }
 
     /**
-     * @return \Entities\ArrayCollection
+     * @return \Entities\Model[]
      */
     public function getModels()
     {

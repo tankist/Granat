@@ -1,4 +1,5 @@
 <?php
+
 class Sch_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript
 {
 
@@ -22,6 +23,11 @@ class Sch_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript
         return $baseBelongsTo . '[' . $arrayName . ']' . substr($belongsTo, $endOfArrayName);
     }
 
+    /**
+     * @param $content
+     * @return string
+     * @throws Zend_Form_Exception
+     */
     public function render($content)
     {
         $element = $this->getElement();
@@ -66,6 +72,9 @@ class Sch_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript
         }
     }
 
+    /**
+     * @return Sch_Form_Decorator_ViewScript
+     */
     protected function _prepareElement()
     {
         $element = $this->getElement();
@@ -75,12 +84,13 @@ class Sch_Form_Decorator_ViewScript extends Zend_Form_Decorator_ViewScript
             $view = $element->getView();
             $belongsTo = $element->getElementsBelongTo();
 
-            foreach ($element as $item) {
+            foreach ($element as /** @var $item Zend_Form_Element */$item) {
                 $item->setView($view)
                     ->setTranslator($translator);
                 if ($item instanceof Zend_Form_Element) {
                     $item->setBelongsTo($belongsTo);
                 } elseif (!empty($belongsTo) && ($item instanceof Zend_Form)) {
+                    /** @var $item Zend_Form */
                     if ($item->isArray()) {
                         $name = $this->mergeBelongsTo($belongsTo, $item->getElementsBelongTo());
                         $item->setElementsBelongTo($name, true);

@@ -1,8 +1,14 @@
 <?php
 
-class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
+/**
+ * @class Application_Plugin_Acl
+ */
+class Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
 
+    /**
+     * @var int
+     */
     protected $_defaultRole = 0;
 
     /**
@@ -11,6 +17,9 @@ class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
      */
     protected $_acl;
 
+    /**
+     * @var string
+     */
     protected $_aclRoute = '%s.%s';
 
     /**
@@ -18,8 +27,8 @@ class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
      * @var array
      */
     protected $_noAuth = array(
-        'module' => 'users',
-        'controller' => 'auth',
+        'module' => 'admin',
+        'controller' => 'users',
         'action' => 'login',
     );
 
@@ -31,37 +40,59 @@ class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
     protected $_noAcl = array(
         'module' => 'default',
         'controller' => 'error',
-        'action' => 'denied',
+        'action' => 'error',
     );
 
+    /**
+     * @return mixed
+     */
     public function getUser()
     {
-        return Zend_Controller_Action_HelperBroker::getExistingHelper('currentUser')->getCurrentUser();
+        return Zend_Controller_Action_HelperBroker::getExistingHelper('currentUser')->direct();
     }
 
+    /**
+     * @return bool
+     */
     public function isRegistered()
     {
         return (null != $this->getUser());
     }
 
+    /**
+     * @return int
+     */
     public function getRole()
     {
-        if ($user = $this->getUser()) {
+        $user = $this->getUser();
+        if ($user) {
             return $user->role;
         }
         return $this->_defaultRole;
     }
 
+    /**
+     * @param null $resource
+     * @param null $privelege
+     * @return bool
+     */
     public function isAllowed($resource = null, $privelege = null)
     {
         return $this->_acl->isAllowed($this->getRole(), $resource, $privelege);
     }
 
+    /**
+     * @return mixed
+     */
     public function direct()
     {
         return $this->getUser();
     }
 
+    /**
+     * @param Zend_Controller_Request_Abstract $request
+     * @return mixed
+     */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         $this->_acl = $this->_getAcl();
@@ -77,12 +108,10 @@ class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             $resource = null;
         }
         if ($this->isAllowed($resource, $action)) {
-            $user = $this->getUser();
             return;
         }
 
         // Auth fail
-
         $returnUrl = urlencode($request->getRequestUri());
         $request->setParam('return', $returnUrl);
 
@@ -103,6 +132,10 @@ class Application_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             ->setDispatched(false);
     }
 
+    /**
+     * @return mixed|Zend_Acl
+     * @throws RuntimeException
+     */
     protected function _getAcl()
     {
         if (Zend_Registry::isRegistered('acl')) {

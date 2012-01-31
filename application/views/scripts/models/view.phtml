@@ -6,10 +6,10 @@ $model = $this->model;
 $mainModelPhotoUrl = 'images/empty/big.jpg';
 $mainModelPhoto = $model->getMainPhoto();
 $mainModelPhotoPath = $this->imagePathHelper->direct($model);
-if (!$mainModelPhoto->isEmpty()) {
+if ($mainModelPhoto) {
     $mainModelPhotoUrl = $mainModelPhotoPath
         . '/'
-        . $mainModelPhoto->getFilename(\Entities\Model\Photo::SIZE_BIG);
+        . $mainModelPhoto->getFilename(\Entities\Model\Photo::THUMBNAIL_BIG);
 }
 $photos = $model->getPhotos();
 $collection = $model->getCollection();
@@ -17,15 +17,15 @@ $collection = $model->getCollection();
 $next = $model->getNextModel();
 $prev = $model->getPreviousModel();
 ?>
-<?= $this->partial('models/_left-column.phtml', array('collections' => $this->collections)) ?>
+<?php echo  $this->partial('models/_left-column.phtml', array('collections' => $this->collections)) ?>
 <div id="model" class="left-sidebar-body">
-    <h1><?=$collection->name?></h1>
+    <h1><?php echo $collection->name?></h1>
     <hr>
     <div class="models">
         <div id="image" class="image fl">
             <em>&nbsp;</em>
-            <a rel="prettyPhoto" href="/<?=$mainModelPhotoPath . '/' . $mainModelPhoto->getFilename()?>"><img
-                src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>"></a>
+            <a rel="prettyPhoto" href="/<?php echo $mainModelPhotoPath . '/' . $mainModelPhoto->getFilename()?>"><img
+                src="/<?php echo $mainModelPhotoUrl?>" alt="<?php echo $model->name?>"></a>
         </div>
         <?php if (count($photos) > 0) { ?>
         <div id="thumbnailsContainer">
@@ -34,40 +34,40 @@ $prev = $model->getPreviousModel();
                                $photo) { ?><li>
 				<div class="profile-image small">
                     <em>&nbsp;</em>
-                    <a href="/<?=$mainModelPhotoPath . '/' . $photo->getFilename()?>"
-                       data-src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(\Entities\Model\Photo::SIZE_BIG)?>">
+                    <a href="/<?php echo $mainModelPhotoPath . '/' . $photo->getFilename()?>"
+                       data-src="/<?php echo $mainModelPhotoPath . '/' . $photo->getFilename(\Entities\Model\Photo::THUMBNAIL_BIG)?>">
                         <img
-                            src="/<?=$mainModelPhotoPath . '/' . $photo->getFilename(\Entities\Model\Photo::SIZE_SMALL)?>"
-                            alt="<?=$model->name?>">
+                            src="/<?php echo $mainModelPhotoPath . '/' . $photo->getFilename(\Entities\Model\Photo::THUMBNAIL_SMALL)?>"
+                            alt="<?php echo $model->name?>">
                     </a>
                 </div>
 			</li><?php } ?>
             </ul>
         </div>
         <?php } ?>
-        <h2><?=$model->name?></h2>
+        <h2><?php echo $model->name?></h2>
 
-        <p><?=$model->description?></p>
+        <p><?php echo $model->description?></p>
     </div>
     <div id="model-nav">
         <ul>
-            <?php if (!$prev->isEmpty()) { ?>
-            <li class="prev"><a href="<?=$this->url(array(
-                'model_id' => $prev->id,
+            <?php if ($prev) { ?>
+            <li class="prev"><a href="<?php echo $this->url(array(
+                'model_id' => $prev->getId(),
                 'model_name_hash' => $this->urlPartTranslit($prev->name)
-            ), 'model', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Предыдущая модель')?></a></li>
+            ), 'model', true)?>">&lt;&lt;&nbsp;<?php echo $this->translate('Предыдущая модель')?></a></li>
             <?php } ?>
-            <?php if (!$next->isEmpty()) { ?>
-            <li class="next"><a href="<?=$this->url(array(
-                'model_id' => $next->id,
+            <?php if ($next) { ?>
+            <li class="next"><a href="<?php echo $this->url(array(
+                'model_id' => $next->getId(),
                 'model_name_hash' => $this->urlPartTranslit($next->name)
-            ), 'model', true)?>"><?=$this->translate('Следующая модель')?>&nbsp;&gt;&gt;</a></li>
+            ), 'model', true)?>"><?php echo $this->translate('Следующая модель')?>&nbsp;&gt;&gt;</a></li>
             <?php } ?>
         </ul>
-        <p><a href="<?=$this->url(array(
-            'collection_id' => $collection->id,
+        <p><a href="<?php echo $this->url(array(
+            'collection_id' => $collection->getId(),
             'collection_name_hash' => $this->urlPartTranslit($collection->name)
-        ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;<?=$this->translate('Назад к коллекции')?></a></p>
+        ), 'collectionModelsChain', true)?>">&lt;&lt;&nbsp;<?php echo $this->translate('Назад к коллекции')?></a></p>
     </div>
 </div>
 <?php

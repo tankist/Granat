@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @class Sch_Controller_Action_Helper_AbstractNavigation
+ * @abstract
+ */
 abstract class Sch_Controller_Action_Helper_AbstractNavigation extends Zend_Controller_Action_Helper_Abstract
 {
 
@@ -14,6 +18,9 @@ abstract class Sch_Controller_Action_Helper_AbstractNavigation extends Zend_Cont
      */
     abstract public function getNavigation();
 
+    /**
+     * @return Zend_Navigation_Container
+     */
     public function direct()
     {
         $navigation = $this->getNavigation();
@@ -32,6 +39,10 @@ abstract class Sch_Controller_Action_Helper_AbstractNavigation extends Zend_Cont
         return $navigation;
     }
 
+    /**
+     * @param Zend_Navigation_Container $navigation
+     * @return bool|Zend_Navigation_Page_Mvc
+     */
     protected function _findNewActivePage(Zend_Navigation_Container $navigation)
     {
         $request = $this->getRequest();

@@ -1,0 +1,38 @@
+@minimalApplicationBodyHeight: 400px;
+
+.entire-absolute-block() {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.container {
+    &.application {
+        .entire-absolute-block();
+        right: inherit;
+        left: 50%;
+        margin-left: -(@siteWidth / 2);
+        margin-top: 50px;
+        margin-bottom: 30px;
+
+        .row {
+            .entire-absolute-block();
+            overflow: hidden;
+            min-height: @minimalApplicationBodyHeight;
+
+            .sidebar {
+                .entire-absolute-block();
+                overflow: auto;
+            }
+
+            .body {
+                .entire-absolute-block();
+                .offset(5);
+                position: relative;
+                max-height: 100%;
+            }
+        }
+    }
+}

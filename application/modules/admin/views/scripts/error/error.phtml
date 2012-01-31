@@ -1,6 +1,4 @@
-<div class="error-container">
-    <p class="code-404">404</p>
-
-    <p class="error"><?=$this->exception->getMessage()?></p>
+<div class="alert-message block-message error">
+    <p class="error"><strong>404</strong>&nbsp;<?php echo $this->exception->getMessage()?></p>
 </div>
 <?php $this->headTitle('Error: ' . $this->exception->getMessage()) ?>

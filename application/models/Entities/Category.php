@@ -1,34 +1,38 @@
 <?php
 namespace Entities;
 
-use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\ArrayCollection,
+    \Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="categories")
+ * @ORM\Entity
+ * @ORM\Table(name="categories")
  */
 class Category extends AbstractEntity
 {
 
     /**
      * @var int
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     * @Column(type="text")
+     * @ORM\Column(type="string")
      */
     protected $title;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     * @OneToMany(targetEntity="Model", mappedBy="category", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Model", mappedBy="category", cascade={"persist", "remove"})
      */
     protected $models;
 
+    /**
+     * @param $title
+     */
     public function __construct($title)
     {
         $this->title = $title;

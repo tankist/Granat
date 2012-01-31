@@ -1,80 +1,41 @@
 <?php
-$this->headLink()
-    ->prependStylesheet('/css/admin/sellcast.ui.common.css')
-    ->prependStylesheet('/css/admin/sellcast.ui.dash.css')
-    ->prependStylesheet('/css/admin/sellcast.ui.products.css')
-    ->prependStylesheet('/css/admin/common.css')
-    ->prependStylesheet('/css/reset.css')
-    ->appendStylesheet('/css/admin/paginator.css')
-    ->appendStylesheet('/css/admin/account-settings.css')
-    ->appendStylesheet('/css/admin/button.css')
-    ->appendStylesheet('/css/admin/orders.css')
-    ->appendStylesheet('/css/admin/products.css')
-
-    ->appendStylesheet('/css/ie7.css', 'all', 'lt IE 8')
-    ->appendStylesheet('/css/ie6.css', 'all', 'lt IE 7');
-?>
-
-<?php
-$this->headScript()
-    ->prependFile('/js/jquery/jquery.js')
-/*->prependFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js')
-		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js')*/
-    ->appendFile('/js/admin/common.js')
-    ->appendFile('/js/listchecks.js');
-?>
-
-<?php
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
-    ->appendHttpEquiv('Content-Language', 'ru-RU');
-?>
-<?=
-$this->doctype()
-; ?>
-<html>
+$layout = $this->layout();
+$navigation = $this->navigation();
+?><!DOCTYPE HTML>
+<html lang="en-US">
 <head>
-    <?=$this->headMeta()?>
-    <link rel="icon" type="image/png" href="/favicon.png"/>
-    <?=$this->headLink()?>
-    <?=$this->headTitle()?>
-    <?=$this->headStyle()?>
-    <?php
-    $navigationMenuHelper = $this->getHelper('Navigation_Menu');
-    $ordersCount = $this->ordersCount;
-    if ($ordersCount > 0) {
-        $this->headScript()->prependScript('var ordersCount = ' . $ordersCount . ';');
-    }
-    ?>
+    <meta charset="UTF-8">
+    <?php echo $this->headLink()->appendStylesheet('/css/admin.css') ?>
+    <?php echo $this->headTitle() ?>
 </head>
 <body>
-<div class="body-wrapper">
-    <div class="header-wrapper">
-        <div class="header-menu-wrapper">
-            <div id="header-menu">
-                <?=$navigationMenuHelper->renderMenu();?>
+<header>
+    <div class="navbar navbar-static" data-scrollspy="scrollspy">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">GraNat</a>
+                <?php echo $navigation->menu($layout->navigation)->setUlClass('nav') ?>
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#locale" class="dropdown-toggle" data-toggle="dropdown">Locale<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'locale', 'locale' => 'en')) ?>">EN</a></li>
+                            <li><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'locale', 'locale' => 'ru')) ?>">RU</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="header-submenu-wrapper">
-            <div id="header-submenu">
-                <div class="fl"><?=$this->submenu?></div>
-                <div class="submenu-right">
-                    <div class="fr second-button-link"><a
-                        href="<?=$this->url(array('controller' => 'users', 'action' => 'logout'))?>">Logout</a></div>
-                </div>
-            </div>
-        </div>
     </div>
-    <?=$this->flashMessages()?>
-    <div id="body">
-        <?=$this->layout()->content?>
-    </div>
+</header>
+<div class="container">
+    <?php echo $this->flashMessages(); ?>
+    <?php echo $navigation->breadcrumbs($layout->navigation)->setRenderInvisible(true); ?>
+    <?php echo $layout->content ?>
 </div>
-<div class="footer-wrapper">
-    <div class="footer">
-        <div class="fl">&copy; Granat Nikolayev <?=date('Y')?> | Website Design & Hosting by <a
-            href="http://www.yobasoft.org.ua/">Yobasoft</a></div>
-    </div>
-</div>
-<?=$this->headScript()?>
+<?php echo $this->headScript()
+    ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js')
+    ->appendFile('/js/bootstrap/js/bootstrap.js');
+?>
 </body>
 </html>

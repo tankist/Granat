@@ -1,29 +1,12 @@
-<?php
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
-    ->appendHttpEquiv('Content-Language', 'en-US');
-?>
-<?= $this->doctype()
-; ?>
-<html>
+<!DOCTYPE HTML>
+<html lang="en-US">
 <head>
-    <?=$this->headMeta()?>
-    <link rel="icon" type="image/png" href="/favicon.png"/>
-    <?=$this->headLink()->setStylesheet('/css/admin/login_admin.css')?>
-    <?=$this->headTitle()?>
-    <?=$this->headStyle()?>
+    <meta charset="UTF-8">
+    <?php echo $this->headLink()->appendStylesheet('/css/admin.css') ?>
+    <?php echo $this->headTitle() ?>
 </head>
 <body>
-<?=$this->layout()->content?>
-<div id="footer-container">
-    <div id="footer">&copy; Granat International <?=date('Y')?> | Website Design & Hosting by <a
-        href="http://www.yobasoft.org.ua/">Yobasoft</a></div>
-</div>
-<?=$this->headScript()
-    ->setFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js')
-    ->appendFile('/js/form/jquery.form.js')
-    ->appendFile('/js/scrollable/scrollable.min.js')
-    ->appendFile('/js/admin/login.js')
-?>
-
+<div class="container"><?php echo $this->layout()->content ?></div>
+<?php echo $this->headScript()->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js') ?>
 </body>
 </html>

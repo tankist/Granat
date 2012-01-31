@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * @class Sch_Form
+ */
 class Sch_Form extends Zend_Form
 {
+
+    /**
+     * @var array
+     */
+    protected $_elementLabels = array();
 
     /**
      * @return Sch_Form
@@ -11,6 +19,20 @@ class Sch_Form extends Zend_Form
         return $this
             ->_prepareElementsDecorators()
             ->_prepareSubformsDecorators();
+    }
+
+    /**
+     * @param null $options
+     */
+    public function __construct($options = null)
+    {
+        $this
+            ->addPrefixPath('Sch_Form_Decorator', 'Sch/Form/Decorator', 'decorator')
+            ->addPrefixPath('Sch_Form_Element', 'Sch/Form/Element', 'element')
+            ->addElementPrefixPath('Sch_Form_Decorator', 'Sch/Form/Decorator', 'decorator')
+            ->addDisplayGroupPrefixPath('Sch_Form_Decorator', 'Sch/Form/Decorator')
+            ->setDefaultDisplayGroupClass('Sch_Form_DisplayGroup');
+        parent::__construct($options);
     }
 
     /**
@@ -75,7 +97,11 @@ class Sch_Form extends Zend_Form
      */
     protected function _prepareElementsDecorators()
     {
+        $labels = $this->getElementLabels();
         foreach ($this->getElements() as $elementName => $element) {
+            if (array_key_exists($elementName, $labels) && !$element->getLabel()) {
+                $element->setLabel($labels[$elementName]);
+            }
             $prepareMethodName = '_prepare' . ucfirst(Zend_Filter::filterStatic($elementName, 'Word_UnderscoreToCamelCase')) . 'Decorators';
             if (method_exists($this, $prepareMethodName)) {
                 call_user_func(array($this, $prepareMethodName), $element);
@@ -109,6 +135,24 @@ class Sch_Form extends Zend_Form
             }
         }
         return $this;
+    }
+
+    /**
+     * @param $elementLabels
+     * @return \Sch_Form
+     */
+    public function setElementLabels($elementLabels)
+    {
+        $this->_elementLabels = $elementLabels;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getElementLabels()
+    {
+        return $this->_elementLabels;
     }
 
 }

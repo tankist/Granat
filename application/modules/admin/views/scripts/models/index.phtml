@@ -1,14 +1,14 @@
 <ul class="toolbar">
-    <li><a href="<?=$this->url(array('action' => 'add'))?>">Add model</a></li>
+    <li><a href="<?php echo $this->url(array('action' => 'add'))?>">Add model</a></li>
     <li><a href="#" onclick="$('#delete-models').submit();return false;">Delete Selected</a></li>
 </ul>
 <form id="delete-models"
-      action="<?=$this->url(array('module' => 'admin', 'controller' => 'models', 'action' => 'delete'), null, true)?>"
+      action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'models', 'action' => 'delete'), null, true)?>"
       method="post">
     <table>
         <tr>
             <th class="checkbox"><input type="checkbox" class="select-all" name="all" id="models-select-all"/></th>
-            <th><?=$this->orderLink('Name', 'name')?></th>
+            <th><?php echo $this->orderLink('Name', 'name')?></th>
             <th>Collection</th>
             <th>Category</th>
             <th>Edit</th>
@@ -16,18 +16,18 @@
         </tr>
         <?php $i = 0; foreach ($this->models as /** @var Model_Model $model */
                                $model) { ?>
-        <tr<?=($i++ & 1) ? ' class="odd"' : ''?>>
-            <td class="checkbox"><input type="checkbox" name="model[<?=$model->id?>]" id="model-<?=$model->id?>"
-                                        value="<?=$model->id?>"></td>
-            <td><label for="model-<?=$model->id?>"><?=$model->name?></label></td>
+        <tr<?php echo ($i++ & 1) ? ' class="odd"' : ''?>>
+            <td class="checkbox"><input type="checkbox" name="model[<?php echo $model->getId()?>]" id="model-<?php echo $model->getId()?>"
+                                        value="<?php echo $model->getId()?>"></td>
+            <td><label for="model-<?php echo $model->getId()?>"><?php echo $model->name?></label></td>
             <td><a
-                href="<?=$this->url(array('action' => 'edit', 'controller' => 'collections', 'id' => $model->getCollection()->id), null, true)?>"><?=$model->getCollection()->name?></a>
+                href="<?php echo $this->url(array('action' => 'edit', 'controller' => 'collections', 'id' => $model->getCollection()->getId()), null, true)?>"><?php echo $model->getCollection()->name?></a>
             </td>
-            <td><?=$model->getCategory()->name?></td>
-            <td><a href="<?=$this->url(array('action' => 'edit', 'id' => $model->id))?>">Edit</a></td>
-            <td><a href="<?=$this->url(array('action' => 'delete', 'id' => $model->id))?>">Delete</a></td>
+            <td><?php echo $model->getCategory()->name?></td>
+            <td><a href="<?php echo $this->url(array('action' => 'edit', 'id' => $model->getId()))?>">Edit</a></td>
+            <td><a href="<?php echo $this->url(array('action' => 'delete', 'id' => $model->getId()))?>">Delete</a></td>
         </tr><?php } ?>
     </table>
 </form>
-<?= $this->paginator ?>
+<?php echo  $this->paginator ?>
 <?php $this->headTitle('Models') ?>

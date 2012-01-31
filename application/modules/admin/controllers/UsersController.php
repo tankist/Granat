@@ -1,60 +1,60 @@
 <?php
 
+/**
+ * @class Admin_UsersController
+ */
 class Admin_UsersController extends Zend_Controller_Action
 {
 
     /**
      * @var Service_User
      */
-    protected $_manager = null;
+    protected $_service = null;
 
     public function init()
     {
         Zend_Layout::getMvcInstance()
             ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
             ->setLayout('login');
-        $this->_helper->getHelper('AjaxContext')->initContext('json');
-        $this->_manager = new Service_User($this->_helper->Em());
+        $this->_service = new Service_User($this->_helper->Em());
     }
 
     public function indexAction()
     {
-        // action body
+        $this->_forward('login');
     }
 
     public function loginAction()
     {
         $request = $this->getRequest();
-        $this->view->error_login = false;
-
         $loginForm = new Admin_Form_Login();
         if ($request->isPost()) {
             if ($loginForm->isValid($request->getPost())) {
                 $data = $loginForm->getValues();
                 if ($this->_authenticate($data)) {
                     /** @var $me \Entities\User */
-                    if ($me = $this->_helper->currentUser()) {
-                        $me->setOnline(true)->setOnlineLast(new DateTime());
-                        $this->_manager->save($me);
+                    if (($me = $this->_helper->currentUser())) {
+                        $me->isOnline(true);
+                        $this->_service->save($me);
                     }
-                    $this->_redirect($this->_getParam('back', '/'));
+                    $this->_redirect($this->_getParam('return', $this->_helper->url('', '')));
                 }
             }
-            $this->view->error_login = true;
         }
-        $this->view->loginForm = $loginForm->prepareDecorators();
+        $loginForm->setAction($this->_helper->url('login'));
+        $this->view->form = $loginForm->prepareDecorators();
     }
 
     public function logoutAction()
     {
         /** @var $me \Entities\User */
-        if ($me = $this->_helper->currentUser()) {
-            $me->setOnline(false)->setOnlineLast(new DateTime());
-            $this->_manager->save($me);
+        if (($me = $this->_helper->currentUser())) {
+            $me->isOnline(false);
+            $this->_service->save($me);
         }
         Zend_Auth::getInstance()->clearIdentity();
         Zend_Session::destroy();
-        $this->_redirect('/');
+        $this->_redirect($this->_helper->url('login'));
     }
 
     private function _authenticate($data)
@@ -63,7 +63,7 @@ class Admin_UsersController extends Zend_Controller_Action
             return false;
         }
 
-        if (!empty($data['rememberMe']) && $data['rememberMe']) {
+        if (!empty($data['is_remember']) && $data['is_remember']) {
             Zend_Session::rememberMe(86400 * 15);
         } else {
             Zend_Session::forgetMe();
@@ -75,7 +75,7 @@ class Admin_UsersController extends Zend_Controller_Action
             'email',
             'password'
         );
-        $authAdapter->setIdentity($data['login']);
+        $authAdapter->setIdentity($data['email']);
         $authAdapter->setCredential(md5($data['password']));
 
         $auth = Zend_Auth::getInstance();

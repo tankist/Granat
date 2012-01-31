@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @class IndexController
+ */
 class IndexController extends Zend_Controller_Action
 {
 
@@ -7,27 +10,24 @@ class IndexController extends Zend_Controller_Action
 
     const SLIDER_ITEMS_COUNT = 25;
 
+    /**
+     * @var Service_Model
+     */
+    protected $_service;
+
     public function init()
     {
-        $this->view->imagePathHelper = $this->_helper->imagePath;
+        $this->_service = new Service_Model($this->_helper->Em());
+        $this->view->imagePathHelper = $this->_helper->attachmentPath;
     }
 
     public function indexAction()
     {
-        /**
-         * @var Service_Model $service
-         */
-        $service = $this->_helper->service('Model');
-        /**
-         * @var Model_Collection_Models $models
-         */
-        $this->view->models = $service->getRandomModels(self::SLIDER_ITEMS_COUNT);
-        $this->view->randomModels = $service->getRandomModels(self::RANDOM_ITEMS_COUNT);
-        $this->view->randomFabrics = $this->_helper->service('Fabric')->getFabrics('RAND()', self::RANDOM_ITEMS_COUNT);
+        $this->view->models = $this->_service->getRandomModels(self::SLIDER_ITEMS_COUNT);
+        $this->view->randomModels = $this->_service->getRandomModels(self::RANDOM_ITEMS_COUNT);
+//        $this->view->randomFabrics = $this->_helper->service('Fabric')->getFabrics('RAND()', self::RANDOM_ITEMS_COUNT);
 
-        /**
-         * @var Zend_Controller_Action_Helper_ViewRenderer
-         */
+        /** @var $viewRenderer Zend_Controller_Action_Helper_ViewRenderer */
         $viewRenderer = $this->_helper->viewRenderer;
         $viewRenderer->setScriptAction('index-' . $this->view->language);
     }

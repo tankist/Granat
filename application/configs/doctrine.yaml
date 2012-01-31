@@ -59,10 +59,6 @@ production:
                                 PI: DoctrineExtensions\ORM\Query\Functions\Numeric\PiFunction
                         metadataDrivers:
                             annotationRegistry:
-                                annotationNamespaces:
-                                    0:
-                                        namespace: Gedmo\Mapping\Annotation
-                                        includePath: APPLICATION_PATH/../library/
                                 annotationFiles:
                                     0: /Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php
                             drivers:
@@ -89,6 +85,7 @@ staging:
                             port: 3306
                             user: granat
                             password: temp123
+                        sqlLoggerClass: Sch\Doctrine\Logger\Firebug
 
 testing:
     _extends: production
@@ -107,6 +104,7 @@ development:
                             port: 3306
                             user: granat
                             password: temp123
+                        sqlLoggerClass: Sch\Doctrine\Logger\Firebug
             cache:
                 instances:
                     default:

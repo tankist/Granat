@@ -8,9 +8,9 @@ if ($this->pageCount > 1) {
         <? for ($i = $this->firstPageInRange; $i <= $this->lastPageInRange; $i++) {
         $routeParams['page'] = $i;
         ?>
-        <li p="<?=$i?>"<?php if ($this->current == $i) echo ' class="active"' ?>>
-            <a href="<?=$this->url($routeParams, $routeName)?>"
-               title="<?=$this->translate('Страница')?> <?=$i?>"><?=$i?></a>
+        <li p="<?php echo $i?>"<?php if ($this->current == $i) echo ' class="active"' ?>>
+            <a href="<?php echo $this->url($routeParams, $routeName)?>"
+               title="<?php echo $this->translate('Страница')?> <?php echo $i?>"><?php echo $i?></a>
         </li>
         <? } ?>
     </ul>

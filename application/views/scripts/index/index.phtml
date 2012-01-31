@@ -1,131 +1,104 @@
-<h1 id="catalog-h1"><?=$this->translate('Наш каталог')?></h1>
+<h1 id="catalog-h1"><?php echo $this->translate('Наш каталог')?></h1>
 <hr>
 <?php if (count($this->models) > 0) { ?>
 <div id="catalog">
-    <a href="#prev" class="arrow prev"><span></span></a>
-
-    <div class="oh images-container">
-        <ul class="images" style="width: 2000%;"><?php
-            foreach ($this->models as /** @var Model_Model $model */
-                     $model) {
-                $imagePath = $this->imagePathHelper->direct($model);
-                ?>
-                <li><a title="<?=$model->name?>" href="<?=$this->url(array(
-                    'model_id' => $model->id,
-                    'model_name_hash' => $this->urlPartTranslit($model->name)
-                ), 'model', true)?>"><em>&nbsp;</em><img
-                    src="/<?=$imagePath?>/<?=$model->getMainPhoto()->getFilename(\Entities\Model\Photo::SIZE_ROLL)?>"
-                    alt="<?=$model->name?>" height="103" width="140"></a></li>
-                <?php } ?></ul>
-    </div>
-    <a href="#next" class="arrow next"><span></span></a>
+	<a href="#prev" class="arrow prev"><span></span></a>
+	<div class="oh images-container">
+		<ul class="images" style="width: 2000%;"><?php
+			foreach($this->models as /** @var Model_Model $model */$model) {
+				$imagePath = $this->imagePathHelper->direct($model);
+		?>
+			<li><a title="<?php echo $model->name?>" href="<?php echo $this->url(array(
+								'model_id' => $model->getId(),
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><em>&nbsp;</em><img src="/<?php echo $imagePath?>/<?php echo $model->getMainPhoto()->getFilename(Model_ModelPhoto::THUMBNAIL_ROLL)?>" alt="<?php echo $model->name?>" height="155" width="139"></a></li>
+		<?php } ?></ul>
+	</div>
+	<a href="#next" class="arrow next"><span></span></a>
 </div>
 <?php } ?>
-<h1 id="about-us-h1"><?=$this->translate('Несколько слов о нас')?></h1>
+<h1 id="about-us-h1"><?php echo $this->translate('Несколько слов о нас')?></h1>
 <hr>
 <div id="aboutus-container" class="oh">
-    <p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится
-        салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор
-        самых модных иэксклюзивных свадебных платьев напрокат.</p>
-
-    <div class="half vcard fl">
-        <div class="profile-image big">
-            <em>&nbsp;</em>
-            <img src="/images/owner.jpg" alt="Наталья Гречаная" class="photo">
-        </div>
-        <p>Я, основатель и ведущий дизайнер одежды моего ателье <span class="org">“GraNat”</span> <a href=""><span
-            class="fn">Наталья Гречаная</span></a></p>
-
-        <p>Мы можем обсудить детали вашего заказа по телефону: <span class="tel">+380509288713</span></p>
-
-        <p>Также вы можете отправить ваши пожелания или предложения электронным письмом по адресу: <a class="email"
-                                                                                                      href="mailto:natalya_grechanaya@mail.ru">natalya_grechanaya@mail.ru</a>
-        </p>
-    </div>
-    <div class="half vcard fl">
-        <div class="profile-image big">
-            <em>&nbsp;</em>
-            <img src="/images/crap/image7.jpg" alt="Наталья Гречаная" class="photo">
-        </div>
-        <p>Наряды на любой манер: элегантные, пышные, строгие, озорные,а также море аксессуаров - каждая из этих вещей
-            мечтает найти свою прекрасную обладательницу. Мы не ограничиваемся лишь пышными эксклюзивными или короткими
-            свадебными платьями по каталогу от известных производителей</p>
-
-        <p>Наш адрес: <span class="adr"><span class="street-address">ул. Адмирала Макарова, 26, Николаев, Украина</span></span>
-        </p>
-
-        <p><a href="/map" class="map">Найти на карте</a></p>
-    </div>
+	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
+	<div class="half vcard fl">
+		<div class="profile-image big">
+			<em>&nbsp;</em>
+			<img src="/images/owner.jpg" alt="Наталья Гречаная" class="photo">
+		</div>
+		<p>Я, основатель и ведущий дизайнер одежды моего ателье <span class="org">“GraNat”</span> <a href=""><span class="fn">Наталья Гречаная</span></a></p>
+		<p>Мы можем обсудить детали вашего заказа по телефону: <span class="tel">+380509288713</span></p>
+		<p>Также вы можете отправить ваши пожелания или предложения электронным письмом по адресу: <a class="email" href="mailto:natalya_grechanaya@mail.ru">natalya_grechanaya@mail.ru</a></p>
+	</div>
+	<div class="half vcard fl">
+		<div class="profile-image big">
+			<em>&nbsp;</em>
+			<img src="/images/crap/image7.jpg" alt="Наталья Гречаная" class="photo">
+		</div>
+		<p>Наряды на любой манер: элегантные, пышные, строгие, озорные,а также море аксессуаров - каждая из этих вещей мечтает найти свою прекрасную обладательницу. Мы не ограничиваемся лишь пышными эксклюзивными или короткими свадебными платьями по каталогу от известных производителей</p>
+		<p>Наш адрес: <span class="adr"><span class="street-address">ул. Адмирала Макарова, 26, Николаев, Украина</span></span></p>
+		<p><a href="/map" class="map">Найти на карте</a></p>
+	</div>
 </div>
 <div id="shapes">
-    <div class="shapes-container oh">
-        <div id="models" class="shape">
-            <h1 id="models-h1"><?=$this->translate('Наши модели')?></h1>
-            <ul class="random"><?php foreach ($this->randomModels as /** @var Model_Model $model */
-                                              $model) { ?>
-                <li><a href="<?=$this->url(array(
-                    'model_id' => $model->id,
-                    'model_name_hash' => $this->urlPartTranslit($model->name)
-                ), 'model', true)?>"><?=$model->name?></a></li><?php } ?>
-            </ul>
-        </div>
-        <div id="materials" class="shape half">
-            <h1 id="materials-h1"><?=$this->translate('Коллекция тканей')?></h1>
-            <ul class="random"><?php foreach ($this->randomFabrics as /** @var Model_Fabric $fabric */
-                                              $fabric) { ?>
-                <li><a href="<?=$this->url(array(), 'fabrics', true)?>"><?=$fabric->name?></a></li><?php } ?>
-            </ul>
-        </div>
-    </div>
-    <p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится
-        салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор
-        самых модных иэксклюзивных свадебных платьев напрокат.</p>
+	<div class="shapes-container oh">
+		<div id="models" class="shape">
+			<h1 id="models-h1"><?php echo $this->translate('Наши модели')?></h1>
+			<ul class="random"><?php foreach($this->randomModels as /** @var Model_Model $model */$model) { ?>
+				<li><a href="<?php echo $this->url(array(
+								'model_id' => $model->getId(),
+								'model_name_hash' => $this->urlPartTranslit($model->name)
+						   ), 'model', true)?>"><?php echo $model->name?></a></li><?php } ?>
+			</ul>
+		</div>
+		<div id="materials" class="shape half">
+			<h1 id="materials-h1"><?php echo $this->translate('Коллекция тканей')?></h1>
+			<ul class="random"><?php foreach($this->randomFabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
+				<li><a href="<?php echo $this->url(array(), 'fabrics', true)?>"><?php echo $fabric->name?></a></li><?php } ?>
+			</ul>
+		</div>
+	</div>
+	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
 </div>
 <div id="services">
-    <h1><?=$this->translate('Услуги')?></h1>
-    <hr>
-    <p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится
-        салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор
-        самых модных иэксклюзивных свадебных платьев напрокат.</p>
-
-    <div class="one-third fl">
-        <div class="wrap">
-            <div class="profile-image small">
-                <em>&nbsp;</em>
-                <img src="/images/crap/image8.jpg" alt="Визажист" class="photo" height="90" width="84">
-            </div>
-            <h2>Визажист</h2>
-
-            <p>Доведите свой образ до совершенства с помощью наших профессиональных визажистов</p>
-        </div>
-    </div>
-    <div class="one-third fl">
-        <div class="wrap">
-            <div class="profile-image small">
-                <em>&nbsp;</em>
-                <img src="/images/crap/image9.jpg" alt="Парикмахер" class="photo" height="90" width="84">
-            </div>
-            <h2>Парикмахер</h2>
-
-            <p>Наши парикмахеры смогут сделать вам прическу любой сложности.</p>
-        </div>
-    </div>
-    <div class="one-third fl">
-        <div class="wrap">
-            <div class="profile-image small">
-                <em>&nbsp;</em>
-                <img src="/images/crap/image10.jpg" alt="Стилист" class="photo" height="90" width="84">
-            </div>
-            <h2>Стилист</h2>
-
-            <p>Создайте свой неповторимы стиль, а наши стилисты вам помогут в этом.</p>
-        </div>
-    </div>
+	<h1><?php echo $this->translate('Услуги')?></h1>
+	<hr>
+	<p>В одном из романтичных переулков Остоженки рядом с Храмом Христа Спасителя и Пречистенской набережной находится салон свадебного платья с интригующим и вкусным названием "Ваниль". В коллекции свадебного салона большой выбор самых модных иэксклюзивных свадебных платьев напрокат.</p>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image8.jpg" alt="Визажист" class="photo" height="90" width="84">
+			</div>
+			<h2>Визажист</h2>
+			<p>Доведите свой образ до совершенства с помощью наших профессиональных визажистов</p>
+		</div>
+	</div>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image9.jpg" alt="Парикмахер" class="photo" height="90" width="84">
+			</div>
+			<h2>Парикмахер</h2>
+			<p>Наши парикмахеры смогут сделать вам прическу любой сложности.</p>
+		</div>
+	</div>
+	<div class="one-third fl">
+		<div class="wrap">
+			<div class="profile-image small">
+				<em>&nbsp;</em>
+				<img src="/images/crap/image10.jpg" alt="Стилист" class="photo" height="90" width="84">
+			</div>
+			<h2>Стилист</h2>
+			<p>Создайте свой неповторимы стиль, а наши стилисты вам помогут в этом.</p>
+		</div>
+	</div>
 </div>
 <?php
-$this->headScript()
-    ->appendFile('/js/jscrollpane/jquery.mousewheel.js')
-    ->appendFile('/js/scrollable/scrollable.js')
-    ->appendFile('/js/index.js');
-$this->headTitle($this->translate('Контактная информация'));
+	$this->headScript()
+		->appendFile('/js/jscrollpane/jquery.mousewheel.js')
+		->appendFile('/js/scrollable/scrollable.js')
+		->appendFile('/js/index.js');
+	$this->headTitle($this->translate('Контактная информация'));
 ?>

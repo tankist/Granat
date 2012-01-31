@@ -22,7 +22,7 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     array(
         'config' => array(
-            APPLICATION_PATH . '/configs/application.yaml',
+            APPLICATION_PATH . '/configs/application.ini',
             APPLICATION_PATH . '/configs/doctrine.yaml'
         )
     )

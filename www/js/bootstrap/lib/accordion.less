@@ -1,0 +1,36 @@
+// ACCORDION
+// -----------
+
+.accordion {
+    margin: 0;
+    padding: 0;
+    &>li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        &:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+            *zoom: 1;
+        }
+    }
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+    .accordion-opener {
+        width: 100%;
+        display: block;
+    }
+    .loading {
+        display: none;
+    }
+    .panel {
+        margin-bottom : 18px;
+        overflow : auto;
+        max-height : 400px;
+    }
+}

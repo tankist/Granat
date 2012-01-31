@@ -1,20 +1,36 @@
 <?php
 
+/**
+ * @class Admin_ModelImageController
+ */
 class Admin_ModelImageController extends Zend_Controller_Action
 {
-
-    /**
-     * @var \Entities\User
-     */
-    protected $_user = null;
 
     public $contexts = array(
         'upload' => true,
         'delete' => true
     );
 
+    /**
+     * @var \Entities\User
+     */
+    protected $_user = null;
+
+    /**
+     * @var Service_ModelPhoto
+     */
+    protected $_service;
+
+    /**
+     * @var Service_Model
+     */
+    protected $_modelService;
+
     public function init()
     {
+        $em = $this->_helper->Em();
+        $this->_service = new Service_ModelPhoto($em);
+        $this->_modelService = new Service_Model($em);
         Zend_Layout::getMvcInstance()
             ->setLayoutPath(APPLICATION_PATH . '/modules/admin/layouts/scripts')
             ->setLayout('admin');
@@ -37,9 +53,9 @@ class Admin_ModelImageController extends Zend_Controller_Action
         /**
          * @var Model_Model $model
          */
-        $model = $this->_helper->service('Model')->getModelById($model_id);
+        $model = $this->_modelService->getById($model_id);
 
-        $imagesPath = $this->_helper->imagePath($model);
+        $imagesPath = $this->_helper->attachmentPath($model);
         $form = new Admin_Form_ModelImage(array(
             'name' => 'modelImage',
             'imagesPath' => $imagesPath
@@ -51,14 +67,14 @@ class Admin_ModelImageController extends Zend_Controller_Action
                 $log->info($_FILES);
                 $log->info($imagesPath);
                 $files = $this->_helper->avatar->upload($file, $imagesPath);
-                if (!empty($files) && $big = $files[\Entities\Model\Photo::SIZE_BIG]) {
+                if (!empty($files) && $big = $files[\Entities\Model\Photo::THUMBNAIL_BIG]) {
                     /**
                      * @var \Entities\Model\Photo $image
                      */
-                    $image = $this->_helper->service('Photo')->create();
-                    $image->setFilename($big, \Entities\Model\Photo::SIZE_BIG);
+                    $image = $this->_service->create();
+                    $image->setFilename($big, \Entities\Model\Photo::THUMBNAIL_BIG);
 
-                    if (!$model->isEmpty()) {
+                    if ($model) {
                         $model->addPhoto($image);
                         $id = $image->getId();
                     }
@@ -68,10 +84,10 @@ class Admin_ModelImageController extends Zend_Controller_Action
                     $imageData = array(
                         'path' => $imagesPath,
                         'name' => $image->getFilename(),
-                        'thumb' => $image->getFilename(\Entities\Model\Photo::SIZE_SMALL),
+                        'thumb' => $image->getFilename(\Entities\Model\Photo::THUMBNAIL_SMALL),
                         'id' => $id
                     );
-                    if ($model->isEmpty()) {
+                    if (!$model) {
                         $path = $this->_helper->sessionSaver('modelImagesPath');
                         if (!is_array($path)) {
                             $path = array();
@@ -108,13 +124,13 @@ class Admin_ModelImageController extends Zend_Controller_Action
         /**
          * @var Model_Model $model
          */
-        $model = $this->_helper->service('Model')->getModelById($model_id);
-        if (!$model->isEmpty()) {
+        $model = $this->_modelService->getById($model_id);
+        if ($model) {
             /**
              * @var \Entities\Model\Photo $image
              */
             $image = $model->getPhotoById($image_id);
-            if (!$image->isEmpty()) {
+            if ($image) {
                 $this->_delete($image);
                 $image->delete();
             }
@@ -129,7 +145,7 @@ class Admin_ModelImageController extends Zend_Controller_Action
             /**
              * @var \Entities\Model\Photo $image
              */
-            $image = $this->_helper->service('Photo')->create(array(
+            $image = $this->_service->create(array(
                 'filename' => $imageData['name']
             ));
             $this->_delete($image, $imageData['path']);
@@ -141,7 +157,7 @@ class Admin_ModelImageController extends Zend_Controller_Action
     protected function _delete(\Entities\Model\Photo $image, $path = null)
     {
         if (!$path || !file_exists($path)) {
-            $path = $this->_helper->imagePath($image->getModel());
+            $path = $this->_helper->attachmentPath($image->getModel());
         }
         $sizes = array('');
         foreach (array_merge($sizes, array_keys(\Entities\Model\Photo::getThumbnailPack())) as $size) {
