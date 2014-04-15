@@ -137,7 +137,7 @@ abstract class Sch_Service_Abstract
     {
         if (!($params instanceof \Doctrine\ORM\QueryBuilder)) {
             $query = $this->getRepository()->createQueryBuilder('t');
-            if (array_key_exists('order', $params)) {
+            if (array_key_exists('order', $params) && !empty($params['order'])) {
                 $type = (array_key_exists('orderType', $params)) ? $params['orderType'] : 'ASC';
                 $query->orderBy($params['order'], $type);
                 unset($params['order'], $params['orderType']);
