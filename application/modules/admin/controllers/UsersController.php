@@ -7,6 +7,10 @@ class Admin_UsersController extends Zend_Controller_Action {
 	 */
 	protected $_user;
 
+    public $ajaxable = array(
+        'login' => array('json'),
+    );
+
 	public function init() {
 		$this->_helper->getHelper('AjaxContext')->initContext('json');
 		$this->_user = $this->_helper->user();
