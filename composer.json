@@ -1,0 +1,15 @@
+{
+    "name": "skaya/granat",
+    "description": "Granat",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Victor Gryshko",
+            "email": "stalin1945@gmail.com"
+        }
+    ],
+    "require": {
+        "bombayworks/zendframework1": "1.12.x-dev"
+    }
+}

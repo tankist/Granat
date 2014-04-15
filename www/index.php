@@ -4,17 +4,17 @@
 defined('APPLICATION_ENV')
 || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-$__prefix = (APPLICATION_ENV == 'localdev' || APPLICATION_ENV == 'localtest')?'..':'app';
-
 // Define path to application directory
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/' . $__prefix . '/application'));
+|| define('APPLICATION_PATH', __DIR__ . '/../application');
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
                                            realpath(APPLICATION_PATH . '/../library'),
                                            get_include_path()
                                        )));
+
+require_once APPLICATION_PATH . '/../vendor/autoload.php';
 
 /** Zend_Application */
 require_once 'Zend/Cache.php';
