@@ -2,9 +2,9 @@
 $i = 0;
 $classes = array('one', 'two', 'three');
 ?>
-<?=$this->partial('models/_left-column.phtml', array('collections' => $this->collections))?>
+<?php echo $this->partial('models/_left-column.phtml', array('collections' => $this->collections))?>
 <div id="collection" class="left-sidebar-body">
-	<?php if (!$this->collection->isEmpty()) { ?><h1><?=$this->collection->name?></h1>
+	<?php if (!$this->collection->isEmpty()) { ?><h1><?php echo $this->collection->name?></h1>
 	<hr><?php } ?>
 	<ul class="models"><?php foreach($this->models as /** @var Model_Model $model */$model) {
 		$mainModelPhotoUrl = 'images/empty/big.jpg';
@@ -16,17 +16,17 @@ $classes = array('one', 'two', 'three');
 		}
 	?>
 		<li>
-			<div class="<?=$classes[$i++ % 3]?>">
+			<div class="<?php echo $classes[$i++ % 3]?>">
 				<div class="image">
 					<em>&nbsp;</em>
-					<a href="<?=$url=$this->url(array(
+					<a href="<?php echo $url=$this->url(array(
 								'model_id' => $model->id,
 								'model_name_hash' => $this->urlPartTranslit($model->name)
 						   ), 'model', true)?>">
-						<img src="/<?=$mainModelPhotoUrl?>" alt="<?=$model->name?>">
+						<img src="/<?php echo $mainModelPhotoUrl?>" alt="<?php echo $model->name?>">
 					</a>
 				</div>
-				<a href="<?=$url?>"><span><?=$model->name?></span></a>
+				<a href="<?php echo $url?>"><span><?php echo $model->name?></span></a>
 			</div>
 		</li>
 		<?php if ($i % 3 == 0) { ?><li class="clear"></li><?php } ?>
@@ -49,7 +49,7 @@ $classes = array('one', 'two', 'three');
 			}
 		}
 	?>
-	<?=$this->paginationControl($this->models, null, null, array(
+	<?php echo $this->paginationControl($this->models, null, null, array(
 		'routeParams' => $routeParams,
 		'routeName' => $routeName
 	))?>

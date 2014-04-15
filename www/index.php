@@ -16,10 +16,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require_once APPLICATION_PATH . '/../vendor/autoload.php';
 
-/** Zend_Application */
-require_once 'Zend/Cache.php';
-
-if (APPLICATION_ENV == 'production') {
+if (APPLICATION_ENV == 'production' && (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest')) {
     $frontendOptions = array(
         'lifetime' => 7200,
         'regexps' => array(
@@ -49,8 +46,6 @@ if (APPLICATION_ENV == 'production') {
 
     $cache->start();
 }
-
-require_once 'Skaya/Application.php';
 
 $configCache = Zend_Cache::factory(
     'Core', 'File',

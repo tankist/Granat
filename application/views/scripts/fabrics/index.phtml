@@ -2,21 +2,21 @@
 
 ?>
 <div id="fabrics">
-	<h1><?=$this->translate('Коллекция тканей')?></h1>
+	<h1><?php echo $this->translate('Коллекция тканей')?></h1>
 	<hr>
 	<?php if (count($this->fabrics) > 0) { ?>
 	<ul class="fabrics"><?php foreach($this->fabrics as /** @var Model_Fabric $fabric */$fabric) { ?>
 		<li>
 			<div class="image">
-				<a rel="prettyPhoto" title="<?=$fabric->name?>" href="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename()?>"><em></em>
-				<img src="/uploads/fabrics/<?=$fabric->getPhoto()->getFilename(Model_FabricPhoto::SIZE_FABRIC)?>" alt="<?=$fabric->name?>"></a>
+				<a rel="prettyPhoto" title="<?php echo $fabric->name?>" href="/uploads/fabrics/<?php echo $fabric->getPhoto()->getFilename()?>"><em></em>
+				<img src="/uploads/fabrics/<?php echo $fabric->getPhoto()->getFilename(Model_FabricPhoto::SIZE_FABRIC)?>" alt="<?php echo $fabric->name?>"></a>
 			</div>
-			<h2><?=$fabric->name?></h2>
-			<p><?=$fabric->description?></p>
+			<h2><?php echo $fabric->name?></h2>
+			<p><?php echo $fabric->description?></p>
 		</li>
 	<?php } ?></ul>
 	<?php } ?>
-	<?=$this->paginationControl($this->fabrics, null, null, array(
+	<?php echo $this->paginationControl($this->fabrics, null, null, array(
 		'routeName' => 'allFabrics'
 	))?>
 </div>

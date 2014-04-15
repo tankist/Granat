@@ -1,5 +1,5 @@
-<?=$this->doctype()?>
-<html lang="<?=key(Zend_Locale::getDefault())?>">
+<?php echo $this->doctype()?>
+<html lang="<?php echo key(Zend_Locale::getDefault())?>">
 <head>
 	<meta http-equiv="Content-Encoding" content="text/html; charset=utf-8">
 	<link rel="icon" type="image/png" href="/favicon.png" />
@@ -33,14 +33,14 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 					<div class="fr oh">
 						<p class="fl">Язык:&nbsp;</p>
 						<ul class="fl">
-							<li<?=($this->language == 'ru')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'ru'))?>">Рус</a></li>
-							<li<?=($this->language == 'en')?' class="active"':''?>><a href="<?=$this->url(array('lang' => 'en'))?>"">Eng</a></li>
+							<li<?php echo ($this->language == 'ru')?' class="active"':''?>><a href="<?php echo $this->url(array('lang' => 'ru'))?>">Рус</a></li>
+							<li<?php echo ($this->language == 'en')?' class="active"':''?>><a href="<?php echo $this->url(array('lang' => 'en'))?>"">Eng</a></li>
 						</ul>
 					</div>
 
 				</div>
-				<a class="fl" href="<?=$this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
-				<?=$navigation?>
+				<a class="fl" href="<?php echo $this->url(array(), 'default')?>"><img src="/images/logo.png" width="263" height="95" alt="GraNat Natali Grechanaya"></a>
+				<?php echo $navigation?>
 				<div id="menu-separator">&nbsp;</div>
 				<div id="slogan">&nbsp;</div>
 			</div>
@@ -51,8 +51,8 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		</div>
 		<div id="footer">
 			<div id="footer-wrapper">
-				<div class="fl"><?=$navigation?></div>
-				<span id="copyright" class="fr">© <?=date('Y')?>. GraNat.&nbsp;<?=$this->translate('Все права защищены')?></span>
+				<div class="fl"><?php echo $navigation?></div>
+				<span id="copyright" class="fr">© <?php echo date('Y')?>. GraNat.&nbsp;<?php echo $this->translate('Все права защищены')?></span>
 			</div>
 		</div>
 	</div>
@@ -61,7 +61,7 @@ $navigation = $this->getHelper('Navigation_Menu')->renderMenu();
 		->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js');
 ?>
 <?php if ('production' == APPLICATION_ENV) { ?>
-<?=$this->googleAnalytics('UA-22620249-1')
+<?php echo $this->googleAnalytics('UA-22620249-1')
 		->trackPageview()
 		->trackPageLoadTime()?>
 <?php } ?>

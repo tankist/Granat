@@ -11,5 +11,12 @@
     ],
     "require": {
         "bombayworks/zendframework1": "1.12.x-dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Skaya_": "library",
+            "Sch_": "library",
+            "ZFEngine_": "library"
+        }
     }
 }

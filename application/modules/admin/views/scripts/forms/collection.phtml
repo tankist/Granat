@@ -28,21 +28,21 @@
 							}
 							foreach($models as $model_id => $model) { ?>
 							<li>
-								<label for="model-<?=$model_id?>"><div class="image">
+								<label for="model-<?php echo $model_id?>"><div class="image">
 									<em>&nbsp;</em>
-									<img alt="<?=$model['name']?>" src="/<?=$model['path']?>/<?=$model['thumb']?>">
+									<img alt="<?php echo $model['name']?>" src="/<?php echo $model['path']?>/<?php echo $model['thumb']?>">
 								</div>
-								<input class="checkable" <?php if ($model_id == $mainModelId) {echo ' checked="checked"';} ?> type="radio" name="mainModelId" id="model-<?=$model_id?>" value="<?=$model_id?>" /><?=$model['name']?></label>
+								<input class="checkable" <?php if ($model_id == $mainModelId) {echo ' checked="checked"';} ?> type="radio" name="mainModelId" id="model-<?php echo $model_id?>" value="<?php echo $model_id?>" /><?php echo $model['name']?></label>
 							</li>
-						<? } ?></ul>
+						<?php } ?></ul>
 					</td>
 				</tr>
 			</table>
 		</dd>
 	</dl>
-	<?=$this->element->id?>
+	<?php echo $this->element->id?>
 </div>
-<? } ?>
-<p align="center"><?=$this->formButton('submit', 'Save', array('type' => 'submit'))?></p>
+<?php } ?>
+<p align="center"><?php echo $this->formButton('submit', 'Save', array('type' => 'submit'))?></p>
 <?php $this->headLink()
 	->appendStylesheet('/css/admin/jquery.fileupload-ui.css') ?>

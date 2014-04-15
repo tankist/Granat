@@ -29,8 +29,10 @@ class Skaya_Filter_Array_Map implements Zend_Filter_Interface {
 			throw new Zend_Filter_Exception('Value should be an array');
 		}
 		$data = array();
-		array_walk($value, array($this, '_walker'), &$data);
-		return $data;
+        foreach ($value as $index => $element) {
+            $this->_walker($element, $index, $data);
+        }
+        return $data;
 	}
 
 	public function setCallback($callback) {

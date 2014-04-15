@@ -1,16 +1,16 @@
 <h1 class="login">Login</h1>
 <dl>
-	<dt><?=$this->element->email->getLabel()?></dt>
-	<dd><?=$this->element->email?></dd>
+	<dt><?php echo $this->element->email->getLabel()?></dt>
+	<dd><?php echo $this->element->email?></dd>
 </dl>
 <dl>
-	<dt><?=$this->element->password->getLabel()?></dt>
-	<dd><?=$this->element->password?></dd>
+	<dt><?php echo $this->element->password->getLabel()?></dt>
+	<dd><?php echo $this->element->password?></dd>
 </dl>
 <div class="remember">
-	<?=$this->element->is_remember?>
-	<?=$this->formLabel('is_remember', $this->element->is_remember->getLabel())?>
+	<?php echo $this->element->is_remember?>
+	<?php echo $this->formLabel('is_remember', $this->element->is_remember->getLabel())?>
 </div>
 <a class="forgot_password" href="#forgot-password">Forgot your password?</a>
-<?=$this->element->referer?>
-<?=$this->element->login?>
+<?php echo $this->element->referer?>
+<?php echo $this->element->login?>
